@@ -19,27 +19,52 @@
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE
  *
+ * @providesModule F8App
  * @flow
  */
 
 'use strict';
 
-import type {Action} from '../actions/types';
+import  AppNavigator from './AppNavigator';
+// var CodePush = require('react-native-code-push');
+import React from 'react';
+import {AppState,StyleSheet,View,StatusBar} from 'react-native';
+var { connect } = require('react-redux');
+import Playground from './Playground';
 
-export type Tab = '主页' | '通知' | '我';
+var App = React.createClass({
+  componentDidMount: function() {
+    AppState.addEventListener('change', this.handleAppStateChange);
 
-type State = {
-  selectedTab: Tab;
-  indexm: number;
-};
+    // TODO: Make this list smaller, we basically download the whole internet
+  
+    // CodePush.sync();
+  },
 
-const initialState: State = { selectedTab: '主页'};
+  componentWillUnmount: function() {
+    AppState.removeEventListener('change', this.handleAppStateChange);
+  },
 
-function navigation(state: State = initialState, action: Action): State {
-  if (action.type === 'SWITCH_READING_TAB') {
-    return {...state, selectedTab: action.tab};
-  }
-  return state;
-}
+  handleAppStateChange: function(appState) {
+    if (appState === 'active') {
+      // CodePush.sync();
+    }
+  },
 
-module.exports = navigation;
+  render: function() {
+    return (
+      <View style={styles.container}>
+        <AppNavigator />
+      </View>
+    );
+  },
+
+});
+
+var styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+});
+
+module.exports = connect()(App);

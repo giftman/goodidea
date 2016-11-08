@@ -26,6 +26,8 @@
 
 import React,{Component} from 'react';
 import {View,Text} from 'react-native';
+
+import TwitterTab from './views/TwitterTab';
 class Playground extends Component {
   constructor() {
     super();
@@ -34,7 +36,7 @@ class Playground extends Component {
   render() {
     return (
       // <View style={{backgroundColor: '#336699', flex: 1,}}>
-        <IMessagePick />
+        <TwitterTab />
       // </View>
     );
   }

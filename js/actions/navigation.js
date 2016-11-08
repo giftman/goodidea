@@ -24,22 +24,13 @@
 
 'use strict';
 
-import type {Action} from '../actions/types';
+import type { Action } from './types';
 
 export type Tab = '主页' | '通知' | '我';
 
-type State = {
-  selectedTab: Tab;
-  indexm: number;
+module.exports = {
+  changeTab: (tab: Tab): Action => ({
+    type: 'SWITCH_READING_TAB',
+    tab,
+  }),
 };
-
-const initialState: State = { selectedTab: '主页'};
-
-function navigation(state: State = initialState, action: Action): State {
-  if (action.type === 'SWITCH_READING_TAB') {
-    return {...state, selectedTab: action.tab};
-  }
-  return state;
-}
-
-module.exports = navigation;

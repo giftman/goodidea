@@ -53,7 +53,7 @@ export type Props = {
   title:string;
   leftItem:Item;
   rightItem:Item;
-  extralItems:Array<Item>;
+  helpItem:Item;
   foreground:Foreground;
   style:any;
   children:any;
@@ -122,13 +122,14 @@ class F8HeaderAndroid extends Component {
 class F8HeaderIOS extends Component{
   props:Props;
   render(){
-    const {leftItem,rightItem,title,foreground} = this.props;
+    const {leftItem,rightItem,title,foreground,helpItem} = this.props;
     const titleColor = foreground === 'dark' ? F8Colors.darkText : 'white';
     const itemColor = foreground === 'dark' ? F8Colors.lightText : 'white';
     const content = React.Children.count(this.props.children) === 0
     ?<Text style={[styles.titleText,{color:titleColor}]}>
       {title}
       </Text>:this.props.children;
+
       return (
         <View style={[styles.header,this.props.style]} >
           <View style={styles.leftItem}>
@@ -142,6 +143,7 @@ class F8HeaderIOS extends Component{
           {content}
           </View>
           <View style={styles.rightItem}>
+          {helpItem?<ItemWrapperIOS color={itemColor} item={helpItem} />:<View />}
           <ItemWrapperIOS color={itemColor} item={rightItem} />
           </View>
         </View>
@@ -221,6 +223,9 @@ const styles = StyleSheet.create({
   rightItem: {
     flex: 1,
     alignItems: 'flex-end',
+    justifyContent:'space-between',
+    // backgroundColor:'green',
+    flexDirection:'row',
   },
   itemWrapper: {
     padding: 11,

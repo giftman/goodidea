@@ -23,19 +23,18 @@
  */
 'use strict';
 
-var ListView = require('ListView');
-var Dimensions = require('Dimensions');
-var Platform = require('Platform');
-var StyleSheet = require('StyleSheet');
-var React = require('react');
-var View = require('View');
+import  React,{Component} from 'react';
+import {
+  ListView,
+  Dimensions,
+  Platform,
+  StyleSheet,
+  View,
+} from 'react-native';
 
 type Rows = Array<Object>;
-type RowsAndSections = {
-  [sectionID: string]: Object;
-};
 
-export type Data = Rows | RowsAndSections;
+export type Data = Rows;
 type RenderElement = () => ?ReactElement;
 
 type Props = {
@@ -49,7 +48,7 @@ type Props = {
 // will make it go reverse. Temporary fix - pre-render more rows
 const LIST_VIEW_PAGE_SIZE = Platform.OS === 'android' ? 20 : 1;
 
-class PureListView extends React.Component {
+class PureListView extends Component {
   props: Props;
 
   constructor(props: Props) {

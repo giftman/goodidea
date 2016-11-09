@@ -163,7 +163,7 @@ class ItemWrapperIOS extends Component{
     }
     let content;
     const {title,icon,layout,onPress} = item;
-    if(layout !== 'icon' && title){
+    if(layout !== 'icon' && layout !== 'text' &&title){
       content = (
         <Icon name={title} size={25} color={color}></Icon>
         )
@@ -171,6 +171,12 @@ class ItemWrapperIOS extends Component{
       content = (
         <Image source={icon} />
         );
+    }else if(layout === 'text'){
+      content = (
+          <Text style={[styles.titleText,{color:color}]}>
+      {title}
+      </Text>
+        )
     }
     return (
       <TouchableOpacity

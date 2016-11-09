@@ -8,14 +8,13 @@ import {
   Image,
   ScrollView,
   TouchableOpacity,
-  RefreshControl,
 } from 'react-native';
 
 import Util from '../../utils/Util';
 const StyleSheet  = require('../../utils/CustomStyleSheet');
 import Icon from 'react-native-vector-icons/Ionicons';
 import F8Header from '../../common/F8Header';
-import TrendList from './TrendList';
+import  PureListView from '../../common/PureListView';
 class TwitterPost extends Component {
   constructor(props) {
     super(props);
@@ -28,27 +27,22 @@ class TwitterPost extends Component {
     };
   }
 
-  _onRefresh() {
-    this.setState({isRefreshing:true});
-    setTimeout(()=> {
-      this.setState({isRefreshing:false});
-    },2000);
+  _renderRow(){
+    return (
+      <View>
+        <Text>ha</Text>
+      </View>
+      )
   }
 
   render(){
     return(
-      <TrendList style={{backgroundColor:'#eee',width: Util.size.width,
-    height:Util.size.height-90,
-    }}  navigator={this.props.navigator}
-        data = {this.state.data}
-        refreshControl = {
-          <RefreshControl 
-            refreshing={this.state.isRefreshing}
-            onRefresh ={this._onRefresh.bind(this)}
-            tintColor="#ddd"
-          />
-      }>
-      </TrendList>
+      <PureListView
+        
+        data={this.state.data}
+        renderRow={this._renderRow}
+        {...this.props}
+      />
       )
   }
 }
@@ -57,22 +51,18 @@ class TwitterFlow extends Component{
   render() {
     
     var rightItem = {
-      layout:'title',
-      title:'md-menu',
-      onPress: () => this.props.navigator.push({'trendSet':'123'}),
+      layout:'text',
+      title:'Finish',
+      onPress: () => this.props.navigator.pop(),
     }
     return(
-      <View>
+      <View style={{flex:1,backgroundColor:'#fff'}}>
          <F8Header
       style={{backgroundColor:"#100118"}}
-      title="Trending"
+      title="TrendingSet"
       rightItem={rightItem}
       >
       </F8Header>
-       <View style={{height:20,width:Util.size.width,alignItems:'center',justifyContent:'center',backgroundColor:'#5D4037',flexDirection:'row'}}>
-        <Icon name="logo-usd" size={15} color="#fff"></Icon>
-        <Text style={{fontSize:12,color:'white',paddingLeft:10}}>H</Text>
-      </View>
         <TwitterPost></TwitterPost>
       </View>
     )

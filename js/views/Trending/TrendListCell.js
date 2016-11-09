@@ -129,7 +129,7 @@ var styles = StyleSheet.create({
     width:28,
     height:28,
     borderRadius:14,
-    backgroundColor:"#BF360C",
+    backgroundColor:"#F44336",
     alignItems:"center",
     justifyContent:"center",
     shadowColor: "#000",
@@ -142,6 +142,7 @@ var styles = StyleSheet.create({
   },
   bollText:{
     fontSize:14,
+    color:'white',
     fontWeight:'300',
   },
   added: {

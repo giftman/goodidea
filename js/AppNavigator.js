@@ -39,6 +39,7 @@ import { connect } from 'react-redux';
 import LoginView from './views/LoginView';
 import TwitterTab from './views/TwitterTab';
 import BuyView from './views/BuyView';
+import TrendSet from './views/Trending/TrendSet';
 var AppNavigator = React.createClass({
   _handlers: ([]: Array<() => boolean>),
 
@@ -91,10 +92,10 @@ var AppNavigator = React.createClass({
             return Navigator.SceneConfigs.FloatFromBottomAndroid;
           }
           // TODO: Proper scene support
-          if (route.shareSettings || route.article) {
-            return Navigator.SceneConfigs.FloatFromRight;
+          if (route.trendSet || route.test) {
+             return Navigator.SceneConfigs.FloatFromBottom;
           } else {
-            return Navigator.SceneConfigs.FloatFromBottom;
+            return Navigator.SceneConfigs.FloatFromRight;
           }
         }}
         initialRoute={{}}
@@ -112,8 +113,12 @@ var AppNavigator = React.createClass({
         />
       );
     }
-    if(route.login){
-    return <LoginView navigator={navigator} />;
+    // if(route.login){
+    // return <LoginView navigator={navigator} />;
+    // }
+
+    if(route.trendSet){
+    return <TrendSet navigator={navigator} />;
     }
     // return <SplashView navigator={navigator} />;
     return <TwitterTab navigator={navigator} />;

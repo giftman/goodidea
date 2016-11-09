@@ -39,7 +39,7 @@ class TwitterPost extends Component {
     return(
       <MainList style={{backgroundColor:'#eee',width: Util.size.width,
     height:Util.size.height-90,
-    }}  navigator={this.props.navigator}
+    }}
         data = {this.state.data}
         refreshControl = {
           <RefreshControl 
@@ -48,6 +48,7 @@ class TwitterPost extends Component {
             tintColor="#ddd"
           />
       }>
+      
       </MainList>
       )
   }
@@ -59,19 +60,34 @@ class TwitterFlow extends Component{
     
     leftItem = {
         layout: 'title',
-        title:'md-notifications',
+        title:'ios-arrow-back',
         onPress: () => this.props.navigator.pop(),
       };
     
+    var rightItem = {
+      icon:require('../common/img/hamburger.png'),
+      onPress: () => this.props.navigator.pop(),
+    }
+    var helpItem = {
+      layout:'title',
+      title:'ios-help-circle-outline',
+      onPress: () => this.props.navigator.pop(),
+    }
     return(
       <View>
-         <F8Header
+      <F8Header
       style={{backgroundColor:"#100118"}}
+      title="Test"
       leftItem={leftItem}
+      rightItem={rightItem}
+      helpItem={helpItem}
       >
-     
+      <View style={{flexDirection:'row',alignItems:'center'}}>
+        <Text style={{color:'white',fontWeight:'500',fontSize:20,paddingRight:5}}>Test</Text>
+        <Image style={{transform:[{rotate:'-90deg'},{scale:0.7}]}} source={require('../common/img/back_white.png')} />
+      </View>
       </F8Header>
-        <TwitterPost navigator={this.props.navigator}></TwitterPost>
+        <TwitterPost></TwitterPost>
       </View>
     )
   }
@@ -80,7 +96,7 @@ class TwitterFlow extends Component{
 
 
 const styles = StyleSheet.create({
- 
+  
 });
 
 

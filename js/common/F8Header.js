@@ -34,11 +34,11 @@ import {
 } from 'react-native';
 import { Text } from 'F8Text';
 import TouchableOpacity from 'TouchableOpacity';
-
+import Icon from 'react-native-vector-icons/Ionicons';
 export type Layout = 
   'default'
 | 'icon'
-| 'title';
+| 'title';   //title Means Ionicons
 
 export type Foreground = 'light' | 'dark';
 
@@ -165,9 +165,7 @@ class ItemWrapperIOS extends Component{
     const {title,icon,layout,onPress} = item;
     if(layout !== 'icon' && title){
       content = (
-        <Text style={[styles.itemText,{color}]}>
-          {title.toUpperCase()}
-        </Text>
+        <Icon name={title} size={25} color={color}></Icon>
         )
     }else if (icon){
       content = (

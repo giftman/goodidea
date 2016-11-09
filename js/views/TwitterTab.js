@@ -13,7 +13,8 @@ import {changeTab} from '../actions';
 import type {Tab} from '../reducers/navigation';
 
 import Main from './Main';
-import TrendView from './TrendView';
+import TrendView from './Trending/TrendView';
+import MyPage from './My/MyPage';
 class TwitterTab extends Component{
   props:{
     tab:Tab;
@@ -65,7 +66,7 @@ class TwitterTab extends Component{
         // badgeText="1"
         onPress={ () => this.changeTab('我') }
         selected={ this.props.selectedTab === '我' }>
-          <Main/>
+          <MyPage navigator={this.props.navigator}/>
         </TabNavigator.Item>
       </TabNavigator>
     );

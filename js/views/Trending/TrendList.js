@@ -23,8 +23,8 @@
  */
 'use strict';
 
-var MainListCell = require('./MainListCell');
-import  PureListView from '../common/PureListView';
+var TrendListCell = require('./TrendListCell');
+import  PureListView from '../../common/PureListView';
 import React,{Component} from 'react';
 import {Navigator} from 'react-native';
 type Props = {
@@ -74,7 +74,7 @@ class ReadingListView extends React.Component {
 
   renderRow(article: any, typeId: number) {
     return (
-      <MainListCell
+      <TrendListCell
         onPress={() => this.openSession(article, typeId)}
         session={article}
       />
@@ -87,10 +87,10 @@ class ReadingListView extends React.Component {
   }
 
   openSession(article: any, typeId: number) {
-    this.props.navigator.push({
-      typeId,
-      article,
-    });
+    // this.props.navigator.push({
+    //   typeId,
+    //   article,
+    // });
     console.log(article);
   }
 

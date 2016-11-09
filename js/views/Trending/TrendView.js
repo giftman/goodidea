@@ -11,16 +11,20 @@ import {
   RefreshControl,
 } from 'react-native';
 
-import Util from '../utils/Util';
-const StyleSheet  = require('../utils/CustomStyleSheet');
+import Util from '../../utils/Util';
+const StyleSheet  = require('../../utils/CustomStyleSheet');
 import Icon from 'react-native-vector-icons/Ionicons';
-import F8Header from '../common/F8Header';
+import F8Header from '../../common/F8Header';
+import TrendList from './TrendList';
 class TwitterPost extends Component {
   constructor(props) {
     super(props);
-  
+    
+    this.data = [{'title':'Happy fun','img':'https://facebook.github.io/react/img/logo_og.png'},{'title':'Happy fun','img':'https://facebook.github.io/react/img/logo_og.png'},{'title':'Happy fun','img':'https://facebook.github.io/react/img/logo_og.png'},{'title':'Happy fun','img':'https://facebook.github.io/react/img/logo_og.png'}]
+   
     this.state = {
       isRefreshing:false,
+      data : this.data,
     };
   }
 
@@ -33,9 +37,10 @@ class TwitterPost extends Component {
 
   render(){
     return(
-      <ScrollView style={{backgroundColor:'#eee',width: Util.size.width,
+      <TrendList style={{backgroundColor:'#eee',width: Util.size.width,
     height:Util.size.height-90,
-    }}
+    }}  navigator={this.props.navigator}
+        data = {this.state.data}
         refreshControl = {
           <RefreshControl 
             refreshing={this.state.isRefreshing}
@@ -43,41 +48,31 @@ class TwitterPost extends Component {
             tintColor="#ddd"
           />
       }>
-      <View>
-        <Text>Header2</Text>
-      </View>
-      </ScrollView>
+      </TrendList>
       )
   }
 }
 
 class TwitterFlow extends Component{
   render() {
-    var leftItem = this.props.leftItem;
-    
-      leftItem = {
-        layout: 'icon',
-        icon: require('../common/img/back_white.png'),
-        onPress: () => this.props.navigator.pop(),
-      };
     
     var rightItem = {
-      icon:require('../common/img/filter.png'),
+      layout:'title',
+      title:'md-menu',
       onPress: () => this.props.navigator.pop(),
     }
     return(
       <View>
          <F8Header
       style={{backgroundColor:"#100118"}}
-      title="Test"
-      leftItem={leftItem}
+      title="Trending"
       rightItem={rightItem}
       >
-      <View style={{flexDirection:'row'}}>
-        <Text style={{color:'white',fontWeight:'500',fontSize:20}}>Test</Text>
-        <Image style={{transform:[{rotate:'-90deg',scale:0.5}]}} source={require('../common/img/back_white.png')} />
-      </View>
       </F8Header>
+       <View style={{height:20,width:Util.size.width,alignItems:'center',justifyContent:'center',backgroundColor:'#5D4037',flexDirection:'row'}}>
+        <Icon name="logo-usd" size={15} color="#fff"></Icon>
+        <Text style={{fontSize:12,color:'white',paddingLeft:10}}>H</Text>
+      </View>
         <TwitterPost></TwitterPost>
       </View>
     )

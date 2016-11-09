@@ -38,7 +38,7 @@ import { connect } from 'react-redux';
 
 import LoginView from './views/LoginView';
 import TwitterTab from './views/TwitterTab';
-
+import BuyView from './views/BuyView';
 var AppNavigator = React.createClass({
   _handlers: ([]: Array<() => boolean>),
 
@@ -91,7 +91,7 @@ var AppNavigator = React.createClass({
             return Navigator.SceneConfigs.FloatFromBottomAndroid;
           }
           // TODO: Proper scene support
-          if (route.shareSettings || route.friend) {
+          if (route.shareSettings || route.article) {
             return Navigator.SceneConfigs.FloatFromRight;
           } else {
             return Navigator.SceneConfigs.FloatFromBottom;
@@ -106,7 +106,7 @@ var AppNavigator = React.createClass({
   renderScene: function(route, navigator) {
     if (route.article) {
       return (
-        <ReadingDetail
+        <BuyView
         {...route}
         navigator = {navigator}
         />

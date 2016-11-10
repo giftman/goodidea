@@ -476,6 +476,7 @@
 					};
 					13B07F861A680F5B00A75B9A = {
 						DevelopmentTeam = N5QP8YB4S4;
+						ProvisioningStyle = Manual;
 					};
 				};
 			};
@@ -821,6 +822,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.goodidea.havefun;
 				PRODUCT_NAME = goodidea;
+				PROVISIONING_PROFILE = "e6d180fd-5532-4218-bf56-0c1afa8ea0b4";
+				PROVISIONING_PROFILE_SPECIFIER = all_test_device;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -847,6 +850,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.goodidea.havefun;
 				PRODUCT_NAME = goodidea;
+				PROVISIONING_PROFILE = "e6d180fd-5532-4218-bf56-0c1afa8ea0b4";
+				PROVISIONING_PROFILE_SPECIFIER = all_test_device;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;

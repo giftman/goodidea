@@ -19,7 +19,7 @@ default_platform :ios
 platform :ios do
   before_all do
     # ENV["SLACK_URL"] = "https://hooks.slack.com/services/..."
-    ENV["BITRISE_DEPLOY_DIR"] = "./build/"
+    # ENV["BITRISE_DEPLOY_DIR"] = "/tmp/"
     
   end
 
@@ -34,7 +34,7 @@ platform :ios do
     # match(type: "appstore") # more information: https://codesigning.guide
     gym(use_legacy_build_api: true,scheme:"goodidea",output_directory:"./build/")# Build your app - more options available
     #pilot
-    sh("cp ../build/goodidea.ipa $BITRISE_DEPLOY_DIR")
+    sh("pwd &&ls -al &&cp ../build/goodidea.ipa $BITRISE_DEPLOY_DIR")
     #sh "your_script.sh"
     # You can also use other beta testing services here (run `fastlane actions`)
   end

@@ -16,6 +16,7 @@ const StyleSheet  = require('../../utils/CustomStyleSheet');
 import Icon from 'react-native-vector-icons/Ionicons';
 import F8Header from '../../common/F8Header';
 import TrendList from './TrendList';
+import TipPadding from '../TipPadding';
 class TwitterPost extends Component {
   constructor(props) {
     super(props);
@@ -69,11 +70,9 @@ class TwitterFlow extends Component{
       rightItem={rightItem}
       >
       </F8Header>
-       <View style={{height:20,width:Util.size.width,alignItems:'center',justifyContent:'center',backgroundColor:'#5D4037',flexDirection:'row'}}>
-        <Icon name="logo-usd" size={15} color="#fff"></Icon>
-        <Text style={{fontSize:12,color:'white',paddingLeft:10}}>H</Text>
-      </View>
+      <TipPadding content="H" icon="md-menu"></TipPadding>
         <TwitterPost></TwitterPost>
+      
       </View>
     )
   }

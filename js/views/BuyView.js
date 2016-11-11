@@ -15,7 +15,6 @@ import Util from '../utils/Util';
 const StyleSheet  = require('../utils/CustomStyleSheet');
 import Icon from 'react-native-vector-icons/Ionicons';
 import F8Header from '../common/F8Header';
-import MainList from './MainList';
 class TwitterPost extends Component {
   constructor(props) {
     super(props);
@@ -36,20 +35,61 @@ class TwitterPost extends Component {
   }
 
   render(){
-    return(
-      <MainList style={{backgroundColor:'#eee',width: Util.size.width,
-    height:Util.size.height-90,
-    }}
-        data = {this.state.data}
-        refreshControl = {
-          <RefreshControl 
-            refreshing={this.state.isRefreshing}
-            onRefresh ={this._onRefresh.bind(this)}
-            tintColor="#ddd"
+    const boxes = this.state.data.map((article, index) => {
+     //Text position can be justify to its parent then it easy to align Center.
+      return(
+      <View key={index} style={styles.containerItem}>
+          <Image
+            style={{width: 50, height: 40}}
+            source={{uri: article.img}}
+            resizeMode='cover'
           />
-      }>
-      
-      </MainList>
+
+          <View style={{flex: 1, flexDirection: 'column',paddingLeft:20}} >
+            <View style={styles.bolls}>
+              <View style={styles.boll}>
+                <Text style={styles.bollText}>1</Text>
+              </View>
+               <View style={styles.boll}>
+                <Text style={styles.bollText}>1</Text>
+              </View>
+               <View style={styles.boll}>
+                <Text style={styles.bollText}>1</Text>
+              </View>
+               <View style={styles.boll}>
+                <Text style={styles.bollText}>1</Text>
+              </View>
+               <View style={styles.boll}>
+                <Text style={styles.bollText}>1</Text>
+              </View>
+            </View>
+
+            <View style={styles.bolls}>
+              <View style={styles.boll}>
+                <Text style={styles.bollText}>1</Text>
+              </View>
+               <View style={styles.boll}>
+                <Text style={styles.bollText}>1</Text>
+              </View>
+               <View style={styles.boll}>
+                <Text style={styles.bollText}>1</Text>
+              </View>
+               <View style={styles.boll}>
+                <Text style={styles.bollText}>1</Text>
+              </View>
+               <View style={styles.boll}>
+                <Text style={styles.bollText}>1</Text>
+              </View>
+            </View>
+          </View>
+          
+        </View>
+      );
+    })
+    return(
+      <ScrollView style={styles.container}>
+        {boxes}
+      </ScrollView>
       )
   }
 }
@@ -96,7 +136,67 @@ class TwitterFlow extends Component{
 
 
 const styles = StyleSheet.create({
-  
+  container:{
+    backgroundColor:'#eee',width: Util.size.width,
+    height:Util.size.height-90,
+  },
+  containerItem: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#fcfcfc',
+    padding: 15,
+    paddingLeft:20,
+    borderBottomColor: '#ddd',
+    borderBottomWidth: 1
+  },
+  title: {
+    fontSize: 24,
+    fontWeight:'500',
+    textAlign: 'left',
+    color: 'black',
+    backgroundColor:'green'
+  },
+  des:{
+    flex:1,fontSize: 14, color: '#9E9E9E',paddingLeft:10
+  },
+  bolls:{
+    // backgroundColor:'grey',
+    flex:1,
+    alignItems:"center",
+    justifyContent:"space-between",
+    flexDirection:'row',
+    paddingRight:60,
+    paddingBottom:10,
+    paddingTop:10,
+  },
+  boll:{
+    width:28,
+    height:28,
+    borderRadius:14,
+    backgroundColor:"#F44336",
+    alignItems:"center",
+    justifyContent:"center",
+    shadowColor: "#000",
+    shadowOpacity: 0.3,
+    shadowRadius: 2,
+    shadowOffset: {
+      height: 1,
+      width: 0,
+    }
+  },
+  bollText:{
+    fontSize:14,
+    color:'white',
+    fontWeight:'300',
+  },
+  added: {
+    position: 'absolute',
+    backgroundColor: 'transparent',
+    right: 0,
+    top: 0,
+  },
 });
 
 

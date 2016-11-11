@@ -15,46 +15,91 @@ const StyleSheet  = require('../../utils/CustomStyleSheet');
 import Icon from 'react-native-vector-icons/Ionicons';
 import F8Header from '../../common/F8Header';
 import  PureListView from '../../common/PureListView';
-class TwitterPost extends Component {
-  constructor(props) {
+import { connect } from 'react-redux';
+import {applyTopicsFilter} from '../../actions';
+
+type Props = {
+  data: Array<any>;
+  navigator: Navigator;
+  renderEmptyList?: () => ReactElement;
+};
+
+class ReadingListView extends React.Component {
+  props: Props;
+
+  constructor(props: Props) {
     super(props);
-    
-    this.data = [{'title':'Happy fun','img':'https://facebook.github.io/react/img/logo_og.png'},{'title':'Happy fun','img':'https://facebook.github.io/react/img/logo_og.png'},{'title':'Happy fun','img':'https://facebook.github.io/react/img/logo_og.png'},{'title':'Happy fun','img':'https://facebook.github.io/react/img/logo_og.png'}]
-   
-    this.state = {
-      isRefreshing:false,
-      data : this.data,
+     this.state = {
+      data:this.props.data,
     };
   }
 
-  _renderRow(){
+  //  componentWillReceiveProps(nextProps: Props) {
+  //   // if (nextProps.data !== this.props.data ||
+  //   //     nextProps.rowId !== this.props.rowId) {
+  //     this.setState({
+  //       data:nextProps.data,
+  //     });
+
+  //   // }
+  // }
+
+  render() {
+    const boxes = this.state.data.map((cell, index) => {
+     //Text position can be justify to its parent then it easy to align Center.
+      return(
+       <TouchableOpacity  key={index} onPress={() => this._click(cell, index)}>
+       <View style={styles.cell}>
+        <Text style={styles.title}>{cell.title}</Text>
+        {cell.checked ? <Icon name="md-checkmark-circle" size={25} color="#4CAF50"></Icon> :<View />}
+        </View>
+      </TouchableOpacity>
+      );
+    })
     return (
-      <View>
-        <Text>ha</Text>
-      </View>
-      )
+      <ScrollView 
+        style={{flex:1,backgroundColor:'white'}}
+        {...this.props}
+      >
+      {boxes}
+      </ScrollView>
+    );
   }
 
-  render(){
-    return(
-      <PureListView
-        
-        data={this.state.data}
-        renderRow={this._renderRow}
-        {...this.props}
-      />
-      )
+  _click(cell, index){
+    console.log(cell);
+    // this.props.openSession(cell, index,rowId);
+    let {data}= this.state;
+    data[index].checked = !data[index].checked;
+     this.setState({
+      data
+     })
   }
+
+
+
 }
 
 class TwitterFlow extends Component{
+
+  constructor(props) {
+    super(props);
+    
+    this.state = {
+      data : this.props.data,
+      rowId:0,
+    };
+    
+  }
+
   render() {
     
     var rightItem = {
       layout:'text',
       title:'Finish',
-      onPress: () => this.props.navigator.pop(),
+      onPress: () => this.done(),
     }
+
     return(
       <View style={{flex:1,backgroundColor:'#fff'}}>
          <F8Header
@@ -63,69 +108,46 @@ class TwitterFlow extends Component{
       rightItem={rightItem}
       >
       </F8Header>
-        <TwitterPost></TwitterPost>
-      </View>
+
+     <ReadingListView data={this.props.data}></ReadingListView>
+     </View>
     )
   }
+
+  done() {
+    
+     this.props.applyTopicsFilter(this.state.data);
+     this.props.navigator.pop();
+  }
+  
 }
 
 
 
 const styles = StyleSheet.create({
-  postImg:{
-    width:Util.size.width, height:Util.size.height-110,
-    ios:{
-      top:-20,
-    },
-    android:{
-      top:5,
-    },
-    backgroundColor:'#fff'
+  
+  cell:{
+   height:60,alignItems:'center',justifyContent:'space-between',paddingLeft:20,paddingRight:20,flexDirection:'row'
   },
-  header:{
-    flexDirection:'row',paddingBottom:5,borderBottomWidth:2,borderBottomColor:'#eee', 
-    backgroundColor:'#fff',
-    ios:{
-      paddingTop:30,
-    },
-    android:{
-      paddingTop:5,
-    }
+  title:{
+    fontSize:18,
+    fontWeight:'400',
   },
-  navLeft:{
-    flex:1,
-    // backgroundColor:'green',
-    justifyContent:'center',
-    alignItems:'flex-start',
-  },
-  navMid:{
-    flex:1,
-    justifyContent:'center',
-    alignItems:'center',
-  },
-  navRight:{
-    flex:1,
-    justifyContent:'flex-end',
-    alignItems:'center',
-    flexDirection:'row',
-  },
-  tab: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingBottom: 10,
-  },
-  tabs: {
-    height: 45,
-    flexDirection: 'row',
-    paddingTop: 5,
-    borderWidth: 1,
-    borderTopWidth: 0,
-    borderLeftWidth: 0,
-    borderRightWidth: 0,
-    borderBottomColor: 'rgba(0,0,0,0.05)',
+  leftIcon:{
+    color:'green',
   },
 });
 
+function select(store) {
+  return {
+    data: store.filter.typeData,
+  };
+}
 
-export default TwitterFlow;
+function actions(dispatch) {
+  return {
+    applyTopicsFilter: (data,rowId) => dispatch(applyTopicsFilter(data,rowId)),
+  };
+}
+
+module.exports = connect(select, actions)(TwitterFlow);

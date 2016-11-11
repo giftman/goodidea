@@ -19,11 +19,17 @@
   NSURL *jsCodeLocation;
   
 #ifdef DEBUG
- jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index.ios" fallbackResource:nil];
+  jsCodeLocation = [NSURL URLWithString:@"http://localhost:8081/index.ios.bundle?platform=ios&dev=true"];
 #else
-  //release 模式
   jsCodeLocation = [[NSBundle mainBundle] URLForResource:@"main"withExtension:@"jsbundle"];
 #endif
+  
+//#ifdef DEBUG
+// jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index.ios" fallbackResource:nil];
+//#else
+//  //release 模式
+//  jsCodeLocation = [[NSBundle mainBundle] URLForResource:@"main"withExtension:@"jsbundle"];
+//#endif
 
   RCTRootView *rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation
                                                       moduleName:@"goodidea"

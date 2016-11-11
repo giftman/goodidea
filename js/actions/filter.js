@@ -26,12 +26,11 @@
 
 import type { Action } from './types';
 
-type Schedule = {[key: string]: boolean};
 
-function applyTopicsFilter(topics: Schedule): Action {
+function applyTopicsFilter(typeData): Action {
   return {
-    type: 'APPLY_TOPICS_FILTER',
-    topics,
+    type: 'CHECK_TYPE',
+    typeData,
   };
 }
 

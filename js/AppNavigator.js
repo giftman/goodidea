@@ -26,12 +26,7 @@
 'use strict';
 
 import React from 'react';
-import {
-        Platform,
-        BackAndroid,
-        Navigator,
-        StyleSheet,
-        } from 'react-native';
+import { Platform, BackAndroid, Navigator, StyleSheet, } from 'react-native';
 
 import { connect } from 'react-redux';
 
@@ -40,107 +35,119 @@ import LoginView from './views/LoginView';
 import TwitterTab from './views/TwitterTab';
 import BuyView from './views/BuyView';
 import TrendSet from './views/Trending/TrendSet';
+import MoneyDetail from './views/Other/MoneyDetail';
 var AppNavigator = React.createClass({
-  _handlers: ([]: Array<() => boolean>),
+    _handlers: ([]: Array<() => boolean>),
 
-  componentDidMount: function() {
-    BackAndroid.addEventListener('hardwareBackPress', this.handleBackButton);
-  },
+    componentDidMount: function() {
+        BackAndroid.addEventListener('hardwareBackPress', this.handleBackButton);
+    },
 
-  componentWillUnmount: function() {
-    BackAndroid.removeEventListener('hardwareBackPress', this.handleBackButton);
-  },
+    componentWillUnmount: function() {
+        BackAndroid.removeEventListener('hardwareBackPress', this.handleBackButton);
+    },
 
-  getChildContext() {
-    return {
-      addBackButtonListener: this.addBackButtonListener,
-      removeBackButtonListener: this.removeBackButtonListener,
-    };
-  },
+    getChildContext() {
+        return {
+            addBackButtonListener: this.addBackButtonListener,
+            removeBackButtonListener: this.removeBackButtonListener,
+        };
+    },
 
-  addBackButtonListener: function(listener) {
-    this._handlers.push(listener);
-  },
+    addBackButtonListener: function(listener) {
+        this._handlers.push(listener);
+    },
 
-  removeBackButtonListener: function(listener) {
-    this._handlers = this._handlers.filter((handler) => handler !== listener);
-  },
+    removeBackButtonListener: function(listener) {
+        this._handlers = this._handlers.filter((handler) => handler !== listener);
+    },
 
-  handleBackButton: function() {
-    for (let i = this._handlers.length - 1; i >= 0; i--) {
-      if (this._handlers[i]()) {
-        return true;
-      }
-    }
+    handleBackButton: function() {
+        for (let i = this._handlers.length - 1; i >= 0; i--) {
+            if (this._handlers[i]()) {
+                return true;
+            }
+        }
 
-    const {navigator} = this.refs;
-    if (navigator && navigator.getCurrentRoutes().length > 1) {
-      navigator.pop();
-      return true;
-    }
+        const {navigator} = this.refs;
+        if (navigator && navigator.getCurrentRoutes().length > 1) {
+            navigator.pop();
+            return true;
+        }
 
-    return false;
-  },
+        return false;
+    },
 
-  render: function() {
-    return (
-      <Navigator
-        ref="navigator"
-        style={styles.container}
-        configureScene={(route) => {
-          if (Platform.OS === 'android') {
-            return Navigator.SceneConfigs.FloatFromBottomAndroid;
-          }
-          // TODO: Proper scene support
-          if (route.trendSet || route.test) {
-             return Navigator.SceneConfigs.FloatFromBottom;
-          } else {
-            return Navigator.SceneConfigs.FloatFromRight;
-          }
-        }}
-        initialRoute={{}}
-        renderScene={this.renderScene}
-      />
-    );
-  },
+    render: function() {
+        return (
+            <Navigator
+            ref="navigator"
+            style={styles.container}
+            configureScene={(route) => {
+                if (Platform.OS === 'android') {
+                    return Navigator.SceneConfigs.FloatFromBottomAndroid;
+                }
+                // TODO: Proper scene support
+                if (route.trendSet || route.test) {
+                    return Navigator.SceneConfigs.FloatFromBottom;
+                } else {
+                    return Navigator.SceneConfigs.FloatFromRight;
+                }
+            }}
+            initialRoute={{}}
+            renderScene={this.renderScene}
+            />
+            );
+    },
 
-  renderScene: function(route, navigator) {
-    if (route.article) {
-      return (
-        <BuyView
-        {...route}
-        navigator = {navigator}
-        />
-      );
-    }
-    // if(route.login){
-    // return <LoginView navigator={navigator} />;
-    // }
+    renderScene: function(route, navigator) {
+        if (route.article) {
+            return (
+                <BuyView
+                {...route}
+                navigator = {navigator}
+                />
+                );
+        }
+        // if(route.login){
+        // return <LoginView navigator={navigator} />;
+        // }
 
-    if(route.trendSet){
-    return <TrendSet navigator={navigator} />;
-    }
-    // return <SplashView navigator={navigator} />;
-    return <TwitterTab navigator={navigator} />;
-  },
+        if (route.trendSet) {
+            return <TrendSet navigator={navigator} />;
+        }
+        if (route.my) {
+            switch (route.my) {
+            case "moneyDetail":
+                return <MoneyDetail navigator={navigator} />;
+                break;
+            case 2:
+                break;
+            default:
+            }
+
+        }
+
+        return <TwitterTab navigator={navigator} />;
+    },
 });
 
 AppNavigator.childContextTypes = {
-  addBackButtonListener: React.PropTypes.func,
-  removeBackButtonListener: React.PropTypes.func,
+    addBackButtonListener: React.PropTypes.func,
+    removeBackButtonListener: React.PropTypes.func,
 };
 
 var styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: 'black',
-  },
+    container: {
+        flex: 1,
+        backgroundColor: 'black',
+    },
 });
 
 function select(store) {
-  return {
-    tab: store.navigation.tab,
-  };
+    return {
+        tab: store.navigation.tab,
+    };
 }
 
 module.exports = connect(select)(AppNavigator);

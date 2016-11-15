@@ -23,11 +23,7 @@ export default class MyPage extends Component {
 
     render() {
         return (
-            <View style={{
-                backgroundColor: 'white',
-                width: Util.size.width,
-                height: Util.size.height - 73,
-            }}>
+            <View style={styles.container}>
             <View style={{
                 width: Util.size.width,
                 height: 50,
@@ -126,7 +122,13 @@ export default class MyPage extends Component {
     }
 
 }
+let CONTENT_HEIGHT = Platform.OS === 'ios' ? 41 : 73;
 const styles = StyleSheet.create({
+    container:{
+        backgroundColor: 'white',
+        width: Util.size.width,
+        height: Util.size.height - CONTENT_HEIGHT,
+    },
     itemContain: {
         backgroundColor: 'white',
         height: 50,

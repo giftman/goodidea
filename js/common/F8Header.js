@@ -191,7 +191,7 @@ class ItemWrapperIOS extends Component {
     }
 }
 
-let STATUS_BAR_HEIGHT = Platform.OS === 'ios' ? 0 : 0;
+let STATUS_BAR_HEIGHT = Platform.OS === 'ios' ? 20 : 0;
 let HEADER_HEIGHT = Platform.OS === 'ios' ? 44 + STATUS_BAR_HEIGHT : 56 + STATUS_BAR_HEIGHT;
 
 const styles = StyleSheet.create({

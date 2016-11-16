@@ -20,7 +20,7 @@ class TwitterPost extends Component {
     super(props);
     
     this.data = [{'title':'Happy fun','img':'https://facebook.github.io/react/img/logo_og.png'},{'title':'Happy fun','img':'https://facebook.github.io/react/img/logo_og.png'},{'title':'Happy fun','img':'https://facebook.github.io/react/img/logo_og.png'},{'title':'Happy fun','img':'https://facebook.github.io/react/img/logo_og.png'}]
-   
+    
     this.state = {
       isRefreshing:false,
       data : this.data,
@@ -94,7 +94,84 @@ class TwitterPost extends Component {
   }
 }
 
+class Menu extends Component {
+  constructor(props) {
+    super(props);
+    
+    this.data = require('./_mock_/buyNo.json');
+    // console.log(this.data);
+    this.menu={};
+    this.data.gameMethods['1800'].map((article, index) => {
+        renderCells(article,"",this.menu);
+    })
+    console.log(this.menu);
+    this.state = {
+      menu : this.menu,
+    };
+  }
+
+  render(){
+
+    const boxes = Object.keys(this.state.menu).map((article, index) => {
+      console.log(article);
+      return(
+      <View key={article} style={styles.containerMenu}>
+          <Text style={styles.menuTitle}>{article}</Text>
+          <View style={styles.menuBtContain}>
+                {this.state.menu[article].map((menu,index)=>{
+                  return(
+                      <Text key={index} style={styles.menuBtn}>{menu}</Text>
+                      )
+                })}
+          </View>
+        </View>
+      );
+    })
+   
+    
+    return(
+      <ScrollView style={styles.container}>
+      {boxes}
+      </ScrollView>
+      )
+  }
+}
+
+function renderCells(cells,name,menu){
+  if(cells.children){
+    if(cells.name_cn){
+      name = name + cells.name_cn;
+    }
+    cells.children.map((children) => renderCells(children,name,menu));
+  }else{
+      if(menu[name]){
+        menu[name].push(cells.name_cn);
+      }else{
+        menu[name]=[];
+        menu[name].push(cells.name_cn);
+      }
+      
+  }
+}
 class TwitterFlow extends Component{
+  constructor(props) {
+    super(props);
+    this.state = {
+      title:"Test",
+      data : this.data,
+      showMenu:false,
+    };
+  }
+
+  _onClick(){
+    console.log('_onClick');
+    let showMenu = this.state.showMenu;
+
+    this.setState({
+      showMenu:!showMenu
+    })
+  }
+
   render() {
     var leftItem = this.props.leftItem;
     
@@ -113,21 +190,23 @@ class TwitterFlow extends Component{
       title:'ios-help-circle-outline',
       onPress: () => this.props.navigator.pop(),
     }
+    let headerImg = this.state.showMenu ? <Icon name="ios-arrow-down" size={25} color="#616161" />:<Icon name="ios-arrow-up" size={25} color="#616161" /> ;
+    let content = this.state.showMenu ? <Menu />:<TwitterPost />;
     return(
       <View>
       <F8Header
       style={{backgroundColor:"#100118"}}
-      title="Test"
+      title={this.state.title}
       leftItem={leftItem}
       rightItem={rightItem}
       helpItem={helpItem}
       >
-      <View style={{flexDirection:'row',alignItems:'center'}}>
+      <TouchableOpacity style={{flexDirection:'row',alignItems:'center'}} onPress={()=>this._onClick()}>
         <Text style={{color:'white',fontWeight:'500',fontSize:20,paddingRight:5}}>Test</Text>
-        <Image style={{transform:[{rotate:'-90deg'},{scale:0.7}]}} source={require('../common/img/back_white.png')} />
-      </View>
+        {headerImg}
+      </TouchableOpacity>
       </F8Header>
-        <TwitterPost></TwitterPost>
+      {content}
       </View>
     )
   }
@@ -140,6 +219,30 @@ const styles = StyleSheet.create({
     backgroundColor:'#eee',width: Util.size.width,
     height:Util.size.height-90,
   },
+  menuTitle:{
+    fontSize: 16,
+    fontWeight:'300',
+    textAlign: 'left',
+    color: 'black',
+    paddingRight:10,
+  },
+  menuBtContain:{
+    flex:1,
+    flexDirection:'row',
+    flexWrap:'wrap',
+
+  },
+  menuBtn:{
+    borderRadius:5,
+    borderWidth:Util.pixel,
+    borderColor:'#666',
+    alignItems:'center',
+    justifyContent:'center',
+    marginLeft:10,
+    marginRight:10,
+    marginBottom:5,
+    padding:5,
+  },
   containerItem: {
     flex: 1,
     flexDirection: 'row',
@@ -148,6 +251,17 @@ const styles = StyleSheet.create({
     backgroundColor: '#fcfcfc',
     padding: 15,
     paddingLeft:20,
+    borderBottomColor: '#ddd',
+    borderBottomWidth: 1
+  },
+  containerMenu: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    backgroundColor: '#fcfcfc',
+    padding: 10,
+    paddingLeft:15,
     borderBottomColor: '#ddd',
     borderBottomWidth: 1
   },
@@ -175,7 +289,8 @@ const styles = StyleSheet.create({
     width:28,
     height:28,
     borderRadius:14,
-    backgroundColor:"#F44336",
+    borderWidth:1,
+    backgroundColor:"white",
     alignItems:"center",
     justifyContent:"center",
     shadowColor: "#000",
@@ -187,9 +302,9 @@ const styles = StyleSheet.create({
     }
   },
   bollText:{
-    fontSize:14,
-    color:'white',
-    fontWeight:'300',
+    fontSize:18,
+    color:'#000',
+    fontWeight:'600',
   },
   added: {
     position: 'absolute',

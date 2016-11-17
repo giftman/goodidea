@@ -9,91 +9,16 @@ import {
   ScrollView,
   TouchableOpacity,
   RefreshControl,
+  Animated,
+  Easing,
 } from 'react-native';
 
 import Util from '../utils/Util';
 const StyleSheet  = require('../utils/CustomStyleSheet');
 import Icon from 'react-native-vector-icons/Ionicons';
 import F8Header from '../common/F8Header';
-class TwitterPost extends Component {
-  constructor(props) {
-    super(props);
-    
-    this.data = [{'title':'Happy fun','img':'https://facebook.github.io/react/img/logo_og.png'},{'title':'Happy fun','img':'https://facebook.github.io/react/img/logo_og.png'},{'title':'Happy fun','img':'https://facebook.github.io/react/img/logo_og.png'},{'title':'Happy fun','img':'https://facebook.github.io/react/img/logo_og.png'}]
-    
-    this.state = {
-      isRefreshing:false,
-      data : this.data,
-    };
-  }
-
-  _onRefresh() {
-    this.setState({isRefreshing:true});
-    setTimeout(()=> {
-      this.setState({isRefreshing:false});
-    },2000);
-  }
-
-  render(){
-    const boxes = this.state.data.map((article, index) => {
-     //Text position can be justify to its parent then it easy to align Center.
-      return(
-      <View key={index} style={styles.containerItem}>
-          <Image
-            style={{width: 50, height: 40}}
-            source={{uri: article.img}}
-            resizeMode='cover'
-          />
-
-          <View style={{flex: 1, flexDirection: 'column',paddingLeft:20}} >
-            <View style={styles.bolls}>
-              <View style={styles.boll}>
-                <Text style={styles.bollText}>1</Text>
-              </View>
-               <View style={styles.boll}>
-                <Text style={styles.bollText}>1</Text>
-              </View>
-               <View style={styles.boll}>
-                <Text style={styles.bollText}>1</Text>
-              </View>
-               <View style={styles.boll}>
-                <Text style={styles.bollText}>1</Text>
-              </View>
-               <View style={styles.boll}>
-                <Text style={styles.bollText}>1</Text>
-              </View>
-            </View>
-
-            <View style={styles.bolls}>
-              <View style={styles.boll}>
-                <Text style={styles.bollText}>1</Text>
-              </View>
-               <View style={styles.boll}>
-                <Text style={styles.bollText}>1</Text>
-              </View>
-               <View style={styles.boll}>
-                <Text style={styles.bollText}>1</Text>
-              </View>
-               <View style={styles.boll}>
-                <Text style={styles.bollText}>1</Text>
-              </View>
-               <View style={styles.boll}>
-                <Text style={styles.bollText}>1</Text>
-              </View>
-            </View>
-          </View>
-          
-        </View>
-      );
-    })
-    return(
-      <ScrollView style={styles.container}>
-        {boxes}
-      </ScrollView>
-      )
-  }
-}
-
+import {HEADER_HEIGHT} from '../common/F8Colors';
+import BuyList from './BuyList';
 class Menu extends Component {
   constructor(props) {
     super(props);
@@ -110,17 +35,18 @@ class Menu extends Component {
     };
   }
 
+
   render(){
 
     const boxes = Object.keys(this.state.menu).map((article, index) => {
       console.log(article);
       return(
       <View key={article} style={styles.containerMenu}>
-          <Text style={styles.menuTitle}>{article}</Text>
+          <Text style={styles.menuTitle}>article</Text>
           <View style={styles.menuBtContain}>
                 {this.state.menu[article].map((menu,index)=>{
                   return(
-                      <Text key={index} style={styles.menuBtn}>{menu}</Text>
+                      <Text key={index} style={styles.menuBtn}>menu</Text>
                       )
                 })}
           </View>
@@ -156,20 +82,53 @@ function renderCells(cells,name,menu){
 class TwitterFlow extends Component{
   constructor(props) {
     super(props);
+    this.minTop = -Util.size.height + 290 + HEADER_HEIGHT;
+    this.maxTop = HEADER_HEIGHT;
     this.state = {
       title:"Test",
       data : this.data,
       showMenu:false,
+      shift: new Animated.Value(this.minTop),
     };
   }
 
   _onClick(){
     console.log('_onClick');
     let showMenu = this.state.showMenu;
+    if(showMenu){
+      this._popMenu();
+    }else{
+      this._pushMenu();
+    }
+  }
 
-    this.setState({
-      showMenu:!showMenu
-    })
+  _pushMenu() {
+    this.setState({showMenu:true});     //1 注意这个顺序有讲究，先让看到再执行动画，后面则相反，延迟一点让动画执行完再不显示 2 Touchable控件的子件默认是占满整个父件空间，可以参考NeverMind
+    Animated.timing(                          // 可选的基本动画类型: spring, decay, timing
+      this.state.shift,                 // 将`bounceValue`值动画化
+      {
+        toValue: this.maxTop,                         // 将其值以动画的形式改到一个较小值
+        duration: 200,
+        delay:100,
+        easing: Easing.elastic(1),                          // Bouncier spring
+      }
+    ).start();  
+    
+    console.log('_pushMenu');
+  }
+  _popMenu() {
+    Animated.timing(                          // 可选的基本动画类型: spring, decay, timing
+      this.state.shift,                 // 将`bounceValue`值动画化
+      {
+        toValue: this.minTop,                         // 将其值以动画的形式改到一个较小值
+        duration: 200,
+        delay:100,
+        easing: Easing.elastic(1),                          // Bouncier spring
+      }
+    ).start();
+    setTimeout(() => {
+        this.setState({showMenu:false});
+    },500);  
   }
 
   render() {
@@ -191,11 +150,10 @@ class TwitterFlow extends Component{
       onPress: () => this.props.navigator.pop(),
     }
     let headerImg = this.state.showMenu ? <Icon name="ios-arrow-down" size={25} color="#616161" />:<Icon name="ios-arrow-up" size={25} color="#616161" /> ;
-    let content = this.state.showMenu ? <Menu />:<TwitterPost />;
     return(
       <View>
       <F8Header
-      style={{backgroundColor:"#100118"}}
+      style={{backgroundColor:"#100118",zIndex:2}}
       title={this.state.title}
       leftItem={leftItem}
       rightItem={rightItem}
@@ -206,7 +164,13 @@ class TwitterFlow extends Component{
         {headerImg}
       </TouchableOpacity>
       </F8Header>
-      {content}
+      {this.state.showMenu?<Animated.View style={{zIndex:1,position:'absolute',top:this.state.shift}}>
+        <Menu />
+      </Animated.View>
+      :<View/>
+      }
+      
+      <BuyList />
       </View>
     )
   }
@@ -215,9 +179,13 @@ class TwitterFlow extends Component{
 
 
 const styles = StyleSheet.create({
+  postContainer:{
+    backgroundColor:'#eee',width: Util.size.width,
+    height:Util.size.height,
+  },
   container:{
     backgroundColor:'#eee',width: Util.size.width,
-    height:Util.size.height-90,
+    height:Util.size.height-290,
   },
   menuTitle:{
     fontSize: 16,
@@ -233,7 +201,7 @@ const styles = StyleSheet.create({
 
   },
   menuBtn:{
-    borderRadius:5,
+    borderRadius:8,
     borderWidth:Util.pixel,
     borderColor:'#666',
     alignItems:'center',

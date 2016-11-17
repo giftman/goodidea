@@ -54,6 +54,10 @@ function colorForTopic(count: number, index: number): string {
     return `hsl(${hue}, 74%, 65%)`;
 }
 
+import {Platform} from 'react-native';
+let STATUS_BAR_HEIGHT = Platform.OS === 'ios' ? 20 : 0;
+let HEADER_HEIGHT = Platform.OS === 'ios' ? 44 + STATUS_BAR_HEIGHT : 56 + STATUS_BAR_HEIGHT;
+
 module.exports = {
     actionText: '#3FB4CF',
     inactiveText: '#9B9B9B',
@@ -64,4 +68,6 @@ module.exports = {
     colorForLocation,
     colorForTopic,
     headerBG: '#323245',
+    HEADER_HEIGHT,
+    STATUS_BAR_HEIGHT
 };

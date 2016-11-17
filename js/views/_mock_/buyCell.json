@@ -1,0 +1,56 @@
+{
+    "fiveStart": {
+        "name": "fiveStart",
+        "id": 210,
+        "singleLimit": 1,
+        "allLimit": 2,
+        "methods": [
+            {
+                "ten": [
+                    3,
+                    4,
+                    3,
+                    2,
+                    4,
+                    3
+                ]
+            },
+            {
+                "bai": [
+                    1,
+                    2,
+                    3,
+                    4,
+                    3
+                ]
+            }
+        ]
+    },
+    "fourS": {
+        "name": "fiveStart",
+        "id": 211,
+        "singleLimit": 1,
+        "allLimit": 2,
+        "methods": [
+            {
+                "ten": [
+                    3,
+                    4,
+                    3,
+                    2,
+                    4,
+                    3
+                ]
+            },
+            {
+                "bai": [
+                    1,
+                    2,
+                    3,
+                    4,
+                    3
+                ]
+            }
+        ]
+    }
+}

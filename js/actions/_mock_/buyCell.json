@@ -1,0 +1,64 @@
+{
+    "14": {
+        "singleLimit": 1,
+        "allLimit": 2,
+        "chips":1, //how many numbers one bet
+        "layout":0, //prepare for different type
+        "methods": 
+            {
+                "W": [
+                    0,1,2,3,4,5,6,7,8,9
+                ],
+                "Q": [
+                    0,1,2,3,4,5,6,7,8,9
+                ],
+                "B": [
+                    0,1,2,3,4,5,6,7,8,9
+                ],
+            },
+        //...others copy from json
+        "bet_note": "从万、千、百位各选一个号码组成三注",
+        "bonus_note": "从万位、千位、百位中至少各选择一个号码组成1-3星的组合共三注，当百位号码与开奖号码相同，则中1个3等奖；如果百位与千位号码与开奖号码相同，则中1个3等奖以及1个2等奖，依此类推，最高可中3个奖。",
+        "dekaron": 1,
+        "gameId": 1,
+        "id": 14,
+        "is_enable_extra": null,
+        "jsId": 8,
+        "max_multiple": 204,
+        "name_cn": "直选组合",
+        "name_en": "zuhe",
+        "pid": 10,
+        "price": 2,
+        "prize": "1952.0000",
+        "series_way_id": 14,
+        "total_count": 3000,
+        "type": "qiansan.zhixuan.zuhe"
+    },
+    "fourS": {
+        "name": "fiveStart",
+        "id": 211,
+        "singleLimit": 1,
+        "allLimit": 2,
+        "methods": [
+            {
+                "ten": [
+                    3,
+                    4,
+                    3,
+                    2,
+                    4,
+                    3
+                ]
+            },
+            {
+                "bai": [
+                    1,
+                    2,
+                    3,
+                    4,
+                    3
+                ]
+            }
+        ]
+    }
+}

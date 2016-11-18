@@ -20,23 +20,23 @@ import F8Header from '../common/F8Header';
 import {HEADER_HEIGHT} from '../common/F8Colors';
 import BuyCell from './BuyCell';
 type Props = {
-  list:any;
+  data:any;
   navigator: Navigator;
   count:number;
   limit:number;
 };
-class TwitterPost extends Component {
+class BuyList extends Component {
   props:Props;
 
   constructor(props) {
     super(props);
     
-    this.data = require('./_mock_/buyCell.json');
+    
     this.state = {
       isRefreshing:false,
-      data:this.data["14"].methods
     };
   }
+
 
   _onRefresh() {
     this.setState({isRefreshing:true});
@@ -46,12 +46,17 @@ class TwitterPost extends Component {
   }
 
   render(){
-    const boxes = Object.keys(this.state.data).map((name, index) => {
-     //Text position can be justify to its parent then it easy to align Center.
+    let boxes = <View />
+    console.log(this.props.data);
+    if(this.props.data && this.props.data.methods){
+       boxes = Object.keys(this.props.data.methods).map((name, index) => {
+        console.log(name);
       return(
-          <BuyCell  key={index} name={name} list={this.state.data[name]} />
+          <BuyCell  key={index} name={name} list={this.props.data.methods[name]} />
       );
     })
+    }
+   
     return(
       <ScrollView style={styles.postContainer}>
         {boxes}
@@ -140,4 +145,4 @@ const styles = StyleSheet.create({
 });
 
 
-export default TwitterPost;
+export default BuyList;

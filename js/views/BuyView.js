@@ -19,77 +19,10 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import F8Header from '../common/F8Header';
 import {HEADER_HEIGHT} from '../common/F8Colors';
 import BuyList from './BuyList';
-var allTypes = {};
-class Menu extends Component {
-  constructor(props) {
-    super(props);
-    
-    this.data = require('./_mock_/buyNo.json');
-    // console.log(this.data);
-    this.menu={};
-    this.data.gameMethods['1800'].map((article, index) => {
-        renderCells(article,"","",this.menu,article.id,this.data.gameId);
-    })
-    console.log(this.menu);
+import BuyMenu from './BuyMenu';
+import  { connect } from 'react-redux';
+import {loadMenu} from '../actions'
 
-    this.state = {
-      menu : this.menu,
-    };
-  }
-
-
-  render(){
-    console.log(allTypes);
-    const boxes = Object.keys(this.state.menu).map((article, index) => {
-      return(
-      <View key={article} style={styles.containerMenu}>
-          <Text style={styles.menuTitle}>article</Text>
-          <View style={styles.menuBtContain}>
-                {this.state.menu[article].map((menu,index)=>{
-                  return(
-                      <Text key={index} style={styles.menuBtn}>menu</Text>
-                      )
-                })}
-          </View>
-        </View>
-      );
-    })
-   
-    
-    return(
-      <ScrollView style={styles.container}>
-      {boxes}
-      </ScrollView>
-      )
-  }
-}
-
-function renderCells(cells,name,en_name,menu,jsId,gameId){
-  if(en_name != ""){
-    en_name = en_name + "." + cells.name_en;
-  }else{
-    en_name = cells.name_en;
-  }
-  if(cells.children){
-    if(cells.name_cn){
-      name = name + cells.name_cn;
-      
-    }
-    cells.children.map((children) => renderCells(children,name,en_name,menu,jsId,gameId));
-  }else{
-      if(menu[name]){
-        menu[name].push(cells.name_cn);
-
-      }else{
-        menu[name]=[];
-        menu[name].push(cells.name_cn);
-      }
-      cells.jsId = jsId;
-      cells.type = en_name;
-      cells.gameId = gameId;
-      allTypes[cells.id] = cells;
-  }
-}
 class BuyView extends Component{
   constructor(props) {
     super(props);
@@ -100,8 +33,11 @@ class BuyView extends Component{
       data : this.data,
       showMenu:false,
       shift: new Animated.Value(this.minTop),
+
     };
+    this.props.loadMenu();
   }
+
 
   _onClick(){
     // console.log('_onClick');
@@ -143,6 +79,7 @@ class BuyView extends Component{
   }
 
   render() {
+    console.log(this.props.allTypes["14"]);
     var leftItem = this.props.leftItem;
     
     leftItem = {
@@ -176,11 +113,11 @@ class BuyView extends Component{
       </TouchableOpacity>
       </F8Header>
       {this.state.showMenu?<Animated.View style={{zIndex:1,position:'absolute',top:this.state.shift}}>
-        <Menu />
+        <BuyMenu menu={this.props.menu}/>
       </Animated.View>
       :<View/>
       }
-      <BuyList />
+      <BuyList data={this.props.allTypes["14"]}/>
       </View>
     )
   }
@@ -189,108 +126,21 @@ class BuyView extends Component{
 
 
 const styles = StyleSheet.create({
-  postContainer:{
-    backgroundColor:'#eee',width: Util.size.width,
-    height:Util.size.height,
-  },
-  container:{
-    backgroundColor:'#eee',width: Util.size.width,
-    height:Util.size.height-290,
-  },
-  menuTitle:{
-    fontSize: 16,
-    fontWeight:'300',
-    textAlign: 'left',
-    color: 'black',
-    paddingRight:10,
-  },
-  menuBtContain:{
-    flex:1,
-    flexDirection:'row',
-    flexWrap:'wrap',
-
-  },
-  menuBtn:{
-    borderRadius:8,
-    borderWidth:Util.pixel,
-    borderColor:'#666',
-    alignItems:'center',
-    justifyContent:'center',
-    marginLeft:10,
-    marginRight:10,
-    marginBottom:5,
-    padding:5,
-  },
-  containerItem: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#fcfcfc',
-    padding: 15,
-    paddingLeft:20,
-    borderBottomColor: '#ddd',
-    borderBottomWidth: 1
-  },
-  containerMenu: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-    backgroundColor: '#fcfcfc',
-    padding: 10,
-    paddingLeft:15,
-    borderBottomColor: '#ddd',
-    borderBottomWidth: 1
-  },
-  title: {
-    fontSize: 24,
-    fontWeight:'500',
-    textAlign: 'left',
-    color: 'black',
-    backgroundColor:'green'
-  },
-  des:{
-    flex:1,fontSize: 14, color: '#9E9E9E',paddingLeft:10
-  },
-  bolls:{
-    // backgroundColor:'grey',
-    flex:1,
-    alignItems:"center",
-    justifyContent:"space-between",
-    flexDirection:'row',
-    paddingRight:60,
-    paddingBottom:10,
-    paddingTop:10,
-  },
-  boll:{
-    width:28,
-    height:28,
-    borderRadius:14,
-    borderWidth:1,
-    backgroundColor:"white",
-    alignItems:"center",
-    justifyContent:"center",
-    shadowColor: "#000",
-    shadowOpacity: 0.3,
-    shadowRadius: 2,
-    shadowOffset: {
-      height: 1,
-      width: 0,
-    }
-  },
-  bollText:{
-    fontSize:18,
-    color:'#000',
-    fontWeight:'600',
-  },
-  added: {
-    position: 'absolute',
-    backgroundColor: 'transparent',
-    right: 0,
-    top: 0,
-  },
+  
 });
 
 
-export default BuyView;
+function select(store) {
+    return {
+        menu: store.buy.menu,
+        allTypes:store.buy.allTypes,
+    };
+}
+
+function actions(dispatch) {
+    return {
+        loadMenu: (tab) => dispatch(loadMenu()),
+    };
+}
+
+module.exports = connect(select, actions)(BuyView);

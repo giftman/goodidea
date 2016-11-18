@@ -30,4 +30,5 @@ module.exports = combineReducers({
   navigation: require('./navigation'),
   user: require('./user'),
   filter: require('./filter'),
+  buy:require('./buy'),
 });

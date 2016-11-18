@@ -26,8 +26,10 @@
 
 const navigationActions = require('./navigation');
 const filterActions = require('./filter');
+const buyActions = require('./buy');
 
 module.exports = {
   ...filterActions,
   ...navigationActions,
+  ...buyActions,
 };

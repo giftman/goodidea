@@ -1,0 +1,74 @@
+'use strict';
+
+import type { Action,ThunkAction } from './types';
+
+function loadMenu(): ThunkAction {
+	 
+     return (dispatch) => {
+     	let data = require('./_mock_/buyNo.json');
+	 let menu = {};
+	 let allTypes = {};
+     data.gameMethods['1800'].map((article, index) => {
+        renderCells(article,"","",article.id,data.gameId,menu,allTypes);
+    })
+     let buyCell = require('./_mock_/buyCell.json');
+     for(let i in buyCell){
+     	if(allTypes[i]){
+     		allTypes[i].singleLimit = buyCell[i].singleLimit;
+     		allTypes[i].allLimit = buyCell[i].allLimit;
+     		allTypes[i].chips = buyCell[i].chips;
+     		allTypes[i].layout = buyCell[i].layout;
+     		allTypes[i].methods = buyCell[i].methods;
+     	}
+     }
+     	dispatch({type:"LOAD_MENU",menu,allTypes})
+     }
+     
+  // return (dispatch) => {
+  //   return query.find({
+  //     success: (list) => {
+  //       // We don't want data loading to interfere with smooth animations
+  //       InteractionManager.runAfterInteractions(() => {
+  //         // Flow can't guarantee {type, list} is a valid action
+  //         dispatch(({type, list}: any));
+  //       });
+  //     },
+  //     error: logError,
+  //   });
+  // };
+}
+
+function skipLogin(): Action {
+  return {
+    type: 'SKIPPED_LOGIN',
+  };
+}
+
+function renderCells(cells,name,en_name,jsId,gameId,menu,allTypes){
+  if(en_name != ""){
+    en_name = en_name + "." + cells.name_en;
+  }else{
+    en_name = cells.name_en;
+  }
+  if(cells.children){
+    if(cells.name_cn){
+      name = name + cells.name_cn;
+      
+    }
+    cells.children.map((children) => renderCells(children,name,en_name,jsId,gameId,menu,allTypes));
+  }else{
+      if(menu[name]){
+        menu[name].push(cells.name_cn);
+
+      }else{
+        menu[name]=[];
+        menu[name].push(cells.name_cn);
+      }
+      cells.jsId = jsId;
+      cells.type = en_name;
+      cells.gameId = gameId;
+      allTypes[cells.id] = cells;
+  }
+}
+
+module.exports = {loadMenu};

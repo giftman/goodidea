@@ -31,11 +31,10 @@ class TwitterPost extends Component {
   constructor(props) {
     super(props);
     
-    this.data = {"210":{"name":"fiveStart","id":210,"singleLimit":1,"allLimit":2,"methods":[{"ten":[3,4,3,2,4,3]},{"bai":[1,2,3,4,3]}]},"211":{"name":"fiveStart","id":210,"singleLimit":1,"allLimit":2,"methods":[{"ten":[3,4,3,2,4,3]},{"bai":[1,2,3,4,3]}]}}
-    this.data=[1,2,3]
+    this.data = require('./_mock_/buyCell.json');
     this.state = {
       isRefreshing:false,
-      data:this.data
+      data:this.data["14"].methods
     };
   }
 
@@ -47,10 +46,10 @@ class TwitterPost extends Component {
   }
 
   render(){
-    const boxes = this.state.data.map((article, index) => {
+    const boxes = Object.keys(this.state.data).map((name, index) => {
      //Text position can be justify to its parent then it easy to align Center.
       return(
-          <BuyCell  key={index} name="Article" cell={[0,1,2,3,4,5,6,7,8,9]} />
+          <BuyCell  key={index} name={name} list={this.state.data[name]} />
       );
     })
     return(

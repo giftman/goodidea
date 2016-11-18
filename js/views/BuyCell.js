@@ -31,10 +31,10 @@ import {Image,View,StyleSheet,Text,TouchableOpacity} from 'react-native';
 import Util from '../utils/Util';
 import Ball from './Ball';
 
-class ReadingCell extends React.Component {
+class BuyCell extends React.Component {
   props: {
     name:any;
-    cell: any;
+    list: any;
     style: any;
     chips:number;
   };
@@ -43,27 +43,25 @@ class ReadingCell extends React.Component {
   }
 
   render() {
-    var article = this.props.cell;
-    var title = article.name;
-    const {topic, color, isChecked, onToggle} = this.props;
+    const {name,list, color, isChecked, onToggle} = this.props;
 
     const style = isChecked
       ? {backgroundColor: color}
       : {borderColor: color, borderWidth: 1};
     var cell =
-        <View key={title} style={styles.containerItem}>
+        <View key={name} style={styles.containerItem}>
           <Image
-            style={{width: 50, height: 40}}
+            style={styles.img}
             source={require('../common/img/back.android.png')}
             resizeMode='cover'
           >
-          <Text>{title}</Text>
+          <Text style={styles.title}>{name}</Text>
           </Image>
 
           <View style={{flex: 1, flexDirection: 'column',paddingLeft:20}} >
             <View style={styles.bolls}>
             {
-              article.map((num,index)=>{
+              list.map((num,index)=>{
                 return (
                   <Ball key={index} topic={num} color="green" isChecked={false} onToggle={()=>this._onToggle(index)} />
                   )
@@ -106,12 +104,17 @@ var styles = StyleSheet.create({
     borderBottomColor: '#ddd',
     borderBottomWidth: 1
   },
+  img:{
+    width:50,
+    height:50,
+     justifyContent: 'center',
+    alignItems: 'center',
+  },
   title: {
-    fontSize: 24,
-    fontWeight:'500',
-    textAlign: 'left',
+    fontSize: 28,
+    fontWeight:'300',
     color: 'black',
-    backgroundColor:'green'
+    backgroundColor:'transparent',
   },
   des:{
     flex:1,fontSize: 14, color: '#9E9E9E',paddingLeft:10
@@ -130,4 +133,4 @@ var styles = StyleSheet.create({
 });
 
 
-module.exports = ReadingCell;
+module.exports = BuyCell;

@@ -50,7 +50,7 @@ constructor(props) {
        
   }
   onPressIn(){
-    console.log("onPressIn");
+    // console.log("onPressIn");
     if(!this.state.isChecked){
       this.setState({
       onPress:true
@@ -59,7 +59,7 @@ constructor(props) {
   }
 
   onPressOut(){
-    console.log("onPressOut");
+    // console.log("onPressOut");
     this.setState({
       onPress:false
     })
@@ -122,8 +122,8 @@ var styles = StyleSheet.create({
     height:SIZE,
     borderRadius:SIZE /2,
     borderWidth:1,
-    marginLeft:5,
-    marginRight:5,
+    marginLeft:8,
+    marginRight:8,
     marginTop:10,
     backgroundColor:"white",
     alignItems:"center",

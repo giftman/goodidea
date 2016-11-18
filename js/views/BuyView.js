@@ -19,6 +19,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import F8Header from '../common/F8Header';
 import {HEADER_HEIGHT} from '../common/F8Colors';
 import BuyList from './BuyList';
+var allTypes = {};
 class Menu extends Component {
   constructor(props) {
     super(props);
@@ -27,9 +28,10 @@ class Menu extends Component {
     // console.log(this.data);
     this.menu={};
     this.data.gameMethods['1800'].map((article, index) => {
-        renderCells(article,"",this.menu);
+        renderCells(article,"","",this.menu,article.id,this.data.gameId);
     })
     console.log(this.menu);
+
     this.state = {
       menu : this.menu,
     };
@@ -37,9 +39,8 @@ class Menu extends Component {
 
 
   render(){
-
+    console.log(allTypes);
     const boxes = Object.keys(this.state.menu).map((article, index) => {
-      console.log(article);
       return(
       <View key={article} style={styles.containerMenu}>
           <Text style={styles.menuTitle}>article</Text>
@@ -63,23 +64,33 @@ class Menu extends Component {
   }
 }
 
-function renderCells(cells,name,menu){
+function renderCells(cells,name,en_name,menu,jsId,gameId){
+  if(en_name != ""){
+    en_name = en_name + "." + cells.name_en;
+  }else{
+    en_name = cells.name_en;
+  }
   if(cells.children){
     if(cells.name_cn){
       name = name + cells.name_cn;
+      
     }
-    cells.children.map((children) => renderCells(children,name,menu));
+    cells.children.map((children) => renderCells(children,name,en_name,menu,jsId,gameId));
   }else{
       if(menu[name]){
         menu[name].push(cells.name_cn);
+
       }else{
         menu[name]=[];
         menu[name].push(cells.name_cn);
       }
-      
+      cells.jsId = jsId;
+      cells.type = en_name;
+      cells.gameId = gameId;
+      allTypes[cells.id] = cells;
   }
 }
-class TwitterFlow extends Component{
+class BuyView extends Component{
   constructor(props) {
     super(props);
     this.minTop = -Util.size.height + 290 + HEADER_HEIGHT;
@@ -93,7 +104,7 @@ class TwitterFlow extends Component{
   }
 
   _onClick(){
-    console.log('_onClick');
+    // console.log('_onClick');
     let showMenu = this.state.showMenu;
     if(showMenu){
       this._popMenu();
@@ -114,7 +125,7 @@ class TwitterFlow extends Component{
       }
     ).start();  
     
-    console.log('_pushMenu');
+    // console.log('_pushMenu');
   }
   _popMenu() {
     Animated.timing(                          // 可选的基本动画类型: spring, decay, timing
@@ -169,7 +180,6 @@ class TwitterFlow extends Component{
       </Animated.View>
       :<View/>
       }
-      
       <BuyList />
       </View>
     )
@@ -283,4 +293,4 @@ const styles = StyleSheet.create({
 });
 
 
-export default TwitterFlow;
+export default BuyView;

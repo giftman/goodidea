@@ -26,110 +26,120 @@
 
 var F8Colors = require('../common/F8Colors');
 var F8Touchable = require('../common/F8Touchable');
-import React,{Component} from 'react';
-import {Image,View,StyleSheet,Text,TouchableOpacity} from 'react-native';
+import React, { Component } from 'react';
+import { Image, View, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import Util from '../utils/Util';
 import Ball from './Ball';
 
 class BuyCell extends React.Component {
-  props: {
+    props: {
     name:any;
     list: any;
     style: any;
     chips:number;
-  };
-  _onToggle(index){
-    console.log
-  }
+    };
 
-  render() {
-    const {name,list, color, isChecked, onToggle} = this.props;
 
-    const style = isChecked
-      ? {backgroundColor: color}
-      : {borderColor: color, borderWidth: 1};
-    var cell =
-        <View key={name} style={styles.containerItem}>
+    render() {
+        const {name, list, color, isChecked, onToggle} = this.props;
+
+        const style = isChecked
+            ? {
+                backgroundColor: color
+            }
+            : {
+                borderColor: color,
+                borderWidth: 1
+            };
+        var cell = <View key={name} style={styles.containerItem}>
           <Image
-            style={styles.img}
-            source={require('../common/img/back.android.png')}
-            resizeMode='cover'
-          >
+        style={styles.img}
+        source={require('../common/img/back.android.png')}
+        resizeMode='cover'
+        >
           <Text style={styles.title}>{name}</Text>
           </Image>
 
-          <View style={{flex: 1, flexDirection: 'column',paddingLeft:20}} >
+          <View style={{
+            flex: 1,
+            flexDirection: 'column',
+            paddingLeft: 20
+        }} >
             <View style={styles.bolls}>
             {
-              list.map((num,index)=>{
-                return (
-                  <Ball key={index} topic={num} color="green" isChecked={false} onToggle={()=>this._onToggle(index)} />
-                  )
-              })
-            }
+        list.map((num, index) => {
+            return (
+                <Ball key={index} topic={num} color="green" isChecked={false} onToggle={() => this.props.onToggle(name, index)} />
+            )
+        })
+        }
             </View>
           </View>
           
         </View>
 
-    return cell;
-  }
+        return cell;
+    }
 }
 
 
 var styles = StyleSheet.create({
-  postContainer:{
-    backgroundColor:'#eee',width: Util.size.width,
-    height:Util.size.height,
-  },
-  
-  containerItem: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#fcfcfc',
-    paddingLeft:20,
-    borderBottomColor: '#ddd',
-    borderBottomWidth: 1
-  },
-  containerMenu: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-    backgroundColor: '#fcfcfc',
-    padding: 10,
-    paddingLeft:15,
-    borderBottomColor: '#ddd',
-    borderBottomWidth: 1
-  },
-  img:{
-    width:50,
-    height:50,
-     justifyContent: 'center',
-    alignItems: 'center',
-  },
-  title: {
-    fontSize: 28,
-    fontWeight:'300',
-    color: 'black',
-    backgroundColor:'transparent',
-  },
-  des:{
-    flex:1,fontSize: 14, color: '#9E9E9E',paddingLeft:10
-  },
-  bolls:{
-    // backgroundColor:'grey',
-    flex:1,
-    alignItems:"center",
-    justifyContent:"space-between",
-    flexDirection:'row',
-    paddingRight:60,
-    paddingBottom:10,
-    paddingTop:10,
-    flexWrap:'wrap',
-  },
+    postContainer: {
+        backgroundColor: '#eee',
+        width: Util.size.width,
+        height: Util.size.height,
+    },
+
+    containerItem: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#fcfcfc',
+        paddingLeft: 20,
+        borderBottomColor: '#ddd',
+        borderBottomWidth: 1
+    },
+    containerMenu: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'flex-start',
+        alignItems: 'center',
+        backgroundColor: '#fcfcfc',
+        padding: 10,
+        paddingLeft: 15,
+        borderBottomColor: '#ddd',
+        borderBottomWidth: 1
+    },
+    img: {
+        width: 50,
+        height: 50,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    title: {
+        fontSize: 28,
+        fontWeight: '300',
+        color: 'black',
+        backgroundColor: 'transparent',
+    },
+    des: {
+        flex: 1,
+        fontSize: 14,
+        color: '#9E9E9E',
+        paddingLeft: 10
+    },
+    bolls: {
+        // backgroundColor:'grey',
+        flex: 1,
+        alignItems: "center",
+        justifyContent: "space-between",
+        flexDirection: 'row',
+        paddingRight: 60,
+        paddingBottom: 10,
+        paddingTop: 10,
+        flexWrap: 'wrap',
+    },
 });
 
 

@@ -33,19 +33,22 @@ class BuyView extends Component {
 
     _onToggle(name, index) {
         console.log(name, index);
-        let {choice} = this.state;
-        if (choice[name]) {
-            choice[name].push(index);
-        } else {
-            choice[name] = [];
-            choice[name].push(index);
-        }
-        this.setState({
-            choice
-        })
+let {choice} = this.state;
+if (choice[name]) {
+    if (choice[name].includes(index)) {
+        choice[name].splice(index, 1);
+    } else {
+        choice[name].push(index);
+    }
+} else {
+    choice[name] = [];
+    choice[name].push(index);
+}
+this.setState({
+    choice
+})
         console.log(this.state.choice);
-        return false;
-
+    // return false;
     }
 
     _onClick() {

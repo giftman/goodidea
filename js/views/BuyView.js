@@ -27,6 +27,7 @@ class BuyView extends Component {
             showMenu: false,
             shift: new Animated.Value(this.minTop),
             choice: {},
+            numOfChips:0,
         };
         this.props.loadMenu();
     }
@@ -55,6 +56,7 @@ console.log(this.state.choice);
     //check how many times had pay.
     _checkChipsCount(choice){
       let {defaultGame} = this.props;
+      let {numOfChips} = this.state;
       let methods = defaultGame.methods;
       console.log(methods);
       let pass = false;
@@ -65,7 +67,7 @@ console.log(this.state.choice);
         console.log(choice[i]);
         console.log(methods[i])
         if(choice[i] && choice[i].length >= methods[i].num){
-            times = countNum(choice[i],methods[i].num) * times;
+            numOfChips = countNum(choice[i],methods[i].num) * numOfChips;
               choice[i].map((n,index)=>{
               console.log("NNNNN");
               console.log(n);
@@ -74,9 +76,13 @@ console.log(this.state.choice);
             result = result + "|";
         }else{
           console.log('not choice all key')
+          numOfChips = 0;
            break;
         }
       }
+      this.setState({
+        numOfChips
+      })
       console.log(result);
     }
 
@@ -184,7 +190,7 @@ console.log(this.state.choice);
                 : <View/>
             }
       <BuyList data={this.props.defaultGame} onToggle={(name, index) => this._onToggle(name, index)}/>
-      <BuyControl price={2} numOfChips={0}/>
+      <BuyControl price={2} numOfChips={this.state.numOfChips}/>
       </View>
         )
     }

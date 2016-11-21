@@ -44,6 +44,13 @@ function skipLogin(): Action {
   };
 }
 
+function changeType(defaultType):Action{
+	return{
+		type:'CHANGE_TYPE',
+		defaultType
+	}
+}
+
 function renderCells(cells,name,en_name,jsId,gameId,menu,allTypes){
   if(en_name != ""){
     en_name = en_name + "." + cells.name_en;
@@ -58,11 +65,11 @@ function renderCells(cells,name,en_name,jsId,gameId,menu,allTypes){
     cells.children.map((children) => renderCells(children,name,en_name,jsId,gameId,menu,allTypes));
   }else{
       if(menu[name]){
-        menu[name].push(cells.name_cn);
+        menu[name].push(cells);
 
       }else{
         menu[name]=[];
-        menu[name].push(cells.name_cn);
+        menu[name].push(cells);
       }
       cells.jsId = jsId;
       cells.type = en_name;
@@ -71,4 +78,4 @@ function renderCells(cells,name,en_name,jsId,gameId,menu,allTypes){
   }
 }
 
-module.exports = {loadMenu};
+module.exports = {loadMenu,changeType};

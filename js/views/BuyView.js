@@ -13,7 +13,7 @@ import BuyList from './BuyList';
 import BuyMenu from './BuyMenu';
 import BuyControl from './BuyControl';
 import { connect } from 'react-redux';
-import { loadMenu } from '../actions';
+import { loadMenu,changeType } from '../actions';
 import TipPadding from './TipPadding';
 
 class BuyView extends Component {
@@ -32,7 +32,7 @@ class BuyView extends Component {
     }
 
     _onToggle(name, index) {
-        console.log(name, index);
+        // console.log(name, index);
 let {choice} = this.state;
 if (choice[name]) {
     if (choice[name].includes(index)) {
@@ -44,11 +44,45 @@ if (choice[name]) {
     choice[name] = [];
     choice[name].push(index);
 }
+this._checkChipsCount(choice);
 this.setState({
     choice
 })
-        console.log(this.state.choice);
+console.log(this.state.choice);
     // return false;
+    }
+
+    //check how many times had pay.
+    _checkChipsCount(choice){
+      let {defaultGame} = this.props;
+      let methods = defaultGame.methods;
+      console.log(methods);
+      let pass = false;
+      let result = "";
+      let times = 1;
+      for (let i in methods){
+        console.log(i);
+        console.log(choice[i]);
+        console.log(methods[i])
+        if(choice[i] && choice[i].length >= methods[i].num){
+            times = countNum(choice[i],methods[i].num) * times;
+              choice[i].map((n,index)=>{
+              console.log("NNNNN");
+              console.log(n);
+                result = result + n.toString()
+            })
+            result = result + "|";
+        }else{
+          console.log('not choice all key')
+           break;
+        }
+      }
+      console.log(result);
+    }
+
+    //update the buy result for post
+    _udateBuyBolls(){
+
     }
 
     _onClick() {
@@ -95,7 +129,7 @@ this.setState({
     }
 
     render() {
-        console.log(this.props.allTypes["14"]);
+        // console.log(this.props.allTypes["14"]);
         var leftItem = this.props.leftItem;
 
         leftItem = {
@@ -145,18 +179,28 @@ this.setState({
                 position: 'absolute',
                 top: this.state.shift
             }}>
-        <BuyMenu menu={this.props.menu}/>
+      <BuyMenu menu={this.props.menu} changeType={(type)=>this.props.changeType(type)}/>
       </Animated.View>
                 : <View/>
             }
-      <BuyList data={this.props.allTypes["14"]} onToggle={(name, index) => this._onToggle(name, index)}/>
+      <BuyList data={this.props.defaultGame} onToggle={(name, index) => this._onToggle(name, index)}/>
       <BuyControl price={2} numOfChips={0}/>
       </View>
         )
     }
 }
 
+function countNum(n,m){
+  return mathDouble(n)/(mathDouble(n-m)*mathDouble(m));
+}
 
+function mathDouble(num){
+  if(num > 1){
+   return num*mathDouble(num-1)
+  }else{
+    return 1
+  }
+}
 
 const styles = StyleSheet.create({
 
@@ -167,12 +211,15 @@ function select(store) {
     return {
         menu: store.buy.menu,
         allTypes: store.buy.allTypes,
+        defaultGame:store.buy.defaultGame,
+        defaultTypes:store.buy.defaultTypes,
     };
 }
 
 function actions(dispatch) {
     return {
         loadMenu: (tab) => dispatch(loadMenu()),
+        changeType:(type)=> dispatch(changeType(type)),
     };
 }
 

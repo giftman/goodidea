@@ -37,22 +37,26 @@ export type PlayType = {
 type State = {
   allTypes:{};
   menu:{};
+  defaultType:number;
+  defaultGame:{};
   loading:any;
 };
 
-const initialState: State = { allTypes: {},loading:false ,menu:{}};
+const initialState: State = { allTypes: {},loading:false ,menu:{},defaultType:14,defaultGame:{}};
 
 function buy(state: State = initialState, action: Action): State {
 	switch(action.type){
 		case 'SIGNUP_SUCCESS':
 		case 'LOAD_MENU':
-			return {...state,menu:action.menu,loading:false,allTypes:action.allTypes};
+			return {...state,menu:action.menu,loading:false,allTypes:action.allTypes,defaultGame:action.allTypes[state.defaultType]};
 		case 'LOAD_REQUEST':
 		case 'LOGIN_REQUEST':
 			return {...state,loading:true};
 		case 'LOAD_FAILED':
 		case 'SIGNUP_FAILED':
 			return {...state,loading:false};
+		case 'CHANGE_TYPE':
+			return {...state,defaultType:action.defaultType,defaultGame:state.allTypes[action.defaultType]};
 	}
   
   return state;

@@ -18,7 +18,9 @@ class BuyMenu extends Component {
           <View style={styles.menuBtContain}>
                 {this.props.menu[article].map((menu, index) => {
                         return (
-                            <Text key={index} style={styles.menuBtn}>menu</Text>
+                            <TouchableOpacity key={index} style={styles.menuBtn} onPress={()=>this.props.changeType(menu.id)} >
+                            <Text>menu</Text>
+                            </TouchableOpacity>
                         )
                     })}
           </View>

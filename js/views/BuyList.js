@@ -42,12 +42,12 @@ class BuyList extends Component {
 
     render() {
         let boxes = <View />
-        console.log(this.props.data);
+        // console.log(this.props.data);
         if (this.props.data && this.props.data.methods) {
             boxes = Object.keys(this.props.data.methods).map((name, index) => {
                 // console.log(name);
                 return (
-                    <BuyCell  key={index} name={name} list={this.props.data.methods[name]} onToggle={(name, index) => this.props.onToggle(name, index)}/>
+                    <BuyCell  key={index} name={name} list={this.props.data.methods[name].list} onToggle={(name, index) => this.props.onToggle(name, index)}/>
                     );
             })
         }

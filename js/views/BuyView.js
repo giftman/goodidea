@@ -34,10 +34,13 @@ class BuyView extends Component {
 
     _onToggle(name, index) {
         // console.log(name, index);
+        
 let {choice} = this.state;
-if (choice[name]) {
+if (choice[name] && !this.props.defaultGame.only_one) {
     if (choice[name].includes(index)) {
-        choice[name].splice(index, 1);
+        console.log("del "  + index);
+        let where = choice[name].indexOf(index);
+        choice[name].splice(where, 1);
     } else {
         choice[name].push(index);
     }
@@ -45,6 +48,7 @@ if (choice[name]) {
     choice[name] = [];
     choice[name].push(index);
 }
+choice[name] = choice[name].sort();
 this._checkChipsCount(choice);
 this.setState({
     choice
@@ -59,19 +63,27 @@ console.log(this.state.choice);
       let {numOfChips} = this.state;
       let methods = defaultGame.methods;
       console.log(methods);
-      let pass = false;
       let result = "";
-      let times = 1;
+      numOfChips = 1;
       for (let i in methods){
-        console.log(i);
+        console.log("log for in methods i :" + i);
         console.log(choice[i]);
         console.log(methods[i])
         if(choice[i] && choice[i].length >= methods[i].num){
-            numOfChips = countNum(choice[i],methods[i].num) * numOfChips;
-              choice[i].map((n,index)=>{
-              console.log("NNNNN");
-              console.log(n);
-                result = result + n.toString()
+            numOfChips = countNum(choice[i].length,methods[i].num) * numOfChips;
+            if(methods[i].each_num_represent_chips_num){
+              numOfChips = numOfChips*methods[i].each_num_represent_chips_num;
+            }
+            if(methods[i].extra){ numOfChips = 0};
+            choice[i].map((n,index)=>{
+                console.log(n);
+                if(methods[i].extra){
+                    n = n + 1;
+        }
+                result = result + n.toString();
+                if(methods[i].extra){
+                    numOfChips = methods[i].extra[n] + numOfChips;
+                }
             })
             result = result + "|";
         }else{
@@ -83,7 +95,8 @@ console.log(this.state.choice);
       this.setState({
         numOfChips
       })
-      console.log(result);
+      console.log("choice result:" + result);
+      console.log("numOfChips:" + numOfChips);
     }
 
     //update the buy result for post
@@ -132,6 +145,11 @@ console.log(this.state.choice);
                 showMenu: false
             });
         }, 500);
+    }
+
+    _changeType(type){
+      this.props.changeType(type);
+      this._popMenu();
     }
 
     render() {
@@ -185,11 +203,11 @@ console.log(this.state.choice);
                 position: 'absolute',
                 top: this.state.shift
             }}>
-      <BuyMenu menu={this.props.menu} changeType={(type)=>this.props.changeType(type)}/>
+      <BuyMenu menu={this.props.menu} changeType={(type)=>this._changeType(type)}/>
       </Animated.View>
                 : <View/>
             }
-      <BuyList data={this.props.defaultGame} onToggle={(name, index) => this._onToggle(name, index)}/>
+      <BuyList data={this.props.defaultGame} onToggle={(name, index) => this._onToggle(name, index)} choice={this.state.choice}/>
       <BuyControl price={2} numOfChips={this.state.numOfChips}/>
       </View>
         )

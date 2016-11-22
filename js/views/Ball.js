@@ -39,7 +39,6 @@ class TopicItem extends Component {
         super(props);
         this.state = {
             onPress: false,
-            isChecked: false,
         }
 
     }
@@ -66,14 +65,14 @@ class TopicItem extends Component {
         } else {
             console.log("onToggle not done")
         }
-        let {isChecked} = this.state;
-        this.setState({
-            isChecked: !isChecked
-        })
+        // let {isChecked} = this.state;
+        // this.setState({
+        //     isChecked: !isChecked
+        // })
     }
     render() {
         const {topic, coloronToggle} = this.props;
-        const isChecked = this.state.isChecked;
+        const isChecked = this.props.isChecked;
         const style = isChecked || this.state.onPress
             ? {
                 backgroundColor: "red",

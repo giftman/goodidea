@@ -139,8 +139,11 @@ const styles = StyleSheet.create({
     },
     multInput: {
         padding: 5,
+        paddingBottom:8,
         backgroundColor: "#fff",
         height: 25,
+        width:39,
+        textAlign:'center',
         borderColor: 'gray',
         borderWidth: 1,
         marginRight: 15,

@@ -39,6 +39,13 @@ class BuyCell extends React.Component {
     chips:number;
     };
 
+    _isChecked(name,index){
+      let {choice} = this.props;
+      if(choice[name]){
+        return choice[name].includes(index);
+      }
+      return false
+    }
 
     render() {
         const {name, list, color, isChecked, onToggle} = this.props;
@@ -51,6 +58,7 @@ class BuyCell extends React.Component {
                 borderColor: color,
                 borderWidth: 1
             };
+
         var cell = <View key={name} style={styles.containerItem}>
           <Image
         style={styles.img}
@@ -69,7 +77,7 @@ class BuyCell extends React.Component {
             {
         list.map((num, index) => {
             return (
-                <Ball key={index} topic={num} color="green" isChecked={false} onToggle={() => this.props.onToggle(name, index)} />
+                <Ball key={index} topic={num} color="green" isChecked={this._isChecked(name,index)} onToggle={() => this.props.onToggle(name, index)} />
             )
         })
         }
@@ -118,7 +126,7 @@ var styles = StyleSheet.create({
         alignItems: 'center',
     },
     title: {
-        fontSize: 28,
+        fontSize: 20,
         fontWeight: '300',
         color: 'black',
         backgroundColor: 'transparent',

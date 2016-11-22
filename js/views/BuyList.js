@@ -15,6 +15,7 @@ data:any;
 navigator: Navigator;
 count:number;
 limit:number;
+choice:{};
 };
 class BuyList extends Component {
     props:Props;
@@ -47,7 +48,7 @@ class BuyList extends Component {
             boxes = Object.keys(this.props.data.methods).map((name, index) => {
                 // console.log(name);
                 return (
-                    <BuyCell  key={index} name={name} list={this.props.data.methods[name].list} onToggle={(name, index) => this.props.onToggle(name, index)}/>
+                    <BuyCell  key={index} name={name} list={this.props.data.methods[name].list} choice={this.props.choice} onToggle={(name, index) => this.props.onToggle(name, index)}/>
                     );
             })
         }

@@ -6,17 +6,19 @@ function loadMenu(): ThunkAction {
 	 
      return (dispatch) => {
      	let data = require('./_mock_/buyNo.json');
+      let buyCell = require('./_mock_/buyCell.json');
 	 let menu = {};
 	 let allTypes = {};
      data.gameMethods['1800'].map((article, index) => {
-        renderCells(article,"","",article.id,data.gameId,menu,allTypes);
+        renderCells(article,"","",article.id,data.gameId,menu,allTypes,buyCell);
     })
-     let buyCell = require('./_mock_/buyCell.json');
+     
      for(let i in buyCell){
      	if(allTypes[i]){
-     		allTypes[i].singleLimit = buyCell[i].singleLimit;
-     		allTypes[i].allLimit = buyCell[i].allLimit;
-     		allTypes[i].chips = buyCell[i].chips;
+     		// allTypes[i].singleLimit = buyCell[i].singleLimit;
+     		// allTypes[i].allLimit = buyCell[i].allLimit;
+     		// allTypes[i].chips = buyCell[i].chips;
+        allTypes[i].only_one = buyCell[i].only_one;
      		allTypes[i].layout = buyCell[i].layout;
      		allTypes[i].methods = buyCell[i].methods;
      	}
@@ -51,7 +53,7 @@ function changeType(defaultType):Action{
 	}
 }
 
-function renderCells(cells,name,en_name,jsId,gameId,menu,allTypes){
+function renderCells(cells,name,en_name,jsId,gameId,menu,allTypes,buyCell){
   if(en_name != ""){
     en_name = en_name + "." + cells.name_en;
   }else{
@@ -62,12 +64,12 @@ function renderCells(cells,name,en_name,jsId,gameId,menu,allTypes){
       name = name + cells.name_cn;
       
     }
-    cells.children.map((children) => renderCells(children,name,en_name,jsId,gameId,menu,allTypes));
+    cells.children.map((children) => renderCells(children,name,en_name,jsId,gameId,menu,allTypes,buyCell));
   }else{
-      if(menu[name]){
+      if(menu[name] && buyCell[cells.id]){
         menu[name].push(cells);
 
-      }else{
+      }else if(buyCell[cells.id]){
         menu[name]=[];
         menu[name].push(cells);
       }

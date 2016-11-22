@@ -42,7 +42,7 @@ type State = {
   loading:any;
 };
 
-const initialState: State = { allTypes: {},loading:false ,menu:{},defaultType:14,defaultGame:{}};
+const initialState: State = { allTypes: {},loading:false ,menu:{},defaultType:75,defaultGame:{}};
 
 function buy(state: State = initialState, action: Action): State {
 	switch(action.type){

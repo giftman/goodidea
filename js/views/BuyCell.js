@@ -62,8 +62,8 @@ class BuyCell extends React.Component {
         var cell = <View key={name} style={styles.containerItem}>
           <Image
         style={styles.img}
-        source={require('../common/img/back.android.png')}
-        resizeMode='cover'
+        source={require('../img/tangle.png')}
+        resizeMode='contain'
         >
           <Text style={styles.title}>{name}</Text>
           </Image>
@@ -120,13 +120,15 @@ var styles = StyleSheet.create({
         borderBottomWidth: 1
     },
     img: {
-        width: 50,
+        width: 65,
         height: 50,
         justifyContent: 'center',
         alignItems: 'center',
+        alignSelf:'flex-start',
+        marginTop:10,
     },
     title: {
-        fontSize: 20,
+        fontSize: 16,
         fontWeight: '300',
         color: 'black',
         backgroundColor: 'transparent',

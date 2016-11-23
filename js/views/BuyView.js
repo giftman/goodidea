@@ -8,13 +8,14 @@ import Util from '../utils/Util';
 const StyleSheet = require('../utils/CustomStyleSheet');
 import Icon from 'react-native-vector-icons/Ionicons';
 import F8Header from '../common/F8Header';
-import { HEADER_HEIGHT } from '../common/F8Colors';
+import { HEADER_HEIGHT,LAYER } from '../common/F8Colors';
 import BuyList from './BuyList';
 import BuyMenu from './BuyMenu';
 import BuyControl from './BuyControl';
 import { connect } from 'react-redux';
 import { loadMenu,changeType } from '../actions';
 import TipPadding from './TipPadding';
+import CoverView from './CoverView';
 
 class BuyView extends Component {
     constructor(props) {
@@ -25,6 +26,7 @@ class BuyView extends Component {
             title: "Test",
             data: this.data,
             showMenu: false,
+            showTip:false,
             shift: new Animated.Value(this.minTop),
             choice: {},
             numOfChips:0,
@@ -150,6 +152,9 @@ console.log(this.state.choice);
     _changeType(type){
       this.props.changeType(type);
       this._popMenu();
+      this.setState({
+        choice:{}
+      })
     }
 
     render() {
@@ -171,13 +176,14 @@ console.log(this.state.choice);
             title: 'ios-help-circle-outline',
             onPress: () => this.props.navigator.pop(),
         }
+        let coverOpacity = this.state.showMenu ? 0.7:0;
         let headerImg = this.state.showMenu ? <Icon name="ios-arrow-down" size={25} color="#616161" /> : <Icon name="ios-arrow-up" size={25} color="#616161" />;
         return (
             <View>
       <F8Header
             style={{
                 backgroundColor: "#100118",
-                zIndex: 2
+                zIndex: LAYER.TOP
             }}
             title={this.state.title}
             leftItem={leftItem}
@@ -197,9 +203,9 @@ console.log(this.state.choice);
         {headerImg}
       </TouchableOpacity>
       </F8Header>
-       <TipPadding content="remain time:-"></TipPadding>
+      <TipPadding content="remain time:-"></TipPadding>
       {this.state.showMenu ? <Animated.View style={{
-                zIndex: 1,
+                zIndex: LAYER.BOTTOM,
                 position: 'absolute',
                 top: this.state.shift
             }}>
@@ -209,6 +215,7 @@ console.log(this.state.choice);
             }
       <BuyList data={this.props.defaultGame} onToggle={(name, index) => this._onToggle(name, index)} choice={this.state.choice}/>
       <BuyControl price={2} numOfChips={this.state.numOfChips}/>
+      <CoverView layer={LAYER.DEFAULT} opacity={coverOpacity} />
       </View>
         )
     }

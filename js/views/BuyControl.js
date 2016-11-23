@@ -52,7 +52,7 @@ class BuyControl extends Component {
             keyboardType="numeric"
             maxLength={3}
             defaultValue="1"
-            multiline={true}
+            multiline={false}
             selectionColor="#2aa2ef"
             placeholderTextColor="#ced8de"
             underlineColorAndroid="transparent"
@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
     container: {
         width: Util.size.width,
         height: 80,
-        zIndex: 3,
+        zIndex: 2,
     },
     upContainer: {
         width: Util.size.width,

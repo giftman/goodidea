@@ -119,7 +119,7 @@ class TopicItem extends Component {
     }
 }
 
-const SIZE = 28;
+const SIZE = 34;
 
 var styles = StyleSheet.create({
     title: {
@@ -131,9 +131,10 @@ var styles = StyleSheet.create({
         width: SIZE,
         height: SIZE,
         borderRadius: SIZE / 2,
-        marginLeft: 8,
-        marginRight: 8,
+        marginLeft: 5,
+        marginRight: 5,
         marginTop: 10,
+        borderColor:'#D6D6D6',
         backgroundColor: "white",
         alignItems: "center",
         justifyContent: "center",
@@ -147,8 +148,9 @@ var styles = StyleSheet.create({
     },
     bollText: {
         fontSize: 18,
-        color: '#000',
+        color: '#58556F',
         fontWeight: '600',
+        backgroundColor:'transparent',
     },
     overLayBall: {
         zIndex: 3,
@@ -158,8 +160,8 @@ var styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "center",
         position: 'absolute',
-        left: -6,
-        top: -38,
+        left: -3,
+        top: -43,
         backgroundColor: 'red',
         overflow: 'visible',
     },

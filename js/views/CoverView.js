@@ -14,7 +14,7 @@ class CoverView extends React.Component {
         let {layer,opacity} = this.props;
 
         return (
-            <View style={[styles.containerItem,{zIndex:layer,opacity:opacity}]}></View>
+            <View style={[styles.containerItem,{zIndex:layer,opacity:0.7}]}></View>
         )
     }
 }

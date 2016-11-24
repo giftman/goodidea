@@ -8,7 +8,7 @@ import Util from '../utils/Util';
 const StyleSheet = require('../utils/CustomStyleSheet');
 import Icon from 'react-native-vector-icons/Ionicons';
 import F8Header from '../common/F8Header';
-import { HEADER_HEIGHT,LAYER } from '../common/F8Colors';
+import { HEADER_HEIGHT,LAYER ,TIP_HEIGHT} from '../common/F8Colors';
 import BuyList from './BuyList';
 import BuyMenu from './BuyMenu';
 import BuyControl from './BuyControl';
@@ -21,6 +21,7 @@ class BuyView extends Component {
     constructor(props) {
         super(props);
         this.minTop = -Util.size.height + 290 + HEADER_HEIGHT;
+        this.tipMinTop = HEADER_HEIGHT - TIP_HEIGHT
         this.maxTop = HEADER_HEIGHT;
         this.state = {
             title: "Test",
@@ -28,6 +29,7 @@ class BuyView extends Component {
             showMenu: false,
             showTip:false,
             shift: new Animated.Value(this.minTop),
+            tipShift: new Animated.Value(this.tipMinTop),
             choice: {},
             numOfChips:0,
         };
@@ -157,6 +159,47 @@ console.log(this.state.choice);
       })
     }
 
+    _tipClick(){
+         let showTip = this.state.showTip;
+        if (showTip) {
+            this._popTip();
+        } else {
+            this._pushTip();
+        }
+    }
+
+    _popTip(){
+        Animated.timing( // 可选的基本动画类型: spring, decay, timing
+            this.state.tipShift, // 将`bounceValue`值动画化
+            {
+                toValue: this.tipMinTop, // 将其值以动画的形式改到一个较小值
+                duration: 200,
+                delay: 100,
+                easing: Easing.elastic(1), // Bouncier spring
+            }
+        ).start();
+        setTimeout(() => {
+            this.setState({
+                showTip: false
+            });
+        }, 500);
+    }
+
+    _pushTip(){
+         this.setState({
+            showTip: true
+        }); //1 注意这个顺序有讲究，先让看到再执行动画，后面则相反，延迟一点让动画执行完再不显示 2 Touchable控件的子件默认是占满整个父件空间，可以参考NeverMind
+        Animated.timing( // 可选的基本动画类型: spring, decay, timing
+            this.state.tipShift, // 将`bounceValue`值动画化
+            {
+                toValue: this.maxTop, // 将其值以动画的形式改到一个较小值
+                duration: 200,
+                delay: 100,
+                easing: Easing.elastic(1), // Bouncier spring
+            }
+        ).start();
+    }
+
     render() {
         // console.log(this.props.allTypes["14"]);
         var leftItem = this.props.leftItem;
@@ -174,12 +217,23 @@ console.log(this.state.choice);
         var helpItem = {
             layout: 'title',
             title: 'ios-help-circle-outline',
-            onPress: () => this.props.navigator.pop(),
+            onPress: () => this._tipClick(),
         }
-        let coverOpacity = this.state.showMenu ? 0.7:0;
         let headerImg = this.state.showMenu ? <Icon name="ios-arrow-down" size={25} color="#616161" /> : <Icon name="ios-arrow-up" size={25} color="#616161" />;
         return (
             <View>
+            {this.state.showTip ?<CoverView layer={LAYER.MIDDLE}/>:<View/>}
+           {this.state.showTip ? <Animated.View style={{
+                zIndex: LAYER.TOP,
+                position: 'absolute',
+                top: this.state.tipShift
+            }}>
+      <TipPadding content={this.props.defaultGame.bet_note}></TipPadding>
+      </Animated.View>
+
+                : <View/>
+            }
+            
       <F8Header
             style={{
                 backgroundColor: "#100118",
@@ -204,6 +258,7 @@ console.log(this.state.choice);
       </TouchableOpacity>
       </F8Header>
       <TipPadding content="remain time:-"></TipPadding>
+      {this.state.showMenu ?<CoverView layer={LAYER.BOTTOM}/>:<View/>}
       {this.state.showMenu ? <Animated.View style={{
                 zIndex: LAYER.BOTTOM,
                 position: 'absolute',
@@ -215,7 +270,7 @@ console.log(this.state.choice);
             }
       <BuyList data={this.props.defaultGame} onToggle={(name, index) => this._onToggle(name, index)} choice={this.state.choice}/>
       <BuyControl price={2} numOfChips={this.state.numOfChips}/>
-      <CoverView layer={LAYER.DEFAULT} opacity={coverOpacity} />
+      
       </View>
         )
     }

@@ -77,4 +77,5 @@ module.exports = {
     HEADER_HEIGHT,
     STATUS_BAR_HEIGHT,
     LAYER,
+    TIP_HEIGHT:25,
 };

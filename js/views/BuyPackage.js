@@ -9,6 +9,7 @@ const StyleSheet = require('../utils/CustomStyleSheet');
 import Icon from 'react-native-vector-icons/Ionicons';
 import F8Header from '../common/F8Header';
 import EasyButton from '../common/EasyButton';
+import BuyControl from './BuyControl';
 
 class BuyPackage extends Component {
 
@@ -34,9 +35,12 @@ class BuyPackage extends Component {
       </F8Header>
             <View style={styles.randomContain}>
                 <EasyButton style={styles.randomButton} caption="Luck one" icon="md-add-circle" onPress={()=>this._onclick(1)}/>
-                 <EasyButton style={styles.randomButton} caption="Luck one" icon="md-add-circle" onPress={()=>this._onclick(5)}/>
-                  <EasyButton style={styles.randomButton} caption="Luck one" icon="md-add-circle" onPress={()=>this.props.navigator.pop()}/>
+                <EasyButton style={styles.randomButton} caption="Luck one" icon="md-add-circle" onPress={()=>this._onclick(5)}/>
+                <EasyButton style={styles.randomButton} caption="Luck one" icon="md-add-circle" onPress={()=>this.props.navigator.pop()}/>
             </View>
+            <View style={{flex:1}}>
+            </View>
+            <BuyControl price={2} numOfChips={1}/>
       </View>
         )
     }
@@ -46,7 +50,8 @@ class BuyPackage extends Component {
 
 const styles = StyleSheet.create({
     container:{
-        backgroundColor:'#eaeaea'
+        backgroundColor:'#eaeaea',
+        flex:1
     },
     randomContain:{
         width:Util.size.width,
@@ -54,7 +59,7 @@ const styles = StyleSheet.create({
         paddingRight:10,
         paddingBottom:10,
         paddingTop:10,
-
+        backgroundColor:'#fff',
     },
     randomButton:{
         flex:1,

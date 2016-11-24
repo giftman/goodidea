@@ -200,6 +200,9 @@ console.log(this.state.choice);
         ).start();
     }
 
+    _onConfirmBtn(){
+        this.props.navigator.push({"addToPackage":true});
+    }
     render() {
         // console.log(this.props.allTypes["14"]);
         var leftItem = this.props.leftItem;
@@ -269,7 +272,7 @@ console.log(this.state.choice);
                 : <View/>
             }
       <BuyList data={this.props.defaultGame} onToggle={(name, index) => this._onToggle(name, index)} choice={this.state.choice}/>
-      <BuyControl price={2} numOfChips={this.state.numOfChips}/>
+      <BuyControl price={2} numOfChips={this.state.numOfChips}  confirmBtn={()=>this._onConfirmBtn()}/>
       
       </View>
         )

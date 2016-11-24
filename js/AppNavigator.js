@@ -36,6 +36,7 @@ import TwitterTab from './views/TwitterTab';
 import BuyView from './views/BuyView';
 import TrendSet from './views/Trending/TrendSet';
 import MoneyDetail from './views/Other/MoneyDetail';
+import BuyPackage from './views/BuyPackage';
 var AppNavigator = React.createClass({
     _handlers: ([]: Array<() => boolean>),
 
@@ -115,6 +116,9 @@ var AppNavigator = React.createClass({
 
         if (route.trendSet) {
             return <TrendSet navigator={navigator} />;
+        }
+        if (route.addToPackage) {
+            return <BuyPackage navigator={navigator} />;
         }
         if (route.my) {
             switch (route.my) {

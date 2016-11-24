@@ -73,7 +73,7 @@ class BuyControl extends Component {
                     </View>
 
                 
-            <TouchableOpacity style={styles.confirmBtn} >
+            <TouchableOpacity style={styles.confirmBtn} onPress={()=>this.props.confirmBtn()}>
                 <Text style={{
                 color: '#fff',
                 fontSize: 18,

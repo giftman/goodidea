@@ -130,7 +130,7 @@ var styles = StyleSheet.create({
     title: {
         fontSize: 16,
         fontWeight: '300',
-        color: 'black',
+        color: 'white',
         backgroundColor: 'transparent',
     },
     des: {

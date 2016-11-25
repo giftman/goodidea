@@ -24,7 +24,6 @@ class BuyView extends Component {
         this.tipMinTop = HEADER_HEIGHT - TIP_HEIGHT
         this.maxTop = HEADER_HEIGHT;
         this.state = {
-            title: "重庆时时彩",
             data: this.data,
             showMenu: false,
             showTip:false,
@@ -156,7 +155,6 @@ console.log(this.state.choice);
       this._popMenu();
       this.setState({
         choice:{},
-        title:this.props.defaultGame.name_cn,
       })
     }
 
@@ -257,7 +255,7 @@ console.log(this.state.choice);
                 fontWeight: '500',
                 fontSize: 20,
                 paddingRight: 5
-            }}>{this.state.title}</Text>
+            }}>{this.props.defaultGame.name_cn}</Text>
         {headerImg}
       </TouchableOpacity>
       </F8Header>

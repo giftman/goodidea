@@ -143,7 +143,7 @@ var styles = StyleSheet.create({
         // backgroundColor:'grey',
         flex: 1,
         alignItems: "center",
-        justifyContent: "space-between",
+        justifyContent: "flex-start",
         flexDirection: 'row',
         paddingRight: normalize(45),
         paddingBottom: 10,

@@ -24,7 +24,7 @@
 
 'use strict';
 
-var F8Colors = require('../../common/F8Colors');
+import {normalize} from '../../common/F8Colors';
 var F8Touchable = require('../../common/F8Touchable');
 var { connect } = require('react-redux');
 import React,{Component} from 'react';
@@ -108,14 +108,14 @@ var styles = StyleSheet.create({
     borderBottomWidth: 1
   },
   title: {
-    fontSize: 24,
+    fontSize: normalize(24),
     fontWeight:'500',
     textAlign: 'left',
     color: 'black',
     backgroundColor:'green'
   },
   des:{
-    flex:1,fontSize: 14, color: '#9E9E9E',paddingLeft:10
+    flex:1,fontSize: normalize(12), color: '#9E9E9E',paddingLeft:10
   },
   bolls:{
     // backgroundColor:'grey',

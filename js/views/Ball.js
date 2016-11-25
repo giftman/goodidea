@@ -25,8 +25,8 @@
 'use strict';
 
 import React, { Component } from 'React';
-import { StyleSheet, View, TouchableOpacity, Text, TouchableHighlight, } from 'react-native';
-
+import { StyleSheet, View, TouchableOpacity, Text, TouchableHighlight,Dimensions} from 'react-native';
+import {normalize} from '../common/F8Colors';
 class TopicItem extends Component {
     props: {
     topic: string;
@@ -119,11 +119,12 @@ class TopicItem extends Component {
     }
 }
 
-const SIZE = 34;
+
+const SIZE = normalize(34);
 
 var styles = StyleSheet.create({
     title: {
-        fontSize: 17,
+        fontSize: normalize(17),
         color: 'white',
         flex: 1,
     },
@@ -131,9 +132,9 @@ var styles = StyleSheet.create({
         width: SIZE,
         height: SIZE,
         borderRadius: SIZE / 2,
-        marginLeft: 3,
-        marginRight: 3,
-        marginTop: 10,
+        marginLeft: normalize(3),
+        marginRight: normalize(3),
+        marginTop: normalize(10),
         borderColor:'#D6D6D6',
         backgroundColor: "white",
         alignItems: "center",
@@ -147,21 +148,21 @@ var styles = StyleSheet.create({
         }
     },
     bollText: {
-        fontSize: 18,
+        fontSize: normalize(18),
         color: '#58556F',
         fontWeight: '600',
         backgroundColor:'transparent',
     },
     overLayBall: {
         zIndex: 3,
-        width: 40,
-        height: 40,
-        borderRadius: 20,
+        width: normalize(40),
+        height: normalize(40),
+        borderRadius: normalize(20),
         alignItems: "center",
         justifyContent: "center",
         position: 'absolute',
-        left: -3,
-        top: -43,
+        left: normalize(-3),
+        top: normalize(-43),
         backgroundColor: 'red',
         overflow: 'visible',
     },

@@ -24,7 +24,7 @@
 
 'use strict';
 
-var F8Colors = require('../common/F8Colors');
+import {normalize} from '../common/F8Colors';
 var F8Touchable = require('../common/F8Touchable');
 import React, { Component } from 'react';
 import { Image, View, StyleSheet, Text, TouchableOpacity } from 'react-native';
@@ -145,7 +145,7 @@ var styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "space-between",
         flexDirection: 'row',
-        paddingRight: 60,
+        paddingRight: normalize(45),
         paddingBottom: 10,
         paddingTop: 10,
         flexWrap: 'wrap',

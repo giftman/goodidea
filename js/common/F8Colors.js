@@ -25,6 +25,8 @@
 
 'use strict';
 
+import Dimensions from 'Dimensions';
+
 const LOCATION_COLORS = {
     'HERBST': '#00E3AD',
     'HERBST A': '#00E3AD',
@@ -54,6 +56,13 @@ function colorForTopic(count: number, index: number): string {
     return `hsl(${hue}, 74%, 65%)`;
 }
 
+function getScale(){
+    return Dimensions.get('window').width /375;
+}
+function normalize(size:number){
+    return Math.round(getScale() * size);
+}
+
 import { Platform } from 'react-native';
 let STATUS_BAR_HEIGHT = Platform.OS === 'ios' ? 20 : 0;
 let HEADER_HEIGHT = Platform.OS === 'ios' ? 44 + STATUS_BAR_HEIGHT : 56 + STATUS_BAR_HEIGHT;
@@ -78,4 +87,6 @@ module.exports = {
     STATUS_BAR_HEIGHT,
     LAYER,
     TIP_HEIGHT:36,
+    getScale,
+    normalize,
 };

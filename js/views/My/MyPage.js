@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import { StyleSheet, View, Text, Platform, ScrollView, TouchableOpacity } from "react-native";
 import Util from '../../utils/Util';
 import Icon from 'react-native-vector-icons/Ionicons';
+import {normalize} from '../../common/F8Colors';
 export default class MyPage extends Component {
 
     constructor(props) {
@@ -26,14 +27,14 @@ export default class MyPage extends Component {
             <View style={styles.container}>
             <View style={{
                 width: Util.size.width,
-                height: 50,
+                height: normalize(100),
                 backgroundColor: '#323245',
             }} />
 
     <View style={{
                 width: Util.size.width,
-                height: 70,
-                backgroundColor: 'green',
+                height: normalize(82),
+                backgroundColor: '#3DAAA4',
                 flexDirection: 'row',
                 alignItems: 'center'
             }} >
@@ -45,7 +46,7 @@ export default class MyPage extends Component {
                 borderLeftWidth: 1,
                 borderColor: '#eee',
                 borderRightWidth: 1,
-                height: 70,
+                height: normalize(70),
                 alignItems: 'center',
                 justifyContent: 'center'
             }} >

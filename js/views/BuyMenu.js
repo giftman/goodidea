@@ -19,7 +19,7 @@ class BuyMenu extends Component {
                 {this.props.menu[article].map((menu, index) => {
                         return (
                             <TouchableOpacity key={index} style={styles.menuBtn} onPress={()=>this.props.changeType(menu.id)} >
-                            <Text>{menu.name_cn}</Text>
+                            <Text style={{backgroundColor:'transparent'}}>{menu.name_cn}</Text>
                             </TouchableOpacity>
                         )
                     })}

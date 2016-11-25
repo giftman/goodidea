@@ -55,7 +55,7 @@ class ReadingCell extends React.Component {
                 {article.title}
               </Text>
               <Text style={styles.des}>
-                  {article.title}
+                  {article.numOf}
               </Text>
             </View>
             <View style={styles.bolls}>

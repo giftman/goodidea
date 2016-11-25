@@ -15,16 +15,20 @@ class TwitterPost extends Component {
         super(props);
 
         this.data = [{
-            'title': 'Happy fun',
+            'title': '黑龙江时时彩',
+            'numOf': '第0022334期',
             'img': 'https://facebook.github.io/react/img/logo_og.png'
         }, {
-            'title': 'Happy fun',
+            'title': '黑龙江时时彩',
+            'numOf': '第0022334期',
             'img': 'https://facebook.github.io/react/img/logo_og.png'
         }, {
-            'title': 'Happy fun',
+            'title': '黑龙江时时彩',
+            'numOf': '第0022334期',
             'img': 'https://facebook.github.io/react/img/logo_og.png'
         }, {
-            'title': 'Happy fun',
+            'title': '黑龙江时时彩',
+            'numOf': '第0022334期',
             'img': 'https://facebook.github.io/react/img/logo_og.png'
         }]
 
@@ -85,7 +89,7 @@ class TwitterFlow extends Component {
             rightItem={rightItem}
             >
       </F8Header>
-      <TipPadding content="H" icon="md-menu"></TipPadding>
+      <TipPadding content="正点游戏已累计中奖 Xx亿" icon="md-clock"></TipPadding>
         <TwitterPost></TwitterPost>
       
       </View>

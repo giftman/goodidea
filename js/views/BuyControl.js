@@ -15,7 +15,8 @@ class BuyControl extends Component {
     maxMultNum:number,
     confirmBtn:() =>void,
     numOfChips:number,
-    price:number
+    price:number,
+    type:"buy" | "package",
     }
 
     constructor(props) {
@@ -34,18 +35,35 @@ class BuyControl extends Component {
         });
     }
     render() {
-        let des = this.props.numOfChips + "chips X" + this.state.multNum + "倍=" + this.props.price * this.state.multNum * this.props.numOfChips + "yuan";
-
-        return (
-            <View style={styles.container}>
-                <View style={styles.upContainer}>
-                    <TouchableOpacity style={styles.clearBtn}>
-                        <Icon name="ios-trash-outline" size={15} color="#fff"></Icon>
-                        <Text style={styles.clearText}>Clear</Text> 
+        let des = this.props.numOfChips + "注 X" + this.state.multNum + "倍=" + this.props.price * this.state.multNum * this.props.numOfChips + "元";
+        let color = this.props.numOfChips > 0 ? "red":"#666";
+        let confirmText = this.props.type === "package" ? "投注":"确定";
+        let upView  = this.props.type === "package"
+        ?<View style={styles.upContainer}>  
+        <View style={styles.multView}>
+                        <Icon name="md-thunderstorm" size={28} color="#333333"></Icon>
+                        <Text style={styles.clearText}>追号:</Text>
+                        <TextInput
+            ref="multInput"
+            style={styles.multInput}
+            keyboardType="numeric"
+            maxLength={3}
+            defaultValue="1"
+            multiline={false}
+            selectionColor="#2aa2ef"
+            placeholderTextColor="red"
+            underlineColorAndroid="transparent"
+            onChangeText={(text) => this._updateTextNum(text)}></TextInput>
+                    </View> 
+                    </View> 
+        : <View style={styles.upContainer}>
+        <TouchableOpacity style={styles.clearBtn}>
+                        <Icon name="ios-trash-outline" size={15} color="#333333"></Icon>
+                        <Text style={styles.clearText}>清除</Text> 
                     </TouchableOpacity>
                     <View style={styles.multView}>
-                        <Icon name="md-color-wand" size={15} color="#fff"></Icon>
-                        <Text style={styles.clearText}>BT</Text>
+                        <Icon name="md-color-wand" size={15} color="#333333"></Icon>
+                        <Text style={styles.clearText}>倍投</Text>
                         <TextInput
             ref="multInput"
             style={styles.multInput}
@@ -57,30 +75,32 @@ class BuyControl extends Component {
             placeholderTextColor="#ced8de"
             underlineColorAndroid="transparent"
             onChangeText={(text) => this._updateTextNum(text)}></TextInput>
-                    </View>
+            </View>
+            </View>
 
-                </View>
+        return (
+            <View style={styles.container}>
+                {upView}
                 <View style={styles.downContainer}>
                     <View style={{
                 padding: 5,
             }}>
-                        <Text style={{
-                color: 'yellow'
-            }}>{des}</Text>
-                        <Text style={{
+                        <Text style={[styles.des,{
+                color: '#DEDCA3'
+            }]}>{des}</Text>
+                        <Text style={[styles.des,{
                 color: 'white'
-            }}>可用余额:12.5</Text>
+            }]}>可用余额:12.5</Text>
                     </View>
 
                 
-            <TouchableOpacity style={styles.confirmBtn} onPress={()=>this.props.confirmBtn()}>
+            <TouchableOpacity style={[styles.confirmBtn,{backgroundColor:color}]} onPress={()=>this.props.confirmBtn()}>
                 <Text style={{
                 color: '#fff',
                 fontSize: 18,
                 fontWeight: '400'
-            }}>确定</Text>
+            }}>{confirmText}</Text>
             </TouchableOpacity>
-
 
                 </View>
             </View>
@@ -93,18 +113,20 @@ class BuyControl extends Component {
 const styles = StyleSheet.create({
     container: {
         width: Util.size.width,
-        height: 80,
+        height: 100,
         zIndex: 2,
     },
     upContainer: {
         width: Util.size.width,
-        backgroundColor: '#555',
+        height:38,
+        backgroundColor: '#e7e7e7',
         alignItems: 'center',
         justifyContent: 'space-between',
         flexDirection: 'row',
     },
     downContainer: {
         width: Util.size.width,
+        height:62,
         flex: 1,
         backgroundColor: '#101',
         flexDirection: 'row',
@@ -117,35 +139,38 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
-        padding: 1,
+        width:60,
+        height:26,
         borderWidth: Util.pixel,
-        paddingLeft: 5,
+        paddingLeft: 10,
         paddingRight: 5,
         marginLeft: 15,
-        borderColor: '#eee',
+        borderColor: '#BEBFC3',
+        backgroundColor:'#D5D5DF',
         marginTop: 5,
         marginBottom: 5,
     },
     clearText: {
-        fontSize: 14,
+        fontSize: 18,
         fontWeight: '200',
-        color: '#fff',
+        color: '#333333',
         paddingLeft: 5,
     },
     multView: {
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
+        paddingLeft:10,
     },
     multInput: {
         padding: 5,
         paddingBottom:8,
         backgroundColor: "#fff",
-        height: 25,
-        width:39,
+        height: 30,
+        width:55,
         textAlign:'center',
         borderColor: 'gray',
-        borderWidth: 1,
+        borderWidth: Util.pixel,
         marginRight: 15,
         marginLeft: 5,
         alignItems: 'center',
@@ -156,7 +181,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         borderRadius: 5,
-        width: 60,
+        width: 98,
         height: 40,
     },
     title: {
@@ -168,9 +193,9 @@ const styles = StyleSheet.create({
     },
     des: {
         flex: 1,
-        fontSize: 14,
+        fontSize: 18,
         color: '#9E9E9E',
-        paddingLeft: 10
+        paddingLeft: 5
     },
     bolls: {
         // backgroundColor:'grey',

@@ -55,10 +55,10 @@ class ReadingCell extends React.Component {
               {article.title}
             </Text>
             <Text style={{flex:1,fontSize: 14, color: '#87CEFA', marginTop: 5}}>
-                {article.title}
+                {article.time}
             </Text>
             <Text style={{fontSize: 14, color: '#aaaaaa', marginTop: 5, justifyContent:'flex-end', marginRight: 5}}>
-                {article.title}
+                {article.des}
             </Text>
           </View>
         </View>;

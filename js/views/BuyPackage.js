@@ -13,8 +13,15 @@ import BuyControl from './BuyControl';
 
 class BuyPackage extends Component {
 
+    constructor(props) {
+        super(props);
+        this.data = [{"num":'2,2,2,2',"des":"五星直选 1注 x 2.0元 = 2.00元"},{"num":'2,2,2,2',"des":"五星直选 1注 x 2.0元 = 2.00元"}]
+    }
     _onclick(type){
         console.log(type);
+    }
+    _clearBtn(){
+        console.log("clear");
     }
     render() {
 
@@ -23,9 +30,25 @@ class BuyPackage extends Component {
             title: 'ios-arrow-back',
             onPress: () => this.props.navigator.pop(),
         };
+        let list = this.data.map((elem,index) => {
+            return (
+                    <View key={index} style={styles.listContain}>
+                        <TouchableOpacity style={{paddingLeft:10}}>
+                            <Icon name="md-remove-circle" size={30} color="#B50708"></Icon>
+                        </TouchableOpacity>
+                        <View style={styles.listContent}>
+                                <Text style={[styles.listText,{color:'#000'}]}>{elem.num}</Text>
+                                <Text style={[styles.listText,{color:'#B50708'}]}>{elem.des}</Text>
+                            </View>
+                    </View>
+                )
+        })
+        let clearBtn = (
+                <EasyButton style={styles.clearBtn} caption="清空号码篮" captionStyle={{fontSize:18,color:'#979797'}} icon="ios-trash-outline" onPress={()=> this._clearBtn()} iconColor="#979797" />
+            )
         return (
             <View style={styles.container}>
-         <F8Header
+      <F8Header
             style={{
                 backgroundColor: "#323245"
             }}
@@ -35,12 +58,14 @@ class BuyPackage extends Component {
       </F8Header>
             <View style={styles.randomContain}>
                 <EasyButton style={styles.randomButton} caption="Luck one" icon="md-add-circle" onPress={()=>this._onclick(1)}/>
-                <EasyButton style={styles.randomButton} caption="Luck one" icon="md-add-circle" onPress={()=>this._onclick(5)}/>
+                <EasyButton style={styles.randomButton} caption="Luck five" icon="md-add-circle" onPress={()=>this._onclick(5)}/>
                 <EasyButton style={styles.randomButton} caption="Luck one" icon="md-add-circle" onPress={()=>this.props.navigator.pop()}/>
             </View>
             <View style={{flex:1}}>
+                {list}
+                {clearBtn}
             </View>
-            <BuyControl price={2} numOfChips={1}/>
+            <BuyControl price={2} numOfChips={1} type="package"/>
       </View>
         )
     }
@@ -65,40 +90,32 @@ const styles = StyleSheet.create({
         flex:1,
         backgroundColor:'#8F8468',
     },
-    postImg: {
-        width: Util.size.width,
-        height: Util.size.height - 110,
-        ios: {
-            top: -20,
-        },
-        android: {
-            top: 5,
-        },
-        backgroundColor: '#fff'
+    listContain:{
+        margin:10,
+        marginBottom:0,
+        flexDirection:'row',
+        alignItems:'center',
+        justifyContent:'flex-start',
+        height:70,
+        backgroundColor:'#fff',
+        borderWidth:Util.pixel,
+        borderColor:'#979797',
     },
-    header: {
-        flexDirection: 'row',
-        paddingBottom: 5,
-        borderBottomWidth: 2,
-        borderBottomColor: '#eee',
-        backgroundColor: '#fff',
-        ios: {
-            paddingTop: 30,
-        },
-        android: {
-            paddingTop: 5,
-        }
+    clearBtn:{
+        width:137,
+        height:40,
+        borderColor:'#979797',
+        borderWidth:Util.pixel,
+        alignSelf:'center',
+        margin:10
     },
-    tabs: {
-        height: 45,
-        flexDirection: 'row',
-        paddingTop: 5,
-        borderWidth: 1,
-        borderTopWidth: 0,
-        borderLeftWidth: 0,
-        borderRightWidth: 0,
-        borderBottomColor: 'rgba(0,0,0,0.05)',
+    listText:{
+        fontSize:18,
+        fontWeight:'100',
+        padding:5,
+        paddingLeft:15,
     },
+    
 });
 
 

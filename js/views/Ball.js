@@ -79,7 +79,7 @@ class TopicItem extends Component {
                 borderWidth: 0
             }
             : {
-                borderColor: "#000",
+                borderColor: "#D6D6D6",
                 borderWidth: 1
             };
         const numColor = isChecked || this.state.onPress

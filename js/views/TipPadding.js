@@ -37,7 +37,7 @@ var styles = StyleSheet.create({
         flexDirection: 'row'
     },
     title: {
-        fontSize: 12,
+        fontSize: 14,
         color: 'white',
         paddingLeft: 10
     },

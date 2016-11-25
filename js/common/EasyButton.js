@@ -33,6 +33,8 @@ class EasyButton extends React.Component {
     props: {
     // type: 'primary' | 'secondary' | 'bordered';
     icon: string;
+    iconColor:any;
+    captionStyle:any;
     caption: string;
     style: any;
     onPress: () => void;
@@ -44,11 +46,14 @@ class EasyButton extends React.Component {
         if (this.props.icon) {
             icon =<Icon name={this.props.icon} size={25} color="#fff"></Icon>;
         }
+        if (this.props.iconColor) {
+            icon =<Icon name={this.props.icon} size={25} color={this.props.iconColor}></Icon>;
+        }
         let content;
         content = (
         <View style={[styles.button]}>
           {icon}
-          <Text style={[styles.caption]}>
+          <Text style={[styles.caption,this.props.captionStyle]}>
             {caption}
           </Text>
         </View>

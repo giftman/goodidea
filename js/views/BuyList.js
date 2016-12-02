@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react';
 
-import { View, Text, Image, ScrollView, TouchableOpacity, RefreshControl, Animated, Easing, } from 'react-native';
+import { View, Text, Image, ScrollView, TouchableOpacity, RefreshControl, Animated, Easing, ActivityIndicator} from 'react-native';
 
 import Util from '../utils/Util';
 const StyleSheet = require('../utils/CustomStyleSheet');
@@ -42,8 +42,9 @@ class BuyList extends Component {
     }
 
     render() {
-        let boxes = <View />
-        // console.log(this.props.data);
+        let boxes = <View
+          />
+        console.log(this.props.data);
         if (this.props.data && this.props.data.methods) {
             boxes = Object.keys(this.props.data.methods).map((name, index) => {
                 // console.log(name);
@@ -51,6 +52,12 @@ class BuyList extends Component {
                     <BuyCell  key={index} name={name} list={this.props.data.methods[name].list} choice={this.props.choice} onToggle={(name, index) => this.props.onToggle(name, index)}/>
                     );
             })
+        }else{
+            boxes = <ActivityIndicator 
+            style={{backgroundColor:'#eee',marginTop:20}}
+            size="large"
+            color="#666"
+          />
         }
 
         return (

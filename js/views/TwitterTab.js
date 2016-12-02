@@ -8,7 +8,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import TabNavigator from 'react-native-tab-navigator';
 import { connect } from 'react-redux';
 
-import { changeTab } from '../actions';
+import { changeTab} from '../actions';
 
 import type { Tab } from '../reducers/navigation';
 
@@ -22,11 +22,14 @@ class TwitterTab extends Component {
     navigator:Navigator;
     }
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
     // this.state={
     //   selectedTab:'主页'
     // }
+    // this.props.getToken();
+    // this.props.login();
+    // this.props.getGameConfig();
     }
 
     changeTab(tab) {
@@ -36,6 +39,7 @@ class TwitterTab extends Component {
     // this.setState({
     //   selectedTab:tab
     // })
+
     }
 
     render() {
@@ -88,6 +92,9 @@ function select(store) {
 function actions(dispatch) {
     return {
         changeTab: (tab) => dispatch(changeTab(tab)),
+        // getToken:()=>dispatch(getToken()),
+        // login:()=>dispatch(login({"username":"ceshi001","password":"a123456"})),
+        // getGameConfig: ()=>dispatch(getGameConfig(1)),
     };
 }
 

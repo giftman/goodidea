@@ -2,10 +2,10 @@
 
 import type { Action,ThunkAction } from './types';
 
-function loadMenu(): ThunkAction {
+function loadMenu(data): ThunkAction {
 	 
      return (dispatch) => {
-     	let data = require('./_mock_/buyNo.json');
+     	// let data = require('./_mock_/buyNo.json');
       let buyCell = require('./_mock_/buyCell.json');
 	 let menu = {};
 	 let allTypes = {};

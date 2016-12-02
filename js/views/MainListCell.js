@@ -41,7 +41,7 @@ class ReadingCell extends React.Component {
   render() {
     var article = this.props.session;
     var title = article.title;
-    console.log(article.img);
+    // console.log(article.img);
     var cell =
         <View style={styles.containerItem}>
           <Image

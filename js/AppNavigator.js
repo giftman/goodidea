@@ -32,11 +32,14 @@ import { connect } from 'react-redux';
 
 
 import LoginView from './views/LoginView';
+import EasyLogin from './views/EasyLogin';
 import TwitterTab from './views/TwitterTab';
 import BuyView from './views/BuyView';
 import TrendSet from './views/Trending/TrendSet';
 import MoneyDetail from './views/Other/MoneyDetail';
 import BuyPackage from './views/BuyPackage';
+import SplashView from './common/SplashView';
+import { checkToken } from './actions';
 var AppNavigator = React.createClass({
     _handlers: ([]: Array<() => boolean>),
 
@@ -110,9 +113,16 @@ var AppNavigator = React.createClass({
                 />
                 );
         }
-        // if(route.login){
-        // return <LoginView navigator={navigator} />;
-        // }
+        if (route.twitterTab) {
+            return (
+                <TwitterTab
+                navigator = {navigator}
+                />
+                );
+        }
+        if(route.login){
+        return <EasyLogin navigator={navigator} />;
+        }
 
         if (route.trendSet) {
             return <TrendSet navigator={navigator} />;
@@ -132,7 +142,7 @@ var AppNavigator = React.createClass({
 
         }
 
-        return <TwitterTab navigator={navigator} />;
+        return <SplashView navigator={navigator} checkToken={() => this.props.checkToken()}/>;
     },
 });
 
@@ -153,5 +163,9 @@ function select(store) {
         tab: store.navigation.tab,
     };
 }
-
-module.exports = connect(select)(AppNavigator);
+function actions(dispatch) {
+    return {
+        checkToken:()=> dispatch(checkToken()),
+    };
+}
+module.exports = connect(select,actions)(AppNavigator);

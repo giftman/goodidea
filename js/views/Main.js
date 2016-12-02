@@ -14,22 +14,26 @@ class TwitterPost extends Component {
         super(props);
 
         this.data = [{
+            'gameId':1,
             'title': '重庆时时彩',
             'time':'销售时间:10:00~23:00',
             'des':'每10分钟一期  总期数:72期',
             'img': 'https://facebook.github.io/react/img/logo_og.png'
         }, {
-            'title': '重庆时时彩',
+            'gameId':3,
+            'title': 'HLJSSC',
             'time':'销售时间:10:00~23:00',
             'des':'每10分钟一期  总期数:72期',
             'img': 'https://facebook.github.io/react/img/logo_og.png'
         }, {
-            'title': '重庆时时彩',
+            'gameId':5,
+            'title': 'JXSSC',
             'time':'销售时间:10:00~23:00',
             'des':'每10分钟一期  总期数:72期',
             'img': 'https://facebook.github.io/react/img/logo_og.png'
         }, {
-            'title': '重庆时时彩',
+            'gameId':6,
+            'title': 'XJSSC',
             'time':'销售时间:10:00~23:00',
             'des':'每10分钟一期  总期数:72期',
             'img': 'https://facebook.github.io/react/img/logo_og.png'

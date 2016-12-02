@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react';
 
-import { View, Text, Image, ScrollView, TouchableOpacity, RefreshControl, Animated, Easing, } from 'react-native';
+import { View, Text, Image, ScrollView, TouchableOpacity, RefreshControl, Animated, Easing} from 'react-native';
 
 import Util from '../utils/Util';
 const StyleSheet = require('../utils/CustomStyleSheet');
@@ -13,7 +13,7 @@ import BuyList from './BuyList';
 import BuyMenu from './BuyMenu';
 import BuyControl from './BuyControl';
 import { connect } from 'react-redux';
-import { loadMenu,changeType } from '../actions';
+import { getGameConfig,changeType, } from '../actions';
 import TipPadding from './TipPadding';
 import CoverView from './CoverView';
 
@@ -32,7 +32,9 @@ class BuyView extends Component {
             choice: {},
             numOfChips:0,
         };
-        this.props.loadMenu();
+        if(this.props.article && this.props.article.gameId){
+            this.props.getGameConfig(this.props.article.gameId);
+        }
     }
 
     _onToggle(name, index) {
@@ -270,7 +272,9 @@ console.log(this.state.choice);
       </Animated.View>
                 : <View/>
             }
+
       <BuyList data={this.props.defaultGame} onToggle={(name, index) => this._onToggle(name, index)} choice={this.state.choice}/>
+    
       <BuyControl price={2} numOfChips={this.state.numOfChips}  confirmBtn={()=>this._onConfirmBtn()}/>
       
       </View>
@@ -306,8 +310,9 @@ function select(store) {
 
 function actions(dispatch) {
     return {
-        loadMenu: (tab) => dispatch(loadMenu()),
+        // loadMenu: (tab) => dispatch(loadMenu()),
         changeType:(type)=> dispatch(changeType(type)),
+        getGameConfig: (gameId)=>dispatch(getGameConfig(gameId))
     };
 }
 

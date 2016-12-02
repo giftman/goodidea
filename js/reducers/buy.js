@@ -46,14 +46,11 @@ const initialState: State = { allTypes: {},loading:false ,menu:{},defaultType:32
 
 function buy(state: State = initialState, action: Action): State {
 	switch(action.type){
-		case 'SIGNUP_SUCCESS':
 		case 'LOAD_MENU':
-			return {...state,menu:action.menu,loading:false,allTypes:action.allTypes,defaultGame:action.allTypes[state.defaultType]};
+			return {...state,menu:action.menu,loading:true,allTypes:action.allTypes,defaultGame:action.allTypes[state.defaultType]};
 		case 'LOAD_REQUEST':
-		case 'LOGIN_REQUEST':
 			return {...state,loading:true};
 		case 'LOAD_FAILED':
-		case 'SIGNUP_FAILED':
 			return {...state,loading:false};
 		case 'CHANGE_TYPE':
 			return {...state,defaultType:action.defaultType,defaultGame:state.allTypes[action.defaultType]};

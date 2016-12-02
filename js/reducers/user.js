@@ -25,6 +25,7 @@
 'use strict';
 
 import type {Action} from '../actions/types';
+import AppAuthToken from '../lib/AppAuthToken';
 
 export type UserInfo = {
 	username:'',
@@ -43,6 +44,7 @@ export type User = {
 type State = {
   auth:User;
   loading:bool;
+  token:string;
 };
 
 const initialState: State = { user: {},loading:false};
@@ -58,6 +60,9 @@ function user(state: State = initialState, action: Action): State {
 		case 'LOGIN_FAILED':
 		case 'SIGNUP_FAILED':
 			return {...state,loading:false};
+		case 'SAVE_TOKEN':
+			new AppAuthToken().storeSessionToken(action.token);
+			return {...state,token:action.token};
 	}
   
   return state;

@@ -10,7 +10,7 @@
  * ## Async support
  * 
  */ 
-require('regenerator/runtime');
+// require('regenerator/runtime');
 
 /**
  * ## Imports
@@ -32,18 +32,52 @@ export default class Parse extends Backend{
    */
   constructor( token) {
     super(token);
-    if (!_.isNull(token) && _.isUndefined(token.sessionToken)) {
-      throw 'TokenMissing';
-    }
+    // if (!_.isNull(token) && _.isUndefined(token.sessionToken)) {
+    //   throw 'TokenMissing';
+    // }
     this._sessionToken =
-      _.isNull(token) ?  null :  token.sessionToken.sessionToken;
+      _.isNull(token) ?  "" : token;
     
     this._applicationId = CONFIG.PARSE.APP_ID;
     this._restAPIKey = CONFIG.PARSE.REST_API_KEY;
     this._masterKey = null;
 
-    this.API_BASE_URL= 'https://api.parse.com';
+    this.API_BASE_URL= 'http://www.zhengdiangame.net';
   }
+
+  async getToken() {
+      // var formBody = [];
+    // let data = {"interface_version":"v1.0","charset":"utf-8",app_version:"v1.0","app_type":1}
+    // data = this._addToken(data);
+    // for (var property in data) {
+    //   var encodedKey = encodeURIComponent(property);
+    //   var encodedValue = encodeURIComponent(data[property]);
+    //   formBody.push(encodedKey + "=" + encodedValue);
+    // }
+    // formBody = formBody.join("&");
+    let data = {"app_version":"v1.0","app_type":1};
+    return await this._fetch({
+      method: 'POST',
+      url: '/phone/gettoken',
+      body:data,
+    })
+      .then((response) => {
+        if ((response.status === 200 || response.status === 201)) {
+          return response.json();
+        } else {
+          throw(response);
+        }
+      })
+      .then((json) =>{
+        // let resData = JSON.parse(json);
+        console.log(json.data);
+        return json.data;
+      })
+      .catch((error) => {
+        throw(error);
+      });
+  }
+
   /**
    * ### signup
    *
@@ -83,7 +117,7 @@ export default class Parse extends Backend{
    *
    * @param data
    *
-   *  {username: "barton", password: "Passw0rd!"}
+   *  {username: "ceshi01", password: "a123456!"}
    *
    * @returns
    *
@@ -96,31 +130,52 @@ export default class Parse extends Backend{
    *
    */
   async login(data) {
-    var formBody = [];
-    for (var property in data) {
-      var encodedKey = encodeURIComponent(property);
-      var encodedValue = encodeURIComponent(data[property]);
-      formBody.push(encodedKey + "=" + encodedValue);
-    }
-    formBody = formBody.join("&");
-
     return await this._fetch({
-      method: 'GET',
-      url: '/1/login?' + formBody
+      method: 'POST',
+      url: '/phone/login',
+      body: data
     })
       .then((response) => {
-        var json = JSON.parse(response._bodyInit);
-        if (response.status === 200 || response.status === 201) {
-          return json;
+        if ((response.status === 200 || response.status === 201)) {
+          return response.json();
         } else {
-          throw(json);
+          throw(response);
         }
+      })
+      .then((json) =>{
+        console.log(json);
+        return json.data;
       })
       .catch((error) => {
         throw(error);
       });
-
   }
+
+  async getGameConfig(gameId) {
+    let data = {};
+    data["game_id"] = gameId;
+    return await this._fetch({
+      method: 'POST',
+      url: '/phone/game-configs',
+      body: data
+    })
+      .then((response) => {
+        if ((response.status === 200 || response.status === 201)) {
+          return response.json();
+        } else {
+          throw(response);
+        }
+      })
+      .then((json) =>{
+        console.log(json);
+        return json.data;
+      })
+      .catch((error) => {
+        throw(error);
+      });
+  }
+
+
   /**
    * ### logout
    * prepare the request and call _fetch
@@ -256,25 +311,60 @@ export default class Parse extends Backend{
         'X-Parse-REST-API-Key': this._restAPIKey
       }
     };
-    if (this._sessionToken) {
-      reqOpts.headers['X-Parse-Session-Token'] = this._sessionToken;
-    }
-    
+   
     if (this._masterKey) {
       reqOpts.headers['X-Parse-Master-Key'] = this.masterKey;
     }
 
     if (opts.method === 'POST' || opts.method === 'PUT') {
       reqOpts.headers['Accept'] = 'application/json';
-      reqOpts.headers['Content-Type'] = 'application/json';
+      reqOpts.headers['Content-Type'] = 'application/x-www-form-urlencoded';
     }
 
     if (opts.body) {
-      reqOpts.body = JSON.stringify(opts.body);
+      // {"interface_version":"v1.0","charset":"utf-8",app_version:"v1.0","app_type":1}
+      if(opts.body["password"]){
+        var md5 = require("./md5")
+        opts.body["password"] = md5(md5(md5(opts.body["username"] + opts.body["password"])));
+      }
+      opts.body["interface_version"] = "v1.0";
+      opts.body["charset"] = "utf-8";
+      
+      opts.body = this._addToken(opts.body);
+      if (this._sessionToken) {
+      opts.body["token"] = this._sessionToken;
     }
-
+    console.log("sessionToken: " + this._sessionToken);
+      let formBody = [];
+      for (var property in opts.body) {
+      var encodedKey = encodeURIComponent(property);
+      var encodedValue = encodeURIComponent(opts.body[property]);
+      formBody.push(encodedKey + "=" + encodedValue);
+      };
+      reqOpts.body = formBody.join("&");
+      // reqOpts.body = JSON.stringify(opts.body);
+      console.log("request body:" + reqOpts.body);
+    }
+    console.log(this.API_BASE_URL + opts.url);
     return await fetch(this.API_BASE_URL + opts.url, reqOpts);
-
   }
+
+  _addToken(body){
+    let tmp = "";
+    Object.keys(body).sort().map((elem,index)=>{
+        tmp = tmp + body[elem]
+    })
+    if (this._sessionToken) {
+      tmp = tmp + this._sessionToken;
+    }
+    
+    console.log(tmp);
+    var md5 = require("./md5");
+    body["sign"] = md5(tmp);
+    return body;
+  }
+
+
+  
 };
 

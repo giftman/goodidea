@@ -1,0 +1,1397 @@
+{
+    "longhu.longhuhe.qiange": {
+        "methods": {
+        	"千个": {
+                "num": 1,
+                "list": [
+                    "龙",
+                    "虎",
+                    "和"
+                ]
+            }
+        }
+    },
+    "longhu.longhuhe.shige": {
+        "methods": {
+        	"十个": {
+                "num": 1,
+                "list": [
+                    "龙",
+                    "虎",
+                    "和"
+                ]
+            }
+        }
+    },
+    "housan.zuxuan.hunhezuxuan": {
+        "methods": {}
+    },
+    "wuxing.zhixuan.zuhe": {
+    	"each_method_represent_chips_num": 5,
+        "methods": {
+        	"万": {
+                "num": 1,
+                "list": [
+                    0,1,2,3,4,5,6,7,8,9
+                ]
+            },
+            "千": {
+                "num": 1,
+                "list": [
+                    0,1,2,3,4,5,6,7,8,9
+                ]
+            },
+            "百": {
+                "num": 1,
+                "list": [
+                    0,1,2,3,4,5,6,7,8,9
+                ]
+            },
+            "十": {
+                "num": 1,
+                "list": [
+                    0,1,2,3,4,5,6,7,8,9
+                ]
+            },
+            "个": {
+                "num": 1,
+                "list": [
+                    0,1,2,3,4,5,6,7,8,9
+                ]
+            }
+        }
+    },
+    "housan.qita.teshuhaoma": {
+        "methods": {}
+    },
+    "renxuan.renxuan3.zuliudanshi": {
+        "methods": {}
+    },
+    "longhu.longhuhe.wanbai": {
+        "methods": {
+        	"万百": {
+                "num": 1,
+                "list": [
+                    "龙",
+                    "虎",
+                    "和"
+                ]
+            }
+        }
+    },
+    "longhu.longhuhe.wange": {
+        "methods": {
+        	"万个": {
+                "num": 1,
+                "list": [
+                    "龙",
+                    "虎",
+                    "和"
+                ]
+            }
+        }
+    },
+    "renxuan.renxuan2.zhixuandanshi": {
+        "methods": {}
+    },
+    "housan.qita.hezhiweishu": {
+        "layout": 1,
+        "methods": {
+            "选": {
+                "num": 1,
+                "list": [
+                    "炮子",
+                    "顺子",
+                    "对子"
+                ]
+            }
+        }
+    },
+    "sixing.zhixuan.zuhe": {
+        "each_method_represent_chips_num": 4,
+        "methods": {
+            "千": {
+                "num": 1,
+                "list": [
+                    0,1,2,3,4,5,6,7,8,9
+                ]
+            },
+            "百": {
+                "num": 1,
+                "list": [
+                    0,1,2,3,4,5,6,7,8,9
+                ]
+            },
+            "十": {
+                "num": 1,
+                "list": [
+                    0,1,2,3,4,5,6,7,8,9
+                ]
+            },
+            "个": {
+                "num": 1,
+                "list": [
+                    0,1,2,3,4,5,6,7,8,9
+                ]
+            }
+        }
+    },
+    "zhongsan.zuxuan.hunhezuxuan": {
+        "methods": {}
+    },
+    "zhongsan.zuxuan.hezhi": {
+        "methods": {}
+    },
+    "erxing.zhixuan.qianerhezhi": {
+        "methods": {}
+    },
+    "housan.zuxuan.zusan": {
+        "methods": {
+            "选": {
+                "each_num_represent_chips_num": 2,
+                "num": 2,
+                "list": [
+                    0,1,2,3,4,5,6,7,8,9
+                ]
+            }
+        }
+    },
+    "qiansan.zuxuan.zuliudanshi": {
+        "methods": {}
+    },
+    "zhongsan.zuxuan.zuliu": {
+        "methods": {}
+    },
+    "daxiaodanshuang.daxiaodanshuang.houerdaxiaodanshuang": {
+        "methods": {
+            "十": {
+                "num": 1,
+                "list": [
+                    "大",
+                    "小",
+                    "单",
+                    "双"
+                ]
+            },
+            "个": {
+                "num": 1,
+                "list": [
+                    "大",
+                    "小",
+                    "单",
+                    "双"
+                ]
+            }
+        }
+    },
+    "renxuan.renxuan2.zuxuanhezhi": {
+        "methods": {}
+    },
+    "erxing.zhixuan.qianerdanshi": {
+        "methods": {}
+    },
+    "renxuan.renxuan3.zhixuanhezhi": {
+        "methods": {}
+    },
+    "sixing.zhixuan.danshi": {
+        "methods": {}
+    },
+    "qiansan.zuxuan.zusandanshi": {
+        "methods": {}
+    },
+    "erxing.zhixuan.houerfushi": {
+        "methods": {
+            "十": {
+                "num": 1,
+                "list": [
+                    0,1,2,3,4,5,6,7,8,9
+                ]
+            },
+            "个": {
+                "num": 1,
+                "list": [
+                    0,1,2,3,4,5,6,7,8,9
+                ]
+            }
+        }
+    },
+    "qiansan.zuxuan.baodan": {
+        "methods": {
+            "选": {
+                "each_num_represent_chips_num": 54,
+                "num": 1,
+                "list": [
+                    0,1,2,3,4,5,6,7,8,9
+                ]
+            }
+        },
+        "only_one": true
+    },
+    "quwei.quwei.simaquweisanxing": {
+        "methods": {}
+    },
+    "wuxing.zuxuan.zuxuan10": {
+        "methods": {
+            "三重": {
+                "num": 1,
+                "list": [
+                    0,1,2,3,4,5,6,7,8,9
+                ]
+            },
+            "单": {
+                "num": 1,
+                "list": [
+                    0,
+                    1,
+                    2,                    
+                    3,
+                    4,
+                    5,
+                    6,
+                    7,
+                    8,
+                    9
+                ]
+            }
+        }
+    },
+    "budingwei.wuxingbudingwei.wuxingermabudingwei": {
+        "methods": {
+            "选": {
+                "num": 2,
+                "list": [
+                    0,1,2,3,4,5,6,7,8,9
+                ]
+            }
+        }
+    },
+    "qiansan.qita.hezhiweishu": {
+        "methods": {}
+    },
+    "qiansan.zhixuan.zuhe": {
+        "each_method_represent_chips_num": 3,
+        "methods": {
+        	"万": {
+                "num": 1,
+                "list": [
+                    0,1,2,3,4,5,6,7,8,9
+                ]
+            },
+            "千": {
+                "num": 1,
+                "list": [
+                    0,1,2,3,4,5,6,7,8,9
+                ]
+            },
+            "百": {
+                "num": 1,
+                "list": [
+                    0,1,2,3,4,5,6,7,8,9
+                ]
+            }
+        }
+    },
+    "housan.zuxuan.baodan": {
+        "methods": {
+            "选": {
+                "each_num_represent_chips_num": 54,
+                "num": 1,
+                "list": [
+                    0,1,2,3,4,5,6,7,8,9
+                ]
+            }
+        },
+        "only_one": true
+    },
+    "sixing.zuxuan.zuxuan24": {
+        "methods": {
+            "选": {
+                "num": 4,
+                "list": [
+                    0,1,2,3,4,5,6,7,8,9
+                ]
+            }
+        }
+    },
+    "housan.zuxuan.zusandanshi": {
+        "methods": {}
+    },
+    "quwei.teshu.haoshichengshuang": {
+        "methods": {
+            "二重": {
+                "num": 1,
+                "list": [
+                    0,1,2,3,4,5,6,7,8,9
+                ]
+            }
+        }
+    },
+    "erxing.zuxuan.houerhezhi": {
+        "methods": {}
+    },
+    "yixing.dingweidan.fushi": {
+        "methods": {
+            "十": {
+                "num": 1,
+                "list": [
+                    0,1,2,3,4,5,6,7,8,9
+                ]
+            },
+            "千": {
+                "num": 1,
+                "list": [
+                    0,1,2,3,4,5,6,7,8,9
+                ]
+            },
+            "个": {
+                "num": 1,
+                "list": [
+                    0,1,2,3,4,5,6,7,8,9
+                ]
+            },
+            "万": {
+                "num": 1,
+                "list": [
+                    0,1,2,3,4,5,6,7,8,9
+                ]
+            },
+            "百": {
+                "num": 1,
+                "list": [
+                    0,1,2,3,4,5,6,7,8,9
+                ]
+            }
+        }
+    },
+    "zhongsan.zhixuan.kuadu": {
+        "methods": {}
+    },
+    "hezhi.wuxing.bsde": {
+        "methods": {}
+    },
+    "quwei.qujian.simaqujiansanxing": {
+        "methods": {}
+    },
+    "budingwei.sanxingbudingwei.qiansanyimabudingwei": {
+        "methods": {
+            "选": {
+                "num": 1,
+                "list": [
+                    0,1,2,3,4,5,6,7,8,9
+                ]
+            }
+        }
+    },
+    "housan.zhixuan.zuhe": {
+        "each_method_represent_chips_num": 3,
+        "methods": {
+            "百": {
+                "num": 1,
+                "list": [
+                    0,1,2,3,4,5,6,7,8,9
+                ]
+            },
+            "十": {
+                "num": 1,
+                "list": [
+                    0,1,2,3,4,5,6,7,8,9
+                ]
+            },
+            "个": {
+                "num": 1,
+                "list": [
+                    0,1,2,3,4,5,6,7,8,9
+                ]
+            }
+        }
+    },
+    "renxuan.renxuan4.zhixuandanshi": {
+        "methods": {}
+    },
+    "housan.zuxuan.zuliu": {
+        "methods": {
+            "选": {
+                "num": 3,
+                "list": [
+                    0,1,2,3,4,5,6,7,8,9
+                ]
+            }
+        }
+    },
+    "longhu.longhuhe.wanqian": {
+        "methods": {
+        	"万千": {
+                "num": 1,
+                "list": [
+                    "龙",
+                    "虎",
+                    "和"
+                ]
+            }
+        }
+    },
+    "wuxing.zuxuan.zuxuan60": {
+        "methods": {
+            "二重": {
+                "num": 1,
+                "list": [
+                    0,1,2,3,4,5,6,7,8,9
+                ]
+            },
+            "单": {
+                "num": 1,
+                "list": [
+                    0,1,2,3,4,5,6,7,8,9
+                ]
+            }
+        }
+    },
+    "qiansan.zuxuan.zuliu": {
+        "methods": {
+            "选": {
+                "num": 3,
+                "list": [
+                    0,1,2,3,4,5,6,7,8,9
+                ]
+            }
+        }
+    },
+    "housan.zuxuan.hezhi": {
+        "methods": {
+            "和值": {
+                "num": 1,
+                "list": [
+                    1,
+                    2,
+                    3,
+                    4,
+                    5,
+                    6,
+                    7,
+                    8,
+                    9,
+                    10,
+                    11,
+                    12,
+                    13,
+                    14,
+                    15,
+                    16,
+                    17,
+                    18,
+                    19,
+                    20,
+                    21,
+                    22,
+                    23,
+                    24,
+                    25,
+                    26
+                ],
+                "extra": {
+                    "1": 1,
+                    "2": 2,
+                    "3": 2,
+                    "4": 4,
+                    "5": 5,
+                    "6": 6,
+                    "7": 8,
+                    "8": 10,
+                    "9": 11,
+                    "10": 13,
+                    "11": 14,
+                    "12": 14,
+                    "13": 15,
+                    "14": 15,
+                    "15": 14,
+                    "16": 14,
+                    "17": 13,
+                    "18": 11,
+                    "19": 10,
+                    "20": 8,
+                    "21": 6,
+                    "22": 5,
+                    "23": 4,
+                    "24": 2,
+                    "25": 2,
+                    "26": 1
+                }
+            }
+        }
+    },
+    "erxing.zhixuan.qianerfushi": {
+        "methods": {
+            "千": {
+                "num": 1,
+                "list": [
+                    0,1,2,3,4,5,6,7,8,9
+                ]
+            },
+            "万": {
+                "num": 1,
+                "list": [
+                    0,1,2,3,4,5,6,7,8,9
+                ]
+            }
+        }
+    },
+    "zhongsan.zuxuan.zuliudanshi": {
+        "methods": {}
+    },
+    "housan.zhixuan.danshi": {
+        "methods": {}
+    },
+    "housan.zhixuan.fushi": {
+        "methods": {
+            "十": {
+                "num": 1,
+                "list": [
+                    0,1,2,3,4,5,6,7,8,9
+                ]
+            },
+            "个": {
+                "num": 1,
+                "list": [
+                    0,1,2,3,4,5,6,7,8,9
+                ]
+            },
+            "百": {
+                "num": 1,
+                "list": [
+                    0,1,2,3,4,5,6,7,8,9
+                ]
+            }
+        }
+    },
+    "erxing.zhixuan.houerhezhi": {
+        "methods": {
+            "选": {
+                "num": 1,
+                "list": [
+                    0,1,2,3,4,5,6,7,8,9,
+                    10,
+                    11,
+                    12,
+                    13,
+                    14,
+                    15,
+                    16,
+                    17,
+                    18
+                ],
+                "extra": {
+                    "0": 1,
+                    "1": 2,
+                    "2": 3,
+                    "3": 4,
+                    "4": 5,
+                    "5": 6,
+                    "6": 7,
+                    "7": 8,
+                    "8": 9,
+                    "9": 10,
+                    "10": 9,
+                    "11": 8,
+                    "12": 7,
+                    "13": 6,
+                    "14": 5,
+                    "15": 4,
+                    "16": 3,
+                    "17": 2,
+                    "18": 1
+                }
+            }
+        }
+    },
+    "renxuan.renxuan4.zuxuan24": {
+        "methods": {}
+    },
+    "erxing.zuxuan.houerdanshi": {
+        "methods": {}
+    },
+    "qiansan.qita.teshuhaoma": {
+        "methods": {}
+    },
+    "sixing.zuxuan.zuxuan6": {
+        "methods": {
+        	"二重": {
+                "num": 2,
+                "list": [
+                    0,1,2,3,4,5,6,7,8,9
+                ]
+            }
+        }
+    },
+    "renxuan.renxuan2.zhixuanhezhi": {
+        "methods": {}
+    },
+    "sixing.zuxuan.zuxuan4": {
+        "methods": {
+        	"三重": {
+                "num": 1,
+                "list": [
+                    0,1,2,3,4,5,6,7,8,9
+                ]
+            },
+            "单": {
+                "num": 2,
+                "list": [
+                    0,1,2,3,4,5,6,7,8,9
+                ]
+            }
+        }
+    },
+    "renxuan.renxuan3.zhixuandanshi": {
+        "methods": {}
+    },
+    "erxing.zuxuan.qianerfushi": {
+        "methods": {
+            "选": {
+                "num": 2,
+                "list": [
+                    0,1,2,3,4,5,6,7,8,9
+                ]
+            }
+        }
+    },
+    "budingwei.sanxingbudingwei.housanyimabudingwei": {
+        "methods": {
+            "选": {
+                "num": 1,
+                "list": [
+                    0,1,2,3,4,5,6,7,8,9
+                ]
+            }
+        }
+    },
+    "quwei.quwei.housanquweierxing": {
+        "methods": {}
+    },
+    "zhongsan.zhixuan.hezhi": {
+        "methods": {
+
+        }
+    },
+    "budingwei.sanxingbudingwei.zhongsanyimabudingwei": {
+        "methods": {}
+    },
+    "renxuan.renxuan4.zhixuanfushi": {
+        "methods": {}
+    },
+    "daxiaodanshuang.daxiaodanshuang.qianerdaxiaodanshuang": {
+        "methods": {}
+    },
+    "zhongsan.zhixuan.danshi": {
+        "methods": {}
+    },
+    "sixing.zuxuan.zuxuan12": {
+        "methods": {
+            "二重": {
+                "num": 1,
+                "list": [
+                    0,1,2,3,4,5,6,7,8,9
+                ]
+            },
+            "单": {
+                "num": 2,
+                "list": [
+                    0,1,2,3,4,5,6,7,8,9
+                ]
+            }
+        }
+    },
+    "qiansan.zuxuan.zusan": {
+        "methods": {
+            "选": {
+                "each_num_represent_chips_num": 2,
+                "num": 2,
+                "list": [
+                    0,1,2,3,4,5,6,7,8,9
+                ]
+            }
+        }
+    },
+    "quwei.quwei.qiansanquweierxing": {
+        "methods": {}
+    },
+    "sixing.zhixuan.fushi": {
+        "layout": 0,
+        "methods": {
+            "十": {
+                "num": 1,
+                "list": [
+                    0,1,2,3,4,5,6,7,8,9
+                ]
+            },
+            "千": {
+                "num": 1,
+                "list": [
+                    0,1,2,3,4,5,6,7,8,9
+                ]
+            },
+            "个": {
+                "num": 1,
+                "list": [
+                    0,1,2,3,4,5,6,7,8,9
+                ]
+            },
+            "百": {
+                "num": 1,
+                "list": [
+                    0,1,2,3,4,5,6,7,8,9
+                ]
+            }
+        }
+    },
+    "quwei.quwei.wumaquweisanxing": {
+        "methods": {
+            "十": {
+                "num": 1,
+                "list": [
+                    0,1,2,3,4,5,6,7,8,9
+                ]
+            },
+            "千": {
+                "num": 1,
+                "list": [
+                    "小",
+                    "大"
+                ]
+            },
+            "个": {
+                "num": 1,
+                "list": [
+                    0,1,2,3,4,5,6,7,8,9
+                ]
+            },
+            "万": {
+                "num": 1,
+                "list": [
+                    "小",
+                    "大"
+                ]
+            },
+            "百": {
+                "num": 1,
+                "list": [
+                    0,1,2,3,4,5,6,7,8,9
+                ]
+            }
+        }
+    },
+    "renxuan.renxuan2.zhixuanfushi": {
+        "methods": {}
+    },
+    "longhu.longhuhe.qianbai": {
+        "methods": {
+        	"千百": {
+                "num": 1,
+                "list": [
+                    "龙",
+                    "虎",
+                    "和"
+                ]
+            }
+        }
+    },
+    "quwei.qujian.wumaqujiansanxing": {
+        "methods": {}
+    },
+    "renxuan.renxuan2.zuxuanfushi": {
+        "methods": {}
+    },
+    "zhongsan.zuxuan.baodan": {
+        "methods": {}
+    },
+    "erxing.zuxuan.houerfushi": {
+        "methods": {
+            "选": {
+                "num": 2,
+                "list": [
+                    0,1,2,3,4,5,6,7,8,9
+                ]
+            }
+        }
+    },
+    "longhu.longhuhe.baishi": {
+        "methods": {
+        	"百十": {
+                "num": 1,
+                "list": [
+                    "龙",
+                    "虎",
+                    "和"
+                ]
+            }
+        }
+    },
+    "qiansan.zhixuan.kuadu": {
+        "methods": {}
+    },
+    "wuxing.zuxuan.zuxuan5": {
+        "methods": {
+            "单": {
+                "num": 1,
+                "list": [
+                    0,1,2,3,4,5,6,7,8,9
+                ]
+            },
+            "四重": {
+                "num": 1,
+                "list": [
+                    0,1,2,3,4,5,6,7,8,9
+                ]
+            }
+        }
+    },
+    "wuxing.zhixuan.danshi": {
+        "methods": {}
+    },
+    "housan.zhixuan.kuadu": {
+        "methods": {
+            "选": {
+                "num": 1,
+                "list": [
+                    0,1,2,3,4,5,6,7,8,9
+                ],
+                "extra": {
+                    "0": 10,
+                    "1": 108,
+                    "2": 96,
+                    "3": 126,
+                    "4": 144,
+                    "5": 150,
+                    "6": 144,
+                    "7": 126,
+                    "8": 96,
+                    "9": 54
+                }
+            }
+        }
+    },
+    "hezhi.wuxing.hezhi": {
+        "methods": {}
+    },
+    "qiansan.zhixuan.danshi": {
+        "methods": {}
+    },
+    "erxing.zhixuan.houerkuadu": {
+        "methods": {
+            "选": {
+                "num": 1,
+                "list": [
+                    0,1,2,3,4,5,6,7,8,9
+                ],
+                "extra": {
+                    "0": 10,
+                    "1": 18,
+                    "2": 16,
+                    "3": 14,
+                    "4": 12,
+                    "5": 10,
+                    "6": 8,
+                    "7": 6,
+                    "8": 4,
+                    "9": 2
+                }
+            }
+        }
+    },
+    "longhu.longhuhe.qianshi": {
+        "methods": {
+        	"千十": {
+                "num": 1,
+                "list": [
+                    "龙",
+                    "虎",
+                    "和"
+                ]
+            }
+        }
+    },
+    "daxiaodanshuang.daxiaodanshuang.qiansandaxiaodanshuang": {
+        "methods": {
+            "千": {
+                "num": 1,
+                "list": [
+                    "大",
+                    "小",
+                    "单",
+                    "双"
+                ]
+            },
+            "万": {
+                "num": 1,
+                "list": [
+                    "大",
+                    "小",
+                    "单",
+                    "双"
+                ]
+            },
+            "百": {
+                "num": 1,
+                "list": [
+                    "大",
+                    "小",
+                    "单",
+                    "双"
+                ]
+            }
+        }
+    },
+    "budingwei.sanxingbudingwei.qiansanermabudingwei": {
+        "methods": {
+            "选": {
+                "num": 2,
+                "list": [
+                    0,1,2,3,4,5,6,7,8,9
+                ]
+            }
+        }
+    },
+    "budingwei.wuxingbudingwei.wuxingsanmabudingwei": {
+        "methods": {
+            "选": {
+                "num": 3,
+                "list": [
+                    0,1,2,3,4,5,6,7,8,9
+                ]
+            }
+        }
+    },
+    "daxiaodanshuang.daxiaodanshuang.housandaxiaodanshuang": {
+        "methods": {
+            "十": {
+                "num": 1,
+                "list": [
+                    "大",
+                    "小",
+                    "单",
+                    "双"
+                ]
+            },
+            "个": {
+                "num": 1,
+                "list": [
+                    "大",
+                    "小",
+                    "单",
+                    "双"
+                ]
+            },
+            "百": {
+                "num": 1,
+                "list": [
+                    "大",
+                    "小",
+                    "单",
+                    "双"
+                ]
+            }
+        }
+    },
+    "budingwei.sixingbudingwei.sixingermabudingwei": {
+        "methods": {
+            "选": {
+                "num": 2,
+                "list": [
+                    0,1,2,3,4,5,6,7,8,9
+                ]
+            }
+        }
+    },
+    "erxing.zuxuan.qianerdanshi": {
+        "methods": {}
+    },
+    "wuxing.zuxuan.zuxuan20": {
+        "methods": {
+            "三重": {
+                "num": 1,
+                "list": [
+                    0,1,2,3,4,5,6,7,8,9
+                ]
+            },
+            "单": {
+                "num": 2,
+                "list": [
+                    0,1,2,3,4,5,6,7,8,9
+                ]
+            }
+        }
+    },
+    "quwei.teshu.yifanfengshun": {
+        "methods": {
+            "选": {
+                "num": 1,
+                "list": [
+                    0,1,2,3,4,5,6,7,8,9
+                ]
+            }
+        }
+    },
+    "longhu.longhuhe.baige": {
+        "methods": {
+        	"百个": {
+                "num": 1,
+                "list": [
+                    "龙",
+                    "虎",
+                    "和"
+                ]
+            }
+        }
+    },
+    "quwei.qujian.qiansanqujianerxing": {
+        "methods": {}
+    },
+    "zhongsan.zhixuan.fushi": {
+        "methods": {}
+    },
+    "renxuan.renxuan2.zuxuandanshi": {
+        "methods": {}
+    },
+    "erxing.zhixuan.qianerkuadu": {
+        "methods": {
+            "选": {
+                "num": 1,
+                "list": [
+                    0,1,2,3,4,5,6,7,8,9
+                ],
+                "extra": {
+                    "0": 10,
+                    "1": 18,
+                    "2": 16,
+                    "3": 14,
+                    "4": 12,
+                    "5": 10,
+                    "6": 8,
+                    "7": 6,
+                    "8": 4,
+                    "9": 2
+                }
+            }
+        }
+    },
+    "wuxing.zhixuan.fushi": {
+        "layout": 0,
+        "methods": {
+            "十": {
+                "num": 1,
+                "list": [
+                    0,1,2,3,4,5,6,7,8,9
+                ]
+            },
+            "千": {
+                "num": 1,
+                "list": [
+                    0,1,2,3,4,5,6,7,8,9
+                ]
+            },
+            "个": {
+                "num": 1,
+                "list": [
+                    0,1,2,3,4,5,6,7,8,9
+                ]
+            },
+            "万": {
+                "num": 1,
+                "list": [
+                    0,1,2,3,4,5,6,7,8,9
+                ]
+            },
+            "百": {
+                "num": 1,
+                "list": [
+                    0,1,2,3,4,5,6,7,8,9
+                ]
+            }
+        }
+    },
+    "wuxing.zuxuan.zuxuan120": {
+        "methods": {
+            "选": {
+                "num": 5,
+                "list": [
+                    0,1,2,3,4,5,6,7,8,9
+                ]
+            }
+        }
+    },
+    "renxuan.renxuan4.zuxuan4": {
+        "methods": {}
+    },
+    "renxuan.renxuan4.zuxuan6": {
+        "methods": {}
+    },
+    "erxing.zhixuan.houerdanshi": {
+        "methods": {}
+    },
+    "budingwei.sixingbudingwei.sixingyimabudingwei": {
+        "methods": {}
+    },
+    "erxing.zuxuan.qianerbaodan": {
+        "methods": {}
+    },
+    "qiansan.zuxuan.hunhezuxuan": {
+        "methods": {}
+    },
+    "renxuan.renxuan3.zuxuanhezhi": {
+        "methods": {}
+    },
+    "zhongsan.zhixuan.zuhe": {
+        "each_method_represent_chips_num": 3,
+        "methods": {
+            "千": {
+                "num": 1,
+                "list": [
+                    0,1,2,3,4,5,6,7,8,9
+                ]
+            },
+            "百": {
+                "num": 1,
+                "list": [
+                    0,1,2,3,4,5,6,7,8,9
+                ]
+            },
+            "十": {
+                "num": 1,
+                "list": [
+                    0,1,2,3,4,5,6,7,8,9
+                ]
+            }
+        }
+    },
+    "qiansan.zhixuan.hezhi": {
+        "methods": {
+        	 "和值": {
+                "num": 1,
+                "list": [
+                    0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27
+                ],
+                "extra": {
+                	"0":1,
+                    "1": 1,
+                    "2": 2,
+                    "3": 2,
+                    "4": 4,
+                    "5": 5,
+                    "6": 6,
+                    "7": 8,
+                    "8": 10,
+                    "9": 11,
+                    "10": 13,
+                    "11": 14,
+                    "12": 14,
+                    "13": 15,
+                    "14": 15,
+                    "15": 14,
+                    "16": 14,
+                    "17": 13,
+                    "18": 11,
+                    "19": 10,
+                    "20": 8,
+                    "21": 6,
+                    "22": 5,
+                    "23": 4,
+                    "24": 2,
+                    "25": 2,
+                    "26": 1,
+                    "27":1
+                }
+            }
+        }
+    },
+    "housan.zuxuan.zuliudanshi": {
+        "methods": {}
+    },
+    "budingwei.sanxingbudingwei.housanermabudingwei": {
+        "methods": {
+            "选": {
+                "num": 2,
+                "list": [
+                    0,1,2,3,4,5,6,7,8,9
+                ]
+            }
+        }
+    },
+    "renxuan.renxuan3.hunhezuxuan": {
+        "methods": {}
+    },
+    "qiansan.zhixuan.fushi": {
+        "layout": 0,
+        "methods": {
+            "千": {
+                "num": 1,
+                "list": [
+                    0,1,2,3,4,5,6,7,8,9
+                ]
+            },
+            "万": {
+                "num": 1,
+                "list": [
+                    0,1,2,3,4,5,6,7,8,9
+                ]
+            },
+            "百": {
+                "num": 1,
+                "list": [
+                    0,1,2,3,4,5,6,7,8,9
+                ]
+            }
+        }
+    },
+    "longhu.longhuhe.wanshi": {
+        "methods": {
+        	"万十": {
+                "num": 1,
+                "list": [
+                    "龙",
+                    "虎",
+                    "和"
+                ]
+            }
+        }
+    },
+    "zhongsan.qita.hezhiweishu": {
+        "methods": {}
+    },
+    "quwei.teshu.sanxingbaoxi": {
+        "methods": {
+            "三重": {
+                "num": 1,
+                "list": [
+                    0,1,2,3,4,5,6,7,8,9
+                ]
+            }
+        }
+    },
+    "wuxing.zuxuan.zuxuan30": {
+        "methods": {
+            "二重": {
+                "num": 2,
+                "list": [
+                    0,1,2,3,4,5,6,7,8,9
+                ]
+            },
+            "单": {
+                "num": 1,
+                "list": [
+                    0,1,2,3,4,5,6,7,8,9
+                ]
+            }
+        }
+    },
+    "renxuan.renxuan3.zhixuanfushi": {
+        "methods": {}
+    },
+    "qiansan.zuxuan.hezhi": {
+        "methods": {
+            "和值": {
+                "num": 1,
+                "list": [
+                    1,
+                    2,
+                    3,
+                    4,
+                    5,
+                    6,
+                    7,
+                    8,
+                    9,
+                    10,
+                    11,
+                    12,
+                    13,
+                    14,
+                    15,
+                    16,
+                    17,
+                    18,
+                    19,
+                    20,
+                    21,
+                    22,
+                    23,
+                    24,
+                    25,
+                    26
+                ],
+                "extra": {
+                    "1": 1,
+                    "2": 2,
+                    "3": 2,
+                    "4": 4,
+                    "5": 5,
+                    "6": 6,
+                    "7": 8,
+                    "8": 10,
+                    "9": 11,
+                    "10": 13,
+                    "11": 14,
+                    "12": 14,
+                    "13": 15,
+                    "14": 15,
+                    "15": 14,
+                    "16": 14,
+                    "17": 13,
+                    "18": 11,
+                    "19": 10,
+                    "20": 8,
+                    "21": 6,
+                    "22": 5,
+                    "23": 4,
+                    "24": 2,
+                    "25": 2,
+                    "26": 1
+                }
+            }
+        }
+    },
+    "housan.zhixuan.hezhi": {
+        "methods": {}
+    },
+    "zhongsan.zuxuan.zusan": {
+        "methods": {}
+    },
+    "zhongsan.zuxuan.zusandanshi": {
+        "methods": {}
+    },
+    "zhongsan.qita.teshuhaoma": {
+        "methods": {}
+    },
+    "quwei.teshu.sijifacai": {
+        "methods": {
+            "四重": {
+                "num": 1,
+                "list": [
+                    0,1,2,3,4,5,6,7,8,9
+                ]
+            }
+        }
+    },
+    "quwei.qujian.housanqujianerxing": {
+        "methods": {}
+    },
+    "renxuan.renxuan3.zusanfushi": {
+        "methods": {}
+    },
+    "budingwei.sanxingbudingwei.zhongsanermabudingwei": {
+        "methods": {}
+    },
+    "erxing.zuxuan.qianerhezhi": {
+        "methods": {}
+    },
+    "erxing.zuxuan.houerbaodan": {
+        "methods": {}
+    },
+    "renxuan.renxuan3.zusandanshi": {
+        "methods": {}
+    },
+    "renxuan.renxuan4.zuxuan12": {
+        "methods": {}
+    },
+    "renxuan.renxuan3.zuliufushi": {
+        "methods": {}
+    }
+}

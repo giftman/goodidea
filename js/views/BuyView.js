@@ -13,7 +13,7 @@ import BuyList from './BuyList';
 import BuyMenu from './BuyMenu';
 import BuyControl from './BuyControl';
 import { connect } from 'react-redux';
-import { getGameConfig,changeType, } from '../actions';
+import { getGameConfig,changeType,loadMenu} from '../actions';
 import TipPadding from './TipPadding';
 import CoverView from './CoverView';
 
@@ -35,6 +35,7 @@ class BuyView extends Component {
         if(this.props.article && this.props.article.gameId){
             this.props.getGameConfig(this.props.article.gameId);
         }
+        this.props.loadMenu(null);
     }
 
     _onToggle(name, index) {
@@ -96,6 +97,9 @@ console.log(this.state.choice);
           numOfChips = 0;
            break;
         }
+      }
+      if(defaultGame.each_method_represent_chips_num){
+        numOfChips = numOfChips*defaultGame.each_method_represent_chips_num
       }
       this.setState({
         numOfChips
@@ -310,7 +314,7 @@ function select(store) {
 
 function actions(dispatch) {
     return {
-        // loadMenu: (tab) => dispatch(loadMenu()),
+        loadMenu: (tab) => dispatch(loadMenu()),
         changeType:(type)=> dispatch(changeType(type)),
         getGameConfig: (gameId)=>dispatch(getGameConfig(gameId))
     };

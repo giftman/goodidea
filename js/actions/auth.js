@@ -34,8 +34,18 @@ function checkToken(){
     return new AppAuthToken().getSessionToken()
 
       .then((token) => {
-        console.log("token exit,go to tabbar");
-        return token;
+        
+        console.log(token);
+        if(token != null){
+          console.log("token exit,go to tabbar" );
+          return true;
+        }else{
+          dispatch(getToken());
+          console.log("token not exit,go to easyLogin" );
+          return false;
+          
+        }
+        
       })            
 
       .catch((error) => {
@@ -91,4 +101,4 @@ function getGameConfig(gameId) {
 
 
 
-module.exports = {getToken,login,getGameConfig,checkToken,checkToken};
+module.exports = {getToken,login,getGameConfig,checkToken};

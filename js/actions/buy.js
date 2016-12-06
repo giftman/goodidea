@@ -5,8 +5,8 @@ import type { Action,ThunkAction } from './types';
 function loadMenu(data): ThunkAction {
 	 
      return (dispatch) => {
-     	// let data = require('./_mock_/buyNo.json');
-      let buyCell = require('./_mock_/buyCell.json');
+     	let data = require('./_mock_/buyNo.json');
+      let buyCell = require('./_mock_/gameMethodSet.json');
 	 let menu = {};
 	 let allTypes = {};
      data.gameMethods['1800'].map((article, index) => {
@@ -21,6 +21,7 @@ function loadMenu(data): ThunkAction {
         allTypes[i].only_one = buyCell[i].only_one;
      		allTypes[i].layout = buyCell[i].layout;
      		allTypes[i].methods = buyCell[i].methods;
+        allTypes[i].each_method_represent_chips_num = buyCell[i].each_method_represent_chips_num;
      	}
      }
      	dispatch({type:"LOAD_MENU",menu,allTypes})
@@ -66,17 +67,17 @@ function renderCells(cells,name,en_name,jsId,gameId,menu,allTypes,buyCell){
     }
     cells.children.map((children) => renderCells(children,name,en_name,jsId,gameId,menu,allTypes,buyCell));
   }else{
-      if(menu[name] && buyCell[cells.id]){
+      if(menu[name] && buyCell[en_name]){
         menu[name].push(cells);
 
-      }else if(buyCell[cells.id]){
+      }else if(buyCell[en_name]){
         menu[name]=[];
         menu[name].push(cells);
       }
       cells.jsId = jsId;
       cells.type = en_name;
       cells.gameId = gameId;
-      allTypes[cells.id] = cells;
+      allTypes[cells.type] = cells;
   }
 }
 

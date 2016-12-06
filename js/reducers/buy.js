@@ -37,12 +37,12 @@ export type PlayType = {
 type State = {
   allTypes:{};
   menu:{};
-  defaultType:number;
+  defaultType:string;
   defaultGame:{};
   loading:any;
 };
 
-const initialState: State = { allTypes: {},loading:false ,menu:{},defaultType:32,defaultGame:{}};
+const initialState: State = { allTypes: {},loading:false ,menu:{},defaultType:'wuxing.zhixuan.zuhe',defaultGame:{}};
 
 function buy(state: State = initialState, action: Action): State {
 	switch(action.type){

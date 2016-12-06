@@ -15,12 +15,14 @@ class SplashView extends Component {
   componentDidMount() {
     this.timer = setTimeout(() => {
       InteractionManager.runAfterInteractions(() => {
-        if(this.props.checkToken()){
+        this.props.checkToken()
+        .then((token) => {
+          if(token){
           this.props.navigator.resetTo({ twitterTab:123 });
         }else{
           this.props.navigator.resetTo({ login:123 });
         }
-        
+        })
       });
     }, 1500);
   }
@@ -36,7 +38,7 @@ componentWillUnmount() {
         >
         <View style = {styles.section}>
       <Image
-      source={require('../img/logo2.png')}
+      source={require('../img/logo.png')}
       />
         </View>
 

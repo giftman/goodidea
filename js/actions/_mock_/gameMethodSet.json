@@ -228,7 +228,33 @@
         "only_one": true
     },
     "quwei.quwei.simaquweisanxing": {
-        "methods": {}
+        "methods": {
+            "千": {
+                "num": 1,
+                "list": [
+                    "小(0-4)",
+                    "大(5-9)"
+                ]
+            },
+            "百": {
+                "num": 1,
+                "list": [
+                    0,1,2,3,4,5,6,7,8,9
+                ]
+            },
+            "十": {
+                "num": 1,
+                "list": [
+                    0,1,2,3,4,5,6,7,8,9
+                ]
+            },
+            "个": {
+                "num": 1,
+                "list": [
+                    0,1,2,3,4,5,6,7,8,9
+                ]
+            }
+        }
     },
     "wuxing.zuxuan.zuxuan10": {
         "methods": {
@@ -266,7 +292,14 @@
         }
     },
     "qiansan.qita.hezhiweishu": {
-        "methods": {}
+        "methods": {
+        	"选": {
+                "num": 1,
+                "list": [
+                    0,1,2,3,4,5,6,7,8,9
+                ],
+            }
+        }
     },
     "qiansan.zhixuan.zuhe": {
         "each_method_represent_chips_num": 3,
@@ -364,13 +397,71 @@
         }
     },
     "zhongsan.zhixuan.kuadu": {
-        "methods": {}
+        "methods": {
+        	 "选": {
+                "num": 1,
+                "list": [
+                    0,1,2,3,4,5,6,7,8,9
+                ],
+                "extra": {
+                    "0": 10,
+                    "1": 108,
+                    "2": 96,
+                    "3": 126,
+                    "4": 144,
+                    "5": 150,
+                    "6": 144,
+                    "7": 126,
+                    "8": 96,
+                    "9": 54
+                }
+            }
+        }
     },
     "hezhi.wuxing.bsde": {
-        "methods": {}
+        "methods": {
+        	"选": {
+                "num": 1,
+                "list": [
+                    "大",
+                    "小",
+                    "单",
+                    "双"
+                ]
+            },
+        }
     },
     "quwei.qujian.simaqujiansanxing": {
-        "methods": {}
+        "methods": {
+            "千": {
+                "num": 1,
+                "list": [
+                     "一区(0-1)",
+                    "二区(2-3)",
+                    "三区(4-5)",
+                    "四区(6-7)",
+                    "五区(8-9)"
+                ]
+            },
+            "百": {
+                "num": 1,
+                "list": [
+                    0,1,2,3,4,5,6,7,8,9
+                ]
+            },
+            "十": {
+                "num": 1,
+                "list": [
+                    0,1,2,3,4,5,6,7,8,9
+                ]
+            },
+            "个": {
+                "num": 1,
+                "list": [
+                    0,1,2,3,4,5,6,7,8,9
+                ]
+            }
+        }
     },
     "budingwei.sanxingbudingwei.qiansanyimabudingwei": {
         "methods": {
@@ -610,7 +701,16 @@
         "methods": {}
     },
     "qiansan.qita.teshuhaoma": {
-        "methods": {}
+        "methods": {
+        	"选": {
+                "num": 1,
+                "list": [
+                    "炮子",
+                    "顺子",
+                    "对子"
+                ]
+            }
+        }
     },
     "sixing.zuxuan.zuxuan6": {
         "methods": {
@@ -665,7 +765,27 @@
         }
     },
     "quwei.quwei.housanquweierxing": {
-        "methods": {}
+        "methods": {
+            "百": {
+                "num": 1,
+                "list": [
+                    "小(0-4)",
+                    "大(5-9)"
+                ]
+            },
+            "十": {
+                "num": 1,
+                "list": [
+                    0,1,2,3,4,5,6,7,8,9
+                ]
+            },
+            "个": {
+                "num": 1,
+                "list": [
+                    0,1,2,3,4,5,6,7,8,9
+                ]
+            }
+        }
     },
     "zhongsan.zhixuan.hezhi": {
         "methods": {
@@ -673,13 +793,39 @@
         }
     },
     "budingwei.sanxingbudingwei.zhongsanyimabudingwei": {
-        "methods": {}
+        "methods": {
+        	"选": {
+                "num": 1,
+                "list": [
+                    0,1,2,3,4,5,6,7,8,9
+                ]
+            }
+        }
     },
     "renxuan.renxuan4.zhixuanfushi": {
         "methods": {}
     },
     "daxiaodanshuang.daxiaodanshuang.qianerdaxiaodanshuang": {
-        "methods": {}
+        "methods": {
+        	"万": {
+                "num": 1,
+                "list": [
+                    "大",
+                    "小",
+                    "单",
+                    "双"
+                ]
+            },
+            "千": {
+                "num": 1,
+                "list": [
+                    "大",
+                    "小",
+                    "单",
+                    "双"
+                ]
+            }
+        }
     },
     "zhongsan.zhixuan.danshi": {
         "methods": {}
@@ -712,7 +858,27 @@
         }
     },
     "quwei.quwei.qiansanquweierxing": {
-        "methods": {}
+        "methods": {
+        	"万": {
+                "num": 1,
+                "list": [
+                    "小(0-4)",
+                    "大(5-9)"
+                ]
+            },
+            "千": {
+                "num": 1,
+                "list": [
+                    0,1,2,3,4,5,6,7,8,9
+                ]
+            },
+            "百": {
+                "num": 1,
+                "list": [
+                    0,1,2,3,4,5,6,7,8,9
+                ]
+            }
+        }
     },
     "sixing.zhixuan.fushi": {
         "layout": 0,
@@ -745,33 +911,33 @@
     },
     "quwei.quwei.wumaquweisanxing": {
         "methods": {
+        	"万": {
+                "num": 1,
+                "list": [
+                    "小(0-4)",
+                    "大(5-9)"
+                ]
+            },
+            "千": {
+                "num": 1,
+                "list": [
+                    "小(0-4)",
+                    "大(5-9)"
+                ]
+            },
+            "百": {
+                "num": 1,
+                "list": [
+                    0,1,2,3,4,5,6,7,8,9
+                ]
+            },
             "十": {
                 "num": 1,
                 "list": [
                     0,1,2,3,4,5,6,7,8,9
                 ]
             },
-            "千": {
-                "num": 1,
-                "list": [
-                    "小",
-                    "大"
-                ]
-            },
             "个": {
-                "num": 1,
-                "list": [
-                    0,1,2,3,4,5,6,7,8,9
-                ]
-            },
-            "万": {
-                "num": 1,
-                "list": [
-                    "小",
-                    "大"
-                ]
-            },
-            "百": {
                 "num": 1,
                 "list": [
                     0,1,2,3,4,5,6,7,8,9
@@ -795,7 +961,46 @@
         }
     },
     "quwei.qujian.wumaqujiansanxing": {
-        "methods": {}
+        "methods": {
+        	"万": {
+                "num": 1,
+                "list": [
+                    "一区(0-1)",
+                    "二区(2-3)",
+                    "三区(4-5)",
+                    "四区(6-7)",
+                    "五区(8-9)"
+                ]
+            },
+            "千": {
+                "num": 1,
+                "list": [
+                     "一区(0-1)",
+                    "二区(2-3)",
+                    "三区(4-5)",
+                    "四区(6-7)",
+                    "五区(8-9)"
+                ]
+            },
+            "百": {
+                "num": 1,
+                "list": [
+                    0,1,2,3,4,5,6,7,8,9
+                ]
+            },
+            "十": {
+                "num": 1,
+                "list": [
+                    0,1,2,3,4,5,6,7,8,9
+                ]
+            },
+            "个": {
+                "num": 1,
+                "list": [
+                    0,1,2,3,4,5,6,7,8,9
+                ]
+            }
+        }
     },
     "renxuan.renxuan2.zuxuanfushi": {
         "methods": {}
@@ -826,7 +1031,26 @@
         }
     },
     "qiansan.zhixuan.kuadu": {
-        "methods": {}
+        "methods": {
+        	 "选": {
+                "num": 1,
+                "list": [
+                    0,1,2,3,4,5,6,7,8,9
+                ],
+                "extra": {
+                    "0": 10,
+                    "1": 108,
+                    "2": 96,
+                    "3": 126,
+                    "4": 144,
+                    "5": 150,
+                    "6": 144,
+                    "7": 126,
+                    "8": 96,
+                    "9": 54
+                }
+            }
+        }
     },
     "wuxing.zuxuan.zuxuan5": {
         "methods": {
@@ -870,7 +1094,14 @@
         }
     },
     "hezhi.wuxing.hezhi": {
-        "methods": {}
+        "methods": {
+        	"选": {
+                "num": 1,
+                "list": [
+                    0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45
+                ]
+            }
+        }
     },
     "qiansan.zhixuan.danshi": {
         "methods": {}
@@ -911,7 +1142,7 @@
     },
     "daxiaodanshuang.daxiaodanshuang.qiansandaxiaodanshuang": {
         "methods": {
-            "千": {
+            "万": {
                 "num": 1,
                 "list": [
                     "大",
@@ -920,7 +1151,7 @@
                     "双"
                 ]
             },
-            "万": {
+            "千": {
                 "num": 1,
                 "list": [
                     "大",
@@ -962,6 +1193,15 @@
     },
     "daxiaodanshuang.daxiaodanshuang.housandaxiaodanshuang": {
         "methods": {
+            "百": {
+                "num": 1,
+                "list": [
+                    "大",
+                    "小",
+                    "单",
+                    "双"
+                ]
+            },
             "十": {
                 "num": 1,
                 "list": [
@@ -972,15 +1212,6 @@
                 ]
             },
             "个": {
-                "num": 1,
-                "list": [
-                    "大",
-                    "小",
-                    "单",
-                    "双"
-                ]
-            },
-            "百": {
                 "num": 1,
                 "list": [
                     "大",
@@ -1043,7 +1274,30 @@
         }
     },
     "quwei.qujian.qiansanqujianerxing": {
-        "methods": {}
+        "methods": {
+        	"万": {
+                "num": 1,
+                "list": [
+                    "一区(0-1)",
+                    "二区(2-3)",
+                    "三区(4-5)",
+                    "四区(6-7)",
+                    "五区(8-9)"
+                ]
+            },
+            "千": {
+               "num": 1,
+                "list": [
+                    0,1,2,3,4,5,6,7,8,9
+                ]
+            },
+            "百": {
+                "num": 1,
+                "list": [
+                    0,1,2,3,4,5,6,7,8,9
+                ]
+            }
+        }
     },
     "zhongsan.zhixuan.fushi": {
         "methods": {}
@@ -1128,7 +1382,14 @@
         "methods": {}
     },
     "budingwei.sixingbudingwei.sixingyimabudingwei": {
-        "methods": {}
+        "methods": {
+        	"选": {
+                "num": 1,
+                "list": [
+                    0,1,2,3,4,5,6,7,8,9
+                ]
+            }
+        }
     },
     "erxing.zuxuan.qianerbaodan": {
         "methods": {}
@@ -1371,13 +1632,43 @@
         }
     },
     "quwei.qujian.housanqujianerxing": {
-        "methods": {}
+        "methods": {
+            "百": {
+                "num": 1,
+                "list": [
+                     "一区(0-1)",
+                    "二区(2-3)",
+                    "三区(4-5)",
+                    "四区(6-7)",
+                    "五区(8-9)"
+                ]
+            },
+            "十": {
+                "num": 1,
+                "list": [
+                    0,1,2,3,4,5,6,7,8,9
+                ]
+            },
+            "个": {
+                "num": 1,
+                "list": [
+                    0,1,2,3,4,5,6,7,8,9
+                ]
+            }
+        }
     },
     "renxuan.renxuan3.zusanfushi": {
         "methods": {}
     },
     "budingwei.sanxingbudingwei.zhongsanermabudingwei": {
-        "methods": {}
+        "methods": {
+        	"选": {
+                "num": 2,
+                "list": [
+                    0,1,2,3,4,5,6,7,8,9
+                ]
+            }
+        }
     },
     "erxing.zuxuan.qianerhezhi": {
         "methods": {}

@@ -55,7 +55,7 @@ function checkToken(){
   };
 }
 
-function login(data) {
+function login(data,navigator) {
   return dispatch => {
     return new AppAuthToken().getSessionToken()
 
@@ -65,6 +65,9 @@ function login(data) {
     
       .then((result) => {
         console.log(result);
+        navigator.resetTo({
+            "twitterTab":true
+          });
       })                
 
       .catch((error) => {

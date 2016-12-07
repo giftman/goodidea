@@ -5,6 +5,7 @@ import React, { Component } from 'react';
 import { View, Text, Image, ScrollView, TouchableOpacity, RefreshControl, Animated, Easing} from 'react-native';
 
 import Util from '../utils/Util';
+import {toastShort} from '../utils/ToastUtil';
 const StyleSheet = require('../utils/CustomStyleSheet');
 import Icon from 'react-native-vector-icons/Ionicons';
 import F8Header from '../common/F8Header';
@@ -214,7 +215,12 @@ console.log(this.state.choice);
     }
 
     _onConfirmBtn(){
-        this.props.navigator.push({"addToPackage":true});
+        if(this.state.numOfChips > 0){
+            this.props.navigator.push({"addToPackage":true});
+        }else{
+            toastShort('请下注');
+        }
+        
     }
     _menuScroll(event:Object){
         this.menuY = event.nativeEvent.contentOffset.y;

@@ -40,6 +40,7 @@ import MoneyDetail from './views/Other/MoneyDetail';
 import BuyPackage from './views/BuyPackage';
 import SplashView from './common/SplashView';
 import { checkToken } from './actions';
+import EasyDialog from './views/EasyDialog';
 var AppNavigator = React.createClass({
     _handlers: ([]: Array<() => boolean>),
 
@@ -129,6 +130,10 @@ var AppNavigator = React.createClass({
         }
         if (route.addToPackage) {
             return <BuyPackage navigator={navigator} />;
+        }
+
+         if (route.dialog) {
+            return <EasyDialog navigator={navigator} />;
         }
         if (route.my) {
             switch (route.my) {

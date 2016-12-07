@@ -23,6 +23,9 @@ class BuyPackage extends Component {
     _clearBtn(){
         console.log("clear");
     }
+    _onConfirmBtn(){
+        this.props.navigator.push({"dialog":true})
+    }
     render() {
 
         var leftItem = {
@@ -65,7 +68,7 @@ class BuyPackage extends Component {
                 {list}
                 {clearBtn}
             </View>
-            <BuyControl price={2} numOfChips={1} type="package"/>
+            <BuyControl price={2} numOfChips={1} type="package" confirmBtn={()=>this._onConfirmBtn()}/>
       </View>
         )
     }

@@ -100,6 +100,7 @@ console.log(this.state.choice);
            break;
         }
       }
+      result = result.slice(0,result.length -1);
       if(defaultGame.each_method_represent_chips_num){
         numOfChips = numOfChips*defaultGame.each_method_represent_chips_num
       }

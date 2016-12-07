@@ -38,7 +38,7 @@ componentWillUnmount() {
         >
         <View style = {styles.section}>
       <Image
-      source={require('../img/logo.png')}
+      source={require('../img/logo2.png')}
       />
         </View>
 

@@ -23,6 +23,7 @@ class BuyView extends Component {
         this.minTop = -Util.size.height + 290 + HEADER_HEIGHT;
         this.tipMinTop = HEADER_HEIGHT - TIP_HEIGHT
         this.maxTop = HEADER_HEIGHT;
+        this.menuY = 0;
         this.state = {
             data: this.data,
             showMenu: false,
@@ -136,6 +137,13 @@ console.log(this.state.choice);
                 easing: Easing.elastic(1), // Bouncier spring
             }
         ).start();
+        if(this.menuY != 0){
+             setTimeout(() => {
+            this.menu.scrollTo({y:this.menuY});
+        }, 200);
+        }
+       
+        
 
     // console.log('_pushMenu');
     }
@@ -208,6 +216,10 @@ console.log(this.state.choice);
     _onConfirmBtn(){
         this.props.navigator.push({"addToPackage":true});
     }
+    _menuScroll(event:Object){
+        this.menuY = event.nativeEvent.contentOffset.y;
+        console.log(this.menuY);
+    }
     render() {
         // console.log(this.props.allTypes["14"]);
         var leftItem = this.props.leftItem;
@@ -272,7 +284,7 @@ console.log(this.state.choice);
                 position: 'absolute',
                 top: this.state.shift
             }}>
-      <BuyMenu menu={this.props.menu} changeType={(type)=>this._changeType(type)}/>
+      <BuyMenu ref={(menu) => {this.menu = menu}} menuScroll={(event)=>{this._menuScroll(event)}} menu={this.props.menu} changeType={(type)=>this._changeType(type)} />
       </Animated.View>
                 : <View/>
             }

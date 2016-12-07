@@ -35,10 +35,10 @@ import {
   Navigator,
   NativeModules,
 } from 'react-native';
-// import {signup,login} from '../actions';
 const {connect} = require('react-redux');
 // import {toastShort} from '../utils/ToastUtil'
 import Util from '../utils/Util';
+import {login} from '../actions';
 import {normalize,headerBG} from '../common/F8Colors';
 export type Status = 'login' | 'register';
 
@@ -170,7 +170,7 @@ class EasyLogin extends Component{
     }else{
       console.log(this.state.username);
       console.log(this.state.passwd);
-      dispatch(signup(this.state.username, this.state.passwd));
+      // dispatch(signup(this.state.username, this.state.passwd));
     }
     
   }

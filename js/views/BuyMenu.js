@@ -8,6 +8,10 @@ import { View, Text, ScrollView, TouchableOpacity, StyleSheet, } from 'react-nat
 import Util from '../utils/Util';
 class BuyMenu extends Component {
 
+     constructor(props) {
+        super(props);
+    }
+
     render() {
         let boxes = <View />
         if (this.props.menu) {
@@ -31,11 +35,15 @@ class BuyMenu extends Component {
 
 
         return (
-            <ScrollView style={styles.container}>
+            <ScrollView style={styles.container} ref="scrollview" 
+            onScroll={this.props.menuScroll} >
       {boxes}
       </ScrollView>
         )
     }
+    scrollTo(...args: Array<any>) {
+    this.refs.scrollview.scrollTo(...args);
+  }
 }
 
 const styles = StyleSheet.create({

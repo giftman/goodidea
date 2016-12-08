@@ -82,6 +82,10 @@ class TopicItem extends Component {
                 borderColor: "#D6D6D6",
                 borderWidth: 1
             };
+        if(topic.length > 2){
+            let tmp = 34*(topic.length/2)
+            style["width"] = normalize(tmp);
+        }
         const numColor = isChecked || this.state.onPress
             ? {
                 color: '#fff'

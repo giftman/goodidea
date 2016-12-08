@@ -14,7 +14,7 @@ import BuyList from './BuyList';
 import BuyMenu from './BuyMenu';
 import BuyControl from './BuyControl';
 import { connect } from 'react-redux';
-import { getGameConfig,changeType,loadMenu} from '../actions';
+import { getGameConfig,changeType,loadMenu,updateChoice} from '../actions';
 import TipPadding from './TipPadding';
 import CoverView from './CoverView';
 
@@ -31,8 +31,8 @@ class BuyView extends Component {
             showTip:false,
             shift: new Animated.Value(this.minTop),
             tipShift: new Animated.Value(this.tipMinTop),
-            choice: {},
-            numOfChips:0,
+            choice:{},
+            
         };
         if(this.props.article && this.props.article.gameId){
             this.props.getGameConfig(this.props.article.gameId);
@@ -57,62 +57,18 @@ if (choice[name] && !this.props.defaultGame.only_one) {
     choice[name].push(index);
 }
 choice[name] = choice[name].sort();
-this._checkChipsCount(choice);
+this.props.updateChoice(choice);
 this.setState({
     choice
 })
-console.log(this.state.choice);
+//这里用props 的choice BuyList 没有重绘，只可以在state设置，props 更新保存一份..估计numberOfChips也是这样
+console.log(this.props.choice);
     // return false;
-    }
-
-    //check how many times had pay.
-    _checkChipsCount(choice){
-      let {defaultGame} = this.props;
-      let {numOfChips} = this.state;
-      let methods = defaultGame.methods;
-      console.log(methods);
-      let result = "";
-      numOfChips = 1;
-      for (let i in methods){
-        console.log("log for in methods i :" + i);
-        console.log(choice[i]);
-        console.log(methods[i])
-        if(choice[i] && choice[i].length >= methods[i].num){
-            numOfChips = countNum(choice[i].length,methods[i].num) * numOfChips;
-            if(methods[i].each_num_represent_chips_num){
-              numOfChips = numOfChips*methods[i].each_num_represent_chips_num;
-            }
-            if(methods[i].extra){ numOfChips = 0};
-            choice[i].map((n,index)=>{
-                console.log(n);
-                if(methods[i].extra){
-                    n = n + 1;
-        }
-                result = result + n.toString();
-                if(methods[i].extra){
-                    numOfChips = methods[i].extra[n] + numOfChips;
-                }
-            })
-            result = result + "|";
-        }else{
-          console.log('not choice all key')
-          numOfChips = 0;
-           break;
-        }
-      }
-      result = result.slice(0,result.length -1);
-      if(defaultGame.each_method_represent_chips_num){
-        numOfChips = numOfChips*defaultGame.each_method_represent_chips_num
-      }
-      this.setState({
-        numOfChips
-      })
-      console.log("choice result:" + result);
-      console.log("numOfChips:" + numOfChips);
     }
 
     //update the buy result for post
     _udateBuyBolls(){
+        // {"num":'2,2,2,2',"des":"五星直选 1注 x 2.0元 = 2.00元"}
 
     }
 
@@ -169,9 +125,6 @@ console.log(this.state.choice);
     _changeType(type){
       this.props.changeType(type);
       this._popMenu();
-      this.setState({
-        choice:{},
-      })
     }
 
     _tipClick(){
@@ -216,8 +169,8 @@ console.log(this.state.choice);
     }
 
     _onConfirmBtn(){
-        if(this.state.numOfChips > 0){
-            this.props.navigator.push({"addToPackage":true});
+        if(this.props.numOfChips > 0){
+            this.props.navigator.push({"addToPackage":true,"buyPackage":this.props.buyPackage});
         }else{
             toastShort('请下注');
         }
@@ -298,24 +251,14 @@ console.log(this.state.choice);
 
       <BuyList data={this.props.defaultGame} onToggle={(name, index) => this._onToggle(name, index)} choice={this.state.choice}/>
     
-      <BuyControl price={2} numOfChips={this.state.numOfChips}  confirmBtn={()=>this._onConfirmBtn()}/>
+      <BuyControl price={2} numOfChips={this.props.numOfChips}  confirmBtn={()=>this._onConfirmBtn()}/>
       
       </View>
         )
     }
 }
 
-function countNum(n,m){
-  return mathDouble(n)/(mathDouble(n-m)*mathDouble(m));
-}
 
-function mathDouble(num){
-  if(num > 1){
-   return num*mathDouble(num-1)
-  }else{
-    return 1
-  }
-}
 
 const styles = StyleSheet.create({
 
@@ -328,6 +271,9 @@ function select(store) {
         allTypes: store.buy.allTypes,
         defaultGame:store.buy.defaultGame,
         defaultTypes:store.buy.defaultTypes,
+        choice:store.buy.choice,
+        numOfChips:store.buy.numOfChips,
+        buyPackage:store.buy.buyPackage,
     };
 }
 
@@ -335,7 +281,8 @@ function actions(dispatch) {
     return {
         loadMenu: (tab) => dispatch(loadMenu()),
         changeType:(type)=> dispatch(changeType(type)),
-        getGameConfig: (gameId)=>dispatch(getGameConfig(gameId))
+        getGameConfig: (gameId)=>dispatch(getGameConfig(gameId)),
+        updateChoice:(choice)=>dispatch(updateChoice(choice)),
     };
 }
 

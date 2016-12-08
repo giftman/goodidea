@@ -54,6 +54,14 @@ function changeType(defaultType):Action{
 	}
 }
 
+function updateChoice(choice):Action{
+  return{
+    type:'UPDATE_CHOICE',
+    choice
+  }
+}
+
+
 function renderCells(cells,name,en_name,jsId,gameId,menu,allTypes,buyCell){
   if(en_name != ""){
     en_name = en_name + "." + cells.name_en;
@@ -81,4 +89,4 @@ function renderCells(cells,name,en_name,jsId,gameId,menu,allTypes,buyCell){
   }
 }
 
-module.exports = {loadMenu,changeType};
+module.exports = {loadMenu,changeType,updateChoice};

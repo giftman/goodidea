@@ -39,10 +39,15 @@ type State = {
   menu:{};
   defaultType:string;
   defaultGame:{};
+  choice:{};
+  numOfChips:number;
   loading:any;
+  buyPackage:[];
+  multNum:number;
+  traceNum:number;
 };
 
-const initialState: State = { allTypes: {},loading:false ,menu:{},defaultType:'wuxing.zhixuan.zuhe',defaultGame:{}};
+const initialState: State = { allTypes: {},buyPackage:[],loading:false,multNum:1,traceNum:1,choice:{},numOfChips:0,menu:{},defaultType:'quwei.teshu.haoshichengshuang',defaultGame:{}};
 
 function buy(state: State = initialState, action: Action): State {
 	switch(action.type){
@@ -53,10 +58,69 @@ function buy(state: State = initialState, action: Action): State {
 		case 'LOAD_FAILED':
 			return {...state,loading:false};
 		case 'CHANGE_TYPE':
-			return {...state,defaultType:action.defaultType,defaultGame:state.allTypes[action.defaultType]};
+			return {...state,defaultType:action.defaultType,defaultGame:state.allTypes[action.defaultType],choice:{}};
+    case 'UPDATE_CHOICE':
+      return _checkChipsCount(state,action.choice);
 	}
   
   return state;
+}
+
+//check how many times had pay.
+function  _checkChipsCount(state,choice){
+      let {defaultGame,numOfChips,buyPackage,multNum} = state;
+      let methods = defaultGame.methods;
+      console.log(methods);
+      let result = "";
+      numOfChips = 1;
+      for (let i in methods){
+        if(choice[i] && choice[i].length >= methods[i].num){
+            numOfChips = countNum(choice[i].length,methods[i].num) * numOfChips;
+            if(methods[i].each_num_represent_chips_num){
+              numOfChips = numOfChips*methods[i].each_num_represent_chips_num;
+            }
+            if(methods[i].extra){ numOfChips = 0};
+            choice[i].map((n,index)=>{
+                console.log(n);
+                if(methods[i].extra){
+                    n = n + 1;
+        }
+                result = result + n.toString();
+                if(methods[i].extra){
+                    numOfChips = methods[i].extra[n] + numOfChips;
+                }
+            })
+            result = result + "|";
+        }else{
+          console.log('not choice all key')
+          numOfChips = 0;
+           break;
+        }
+      }
+      result = result.slice(0,result.length -1);
+      if(defaultGame.each_method_represent_chips_num){
+        numOfChips = numOfChips*defaultGame.each_method_represent_chips_num
+      }
+      let oneChoice = {};
+      oneChoice["num"] = result.replace("|",",");
+      // this.props.numOfChips + "注 X" + this.state.multNum + "倍=" + this.props.price * this.state.multNum * this.props.numOfChips + "元";
+      oneChoice["des"] = defaultGame.name_cn + " " + numOfChips + "注 X " + multNum + "倍=" + defaultGame.price * multNum * numOfChips + "元";
+      buyPackage.push(oneChoice);
+      console.log("choice result:" + result);
+      console.log("numOfChips:" + numOfChips);
+      return {...state,numOfChips,buyPackage,choice}
+    }
+
+function countNum(n,m){
+  return mathDouble(n)/(mathDouble(n-m)*mathDouble(m));
+}
+
+function mathDouble(num){
+  if(num > 1){
+   return num*mathDouble(num-1)
+  }else{
+    return 1
+  }
 }
 
 module.exports = buy;

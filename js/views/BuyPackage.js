@@ -15,7 +15,7 @@ class BuyPackage extends Component {
 
     constructor(props) {
         super(props);
-        this.data = [{"num":'2,2,2,2',"des":"五星直选 1注 x 2.0元 = 2.00元"},{"num":'2,2,2,2',"des":"五星直选 1注 x 2.0元 = 2.00元"}]
+        // this.data = [{"num":'2,2,2,2',"des":"五星直选 1注 x 2.0元 = 2.00元"},{"num":'2,2,2,2',"des":"五星直选 1注 x 2.0元 = 2.00元"}]
     }
     _onclick(type){
         console.log(type);
@@ -33,7 +33,7 @@ class BuyPackage extends Component {
             title: 'ios-arrow-back',
             onPress: () => this.props.navigator.pop(),
         };
-        let list = this.data.map((elem,index) => {
+        let list = this.props.data.map((elem,index) => {
             return (
                     <View key={index} style={styles.listContain}>
                         <TouchableOpacity style={{paddingLeft:10}}>

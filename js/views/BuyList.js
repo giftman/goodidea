@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react';
 
-import { View, Text, Image, ScrollView, TouchableOpacity, RefreshControl, Animated, Easing, ActivityIndicator} from 'react-native';
+import { View,ScrollView,ActivityIndicator,TextInput} from 'react-native';
 
 import Util from '../utils/Util';
 const StyleSheet = require('../utils/CustomStyleSheet');
@@ -25,25 +25,18 @@ class BuyList extends Component {
 
 
         this.state = {
-            isRefreshing: false,
+            numbers: "",
         };
     }
 
 
-    _onRefresh() {
-        this.setState({
-            isRefreshing: true
-        });
-        setTimeout(() => {
-            this.setState({
-                isRefreshing: false
-            });
-        }, 2000);
+    _onChangeText(number) {
+        this.props.onToggle(number,0);
+        this.setState({number});
     }
 
     render() {
-        let boxes = <View
-          />
+        let boxes = <View />
         console.log(this.props.data);
         if (this.props.data && this.props.data.methods) {
             boxes = Object.keys(this.props.data.methods).map((name, index) => {
@@ -59,6 +52,18 @@ class BuyList extends Component {
             color="#666"
           />
         }
+        if(this.props.data && this.props.data.layout == 2){
+        boxes =  <TextInput
+            ref={(number) => this.number = number}
+
+            onFocus={() => this.number.focus()}
+            onChangeText={(number) => this._onChangeText(number)}
+            multiline={true}
+            style={styles.input}
+            placeholder='输入命中注定的号码吧，用空格或者","分开'
+            underlineColorAndroid={'transparent'}  
+            />
+        }
 
         return (
             <ScrollView style={styles.postContainer}>
@@ -71,83 +76,17 @@ class BuyList extends Component {
 
 
 const styles = StyleSheet.create({
-    postContainer: {
+  input:{
+    fontSize:14,flex:1,borderWidth:Util.pixel,borderColor:'#666',padding:15,
+    height:335,
+    margin:10,
+    borderRadius:5,
+    backgroundColor:'white',
+  },
+  postContainer: {
         backgroundColor: '#eee',
         width: Util.size.width,
         height: Util.size.height,
-    },
-
-    containerItem: {
-        flex: 1,
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#fcfcfc',
-        padding: 15,
-        paddingLeft: 20,
-        borderBottomColor: '#ddd',
-        borderBottomWidth: 1
-    },
-    containerMenu: {
-        flex: 1,
-        flexDirection: 'row',
-        justifyContent: 'flex-start',
-        alignItems: 'center',
-        backgroundColor: '#fcfcfc',
-        padding: 10,
-        paddingLeft: 15,
-        borderBottomColor: '#ddd',
-        borderBottomWidth: 1
-    },
-    title: {
-        fontSize: 24,
-        fontWeight: '500',
-        textAlign: 'left',
-        color: 'black',
-        backgroundColor: 'green'
-    },
-    des: {
-        flex: 1,
-        fontSize: 14,
-        color: '#9E9E9E',
-        paddingLeft: 10
-    },
-    bolls: {
-        // backgroundColor:'grey',
-        flex: 1,
-        alignItems: "center",
-        justifyContent: "space-between",
-        flexDirection: 'row',
-        paddingRight: 60,
-        paddingBottom: 10,
-        paddingTop: 10,
-    },
-    boll: {
-        width: 28,
-        height: 28,
-        borderRadius: 14,
-        borderWidth: 1,
-        backgroundColor: "white",
-        alignItems: "center",
-        justifyContent: "center",
-        shadowColor: "#000",
-        shadowOpacity: 0.3,
-        shadowRadius: 2,
-        shadowOffset: {
-            height: 1,
-            width: 0,
-        }
-    },
-    bollText: {
-        fontSize: 18,
-        color: '#000',
-        fontWeight: '600',
-    },
-    added: {
-        position: 'absolute',
-        backgroundColor: 'transparent',
-        right: 0,
-        top: 0,
     },
 });
 

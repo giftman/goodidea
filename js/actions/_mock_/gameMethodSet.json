@@ -157,6 +157,8 @@
         }
     },
     "qiansan.zuxuan.zuliudanshi": {
+        "layout":2,
+        "num":3,
         "methods": {}
     },
     "zhongsan.zuxuan.zuliu": {

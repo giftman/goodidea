@@ -42,9 +42,12 @@ class BuyView extends Component {
 
     _onToggle(name, index) {
         // console.log(name, index);
-        
-let {choice} = this.state;
-if (choice[name] && !this.props.defaultGame.only_one) {
+        let {choice} = this.state;
+        console.log(name);
+        if(this.props.defaultGame.layout == 2){
+            choice = name.split(" ");
+        }else{
+            if (choice[name] && !this.props.defaultGame.only_one) {
     if (choice[name].includes(index)) {
         console.log("del "  + index);
         let where = choice[name].indexOf(index);
@@ -57,12 +60,15 @@ if (choice[name] && !this.props.defaultGame.only_one) {
     choice[name].push(index);
 }
 choice[name] = choice[name].sort();
+        }
+
+
 this.props.updateChoice(choice);
 this.setState({
     choice
 })
 //这里用props 的choice BuyList 没有重绘，只可以在state设置，props 更新保存一份..估计numberOfChips也是这样
-console.log(this.props.choice);
+// console.log(this.props.choice);
     // return false;
     }
 

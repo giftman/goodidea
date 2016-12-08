@@ -11,10 +11,10 @@ export type UserInfo = {
 };
 
 export type PlayType = {
-	    singleLimit: number,
+	      singleLimit: number,
         allLimit: number,
         chips:number, 
-        layout:number, 
+        layout:number, //(1/null) 2 单式 3 有position
         methods: {},
         bet_note: string,
         bonus_note: string,
@@ -47,7 +47,7 @@ type State = {
   traceNum:number;
 };
 
-const initialState: State = { allTypes: {},buyPackage:[],loading:false,multNum:1,traceNum:1,choice:{},numOfChips:0,menu:{},defaultType:'quwei.teshu.haoshichengshuang',defaultGame:{}};
+const initialState: State = { allTypes: {},buyPackage:[],loading:false,multNum:1,traceNum:1,choice:{},numOfChips:0,menu:{},defaultType:'qiansan.zuxuan.zuliudanshi',defaultGame:{}};
 
 function buy(state: State = initialState, action: Action): State {
 	switch(action.type){
@@ -97,10 +97,25 @@ function  _checkChipsCount(state,choice){
            break;
         }
       }
-      result = result.slice(0,result.length -1);
+      
       if(defaultGame.each_method_represent_chips_num){
         numOfChips = numOfChips*defaultGame.each_method_represent_chips_num
       }
+
+      if(result.length >= 1){
+        result = result.slice(0,result.length -1);
+      }
+      if(defaultGame.layout == 2){
+        if(!checkIsValidDansi(choice,defaultGame.num)){
+           return {...state,numOfChips:0};
+        }
+        numOfChips = choice.length;
+        console.log(numOfChips);
+        result = choice.join(',');
+        buyPackage = [];
+      }
+
+      
       let oneChoice = {};
       oneChoice["num"] = result.replace("|",",");
       // this.props.numOfChips + "注 X" + this.state.multNum + "倍=" + this.props.price * this.state.multNum * this.props.numOfChips + "元";
@@ -110,6 +125,20 @@ function  _checkChipsCount(state,choice){
       console.log("numOfChips:" + numOfChips);
       return {...state,numOfChips,buyPackage,choice}
     }
+
+function checkIsValidDansi(choice,num){
+  let result = true;
+  for(let i in choice){
+    console.log(choice[i].length);
+    if(choice[i].length === num){
+
+    }else{
+      result = false;
+      break;
+    }
+  }
+  return result;
+}
 
 function countNum(n,m){
   return mathDouble(n)/(mathDouble(n-m)*mathDouble(m));

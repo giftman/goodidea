@@ -165,7 +165,7 @@ class EasyLogin extends Component{
      if(this.state.status === 'login'){
        console.log(this.state.username);
        console.log(this.state.passwd);
-       dispatch(login({this.state.username,this.state.passwd},this.props.navigator));
+       dispatch(login({"username":this.state.username,"password":this.state.passwd},this.props.navigator));
     
     }else{
       console.log(this.state.username);

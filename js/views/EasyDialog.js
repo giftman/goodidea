@@ -62,7 +62,7 @@ class EasyDialog extends Component{
   render(){
     let words = ['Cancle','登录'];
       return (
-        <View style={{flex:1,alignItems:'center',justifyContent:'center',backgroundColor: '#eee',height:Util.size.height}} >
+        <View style={styles.mainContainer} >
             <View style={[styles.container,this.props.style]} >
             <Text style={styles.header}>Header</Text>
             <View style={styles.content}>
@@ -75,7 +75,8 @@ class EasyDialog extends Component{
             <TouchableOpacity style={styles.style_view_commit}  activeOpacity={0.8} onPress={this.leftPress.bind(this)}><Text style={styles.buttonText}>{words[0]}</Text></TouchableOpacity>
             <TouchableOpacity style={[styles.style_view_commit,{backgroundColor:'#ff9600'}]} onPress={this.rightPress.bind(this)} activeOpacity={0.8}><Text style={styles.buttonText}>{words[1]}</Text></TouchableOpacity>
            </View>
-        </View>
+          </View>
+          <View style={styles.cover} />
         </View>
         );
       }
@@ -88,8 +89,6 @@ class EasyDialog extends Component{
 
   rightPress(){
     const {dispatch} = this.props;
-     
-    
   }
 }
 
@@ -98,6 +97,18 @@ class EasyDialog extends Component{
 
 
 const styles = StyleSheet.create({
+  mainContainer:{
+    flex:1,alignItems:'center',justifyContent:'center',backgroundColor: 'transparent',height:Util.size.height
+  },
+  cover:{
+    position:'absolute',
+    top:0,
+    left:0,
+    width:Util.size.width,
+    height:Util.size.height,
+    backgroundColor:'#666',
+    opacity:0.5,
+  },
   baseComponent:{
      alignItems: 'center',
      justifyContent:'center',
@@ -131,6 +142,7 @@ const styles = StyleSheet.create({
     color: '#a9b7b7',
     textAlign:'center',
     padding:5,
+    backgroundColor:'transparent',
   },
   container: {
     backgroundColor:'white',
@@ -138,8 +150,8 @@ const styles = StyleSheet.create({
     height:normalize(200),
     borderRadius:normalize(10),
     borderWidth:.2,
-    borderColor:'#000'
-    
+    borderColor:'#000',
+    zIndex:1
   },
   style_view_commit:{  
     width:normalize(110),
@@ -150,7 +162,6 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: 'white',
-    // fontWeight: 'bold',
     fontSize: 18,
   },
   

@@ -11,17 +11,40 @@ import F8Header from '../common/F8Header';
 import EasyButton from '../common/EasyButton';
 import BuyControl from './BuyControl';
 
+import { connect } from 'react-redux';
+import { clearPackage,updatePackageProps} from '../actions';
+import {checkHowManyNumOfChipsAndAddToPackage,updatePackage,randomPick} from './buyHelper';
 class BuyPackage extends Component {
-
     constructor(props) {
         super(props);
         // this.data = [{"num":'2,2,2,2',"des":"五星直选 1注 x 2.0元 = 2.00元"},{"num":'2,2,2,2',"des":"五星直选 1注 x 2.0元 = 2.00元"}]
+        this.state={
+            "data":this.props.buyPackage
+        }
     }
+    
+
     _onclick(type){
-        console.log(type);
+        // console.log(type);
+        let {defaultGame,multNum,buyPackage} = this.props;
+
+      for(var i=0;i<type;i++){
+        let choice = randomPick(defaultGame);
+        let {result,numOfChips} = checkHowManyNumOfChipsAndAddToPackage(defaultGame,choice);
+        buyPackage = updatePackage(defaultGame,numOfChips,multNum,buyPackage,result);
+    }
+        this.setState({
+            "data":buyPackage
+        })
+        this.props.updatePackageProps(buyPackage);
+    
     }
     _clearBtn(){
         console.log("clear");
+        this.props.clearPackage();
+        this.setState({
+            "data":[]
+        })
     }
     _onConfirmBtn(){
         this.props.navigator.push({"dialog":true})
@@ -33,7 +56,7 @@ class BuyPackage extends Component {
             title: 'ios-arrow-back',
             onPress: () => this.props.navigator.pop(),
         };
-        let list = this.props.data.map((elem,index) => {
+        let list = this.state.data.map((elem,index) => {
             return (
                     <View key={index} style={styles.listContain}>
                         <TouchableOpacity style={{paddingLeft:10}}>
@@ -62,12 +85,12 @@ class BuyPackage extends Component {
             <View style={styles.randomContain}>
                 <EasyButton style={styles.randomButton} caption="Luck one" icon="md-add-circle" onPress={()=>this._onclick(1)}/>
                 <EasyButton style={styles.randomButton} caption="Luck five" icon="md-add-circle" onPress={()=>this._onclick(5)}/>
-                <EasyButton style={styles.randomButton} caption="Luck one" icon="md-add-circle" onPress={()=>this.props.navigator.pop()}/>
+                <EasyButton style={styles.randomButton} caption="继续选号" icon="md-add-circle" onPress={()=>this.props.navigator.pop()}/>
             </View>
-            <View style={{flex:1}}>
+            <ScrollView style={{flex:1}}>
                 {list}
                 {clearBtn}
-            </View>
+            </ScrollView>
             <BuyControl price={2} numOfChips={1} type="package" confirmBtn={()=>this._onConfirmBtn()}/>
       </View>
         )
@@ -121,5 +144,20 @@ const styles = StyleSheet.create({
     
 });
 
+function select(store) {
+    return {
+        defaultGame:store.buy.defaultGame,
+        multNum:store.buy.multNum,
+        numOfChips:store.buy.numOfChips,
+        buyPackage:store.buy.buyPackage,
+    };
+}
 
-export default BuyPackage;
+function actions(dispatch) {
+    return {
+        clearPackage:()=>dispatch(clearPackage()),
+        randomPick:(num)=>dispatch(randomPick(num)),
+        updatePackageProps:(buyPackage)=>dispatch(updatePackageProps(buyPackage)),
+    };
+}
+module.exports = connect(select, actions)(BuyPackage);

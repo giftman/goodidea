@@ -129,7 +129,7 @@ var AppNavigator = React.createClass({
             return <TrendSet navigator={navigator} />;
         }
         if (route.addToPackage) {
-            return <BuyPackage navigator={navigator} data={route.buyPackage}/>;
+            return <BuyPackage navigator={navigator}/>;
         }
 
          if (route.dialog) {

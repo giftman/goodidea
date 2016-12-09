@@ -14,9 +14,10 @@ import BuyList from './BuyList';
 import BuyMenu from './BuyMenu';
 import BuyControl from './BuyControl';
 import { connect } from 'react-redux';
-import { getGameConfig,changeType,loadMenu,updateChoice} from '../actions';
+import { getGameConfig,changeType,loadMenu,updateChoice,updateNumOfChips,updatePackageProps} from '../actions';
 import TipPadding from './TipPadding';
 import CoverView from './CoverView';
+import {checkHowManyNumOfChipsAndAddToPackage,updatePackage} from './buyHelper';
 
 class BuyView extends Component {
     constructor(props) {
@@ -25,6 +26,7 @@ class BuyView extends Component {
         this.tipMinTop = HEADER_HEIGHT - TIP_HEIGHT
         this.maxTop = HEADER_HEIGHT;
         this.menuY = 0;
+        this.result = "";
         this.state = {
             data: this.data,
             showMenu: false,
@@ -41,35 +43,45 @@ class BuyView extends Component {
     }
 
     _onToggle(name, index) {
-        // console.log(name, index);
-        let {choice} = this.state;
-        console.log(name);
-        if(this.props.defaultGame.layout == 2){
-            choice = name.split(" ");
-        }else{
-            if (choice[name] && !this.props.defaultGame.only_one) {
-    if (choice[name].includes(index)) {
-        console.log("del "  + index);
-        let where = choice[name].indexOf(index);
-        choice[name].splice(where, 1);
-    } else {
-        choice[name].push(index);
-    }
-} else {
-    choice[name] = [];
-    choice[name].push(index);
-}
-choice[name] = choice[name].sort();
-        }
+            // console.log(name, index);
+        let {
+            choice,
+            defaultGame,
+            buyPackage,
+            multNum
+            } = this.props;
+            console.log(name);
+            //单式特殊读取choice
+            if (defaultGame.layout == 2) {
+                choice = name.split(" ");
+            } else {
+                if (choice[name] && !this.props.defaultGame.only_one) {
+                    if (choice[name].includes(index)) {
+                        console.log("del " + index);
+                        let where = choice[name].indexOf(index);
+                        choice[name].splice(where, 1);
+                    } else {
+                        choice[name].push(index);
+                    }
+                } else {
+                    choice[name] = [];
+                    choice[name].push(index);
+                }
+                choice[name] = choice[name].sort();
+            }
 
-
-this.props.updateChoice(choice);
-this.setState({
-    choice
-})
+            let {result,numOfChips}= checkHowManyNumOfChipsAndAddToPackage(defaultGame,choice);
+            this.result = result;
+            this.props.updateChoice(choice);
+            if(numOfChips >= 1){
+                this.props.updateNumOfChips(numOfChips);
+            }
+            this.setState({
+                choice
+            })
 //这里用props 的choice BuyList 没有重绘，只可以在state设置，props 更新保存一份..估计numberOfChips也是这样
 // console.log(this.props.choice);
-    // return false;
+// return false;
     }
 
     //update the buy result for post
@@ -179,9 +191,14 @@ this.setState({
 
     _onConfirmBtn(){
         if(this.props.numOfChips > 0){
-            this.props.navigator.push({"addToPackage":true,"buyPackage":this.props.buyPackage});
+            let {defaultGame,numOfChips,multNum,buyPackage} = this.props;
+            buyPackage = updatePackage(defaultGame,numOfChips,multNum,buyPackage,this.result);
+            this.props.updatePackageProps(buyPackage);
+            this.props.navigator.push({
+                "addToPackage":true,
+            });
         }else{
-            toastShort('请下注');
+            toastShort(this.props.defaultGame.bet_note);
         }
         
     }
@@ -280,7 +297,8 @@ function select(store) {
         allTypes: store.buy.allTypes,
         defaultGame:store.buy.defaultGame,
         defaultTypes:store.buy.defaultTypes,
-        // choice:store.buy.choice,
+        choice:store.buy.choice,
+        multNum:store.buy.multNum,
         numOfChips:store.buy.numOfChips,
         buyPackage:store.buy.buyPackage,
     };
@@ -292,6 +310,10 @@ function actions(dispatch) {
         changeType:(type)=> dispatch(changeType(type)),
         getGameConfig: (gameId)=>dispatch(getGameConfig(gameId)),
         updateChoice:(choice)=>dispatch(updateChoice(choice)),
+        clearPackage:()=>dispatch(clearPackage()),
+        randomPick:(num)=>dispatch(randomPick(num)),
+        updateNumOfChips:(num)=>dispatch(updateNumOfChips(num)),
+        updatePackageProps:(buyPackage)=>dispatch(updatePackageProps(buyPackage)),
     };
 }
 

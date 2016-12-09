@@ -15,9 +15,6 @@ function loadMenu(data): ThunkAction {
      
      for(let i in buyCell){
      	if(allTypes[i]){
-     		// allTypes[i].singleLimit = buyCell[i].singleLimit;
-     		// allTypes[i].allLimit = buyCell[i].allLimit;
-     		// allTypes[i].chips = buyCell[i].chips;
         allTypes[i].only_one = buyCell[i].only_one;
      		allTypes[i].layout = buyCell[i].layout;
      		allTypes[i].methods = buyCell[i].methods;
@@ -27,19 +24,7 @@ function loadMenu(data): ThunkAction {
      }
      	dispatch({type:"LOAD_MENU",menu,allTypes})
      }
-     
-  // return (dispatch) => {
-  //   return query.find({
-  //     success: (list) => {
-  //       // We don't want data loading to interfere with smooth animations
-  //       InteractionManager.runAfterInteractions(() => {
-  //         // Flow can't guarantee {type, list} is a valid action
-  //         dispatch(({type, list}: any));
-  //       });
-  //     },
-  //     error: logError,
-  //   });
-  // };
+ 
 }
 
 function skipLogin(): Action {
@@ -47,6 +32,13 @@ function skipLogin(): Action {
     type: 'SKIPPED_LOGIN',
   };
 }
+
+// function randomPick(num): Action {
+//   return {
+//     type: 'RANDOM_PICK',
+//     times:num,
+//   };
+// }
 
 function changeType(defaultType):Action{
 	return{
@@ -58,10 +50,29 @@ function changeType(defaultType):Action{
 function updateChoice(choice):Action{
   return{
     type:'UPDATE_CHOICE',
-    choice
+    choice,
   }
 }
 
+function updateNumOfChips(num):Action{
+  return{
+    type:'UPDATE_NUMOFCHIPS',
+    num,
+  }
+}
+
+function updatePackageProps(buyPackage):Action{
+  return{
+    type:'UPDATE_PACKAGE',
+    buyPackage,
+  }
+}
+
+function clearPackage(): Action {
+  return {
+    type: 'CLEAR_PACKAGE',
+  };
+}
 
 function renderCells(cells,name,en_name,jsId,gameId,menu,allTypes,buyCell){
   if(en_name != ""){
@@ -90,4 +101,4 @@ function renderCells(cells,name,en_name,jsId,gameId,menu,allTypes,buyCell){
   }
 }
 
-module.exports = {loadMenu,changeType,updateChoice};
+module.exports = {loadMenu,changeType,updateChoice,clearPackage,updateNumOfChips,updatePackageProps};

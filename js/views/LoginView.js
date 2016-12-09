@@ -32,8 +32,11 @@ import {
   TextInput,
   Text,
   TouchableOpacity,
+  TouchableHighlight,
   Navigator,
   NativeModules,
+  Alert,
+  Modal
 } from 'react-native';
 // import {signup,login} from '../actions';
 const {connect} = require('react-redux');
@@ -55,6 +58,7 @@ class LoginView extends Component{
       username:'',
       passwd:'',
       status:'login',
+      show:true,
     }
     // this.renderEmptySessionsList = this.renderEmptySessionsList.bind(this);
     // this.openSharingSettings = this.openSharingSettings.bind(this);
@@ -84,6 +88,41 @@ class LoginView extends Component{
     }
       return (
         <View style={{flex:1,alignItems:'center',justifyContent:'center',backgroundColor: 'transparent'}} >
+         <Modal
+           animationType='slide'
+           transparent={true}
+           visible={this.state.show}
+           onShow={() => {}}
+           onRequestClose={() => {}} >
+           <View style={styles.modalStyle}>
+             <View style={styles.subView}>
+               <Text style={styles.titleText}>
+                 提示
+               </Text>
+               <Text style={styles.contentText}>
+                 Modal显示的View 多行了超出一行了会怎么显示，就像这样显示了很多内容该怎么显示，看看效果
+               </Text>
+               <View style={styles.horizontalLine} />
+               <View style={styles.buttonView}>
+                 <TouchableHighlight underlayColor='transparent'
+                   style={styles.buttonStyle}
+                   onPress={this.rightPress.bind(this)}>
+                   <Text style={styles.buttonText}>
+                     取消
+                   </Text>
+                 </TouchableHighlight>
+                 <View style={styles.verticalLine} />
+                 <TouchableHighlight underlayColor='red'
+                   style={[styles.buttonStyle,{backgroundColor:'red'}]}
+                   onPress={this.rightPress.bind(this)}>
+                   <Text style={styles.buttonText}>
+                     确定
+                   </Text>
+                 </TouchableHighlight>
+               </View>
+             </View>
+           </View>
+        </Modal>
         <View style={[styles.container,this.props.style]} >
           <View style={[styles.baseComponent]}>
             <View style={styles.toolbar} />
@@ -160,17 +199,33 @@ class LoginView extends Component{
  //  } 
 
   rightPress(){
-    const {dispatch} = this.props;
-     if(this.state.status === 'login'){
-       console.log(this.state.username);
-       console.log(this.state.passwd);
-       dispatch(login(this.state.username,this.state.passwd));
+    // const {dispatch} = this.props;
+    //  if(this.state.status === 'login'){
+    //    console.log(this.state.username);
+    //    console.log(this.state.passwd);
+    //    dispatch(login(this.state.username,this.state.passwd));
     
-    }else{
-      console.log(this.state.username);
-      console.log(this.state.passwd);
-      dispatch(signup(this.state.username, this.state.passwd));
-    }
+    // }else{
+    //   console.log(this.state.username);
+    //   console.log(this.state.passwd);
+    //   dispatch(signup(this.state.username, this.state.passwd));
+    // }
+    let isShow = this.state.show;
+    this.setState({
+      show:!isShow,
+    });
+    // Alert.alert(
+    //         'Alert Title',
+    //         "alertMessage",
+    //       );
+    // Alert.alert(
+    //         'Alert Title',
+    //         alertMessage,
+    //         [
+    //           {text: 'Cancel', onPress: () => console.log('Cancel Pressed!')},
+    //           {text: 'OK', onPress: () => console.log('OK Pressed!')},
+    //         ]
+    //       )
     
   }
 }
@@ -241,6 +296,66 @@ const styles = StyleSheet.create({
     color: 'white',
     // fontWeight: 'bold',
     fontSize: 18,
+  },
+  // modal的样式
+  modalStyle: {
+    // backgroundColor:'#ccc',
+    alignItems: 'center',
+    justifyContent:'center',
+    flex:1,
+  },
+  // modal上子View的样式
+  subView:{
+    marginLeft:60,
+    marginRight:60,
+    backgroundColor:'#fff',
+    alignSelf: 'stretch',
+    justifyContent:'center',
+    borderRadius: 10,
+    borderWidth: 0.5,
+    borderColor:'#ccc',
+  },
+  // 标题
+  titleText:{
+    marginTop:10,
+    marginBottom:5,
+    fontSize:16,
+    fontWeight:'bold',
+    textAlign:'center',
+  },
+  // 内容
+  contentText:{
+    margin:8,
+    fontSize:14,
+    textAlign:'center',
+  },
+  // 水平的分割线
+  horizontalLine:{
+    marginTop:5,
+    height:0.5,
+    backgroundColor:'#ccc',
+  },
+  // 按钮
+  buttonView:{
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  buttonStyle:{
+    flex:1,
+    height:44,
+    alignItems: 'center',
+    justifyContent:'center',
+  },
+  // 竖直的分割线
+  verticalLine:{
+    width:0.5,
+    height:44,
+    backgroundColor:'#ccc',
+  },
+  buttonText:{
+    fontSize:16,
+    color:'#3393F2',
+    textAlign:'center',
   },
   
 });

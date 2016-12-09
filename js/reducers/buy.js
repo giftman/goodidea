@@ -3,7 +3,7 @@
 'use strict';
 
 import type {Action} from '../actions/types';
-
+import _ from 'underscore';
 export type UserInfo = {
 	username:'',
 	email:'',
@@ -11,11 +11,10 @@ export type UserInfo = {
 };
 
 export type PlayType = {
-	      singleLimit: number,
-        allLimit: number,
-        chips:number, 
         layout:number, //(1/null) 2 单式 3 有position
-        methods: {},
+        num:number,//单式可选数量
+        each_method_represent_chips_num:number,//每一份代表多少注
+        methods: {},//num 第列可选数量 list 每列显示内容  each_num_represent_chips_num 每列num球代表多少注
         bet_note: string,
         bonus_note: string,
         dekaron: {},
@@ -47,7 +46,7 @@ type State = {
   traceNum:number;
 };
 
-const initialState: State = { allTypes: {},buyPackage:[],loading:false,multNum:1,traceNum:1,choice:{},numOfChips:0,menu:{},defaultType:'qiansan.zuxuan.zuliudanshi',defaultGame:{}};
+const initialState: State = { allTypes: {},buyPackage:[],loading:false,multNum:1,traceNum:1,choice:{},numOfChips:0,menu:{},defaultType:'qiansan.zhixuan.zuhe',defaultGame:{}};
 
 function buy(state: State = initialState, action: Action): State {
 	switch(action.type){
@@ -60,98 +59,18 @@ function buy(state: State = initialState, action: Action): State {
 		case 'CHANGE_TYPE':
 			return {...state,defaultType:action.defaultType,defaultGame:state.allTypes[action.defaultType],choice:{}};
     case 'UPDATE_CHOICE':
-      return _checkChipsCount(state,action.choice);
+      return {...state,choice:action.choice};
+    case 'CLEAR_PACKAGE':
+      return {...state,buyPackage:[]};
+    // case 'RANDOM_PICK':
+    //   return _randomPick(state,action.times);
+    case 'UPDATE_NUMOFCHIPS':
+      return {...state,numOfChips:action.num};
+    case 'UPDATE_PACKAGE':
+      return {...state,buyPackage:action.buyPackage};
 	}
   
   return state;
-}
-
-//check how many times had pay.
-function  _checkChipsCount(state,choice){
-      let {defaultGame,numOfChips,buyPackage,multNum} = state;
-      let methods = defaultGame.methods;
-      console.log(methods);
-      let result = "";
-      numOfChips = 1;
-      for (let i in methods){
-        if(choice[i] && choice[i].length >= methods[i].num){
-            numOfChips = countNum(choice[i].length,methods[i].num) * numOfChips;
-            if(methods[i].each_num_represent_chips_num){
-              numOfChips = numOfChips*methods[i].each_num_represent_chips_num;
-            }
-            if(methods[i].extra){ numOfChips = 0};
-            choice[i].map((n,index)=>{
-                console.log(n);
-                if(methods[i].extra){
-                    n = n + 1;
-        }
-                result = result + n.toString();
-                if(methods[i].extra){
-                    numOfChips = methods[i].extra[n] + numOfChips;
-                }
-            })
-            result = result + "|";
-        }else{
-          console.log('not choice all key')
-          numOfChips = 0;
-           break;
-        }
-      }
-      
-      if(defaultGame.each_method_represent_chips_num){
-        numOfChips = numOfChips*defaultGame.each_method_represent_chips_num
-      }
-
-      if(result.length >= 1){
-        result = result.slice(0,result.length -1);
-      }
-      if(defaultGame.layout == 2){
-        if(!checkIsValidDansi(choice,defaultGame.num)){
-           return {...state,numOfChips:0};
-        }
-        numOfChips = choice.length;
-        console.log(numOfChips);
-        result = choice.join(',');
-        buyPackage = [];
-      }
-
-      if(numOfChips >= 1){
-      let oneChoice = {};
-      oneChoice["num"] = result.replace(/\|/,",");
-      // this.props.numOfChips + "注 X" + this.state.multNum + "倍=" + this.props.price * this.state.multNum * this.props.numOfChips + "元";
-      oneChoice["des"] = defaultGame.name_cn + " " + numOfChips + "注 X " + multNum + "倍=" + defaultGame.price * multNum * numOfChips + "元";
-      buyPackage.push(oneChoice);
-      }
-      
-      console.log("choice result:" + result);
-      console.log("numOfChips:" + numOfChips);
-      return {...state,numOfChips,buyPackage,choice}
-    }
-
-function checkIsValidDansi(choice,num){
-  let result = true;
-  for(let i in choice){
-    console.log(choice[i].length);
-    if(choice[i].length === num){
-
-    }else{
-      result = false;
-      break;
-    }
-  }
-  return result;
-}
-
-function countNum(n,m){
-  return mathDouble(n)/(mathDouble(n-m)*mathDouble(m));
-}
-
-function mathDouble(num){
-  if(num > 1){
-   return num*mathDouble(num-1)
-  }else{
-    return 1
-  }
 }
 
 module.exports = buy;

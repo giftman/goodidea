@@ -60,7 +60,7 @@ class EasyDialog extends Component{
     // this.handleSegmentChanged = this.handleSegmentChanged.bind(this);
   }
   render(){
-    let words = ['Cancle','登录'];
+    let words = ['Cancle','投注'];
       return (
         <View style={styles.mainContainer} >
             <View style={[styles.container,this.props.style]} >
@@ -84,6 +84,7 @@ class EasyDialog extends Component{
 
   leftPress(){
     console.log("leftPress");
+    this.props.navigator.pop();
 }
 
 
@@ -107,17 +108,7 @@ const styles = StyleSheet.create({
     width:Util.size.width,
     height:Util.size.height,
     backgroundColor:'#666',
-    opacity:0.5,
-  },
-  baseComponent:{
-     alignItems: 'center',
-     justifyContent:'center',
-     flex:1,
-     marginTop:-90,
-  },
-  logo:{
-    width:200,
-    height:60,
+    opacity:0.2,
   },
   content:{
     flex:1,

@@ -115,12 +115,14 @@ function  _checkChipsCount(state,choice){
         buyPackage = [];
       }
 
-      
+      if(numOfChips >= 1){
       let oneChoice = {};
-      oneChoice["num"] = result.replace("|",",");
+      oneChoice["num"] = result.replace(/\|/,",");
       // this.props.numOfChips + "注 X" + this.state.multNum + "倍=" + this.props.price * this.state.multNum * this.props.numOfChips + "元";
       oneChoice["des"] = defaultGame.name_cn + " " + numOfChips + "注 X " + multNum + "倍=" + defaultGame.price * multNum * numOfChips + "元";
       buyPackage.push(oneChoice);
+      }
+      
       console.log("choice result:" + result);
       console.log("numOfChips:" + numOfChips);
       return {...state,numOfChips,buyPackage,choice}

@@ -131,6 +131,9 @@ this.setState({
     _changeType(type){
       this.props.changeType(type);
       this._popMenu();
+      this.setState({
+        choice:{}
+      })
     }
 
     _tipClick(){
@@ -277,7 +280,7 @@ function select(store) {
         allTypes: store.buy.allTypes,
         defaultGame:store.buy.defaultGame,
         defaultTypes:store.buy.defaultTypes,
-        choice:store.buy.choice,
+        // choice:store.buy.choice,
         numOfChips:store.buy.numOfChips,
         buyPackage:store.buy.buyPackage,
     };

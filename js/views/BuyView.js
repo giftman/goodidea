@@ -2,22 +2,22 @@
 
 import React, { Component } from 'react';
 
-import { View, Text, Image, ScrollView, TouchableOpacity, RefreshControl, Animated, Easing} from 'react-native';
+import { View, Text, Image, ScrollView, TouchableOpacity, RefreshControl, Animated, Easing } from 'react-native';
 
 import Util from '../utils/Util';
-import {toastShort} from '../utils/ToastUtil';
+import { toastShort } from '../utils/ToastUtil';
 const StyleSheet = require('../utils/CustomStyleSheet');
 import Icon from 'react-native-vector-icons/Ionicons';
 import F8Header from '../common/F8Header';
-import { HEADER_HEIGHT,LAYER ,TIP_HEIGHT} from '../common/F8Colors';
+import { HEADER_HEIGHT, LAYER, TIP_HEIGHT } from '../common/F8Colors';
 import BuyList from './BuyList';
 import BuyMenu from './BuyMenu';
 import BuyControl from './BuyControl';
 import { connect } from 'react-redux';
-import { getGameConfig,changeType,loadMenu,updateChoice,updateNumOfChips,updatePackageProps} from '../actions';
+import { getGameConfig, changeType, loadMenu, updateChoice, updateNumOfChips, updatePackageProps } from '../actions';
 import TipPadding from './TipPadding';
 import CoverView from './CoverView';
-import {checkHowManyNumOfChipsAndAddToPackage,updatePackage} from './buyHelper';
+import { checkHowManyNumOfChipsAndAddToPackage, updatePackage } from './buyHelper';
 
 class BuyView extends Component {
     constructor(props) {
@@ -30,62 +30,57 @@ class BuyView extends Component {
         this.state = {
             data: this.data,
             showMenu: false,
-            showTip:false,
+            showTip: false,
             shift: new Animated.Value(this.minTop),
             tipShift: new Animated.Value(this.tipMinTop),
-            choice:{},
-            
+            choice: {},
+
         };
-        if(this.props.article && this.props.article.gameId){
+        if (this.props.article && this.props.article.gameId) {
             this.props.getGameConfig(this.props.article.gameId);
         }
         this.props.loadMenu(null);
     }
 
     _onToggle(name, index) {
-            // console.log(name, index);
-        let {
-            choice,
-            defaultGame,
-            buyPackage,
-            multNum
-            } = this.props;
-            console.log(name);
-            //单式特殊读取choice
-            if (defaultGame.layout == 2) {
-                choice = name.split(" ");
-            } else {
-                if (choice[name] && !this.props.defaultGame.only_one) {
-                    if (choice[name].includes(index)) {
-                        console.log("del " + index);
-                        let where = choice[name].indexOf(index);
-                        choice[name].splice(where, 1);
-                    } else {
-                        choice[name].push(index);
-                    }
+        // console.log(name, index);
+        let {choice, defaultGame, buyPackage, multNum} = this.props;
+        console.log(name);
+        //单式特殊读取choice
+        if (defaultGame.layout == 2) {
+            choice = name.split(" ");
+        } else {
+            if (choice[name] && !this.props.defaultGame.only_one) {
+                if (choice[name].includes(index)) {
+                    console.log("del " + index);
+                    let where = choice[name].indexOf(index);
+                    choice[name].splice(where, 1);
                 } else {
-                    choice[name] = [];
                     choice[name].push(index);
                 }
-                choice[name] = choice[name].sort();
+            } else {
+                choice[name] = [];
+                choice[name].push(index);
             }
+            choice[name] = choice[name].sort();
+        }
 
-            let {result,numOfChips}= checkHowManyNumOfChipsAndAddToPackage(defaultGame,choice);
-            this.result = result;
-            this.props.updateChoice(choice);
-            if(numOfChips >= 1){
-                this.props.updateNumOfChips(numOfChips);
-            }
-            this.setState({
-                choice
-            })
-//这里用props 的choice BuyList 没有重绘，只可以在state设置，props 更新保存一份..估计numberOfChips也是这样
-// console.log(this.props.choice);
-// return false;
+        let {result, numOfChips} = checkHowManyNumOfChipsAndAddToPackage(defaultGame, choice);
+        this.result = result;
+        this.props.updateChoice(choice);
+        // if(numOfChips >= 1){
+        this.props.updateNumOfChips(numOfChips);
+        // }
+        this.setState({
+            choice
+        })
+    //这里用props 的choice BuyList 没有重绘，只可以在state设置，props 更新保存一份..估计numberOfChips也是这样
+    // console.log(this.props.choice);
+    // return false;
     }
 
     //update the buy result for post
-    _udateBuyBolls(){
+    _udateBuyBolls() {
         // {"num":'2,2,2,2',"des":"五星直选 1注 x 2.0元 = 2.00元"}
 
     }
@@ -113,13 +108,15 @@ class BuyView extends Component {
                 easing: Easing.elastic(1), // Bouncier spring
             }
         ).start();
-        if(this.menuY != 0){
-             setTimeout(() => {
-            this.menu.scrollTo({y:this.menuY});
-        }, 200);
+        if (this.menuY != 0) {
+            setTimeout(() => {
+                this.menu.scrollTo({
+                    y: this.menuY
+                });
+            }, 200);
         }
-       
-        
+
+
 
     // console.log('_pushMenu');
     }
@@ -140,16 +137,16 @@ class BuyView extends Component {
         }, 500);
     }
 
-    _changeType(type){
-      this.props.changeType(type);
-      this._popMenu();
-      this.setState({
-        choice:{}
-      })
+    _changeType(type) {
+        this.props.changeType(type);
+        this._popMenu();
+        this.setState({
+            choice: {}
+        })
     }
 
-    _tipClick(){
-         let showTip = this.state.showTip;
+    _tipClick() {
+        let showTip = this.state.showTip;
         if (showTip) {
             this._popTip();
         } else {
@@ -157,7 +154,7 @@ class BuyView extends Component {
         }
     }
 
-    _popTip(){
+    _popTip() {
         Animated.timing( // 可选的基本动画类型: spring, decay, timing
             this.state.tipShift, // 将`bounceValue`值动画化
             {
@@ -174,8 +171,8 @@ class BuyView extends Component {
         }, 500);
     }
 
-    _pushTip(){
-         this.setState({
+    _pushTip() {
+        this.setState({
             showTip: true
         }); //1 注意这个顺序有讲究，先让看到再执行动画，后面则相反，延迟一点让动画执行完再不显示 2 Touchable控件的子件默认是占满整个父件空间，可以参考NeverMind
         Animated.timing( // 可选的基本动画类型: spring, decay, timing
@@ -189,20 +186,25 @@ class BuyView extends Component {
         ).start();
     }
 
-    _onConfirmBtn(){
-        if(this.props.numOfChips > 0){
-            let {defaultGame,numOfChips,multNum,buyPackage} = this.props;
-            buyPackage = updatePackage(defaultGame,numOfChips,multNum,buyPackage,this.result);
+    _onConfirmBtn() {
+        if (this.props.numOfChips > 0) {
+            let {defaultGame, numOfChips, multNum, buyPackage} = this.props;
+            buyPackage = updatePackage(defaultGame, numOfChips, multNum, buyPackage, this.result);
             this.props.updatePackageProps(buyPackage);
             this.props.navigator.push({
-                "addToPackage":true,
+                "addToPackage": true,
             });
-        }else{
+
+            this.setState({
+                choice: {}
+            });
+            this.props.updateNumOfChips(0);
+        } else {
             toastShort(this.props.defaultGame.bet_note);
         }
-        
+
     }
-    _menuScroll(event:Object){
+    _menuScroll(event:Object) {
         this.menuY = event.nativeEvent.contentOffset.y;
         console.log(this.menuY);
     }
@@ -228,7 +230,7 @@ class BuyView extends Component {
         let headerImg = this.state.showMenu ? <Icon name="ios-arrow-down" size={25} color="#616161" /> : <Icon name="ios-arrow-up" size={25} color="#616161" />;
         return (
             <View>
-            {this.state.showTip ?<CoverView layer={LAYER.MIDDLE}/>:<View/>}
+            {this.state.showTip ? <CoverView layer={LAYER.MIDDLE}/> : <View/>}
            {this.state.showTip ? <Animated.View style={{
                 zIndex: LAYER.TOP,
                 position: 'absolute',
@@ -264,20 +266,24 @@ class BuyView extends Component {
       </TouchableOpacity>
       </F8Header>
       <TipPadding content="remain time:-"></TipPadding>
-      {this.state.showMenu ?<CoverView layer={LAYER.BOTTOM}/>:<View/>}
+      {this.state.showMenu ? <CoverView layer={LAYER.BOTTOM}/> : <View/>}
       {this.state.showMenu ? <Animated.View style={{
                 zIndex: LAYER.BOTTOM,
                 position: 'absolute',
                 top: this.state.shift
             }}>
-      <BuyMenu ref={(menu) => {this.menu = menu}} menuScroll={(event)=>{this._menuScroll(event)}} menu={this.props.menu} changeType={(type)=>this._changeType(type)} />
+      <BuyMenu ref={(menu) => {
+                this.menu = menu
+            }} menuScroll={(event) => {
+                this._menuScroll(event)
+            }} menu={this.props.menu} changeType={(type) => this._changeType(type)} />
       </Animated.View>
                 : <View/>
             }
 
       <BuyList data={this.props.defaultGame} onToggle={(name, index) => this._onToggle(name, index)} choice={this.state.choice}/>
     
-      <BuyControl price={2} numOfChips={this.props.numOfChips}  confirmBtn={()=>this._onConfirmBtn()}/>
+      <BuyControl price={2} numOfChips={this.props.numOfChips}  confirmBtn={() => this._onConfirmBtn()}/>
       
       </View>
         )
@@ -295,25 +301,25 @@ function select(store) {
     return {
         menu: store.buy.menu,
         allTypes: store.buy.allTypes,
-        defaultGame:store.buy.defaultGame,
-        defaultTypes:store.buy.defaultTypes,
-        choice:store.buy.choice,
-        multNum:store.buy.multNum,
-        numOfChips:store.buy.numOfChips,
-        buyPackage:store.buy.buyPackage,
+        defaultGame: store.buy.defaultGame,
+        defaultTypes: store.buy.defaultTypes,
+        choice: store.buy.choice,
+        multNum: store.buy.multNum,
+        numOfChips: store.buy.numOfChips,
+        buyPackage: store.buy.buyPackage,
     };
 }
 
 function actions(dispatch) {
     return {
         loadMenu: (tab) => dispatch(loadMenu()),
-        changeType:(type)=> dispatch(changeType(type)),
-        getGameConfig: (gameId)=>dispatch(getGameConfig(gameId)),
-        updateChoice:(choice)=>dispatch(updateChoice(choice)),
-        clearPackage:()=>dispatch(clearPackage()),
-        randomPick:(num)=>dispatch(randomPick(num)),
-        updateNumOfChips:(num)=>dispatch(updateNumOfChips(num)),
-        updatePackageProps:(buyPackage)=>dispatch(updatePackageProps(buyPackage)),
+        changeType: (type) => dispatch(changeType(type)),
+        getGameConfig: (gameId) => dispatch(getGameConfig(gameId)),
+        updateChoice: (choice) => dispatch(updateChoice(choice)),
+        clearPackage: () => dispatch(clearPackage()),
+        randomPick: (num) => dispatch(randomPick(num)),
+        updateNumOfChips: (num) => dispatch(updateNumOfChips(num)),
+        updatePackageProps: (buyPackage) => dispatch(updatePackageProps(buyPackage)),
     };
 }
 

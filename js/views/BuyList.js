@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react';
 
-import { View,ScrollView,ActivityIndicator,TextInput} from 'react-native';
+import { View, ScrollView, ActivityIndicator, TextInput } from 'react-native';
 
 import Util from '../utils/Util';
 const StyleSheet = require('../utils/CustomStyleSheet');
@@ -31,8 +31,10 @@ class BuyList extends Component {
 
 
     _onChangeText(number) {
-        this.props.onToggle(number,0);
-        this.setState({number});
+        this.props.onToggle(number, 0);
+        this.setState({
+            number
+        });
     }
 
     render() {
@@ -45,23 +47,26 @@ class BuyList extends Component {
                     <BuyCell  key={index} name={name} list={this.props.data.methods[name].list} choice={this.props.choice} onToggle={(name, index) => this.props.onToggle(name, index)}/>
                     );
             })
-        }else{
-            boxes = <ActivityIndicator 
-            style={{backgroundColor:'#eee',marginTop:20}}
+        } else {
+            boxes = <ActivityIndicator
+            style={{
+                backgroundColor: '#eee',
+                marginTop: 20
+            }}
             size="large"
             color="#666"
-          />
+            />
         }
-        if(this.props.data && this.props.data.layout == 2){
-        boxes =  <TextInput
+        if (this.props.data && this.props.data.layout == 2) {
+            boxes = <TextInput
             ref={(number) => this.number = number}
 
             onFocus={() => this.number.focus()}
             onChangeText={(number) => this._onChangeText(number)}
             multiline={true}
             style={styles.input}
-            placeholder='输入命中注定的号码吧，用空格或者","分开'
-            underlineColorAndroid={'transparent'}  
+            placeholder='输入命中注定的号码吧，每一个号码之间请用一个空格[ ]或者逗号[,]或者[;]分开'
+            underlineColorAndroid={'transparent'}
             />
         }
 
@@ -76,14 +81,18 @@ class BuyList extends Component {
 
 
 const styles = StyleSheet.create({
-  input:{
-    fontSize:14,flex:1,borderWidth:Util.pixel,borderColor:'#666',padding:15,
-    height:335,
-    margin:10,
-    borderRadius:5,
-    backgroundColor:'white',
-  },
-  postContainer: {
+    input: {
+        fontSize: 14,
+        flex: 1,
+        borderWidth: Util.pixel,
+        borderColor: '#666',
+        padding: 15,
+        height: 335,
+        margin: 10,
+        borderRadius: 5,
+        backgroundColor: 'white',
+    },
+    postContainer: {
         backgroundColor: '#eee',
         width: Util.size.width,
         height: Util.size.height,

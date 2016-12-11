@@ -36,10 +36,10 @@ class BuyControl extends Component {
     }
     render() {
         let des = this.props.numOfChips + "注 X" + this.state.multNum + "倍=" + this.props.price * this.state.multNum * this.props.numOfChips + "元";
-        let color = this.props.numOfChips > 0 ? "red":"#666";
-        let confirmText = this.props.type === "package" ? "投注":"确定";
-        let upView  = this.props.type === "package"
-        ?<View style={styles.upContainer}>  
+        let color = this.props.numOfChips > 0 ? "red" : "#666";
+        let confirmText = this.props.type === "package" ? "投注" : "确定";
+        let upView = this.props.type === "package"
+            ? <View style={styles.upContainer}>  
         <View style={styles.multView}>
                         <Icon name="md-thunderstorm" size={28} color="#333333"></Icon>
                         <Text style={styles.clearText}>追号:</Text>
@@ -55,9 +55,9 @@ class BuyControl extends Component {
             underlineColorAndroid="transparent"
             onChangeText={(text) => this._updateTextNum(text)}></TextInput>
                     </View> 
-                    </View> 
-        : <View style={styles.upContainer}>
-        <TouchableOpacity style={styles.clearBtn}>
+                    </View>
+            : <View style={styles.upContainer}>
+        <TouchableOpacity style={styles.clearBtn} onPress={() => this.props.clearBtn()}>
                         <Icon name="ios-trash-outline" size={15} color="#333333"></Icon>
                         <Text style={styles.clearText}>清除</Text> 
                     </TouchableOpacity>
@@ -85,16 +85,18 @@ class BuyControl extends Component {
                     <View style={{
                 padding: 5,
             }}>
-                        <Text style={[styles.des,{
+                        <Text style={[styles.des, {
                 color: '#DEDCA3'
             }]}>{des}</Text>
-                        <Text style={[styles.des,{
+                        <Text style={[styles.des, {
                 color: 'white'
             }]}>可用余额:12.5</Text>
                     </View>
 
                 
-            <TouchableOpacity style={[styles.confirmBtn,{backgroundColor:color}]} onPress={()=>this.props.confirmBtn()}>
+            <TouchableOpacity style={[styles.confirmBtn, {
+                backgroundColor: color
+            }]} onPress={() => this.props.confirmBtn()}>
                 <Text style={{
                 color: '#fff',
                 fontSize: 18,
@@ -118,7 +120,7 @@ const styles = StyleSheet.create({
     },
     upContainer: {
         width: Util.size.width,
-        height:38,
+        height: 38,
         backgroundColor: '#e7e7e7',
         alignItems: 'center',
         justifyContent: 'space-between',
@@ -126,7 +128,7 @@ const styles = StyleSheet.create({
     },
     downContainer: {
         width: Util.size.width,
-        height:62,
+        height: 62,
         flex: 1,
         backgroundColor: '#101',
         flexDirection: 'row',
@@ -139,14 +141,14 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
-        width:60,
-        height:26,
+        width: 60,
+        height: 26,
         borderWidth: Util.pixel,
         paddingLeft: 10,
         paddingRight: 5,
         marginLeft: 15,
         borderColor: '#BEBFC3',
-        backgroundColor:'#D5D5DF',
+        backgroundColor: '#D5D5DF',
         marginTop: 5,
         marginBottom: 5,
     },
@@ -160,15 +162,15 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
-        paddingLeft:10,
+        paddingLeft: 10,
     },
     multInput: {
         padding: 5,
-        paddingBottom:8,
+        paddingBottom: 8,
         backgroundColor: "#fff",
         height: 30,
-        width:55,
-        textAlign:'center',
+        width: 55,
+        textAlign: 'center',
         borderColor: 'gray',
         borderWidth: Util.pixel,
         marginRight: 15,

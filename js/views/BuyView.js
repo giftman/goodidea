@@ -199,11 +199,21 @@ class BuyView extends Component {
                 choice: {}
             });
             this.props.updateNumOfChips(0);
+            this.props.updateChoice({});
         } else {
             toastShort(this.props.defaultGame.bet_note);
         }
 
     }
+
+    _clearBtn() {
+        this.setState({
+            choice: {}
+        });
+        this.props.updateChoice({});
+        this.props.updateNumOfChips(0);
+    }
+
     _menuScroll(event:Object) {
         this.menuY = event.nativeEvent.contentOffset.y;
         console.log(this.menuY);
@@ -283,7 +293,7 @@ class BuyView extends Component {
 
       <BuyList data={this.props.defaultGame} onToggle={(name, index) => this._onToggle(name, index)} choice={this.state.choice}/>
     
-      <BuyControl price={2} numOfChips={this.props.numOfChips}  confirmBtn={() => this._onConfirmBtn()}/>
+      <BuyControl price={2} numOfChips={this.props.numOfChips}  confirmBtn={() => this._onConfirmBtn()} clearBtn={() => this._clearBtn()}/>
       
       </View>
         )

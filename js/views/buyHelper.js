@@ -28,7 +28,7 @@ function randomPick(defaultGame) {
             }
 
         }
-        if (layout == 2) {
+        if (defaultGame.layout && defaultGame.layout == 2) {
             //Todo
         }
         console.log(choice);

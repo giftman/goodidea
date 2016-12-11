@@ -25,8 +25,8 @@
 'use strict';
 
 import React, { Component } from 'React';
-import { StyleSheet, View, TouchableOpacity, Text, TouchableHighlight,Dimensions} from 'react-native';
-import {normalize} from '../common/F8Colors';
+import { StyleSheet, View, TouchableOpacity, Text, TouchableHighlight, Dimensions } from 'react-native';
+import { normalize } from '../common/F8Colors';
 class TopicItem extends Component {
     props: {
     topic: string;
@@ -65,10 +65,10 @@ class TopicItem extends Component {
         } else {
             console.log("onToggle not done")
         }
-        // let {isChecked} = this.state;
-        // this.setState({
-        //     isChecked: !isChecked
-        // })
+    // let {isChecked} = this.state;
+    // this.setState({
+    //     isChecked: !isChecked
+    // })
     }
     render() {
         const {topic, coloronToggle} = this.props;
@@ -82,8 +82,8 @@ class TopicItem extends Component {
                 borderColor: "#D6D6D6",
                 borderWidth: 1
             };
-        if(topic.length > 2){
-            let tmp = 34*(topic.length/2)
+        if (topic.length > 2) {
+            let tmp = 34 * (topic.length / 2) * 0.7
             style["width"] = normalize(tmp);
         }
         const numColor = isChecked || this.state.onPress
@@ -139,7 +139,7 @@ var styles = StyleSheet.create({
         marginLeft: normalize(3),
         marginRight: normalize(3),
         marginTop: normalize(10),
-        borderColor:'#D6D6D6',
+        borderColor: '#D6D6D6',
         backgroundColor: "white",
         alignItems: "center",
         justifyContent: "center",
@@ -155,7 +155,7 @@ var styles = StyleSheet.create({
         fontSize: normalize(18),
         color: '#58556F',
         fontWeight: '600',
-        backgroundColor:'transparent',
+        backgroundColor: 'transparent',
     },
     overLayBall: {
         zIndex: 3,

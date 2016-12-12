@@ -12,7 +12,8 @@ export type UserInfo = {
 
 export type PlayType = {
         layout:number, //(1/null) 2 单式 3 有position
-        num:number,//单式可选数量
+        num:number,//单式可选数量 任选数量
+        position:[],//任选位置信息
         each_method_represent_chips_num:number,//每一份代表多少注
         methods: {},//num 第列可选数量 list 每列显示内容  each_num_represent_chips_num 每列num球代表多少注
         bet_note: string,
@@ -46,7 +47,9 @@ type State = {
   traceNum:number;
 };
 
-const initialState: State = { allTypes: {},buyPackage:[],loading:false,multNum:1,traceNum:1,choice:{},numOfChips:0,menu:{},defaultType:'renxuan.renxuan3.zhixuanfushi',defaultGame:{}};
+const initialState: State = { allTypes: {},buyPackage:[],loading:false,
+                            multNum:1,traceNum:1,choice:{},numOfChips:0,menu:{},
+                            defaultType:'renxuan.renxuan2.zhixuanhezhi',defaultGame:{}};
 
 function buy(state: State = initialState, action: Action): State {
 	switch(action.type){

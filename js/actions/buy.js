@@ -19,7 +19,8 @@ function loadMenu(data): ThunkAction {
      		allTypes[i].layout = buyCell[i].layout;
      		allTypes[i].methods = buyCell[i].methods;
         allTypes[i].each_method_represent_chips_num = buyCell[i].each_method_represent_chips_num;
-        allTypes[i].num = buyCell[i].num;//单式选的数量
+        allTypes[i].num = buyCell[i].num;
+        allTypes[i].positions = buyCell[i].positions;
      	}
      }
      	dispatch({type:"LOAD_MENU",menu,allTypes})

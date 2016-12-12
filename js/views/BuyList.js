@@ -9,12 +9,11 @@ const StyleSheet = require('../utils/CustomStyleSheet');
 import Icon from 'react-native-vector-icons/Ionicons';
 import F8Header from '../common/F8Header';
 import { HEADER_HEIGHT } from '../common/F8Colors';
+import EasyCheckBox from '../common/EasyCheckBox';
 import BuyCell from './BuyCell';
 type Props = {
 data:any;
 navigator: Navigator;
-count:number;
-limit:number;
 choice:{};
 };
 class BuyList extends Component {
@@ -39,12 +38,13 @@ class BuyList extends Component {
 
     render() {
         let boxes = <View />
-        console.log(this.props.data);
-        if (this.props.data && this.props.data.methods) {
-            boxes = Object.keys(this.props.data.methods).map((name, index) => {
+        let {data,choice,onToggle} = this.props;
+        console.log(data);
+        if (data && data.methods) {
+            boxes = Object.keys(data.methods).map((name, index) => {
                 // console.log(name);
                 return (
-                    <BuyCell  key={index} name={name} list={this.props.data.methods[name].list} choice={this.props.choice} onToggle={(name, index) => this.props.onToggle(name, index)}/>
+                    <BuyCell  key={index} name={name} list={data.methods[name].list} choice={choice} onToggle={(name, index) => onToggle(name, index)}/>
                     );
             })
         } else {
@@ -57,10 +57,9 @@ class BuyList extends Component {
             color="#666"
             />
         }
-        if (this.props.data && this.props.data.layout == 2) {
+        if (data && data.layout == 2) {
             boxes = <TextInput
             ref={(number) => this.number = number}
-
             onFocus={() => this.number.focus()}
             onChangeText={(number) => this._onChangeText(number)}
             multiline={true}
@@ -69,9 +68,21 @@ class BuyList extends Component {
             underlineColorAndroid={'transparent'}
             />
         }
+        let positions = <View />;
+        if(data.positions){
+            positions = <View style={styles.checkBoxContainer}>
+                            {data.positions.map((name,index)=>{
+                                return (
+                                    <EasyCheckBox icon="md-checkbox" name={name} index={index} onPress={()=>{}} isChecked={false}/>
+                                    )
+                            })}
+                        </View>;
+        }
+
 
         return (
             <ScrollView style={styles.postContainer}>
+        {positions}
         {boxes}
       </ScrollView>
         )
@@ -97,6 +108,16 @@ const styles = StyleSheet.create({
         width: Util.size.width,
         height: Util.size.height,
     },
+    checkBoxContainer: {
+        backgroundColor: '#eee',
+        padding:5,
+        paddingLeft:15,
+        paddingRight:15,
+        flexDirection:'row',
+        justifyContent:'center',
+        alignItems:'center',
+    },
+
 });
 
 

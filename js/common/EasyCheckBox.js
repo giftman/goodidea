@@ -46,7 +46,7 @@ class EasyCheckBox extends React.Component {
             };
         let icon;
         if (isChecked && this.props.icon) {
-            icon = <Icon name={this.props.icon} size={20} color="#3B99FC"></Icon>;
+            icon = <Icon name={this.props.icon} size={17} color="#3B99FC"></Icon>;
         } else {
             icon = <View style={styles.retangle} />
         }
@@ -93,12 +93,13 @@ var styles = StyleSheet.create({
         fontWeight: '300',
         color: 'white',
         backgroundColor: 'transparent',
+        paddingLeft: 5,
     },
     container: {
         backgroundColor: '#eeeeee',
         borderWidth: Util.pixel,
         borderColor: '#D1D1D1',
-        borderRadius: normalize(18),
+        borderRadius: normalize(15),
         width: normalize(62),
         height: HEIGHT,
         marginRight: normalize(8),

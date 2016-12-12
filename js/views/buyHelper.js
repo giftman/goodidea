@@ -48,7 +48,7 @@ function checkHowManyNumOfChipsAndAddToPackage(defaultGame, choice) {
     let result = "";
     let numOfChips = 1;
     for (let i in methods) {
-        if (choice[i] && choice[i].length >= methods[i].num) {
+        if ((choice[i] && choice[i].length >= methods[i].num) || (defaultGame.num && choice.length >=defaultGame.num)){
             numOfChips = countNum(choice[i].length, methods[i].num) * numOfChips;
             if (methods[i].each_num_represent_chips_num) {
                 numOfChips = numOfChips * methods[i].each_num_represent_chips_num;
@@ -95,6 +95,8 @@ function checkHowManyNumOfChipsAndAddToPackage(defaultGame, choice) {
         result = choice.join(',');
     }
 
+    //Todo 任选直选复式需要计算选了多少位
+
     console.log("choice result:" + result);
     console.log("numOfChips:" + numOfChips);
     return {
@@ -107,7 +109,8 @@ function updatePackage(defaultGame, numOfChips, multNum, buyPackage, result) {
     if (numOfChips >= 1) {
         let oneChoice = {};
         oneChoice["num"] = result.replace(/\|/g, ",");
-        oneChoice["des"] = defaultGame.name_cn + " " + numOfChips + "注 X " + multNum + "倍=" + defaultGame.price * multNum * numOfChips + "元";
+        oneChoice["des"] = defaultGame.name_cn + " " + numOfChips + "注 X " + multNum + "倍=" 
+                           + defaultGame.price * multNum * numOfChips + "元";
         buyPackage.push(oneChoice);
     }
     return buyPackage

@@ -46,7 +46,7 @@ type State = {
   traceNum:number;
 };
 
-const initialState: State = { allTypes: {},buyPackage:[],loading:false,multNum:1,traceNum:1,choice:{},numOfChips:0,menu:{},defaultType:'qiansan.zhixuan.zuhe',defaultGame:{}};
+const initialState: State = { allTypes: {},buyPackage:[],loading:false,multNum:1,traceNum:1,choice:{},numOfChips:0,menu:{},defaultType:'renxuan.renxuan3.zhixuanfushi',defaultGame:{}};
 
 function buy(state: State = initialState, action: Action): State {
 	switch(action.type){

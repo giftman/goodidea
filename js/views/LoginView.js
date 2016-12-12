@@ -40,6 +40,7 @@ import {
 } from 'react-native';
 // import {signup,login} from '../actions';
 const {connect} = require('react-redux');
+import EasyCheckBox from '../common/EasyCheckBox';
 // import {toastShort} from '../utils/ToastUtil'
 export type Status = 'login' | 'register';
 
@@ -58,7 +59,7 @@ class LoginView extends Component{
       username:'',
       passwd:'',
       status:'login',
-      show:true,
+      show:false,
     }
     // this.renderEmptySessionsList = this.renderEmptySessionsList.bind(this);
     // this.openSharingSettings = this.openSharingSettings.bind(this);
@@ -124,6 +125,7 @@ class LoginView extends Component{
            </View>
         </Modal>
         <View style={[styles.container,this.props.style]} >
+         <EasyCheckBox icon="md-checkbox"/>
           <View style={[styles.baseComponent]}>
             <View style={styles.toolbar} />
             <Image source={require('../img/logo.png')} style={styles.logo} />

@@ -47,9 +47,16 @@ function checkHowManyNumOfChipsAndAddToPackage(defaultGame, choice) {
     // console.log(methods);
     let result = "";
     let numOfChips = 1;
+    console.log(defaultGame.num);
+    let numLen = Object.keys(choice).length;
+    //bu quan xuan
+    let choiceLen = 1;
     for (let i in methods) {
-        if ((choice[i] && choice[i].length >= methods[i].num) || (defaultGame.num && choice.length >=defaultGame.num)){
-            numOfChips = countNum(choice[i].length, methods[i].num) * numOfChips;
+        if ((choice[i] && choice[i].length >= methods[i].num) || (defaultGame.num && numLen >= defaultGame.num)) {
+            if (choice[i]) {
+                choiceLen = choice[i].length;
+            }
+            numOfChips = countNum(choiceLen, methods[i].num) * numOfChips;
             if (methods[i].each_num_represent_chips_num) {
                 numOfChips = numOfChips * methods[i].each_num_represent_chips_num;
             }
@@ -57,18 +64,21 @@ function checkHowManyNumOfChipsAndAddToPackage(defaultGame, choice) {
                 numOfChips = 0
             }
             ;
-            choice[i].map((n, index) => {
-                console.log(n);
-                if (methods[i].extra) {
-                    n = n + 1;
-                }
-                // if(n){
-                result = result + n;
-                // }
-                if (methods[i].extra) {
-                    numOfChips = methods[i].extra[n] + numOfChips;
-                }
-            })
+            if (choice[i]) {
+                choice[i].map((n, index) => {
+                    console.log(n);
+                    if (methods[i].startOne) {
+                        n = n + 1;
+                    }
+                    // if(n){
+                    result = result + n;
+                    // }
+                    if (methods[i].extra) {
+                        numOfChips = methods[i].extra[n] + numOfChips;
+                    }
+                })
+            }
+
             result = result + "|";
         } else {
             console.log('not choice all key')
@@ -109,8 +119,8 @@ function updatePackage(defaultGame, numOfChips, multNum, buyPackage, result) {
     if (numOfChips >= 1) {
         let oneChoice = {};
         oneChoice["num"] = result.replace(/\|/g, ",");
-        oneChoice["des"] = defaultGame.name_cn + " " + numOfChips + "注 X " + multNum + "倍=" 
-                           + defaultGame.price * multNum * numOfChips + "元";
+        oneChoice["des"] = defaultGame.name_cn + " " + numOfChips + "注 X " + multNum + "倍="
+            + defaultGame.price * multNum * numOfChips + "元";
         buyPackage.push(oneChoice);
     }
     return buyPackage

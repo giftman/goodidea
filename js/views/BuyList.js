@@ -38,7 +38,7 @@ class BuyList extends Component {
 
     render() {
         let boxes = <View />
-        let {data,choice,onToggle} = this.props;
+        let {data, choice, onToggle} = this.props;
         console.log(data);
         if (data && data.methods) {
             boxes = Object.keys(data.methods).map((name, index) => {
@@ -69,13 +69,14 @@ class BuyList extends Component {
             />
         }
         let positions = <View />;
-        if(data.positions){
+        if (data.positions) {
             positions = <View style={styles.checkBoxContainer}>
-                            {data.positions.map((name,index)=>{
-                                return (
-                                    <EasyCheckBox icon="md-checkbox" name={name} index={index} onPress={()=>{}} isChecked={false}/>
-                                    )
-                            })}
+                            {data.positions.map((name, index) => {
+                return (
+                    <EasyCheckBox key={index} icon="md-checkbox" name={name} index={index} onPress={() => {
+                    }} isChecked={false}/>
+                )
+            })}
                         </View>;
         }
 
@@ -109,13 +110,13 @@ const styles = StyleSheet.create({
         height: Util.size.height,
     },
     checkBoxContainer: {
-        backgroundColor: '#eee',
-        padding:5,
-        paddingLeft:15,
-        paddingRight:15,
-        flexDirection:'row',
-        justifyContent:'center',
-        alignItems:'center',
+        backgroundColor: 'white',
+        padding: 5,
+        paddingLeft: 15,
+        paddingRight: 15,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
     },
 
 });

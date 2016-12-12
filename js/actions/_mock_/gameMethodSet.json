@@ -581,6 +581,7 @@
                     25,
                     26
                 ],
+                "startOne":true,
                 "extra": {
                     "1": 1,
                     "2": 2,
@@ -725,7 +726,7 @@
         }
     },
     "renxuan.renxuan2.zhixuanhezhi": {
-        "positions":[0,0,0,1,1],
+        "positions":["万位","万位","万位","万位","万位"],
         "methods": {
             "和值": {
                 "num": 1,
@@ -1650,6 +1651,7 @@
                     25,
                     26
                 ],
+                "startOne":true,
                 "extra": {
                     "1": 1,
                     "2": 2,

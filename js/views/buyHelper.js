@@ -13,7 +13,7 @@ function randomPick(defaultGame) {
                 }
 
                 let method = methods[j];
-                let range = method.list;
+                let range = method.list.slice();
                 // let eachPick = "";
                 for (var eachTime = 0; eachTime < method.num; eachTime++) {
                     let onePickIndex = _.random(0, range.length - 1);

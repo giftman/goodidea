@@ -65,7 +65,7 @@ class BuyList extends Component {
             onChangeText={(number) => this._onChangeText(number)}
             multiline={true}
             style={styles.input}
-            placeholder='输入命中注定的号码吧，每一个号码之间请用一个空格[ ]或者逗号[,]或者[;]分开'
+            placeholder='请输入命中注定的号码，每一个号码之间请用一个空格[ ]或者逗号[,]或者[;]分开，尾末不需要分割符'
             underlineColorAndroid={'transparent'}
             />
         }

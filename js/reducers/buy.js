@@ -49,7 +49,7 @@ type State = {
 
 const initialState: State = { allTypes: {},buyPackage:[],loading:false,
                             multNum:1,traceNum:1,choice:{},numOfChips:0,menu:{},
-                            defaultType:'renxuan.renxuan2.zhixuanhezhi',defaultGame:{}};
+                            defaultType:'qiansan.zuxuan.zuliudanshi',defaultGame:{}};
 
 function buy(state: State = initialState, action: Action): State {
 	switch(action.type){

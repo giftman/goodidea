@@ -101,8 +101,13 @@ function checkHowManyNumOfChipsAndAddToPackage(defaultGame, choice) {
                 "numOfChips": 0
             };
         }
-        numOfChips = choice.length;
-        result = choice.join(',');
+        if(_.isArray(choice)){//fix renxuan.zhixuandanshi
+           numOfChips = choice.length; 
+           result = choice.join(',');
+        }else{
+            numOfChips = 0
+        }
+        
     }
 
     //Todo 任选直选复式需要计算选了多少位

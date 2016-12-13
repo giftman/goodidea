@@ -5,6 +5,7 @@ import React, { Component } from 'react';
 import { View, Text, Image, ScrollView, TouchableOpacity} from 'react-native';
 
 import Util from '../utils/Util';
+import { toastShort } from '../utils/ToastUtil';
 const StyleSheet = require('../utils/CustomStyleSheet');
 import Icon from 'react-native-vector-icons/Ionicons';
 import F8Header from '../common/F8Header';
@@ -27,7 +28,10 @@ class BuyPackage extends Component {
     _onclick(type){
         // console.log(type);
         let {defaultGame,multNum,buyPackage} = this.props;
-
+        if(defaultGame.type.includes("renxuan") || defaultGame.type.includes("danshi")){
+            toastShort("此玩法精妙之处机器无法模拟，请主人亲自挑选");
+            return;
+        }
       for(var i=0;i<type;i++){
         let choice = randomPick(defaultGame);
         let {result,numOfChips} = checkHowManyNumOfChipsAndAddToPackage(defaultGame,choice);

@@ -48,7 +48,15 @@ class BuyView extends Component {
         console.log(name);
         //单式特殊读取choice
         if (defaultGame.layout == 2) {
-            choice = name.split(" ");
+            let splitText = " ";
+            if(name.includes(" ")){
+                splitText = " ";
+            }else if(name.includes(",")){
+                splitText = ",";
+            }else if(name.includes(";")){
+                splitText = ";";
+            }
+            choice = name.split(splitText);
         } else {
             if (choice[name] && !this.props.defaultGame.only_one) {
                 if (choice[name].includes(index)) {

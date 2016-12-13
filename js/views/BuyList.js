@@ -11,6 +11,7 @@ import F8Header from '../common/F8Header';
 import { HEADER_HEIGHT } from '../common/F8Colors';
 import EasyCheckBox from '../common/EasyCheckBox';
 import BuyCell from './BuyCell';
+import { connect } from 'react-redux';
 type Props = {
 data:any;
 navigator: Navigator;
@@ -38,13 +39,13 @@ class BuyList extends Component {
 
     render() {
         let boxes = <View />
-        let {data, choice, onToggle} = this.props;
-        console.log(data);
-        if (data && data.methods) {
-            boxes = Object.keys(data.methods).map((name, index) => {
+        let {defaultGame, choice, onToggle} = this.props;
+        console.log(defaultGame);
+        if (defaultGame && defaultGame.methods) {
+            boxes = Object.keys(defaultGame.methods).map((name, index) => {
                 // console.log(name);
                 return (
-                    <BuyCell  key={index} name={name} list={data.methods[name].list} choice={choice} onToggle={(name, index) => onToggle(name, index)}/>
+                    <BuyCell  key={index} name={name} list={defaultGame.methods[name].list} choice={choice} onToggle={(name, index) => onToggle(name, index)}/>
                     );
             })
         } else {
@@ -57,7 +58,7 @@ class BuyList extends Component {
             color="#666"
             />
         }
-        if (data && data.layout == 2) {
+        if (defaultGame && defaultGame.layout == 2) {
             boxes = <TextInput
             ref={(number) => this.number = number}
             onFocus={() => this.number.focus()}
@@ -68,13 +69,13 @@ class BuyList extends Component {
             underlineColorAndroid={'transparent'}
             />
         }
+        const positionName = ["万位","千位","百位","十位","个位"]
         let positions = <View />;
-        if (data.positions) {
+        if (defaultGame.positions) {
             positions = <View style={styles.checkBoxContainer}>
-                            {data.positions.map((name, index) => {
+                            {defaultGame.positions.map((name, index) => {
                 return (
-                    <EasyCheckBox key={index} icon="md-checkbox" name={name} index={index} onPress={() => {
-                    }} isChecked={false}/>
+                    <EasyCheckBox key={index} icon="md-checkbox" name={positionName[index]} index={index} onPress={() => this.props.onCheckBoxClick(index)} isChecked={defaultGame.positions[index]}/>
                 )
             })}
                         </View>;
@@ -121,5 +122,18 @@ const styles = StyleSheet.create({
 
 });
 
+function select(store) {
+    return {
+        defaultGame: store.buy.defaultGame,
+        choice: store.buy.choice,
+    };
+}
 
-export default BuyList;
+function actions(dispatch) {
+    return {
+    };
+}
+
+module.exports = connect(select, actions)(BuyList);
+
+// export default BuyList;

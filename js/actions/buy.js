@@ -55,6 +55,13 @@ function updateChoice(choice):Action{
   }
 }
 
+function updateDefaultGame(game):Action{
+  return{
+    type:'UPDATE_GAME',
+    game,
+  }
+}
+
 function updateNumOfChips(num):Action{
   return{
     type:'UPDATE_NUMOFCHIPS',
@@ -102,4 +109,4 @@ function renderCells(cells,name,en_name,jsId,gameId,menu,allTypes,buyCell){
   }
 }
 
-module.exports = {loadMenu,changeType,updateChoice,clearPackage,updateNumOfChips,updatePackageProps};
+module.exports = {loadMenu,changeType,updateChoice,clearPackage,updateNumOfChips,updatePackageProps,updateDefaultGame};

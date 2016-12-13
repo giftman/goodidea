@@ -14,10 +14,11 @@ import BuyList from './BuyList';
 import BuyMenu from './BuyMenu';
 import BuyControl from './BuyControl';
 import { connect } from 'react-redux';
-import { getGameConfig, changeType, loadMenu, updateChoice, updateNumOfChips, updatePackageProps } from '../actions';
+import { getGameConfig, changeType, loadMenu, updateChoice, updateNumOfChips, updatePackageProps,updateDefaultGame } from '../actions';
 import TipPadding from './TipPadding';
 import CoverView from './CoverView';
 import { checkHowManyNumOfChipsAndAddToPackage, updatePackage } from './buyHelper';
+import _ from 'underscore';
 
 class BuyView extends Component {
     constructor(props) {
@@ -34,7 +35,6 @@ class BuyView extends Component {
             shift: new Animated.Value(this.minTop),
             tipShift: new Animated.Value(this.tipMinTop),
             choice: {},
-
         };
         if (this.props.article && this.props.article.gameId) {
             this.props.getGameConfig(this.props.article.gameId);
@@ -80,9 +80,25 @@ class BuyView extends Component {
     }
 
     //update the buy result for post
-    _udateBuyBolls() {
+    _onCheckBoxClick(index) {
         // {"num":'2,2,2,2',"des":"五星直选 1注 x 2.0元 = 2.00元"}
-
+        console.log(index);
+        let {defaultGame,choice} = this.props;
+        let positions = defaultGame.positions;
+        let sum = _.reduce(positions,(memo,num)=>{return memo + num;},0);
+        if(positions[index] == 1 && sum > defaultGame.num){
+           positions[index] = 0;
+        }else{
+           positions[index] = 1;
+        }
+        defaultGame.positions = positions;
+        this.props.updateDefaultGame(defaultGame);
+        let {numOfChips} = checkHowManyNumOfChipsAndAddToPackage(defaultGame, choice);
+        this.props.updateNumOfChips(numOfChips);
+        //defaultGame 数据是更新了，但是BuyList 没有重绘,所以手动setState一下
+        this.setState({
+            choice:this.state.choice
+        })
     }
 
     _onClick() {
@@ -291,7 +307,10 @@ class BuyView extends Component {
                 : <View/>
             }
 
-      <BuyList data={this.props.defaultGame} onToggle={(name, index) => this._onToggle(name, index)} choice={this.state.choice}/>
+      <BuyList onToggle={(name, index) => this._onToggle(name, index)} 
+      onCheckBoxClick={(index) => this._onCheckBoxClick(index)}
+      choice={this.state.choice}
+      />
     
       <BuyControl price={2} numOfChips={this.props.numOfChips}  confirmBtn={() => this._onConfirmBtn()} clearBtn={() => this._clearBtn()}/>
       
@@ -330,6 +349,7 @@ function actions(dispatch) {
         randomPick: (num) => dispatch(randomPick(num)),
         updateNumOfChips: (num) => dispatch(updateNumOfChips(num)),
         updatePackageProps: (buyPackage) => dispatch(updatePackageProps(buyPackage)),
+        updateDefaultGame:(game)=>dispatch(updateDefaultGame(game)),
     };
 }
 

@@ -71,6 +71,8 @@ function buy(state: State = initialState, action: Action): State {
       return {...state,numOfChips:action.num};
     case 'UPDATE_PACKAGE':
       return {...state,buyPackage:action.buyPackage};
+    case 'UPDATE_GAME':
+      return {...state,defaultGame:action.game};
 	}
   
   return state;

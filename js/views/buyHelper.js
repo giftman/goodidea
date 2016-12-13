@@ -106,6 +106,10 @@ function checkHowManyNumOfChipsAndAddToPackage(defaultGame, choice) {
     }
 
     //Todo 任选直选复式需要计算选了多少位
+    if(defaultGame.positions && defaultGame.num){
+        let sum = _.reduce(defaultGame.positions,(memo,num)=>{return memo + num;},0);
+        numOfChips = countNum(sum, defaultGame.num) * numOfChips;
+    }
 
     console.log("choice result:" + result);
     console.log("numOfChips:" + numOfChips);

@@ -726,7 +726,8 @@
         }
     },
     "renxuan.renxuan2.zhixuanhezhi": {
-        "positions":["万位","万位","万位","万位","万位"],
+        "num":2,
+        "positions":[0,0,0,1,1],
         "methods": {
             "和值": {
                 "num": 1,

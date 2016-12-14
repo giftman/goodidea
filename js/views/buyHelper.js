@@ -57,6 +57,7 @@ function checkHowManyNumOfChipsAndAddToPackage(defaultGame, choice) {
                 choiceLen = choice[i].length;
             }
             numOfChips = countNum(choiceLen, methods[i].num) * numOfChips;
+            
             if (methods[i].each_num_represent_chips_num) {
                 numOfChips = numOfChips * methods[i].each_num_represent_chips_num;
             }
@@ -93,6 +94,10 @@ function checkHowManyNumOfChipsAndAddToPackage(defaultGame, choice) {
 
     if (result.length >= 1) {
         result = result.slice(0, result.length - 1);
+    }
+    if(defaultGame.type.includes("zuxuan30") && numOfChips > 0){
+        //todo
+        numOfChips = zuxuanCount(defaultGame,choice);
     }
     //单式特殊处理
     if (defaultGame.layout == 2) {
@@ -147,6 +152,18 @@ function checkIsValidDansi(choice, num) {
         }
     }
     return result;
+}
+
+function zuxuanCount(defaultGame,choice) {
+    let numOfChips = 1;
+    if(defaultGame.type.includes("zuxuan30")){
+        let lenDouble = choice["二重"].length;
+        let lenDang = choice["单"].length;
+        let minus = lenDouble + lenDang - _.union(choice["二重"],choice["单"]).length;
+        console.log("lenDouble: " + lenDouble + " lenDang: " +lenDang + " minus: " + minus);
+        numOfChips = countNum(lenDouble,2)*countNum(lenDang,1) - minus*countNum(lenDouble - 1,1);
+    }
+    return numOfChips;
 }
 
 //组合计算 

@@ -353,12 +353,7 @@ const styles = StyleSheet.create({
     width:0.5,
     height:44,
     backgroundColor:'#ccc',
-  },
-  buttonText:{
-    fontSize:16,
-    color:'#3393F2',
-    textAlign:'center',
-  },
+  }
   
 });
 

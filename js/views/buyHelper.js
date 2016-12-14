@@ -149,6 +149,7 @@ function checkIsValidDansi(choice, num) {
     return result;
 }
 
+//组合计算 
 function countNum(n, m) {
     return mathDouble(n) / (mathDouble(n - m) * mathDouble(m));
 }

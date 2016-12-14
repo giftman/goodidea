@@ -129,7 +129,7 @@ var styles = StyleSheet.create({
     },
     title: {
         fontSize: 16,
-        fontWeight: '300',
+        fontWeight: '500',
         color: 'white',
         backgroundColor: 'transparent',
     },
@@ -145,7 +145,7 @@ var styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "flex-start",
         flexDirection: 'row',
-        paddingRight: normalize(45),
+        paddingRight: normalize(40),
         paddingBottom: 10,
         paddingTop: 10,
         flexWrap: 'wrap',

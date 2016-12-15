@@ -95,9 +95,17 @@ function checkHowManyNumOfChipsAndAddToPackage(defaultGame, choice) {
     if (result.length >= 1) {
         result = result.slice(0, result.length - 1);
     }
-    if(defaultGame.type.includes("zuxuan30") && numOfChips > 0){
+    if( numOfChips > 0 && (defaultGame.type.includes("zuxuan.zuxuan") || defaultGame.type.includes("renxuan4")) ){
         //todo
-        numOfChips = zuxuanCount(defaultGame,choice);
+        numOfChips = zuxuanCount(defaultGame,choice,numOfChips);
+    }
+    //一星特殊处理
+    if( numOfChips > 0 && (defaultGame.type.includes("yixing.dingweidan.fushi"))){
+        //todo
+        numOfChips = 0;
+        for (let i in choice) {
+        numOfChips = numOfChips + choice[i].length;
+        }
     }
     //单式特殊处理
     if (defaultGame.layout == 2) {
@@ -107,8 +115,9 @@ function checkHowManyNumOfChipsAndAddToPackage(defaultGame, choice) {
             };
         }
         if(_.isArray(choice)){//fix renxuan.zhixuandanshi
-           numOfChips = choice.length; 
+           numOfChips = choice.length;
            result = choice.join(',');
+           numOfChips = danshiCount(defaultGame,choice,numOfChips);
         }else{
             numOfChips = 0
         }
@@ -154,14 +163,81 @@ function checkIsValidDansi(choice, num) {
     return result;
 }
 
-function zuxuanCount(defaultGame,choice) {
-    let numOfChips = 1;
+function danshiCount(defaultGame,choice,numOfChips) {
+    var reg2 = /(\d)\d?\1/;
+    var reg3 = /(\d)\1\1/;
+    if(defaultGame.type.includes("zusandanshi")){
+            for(let c in choice){
+                    if(!reg2.test(choice[c]) || reg3.test(choice[c])){
+                        numOfChips = numOfChips - 1;
+                    }
+                }
+    }else if(defaultGame.type.includes("zuliudanshi")){
+            for(let c in choice){
+                    if(reg2.test(choice[c])){
+                        numOfChips = numOfChips - 1;
+                    }
+                }
+    }else if(defaultGame.type.includes("zuliudanshi") 
+        || defaultGame.type.includes("houerdanshi") 
+        || defaultGame.type.includes("qianerdanshi")
+        || defaultGame.type.includes("zuxuandanshi")
+        ){
+            for(let c in choice){
+                    if(reg2.test(choice[c])){
+                        numOfChips = numOfChips - 1;
+                    }
+                }
+    }
+    return numOfChips;
+}
+
+function zuxuanCount(defaultGame,choice,numOfChips) {
     if(defaultGame.type.includes("zuxuan30")){
         let lenDouble = choice["二重"].length;
         let lenDang = choice["单"].length;
         let minus = lenDouble + lenDang - _.union(choice["二重"],choice["单"]).length;
         console.log("lenDouble: " + lenDouble + " lenDang: " +lenDang + " minus: " + minus);
-        numOfChips = countNum(lenDouble,2)*countNum(lenDang,1) - minus*countNum(lenDouble - 1,1);
+        numOfChips = numOfChips - minus*countNum(lenDouble - 1,1);
+    }else if(defaultGame.type.includes("sixing.zuxuan.zuxuan6")){
+        let lenDouble = choice["二重"].length;
+        numOfChips = countNum(lenDouble,2);
+    }else if(defaultGame.type.includes("zuxuan60")){
+        let lenDouble = choice["二重"].length;
+        let lenDang = choice["单"].length;
+        let minus = lenDouble + lenDang - _.union(choice["二重"],choice["单"]).length;
+        console.log("lenDouble: " + lenDouble + " lenDang: " +lenDang + " minus: " + minus);
+        numOfChips = numOfChips - minus*countNum(lenDang - 1,2);
+    }else if(defaultGame.type.includes("zuxuan12")){
+        let lenDouble = choice["二重"].length;
+        let lenDang = choice["单"].length;
+        let minus = lenDouble + lenDang - _.union(choice["二重"],choice["单"]).length;
+        console.log("lenDouble: " + lenDouble + " lenDang: " +lenDang + " minus: " + minus);
+        numOfChips = numOfChips - minus*countNum(lenDang - 1,1);
+    }else if(defaultGame.type.includes("zuxuan20")){
+        let lenDouble = choice["三重"].length;
+        let lenDang = choice["单"].length;
+        let minus = lenDouble + lenDang - _.union(choice["三重"],choice["单"]).length;
+        console.log("lenDouble: " + lenDouble + " lenDang: " +lenDang + " minus: " + minus);
+        numOfChips = numOfChips - minus*countNum(lenDang - 1,1);
+    }else if(defaultGame.type.includes("zuxuan4")){
+        let lenDouble = choice["三重"].length;
+        let lenDang = choice["单"].length;
+        let minus = lenDouble + lenDang - _.union(choice["三重"],choice["单"]).length;
+        console.log("lenDouble: " + lenDouble + " lenDang: " +lenDang + " minus: " + minus);
+        numOfChips = numOfChips - minus;
+    }else if(defaultGame.type.includes("zuxuan10")){
+        let lenDouble = choice["三重"].length;
+        let lenDang = choice["二重"].length;
+        let minus = lenDouble + lenDang - _.union(choice["三重"],choice["二重"]).length;
+        console.log("lenDouble: " + lenDouble + " lenDang: " +lenDang + " minus: " + minus);
+        numOfChips = numOfChips - minus;
+    }else if(defaultGame.type.includes("zuxuan5")){
+        let lenDouble = choice["四重"].length;
+        let lenDang = choice["单"].length;
+        let minus = lenDouble + lenDang - _.union(choice["四重"],choice["单"]).length;
+        console.log("lenDouble: " + lenDouble + " lenDang: " +lenDang + " minus: " + minus);
+        numOfChips = numOfChips - minus;
     }
     return numOfChips;
 }

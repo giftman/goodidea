@@ -46,15 +46,6 @@ export default class Parse extends Backend{
   }
 
   async getToken() {
-      // var formBody = [];
-    // let data = {"interface_version":"v1.0","charset":"utf-8",app_version:"v1.0","app_type":1}
-    // data = this._addToken(data);
-    // for (var property in data) {
-    //   var encodedKey = encodeURIComponent(property);
-    //   var encodedValue = encodeURIComponent(data[property]);
-    //   formBody.push(encodedKey + "=" + encodedValue);
-    // }
-    // formBody = formBody.join("&");
     let data = {"app_version":"v1.0","app_type":1};
     return await this._fetch({
       method: 'POST',
@@ -133,6 +124,85 @@ export default class Parse extends Backend{
     return await this._fetch({
       method: 'POST',
       url: '/phone/login',
+      body: data
+    })
+      .then((response) => {
+        if ((response.status === 200 || response.status === 201)) {
+          return response.json();
+        } else {
+          throw(response);
+        }
+      })
+      .then((json) =>{
+        console.log(json);
+        return json.data;
+      })
+      .catch((error) => {
+        throw(error);
+      });
+  }
+
+  /**
+   * ### login
+   * encode the data and and call _fetch
+   *
+   * @param data
+   *
+   *{gameId:1
+isTrace:0
+traceWinStop:1
+traceStopValue:1
+balls[0][jsId]:1
+balls[0][wayId]:23
+balls[0][ball]:0123456789|0123456789
+balls[0][viewBalls]:
+balls[0][num]:90
+balls[0][type]:sixing.zuxuan.zuxuan4
+balls[0][onePrice]:2
+balls[0][moneyunit]:1
+balls[0][multiple]:1
+balls[0][is_dekaron]:false
+orders[161215070]:1
+amount:180.00
+prize:1950
+_token:VbZVLaUP4rGVBlDIqMlJa6WOnA5P138bJY13KcDx}
+   *
+   * @returns
+   *
+   * createdAt: "2015-12-30T15:29:36.611Z"
+   * email: "barton@foo.com"
+   * objectId: "Z4yvP19OeL"
+   * sessionToken: "r:Kt9wXIBWD0dNijNIq2u5rRllW"
+   * updatedAt: "2015-12-30T16:08:50.419Z"
+   * username: "barton"
+   *
+   */
+  async bet(data) {
+    data = {"gameId":"1",
+"isTrace":"0",
+"traceWinStop":"1",
+"traceStopValue":"1",
+"balls[0][jsId]":"1",
+"balls[0][wayId]":"210",
+"balls[0][ball]":"56",
+"balls[0][viewBalls]":"",
+"balls[0][num]":"1",
+"balls[0][type]":"renxuan.renxuan2.zuxuanfushi",
+"balls[0][onePrice]":"2",
+"balls[0][moneyunit]":"1",
+"balls[0][multiple]":"1",
+"balls[0][position][]":"0",
+"balls[0][position][]":"0",
+"balls[0][position][]":"0",
+"balls[0][position][]":"1",
+"balls[0][position][]":"1",
+"balls[0][is_dekaron]":"false",
+"orders[161216064]":"1",
+"amount":"2.00",
+"prize":"1950"}
+    return await this._fetch({
+      method: 'POST',
+      url: '/phone/bet/1',
       body: data
     })
       .then((response) => {

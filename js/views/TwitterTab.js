@@ -8,7 +8,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import TabNavigator from 'react-native-tab-navigator';
 import { connect } from 'react-redux';
 
-import { changeTab} from '../actions';
+import { changeTab,bet,getToken,login} from '../actions';
 
 import type { Tab } from '../reducers/navigation';
 
@@ -29,6 +29,8 @@ class TwitterTab extends Component {
     // }
     // this.props.getToken();
     // this.props.login();
+    this.props.bet();
+
     // this.props.getGameConfig();
     }
 
@@ -92,8 +94,9 @@ function select(store) {
 function actions(dispatch) {
     return {
         changeTab: (tab) => dispatch(changeTab(tab)),
-        // getToken:()=>dispatch(getToken()),
-        // login:()=>dispatch(login({"username":"ceshi001","password":"a123456"})),
+        getToken:()=>dispatch(getToken()),
+        bet:()=>dispatch(bet({"username":"ceshi001","password":"a123456"})),
+        login:()=>dispatch(login({"username":"ceshi001","password":"a123456"})),
         // getGameConfig: ()=>dispatch(getGameConfig(1)),
     };
 }

@@ -77,6 +77,25 @@ function login(data,navigator) {
   };
 }
 
+function bet(data,navigator) {
+  return dispatch => {
+    return new AppAuthToken().getSessionToken()
+
+      .then((token) => {
+        return BackendFactory(token.sessionToken).bet(data);
+      })
+    
+      .then((result) => {
+        console.log(result);
+      })                
+
+      .catch((error) => {
+        console.log(error);
+        // dispatch(getToken());
+      });
+  };
+}
+
 function getGameConfig(gameId) {
   return dispatch => {
     return new AppAuthToken().getSessionToken()
@@ -104,4 +123,4 @@ function getGameConfig(gameId) {
 
 
 
-module.exports = {getToken,login,getGameConfig,checkToken};
+module.exports = {getToken,login,getGameConfig,checkToken,bet};

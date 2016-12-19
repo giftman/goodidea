@@ -183,21 +183,21 @@ _token:VbZVLaUP4rGVBlDIqMlJa6WOnA5P138bJY13KcDx}
 "traceWinStop":"1",
 "traceStopValue":"1",
 "balls[0][jsId]":"1",
-"balls[0][wayId]":"210",
-"balls[0][ball]":"56",
+"balls[0][wayId]":"203",
+"balls[0][ball]":"6|8|6|7|8",
 "balls[0][viewBalls]":"",
-"balls[0][num]":"1",
-"balls[0][type]":"renxuan.renxuan2.zuxuanfushi",
+"balls[0][num]":"10",
+"balls[0][type]":"renxuan.renxuan2.zhixuanfushi",
 "balls[0][onePrice]":"2",
 "balls[0][moneyunit]":"1",
 "balls[0][multiple]":"1",
-"balls[0][position][]":"0",
-"balls[0][position][]":"0",
-"balls[0][position][]":"0",
+"balls[0][position][]":"1",
+"balls[0][position][]":"1",
+"balls[0][position][]":"1",
 "balls[0][position][]":"1",
 "balls[0][position][]":"1",
 "balls[0][is_dekaron]":"false",
-"orders[161216064]":"1",
+"orders[161219076]":"1",
 "amount":"2.00",
 "prize":"1950"}
     return await this._fetch({
@@ -208,6 +208,7 @@ _token:VbZVLaUP4rGVBlDIqMlJa6WOnA5P138bJY13KcDx}
       .then((response) => {
         if ((response.status === 200 || response.status === 201)) {
           return response.json();
+          
         } else {
           throw(response);
         }
@@ -422,7 +423,11 @@ _token:VbZVLaUP4rGVBlDIqMlJa6WOnA5P138bJY13KcDx}
   _addToken(body){
     let tmp = "";
     Object.keys(body).sort().map((elem,index)=>{
-        tmp = tmp + body[elem]
+        if(elem.includes('balls') || elem.includes('orders')){
+
+        }else{
+          tmp = tmp + body[elem];
+        }
     })
     if (this._sessionToken) {
       tmp = tmp + this._sessionToken;

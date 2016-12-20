@@ -33,6 +33,7 @@ import {
   Text,
   TouchableOpacity,
   Navigator,
+  Modal,
 } from 'react-native';
 const {connect} = require('react-redux');
 import Util from '../utils/Util';
@@ -53,7 +54,6 @@ class EasyDialog extends Component{
     this.state={
       username:'',
       passwd:'',
-      status:'login',
     }
     // this.renderEmptySessionsList = this.renderEmptySessionsList.bind(this);
     // this.openSharingSettings = this.openSharingSettings.bind(this);
@@ -61,15 +61,22 @@ class EasyDialog extends Component{
   }
   render(){
     let words = ['Cancle','投注'];
+    let {orderInfo} = this.props;
       return (
+        <Modal
+           animationType='slide'
+           transparent={true}
+           visible={this.props.show}
+           onShow={() => {}}
+           onRequestClose={() => {}} >
         <View style={styles.mainContainer} >
             <View style={[styles.container,this.props.style]} >
-            <Text style={styles.header}>Header</Text>
+            <Text style={styles.header}>注单付款确认</Text>
             <View style={styles.content}>
-              <Text style={styles.info}>Content:how much</Text>
-              <Text style={styles.info}>Content:number of</Text>
-              <Text style={styles.info}>Content:des</Text>
-              <Text style={styles.info}>Content:detail</Text>
+              <Text style={styles.info}>游戏: {orderInfo.name}</Text>
+              <Text style={styles.info}>金额: {orderInfo.amount}.00元</Text>
+              <Text style={styles.info}>期次: {orderInfo.orderNum}</Text>
+              <Text style={styles.info}>追号: {orderInfo.des}</Text>
             </View>
           <View style={[styles.inputContainer,{marginTop:0,borderWidth:0,justifyContent:'space-between'}]}>
             <TouchableOpacity style={styles.style_view_commit}  activeOpacity={0.8} onPress={this.leftPress.bind(this)}><Text style={styles.buttonText}>{words[0]}</Text></TouchableOpacity>
@@ -78,18 +85,19 @@ class EasyDialog extends Component{
           </View>
           <View style={styles.cover} />
         </View>
+        </Modal>
         );
       }
     
 
   leftPress(){
     console.log("leftPress");
-    this.props.navigator.pop();
+    this.props.cancleBtn();
 }
 
 
   rightPress(){
-    const {dispatch} = this.props;
+    this.props.confirmBet();
   }
 }
 
@@ -112,6 +120,7 @@ const styles = StyleSheet.create({
   },
   content:{
     flex:1,
+    backgroundColor:'transparent',
   },
   inputContainer: {
     margin: normalize(10),
@@ -121,18 +130,19 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   info:{
-    fontWeight: '200',
-    fontSize: 14,
+    fontWeight: '300',
+    fontSize: 16,
     color: '#666',
     paddingTop:5,
-    paddingLeft:10,
+    paddingLeft:20,
   },
   header: {
     fontWeight: 'bold',
-    fontSize: 14,
+    fontSize: 18,
     color: '#a9b7b7',
     textAlign:'center',
     padding:5,
+    paddingTop:10,
     backgroundColor:'transparent',
   },
   container: {

@@ -25,6 +25,7 @@ class BuyControl extends Component {
 
         this.state = {
             multNum: 1,
+            traceNum:1,
         };
     }
 
@@ -34,8 +35,19 @@ class BuyControl extends Component {
             multNum: text,
         });
     }
+    _updateTraceNum(text) {
+        console.log(text);
+        this.setState({
+            traceNum: text,
+        });
+        this.props.updateTraceNum(text);
+    }
     render() {
         let des = this.props.numOfChips + "注 X" + this.state.multNum + "倍=" + this.props.price * this.state.multNum * this.props.numOfChips + "元";
+        if(this.props.type == "package"){
+            des  = this.props.numOfChips + "注 X" + this.state.traceNum + "期=" + this.props.price * this.state.traceNum * this.props.numOfChips + "元";
+        }
+
         let color = this.props.numOfChips > 0 ? "red" : "#666";
         let confirmText = this.props.type === "package" ? "投注" : "确定";
         let upView = this.props.type === "package"
@@ -53,13 +65,13 @@ class BuyControl extends Component {
             selectionColor="#2aa2ef"
             placeholderTextColor="red"
             underlineColorAndroid="transparent"
-            onChangeText={(text) => this._updateTextNum(text)}></TextInput>
+            onChangeText={(text) => this._updateTraceNum(text)}></TextInput>
                     </View> 
                     </View>
             : <View style={styles.upContainer}>
         <TouchableOpacity style={styles.clearBtn} onPress={() => this.props.clearBtn()}>
                         <Icon name="ios-trash-outline" size={15} color="#333333"></Icon>
-                        <Text style={styles.clearText}>清除</Text> 
+                        <Text style={styles.clearText}>清空</Text> 
                     </TouchableOpacity>
                     <View style={styles.multView}>
                         <Icon name="md-color-wand" size={15} color="#333333"></Icon>

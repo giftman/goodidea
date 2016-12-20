@@ -180,25 +180,25 @@ _token:VbZVLaUP4rGVBlDIqMlJa6WOnA5P138bJY13KcDx}
      *
      */
     async bet(data) {
-        data = {
-            "gameId": "1",
-            "isTrace": "0",
-            "traceWinStop": "1",
-            "traceStopValue": "1",
-            "balls[0][jsId]": "1",
-            "balls[0][wayId]": "203",
-            "balls[0][ball]": "6|8|6|7|8",
-            "balls[0][viewBalls]": "",
-            "balls[0][num]": "10",
-            "balls[0][type]": "renxuan.renxuan2.zhixuanfushi",
-            "balls[0][onePrice]": "2",
-            "balls[0][moneyunit]": "1",
-            "balls[0][multiple]": "1",
-            "balls[0][is_dekaron]": "false",
-            "orders[161219096]": "1",
-            "amount": "2.00",
-            "prize": "1950"
-        }
+        // data = {
+        //     "gameId": "1",
+        //     "isTrace": "0",
+        //     "traceWinStop": "1",
+        //     "traceStopValue": "1",
+        //     "balls[0][jsId]": "1",
+        //     "balls[0][wayId]": "203",
+        //     "balls[0][ball]": "6|8|6|7|8",
+        //     "balls[0][viewBalls]": "",
+        //     "balls[0][num]": "10",
+        //     "balls[0][type]": "renxuan.renxuan2.zhixuanfushi",
+        //     "balls[0][onePrice]": "2",
+        //     "balls[0][moneyunit]": "1",
+        //     "balls[0][multiple]": "1",
+        //     "balls[0][is_dekaron]": "false",
+        //     "orders[161219096]": "1",
+        //     "amount": "2.00",
+        //     "prize": "1950"
+        // }
         return await this._fetch({
                 method: 'POST',
                 url: '/phone/bet/1',

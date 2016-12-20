@@ -212,10 +212,6 @@ _token:VbZVLaUP4rGVBlDIqMlJa6WOnA5P138bJY13KcDx}
                         throw (response);
                     }
                 })
-                .then((json) => {
-                    console.log(json);
-                    return json.data;
-                })
                 .catch((error) => {
                     throw (error);
                 });

@@ -3,7 +3,8 @@
 import type { Action,ThunkAction } from './types';
 import  BackendFactory from '../lib/BackendFactory';
 import AppAuthToken from '../lib/AppAuthToken';
-import {loadMenu} from './buy'
+import {loadMenu} from './buy';
+import { toastShort } from '../utils/ToastUtil';
 function skipLogin(): Action {
   return {
     type: 'SKIPPED_LOGIN',
@@ -65,6 +66,7 @@ function login(data,navigator) {
     
       .then((result) => {
         console.log(result);
+        toastShort(result.message);
         navigator.resetTo({
             "twitterTab":true
           });
@@ -87,6 +89,7 @@ function bet(data,navigator) {
     
       .then((result) => {
         console.log(result);
+        toastShort(result.message);
       })                
 
       .catch((error) => {

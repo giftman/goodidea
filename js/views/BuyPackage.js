@@ -79,6 +79,7 @@ class BuyPackage extends Component {
         //     "amount": "2.00",
         //     "prize": "1950"
         // }
+        this._onConfirmBtn();
         let {defaultGame,buyPackage,orderNum} = this.props;
         let data = {};
         let allAmount = 0;

@@ -29,7 +29,7 @@ class TwitterTab extends Component {
     // }
     // this.props.getToken();
     // this.props.login();
-    this.props.bet();
+    // this.props.bet();
 
     // this.props.getGameConfig();
     }

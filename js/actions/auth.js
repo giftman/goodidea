@@ -66,10 +66,10 @@ function login(data,navigator) {
     
       .then((result) => {
         console.log(result);
-        toastShort(result.message);
         navigator.resetTo({
             "twitterTab":true
           });
+        toastShort(result.message);
       })                
 
       .catch((error) => {
@@ -99,17 +99,27 @@ function bet(data,navigator) {
   };
 }
 
-function getGameConfig(gameId) {
+function getGameConfig(game,navigator) {
   return dispatch => {
+    dispatch(showLoading());
     return new AppAuthToken().getSessionToken()
 
       .then((token) => {
-        return BackendFactory(token.sessionToken).getGameConfig(gameId);
+        return BackendFactory(token.sessionToken).getGameConfig(game.gameId);
       })
     
       .then((result) => {
         console.log(result);
-        dispatch(loadMenu(result));
+        dispatch(closeLoading());
+        if(result.error_code == '00'){
+          dispatch(loadMenu(result));
+        navigator.push({
+      game,
+    });
+      }else{
+        toastShort(result.message);
+      }
+        
         // if(result.is_success){
         //   return result.data;
         // }else{
@@ -124,6 +134,16 @@ function getGameConfig(gameId) {
   };
 }
 
+function showLoading(): Action {
+  return {
+    type: 'SHOW_LOADING',
+  };
+}
+function closeLoading(): Action {
+  return {
+    type: 'CLOSE_LOADING',
+  };
+}
 
 
 module.exports = {getToken,login,getGameConfig,checkToken,bet};

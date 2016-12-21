@@ -195,7 +195,7 @@ _token:VbZVLaUP4rGVBlDIqMlJa6WOnA5P138bJY13KcDx}
         //     "balls[0][moneyunit]": "1",
         //     "balls[0][multiple]": "1",
         //     "balls[0][is_dekaron]": "false",
-        //     "orders[161219096]": "1",
+        //     "orders[161221064]": "1",
         //     "amount": "2.00",
         //     "prize": "1950"
         // }
@@ -232,10 +232,10 @@ _token:VbZVLaUP4rGVBlDIqMlJa6WOnA5P138bJY13KcDx}
                         throw (response);
                     }
                 })
-                .then((json) => {
-                    console.log(json);
-                    return json.data;
-                })
+                // .then((json) => {
+                //     console.log(json);
+                //     return json.data;
+                // })
                 .catch((error) => {
                     throw (error);
                 });
@@ -411,12 +411,12 @@ _token:VbZVLaUP4rGVBlDIqMlJa6WOnA5P138bJY13KcDx}
                 formBody.push(encodedKey + "=" + encodedValue);
             }
             ;
-            let positions = [0, 0, 1, 1, 0];
-            for (var position in positions) {
-                var encodedKey = encodeURIComponent("balls[0][position][]");
-                var encodedValue = encodeURIComponent(positions[position]);
-                formBody.push(encodedKey + "=" + encodedValue);
-            }
+            // let positions = [0, 0, 1, 1, 0];
+            // for (var position in positions) {
+            //     var encodedKey = encodeURIComponent("balls[0][position][]");
+            //     var encodedValue = encodeURIComponent(positions[position]);
+            //     formBody.push(encodedKey + "=" + encodedValue);
+            // }
             reqOpts.body = formBody.join("&");
             // reqOpts.body = JSON.stringify(opts.body);
             console.log("request body:" + reqOpts.body);

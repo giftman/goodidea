@@ -1,30 +1,42 @@
 'use strict';
 
 import type { Action,ThunkAction } from './types';
-
-function loadMenu(data): ThunkAction {
+function loadMenu(dataA): ThunkAction {
 	 
      return (dispatch) => {
-     	let data = require('./_mock_/buyNo.json');
-      let buyCell = require('./_mock_/gameMethodSet.json');
-	 let menu = {};
-	 let allTypes = {};
-     data.gameMethods['1800'].map((article, index) => {
-        renderCells(article,"","",article.id,data.gameId,menu,allTypes,buyCell);
-    })
-     
-     for(let i in buyCell){
-     	if(allTypes[i]){
-        allTypes[i].only_one = buyCell[i].only_one;
-     		allTypes[i].layout = buyCell[i].layout;
-     		allTypes[i].methods = buyCell[i].methods;
-        allTypes[i].each_method_represent_chips_num = buyCell[i].each_method_represent_chips_num;
-        allTypes[i].num = buyCell[i].num;
-        allTypes[i].positions = buyCell[i].positions;
-     	}
-     }
-     	dispatch({type:"LOAD_MENU",menu,allTypes})
-     }
+     	// let data = require('./_mock_/buyNo.json');
+      let data = dataA.data;
+         let buyCell = require('./_mock_/gameMethodSet.json');
+         let menu = {};
+         let allTypes = {};
+         let currentPrice = data.currentPrize;
+           data.gameMethods["1950"].map((article, index) => {
+              renderCells(article,"","",article.id,data.gameId,menu,allTypes,buyCell);
+          })
+           
+           for(let i in buyCell){
+            if(allTypes[i]){
+              allTypes[i].only_one = buyCell[i].only_one;
+              allTypes[i].layout = buyCell[i].layout;
+              allTypes[i].methods = buyCell[i].methods;
+              allTypes[i].each_method_represent_chips_num = buyCell[i].each_method_represent_chips_num;
+              allTypes[i].num = buyCell[i].num;
+              allTypes[i].positions = buyCell[i].positions;
+            }
+           }
+            dispatch({type:"LOAD_MENU",
+              payload:{menu,
+                allTypes,
+                currentPrice,
+                gameName:data.gameName_cn,
+                orderNum:data.currentNumber,
+                currentTime:data.currentTime,
+                orderNumberEndTime:data.currentNumberTime,
+              }})
+      
+
+      }
+      
  
 }
 
@@ -34,6 +46,16 @@ function skipLogin(): Action {
   };
 }
 
+function showLoading(): Action {
+  return {
+    type: 'SHOW_LOADING',
+  };
+}
+function closeLoading(): Action {
+  return {
+    type: 'CLOSE_LOADING',
+  };
+}
 // function randomPick(num): Action {
 //   return {
 //     type: 'RANDOM_PICK',
@@ -109,4 +131,4 @@ function renderCells(cells,name,en_name,jsId,gameId,menu,allTypes,buyCell){
   }
 }
 
-module.exports = {loadMenu,changeType,updateChoice,clearPackage,updateNumOfChips,updatePackageProps,updateDefaultGame};
+module.exports = {loadMenu,changeType,updateChoice,clearPackage,updateNumOfChips,updatePackageProps,updateDefaultGame,showLoading,closeLoading};

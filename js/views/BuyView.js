@@ -36,10 +36,10 @@ class BuyView extends Component {
             tipShift: new Animated.Value(this.tipMinTop),
             choice: {},
         };
-        if (this.props.article && this.props.article.gameId) {
-            this.props.getGameConfig(this.props.article.gameId);
-        }
-        this.props.loadMenu(null);
+        // if (this.props.article && this.props.article.gameId) {
+        //     this.props.getGameConfig(this.props.article.gameId);
+        // }
+        // this.props.loadMenu(null);
     }
 
     _onToggle(name, index) {

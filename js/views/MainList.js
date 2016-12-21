@@ -27,6 +27,9 @@ var MainListCell = require('./MainListCell');
 import  PureListView from '../common/PureListView';
 import React,{Component} from 'react';
 import {Navigator} from 'react-native';
+import { connect } from 'react-redux';
+import { getGameConfig} from '../actions';
+
 type Props = {
   data: Array<any>;
   navigator: Navigator;
@@ -87,11 +90,7 @@ class ReadingListView extends React.Component {
   }
 
   openSession(article: any, typeId: number) {
-    this.props.navigator.push({
-      typeId,
-      article,
-    });
-    console.log(article);
+    this.props.getGameConfig(article,this.props.navigator);
   }
 
   storeInnerRef(ref: ?PureListView) {
@@ -107,4 +106,15 @@ class ReadingListView extends React.Component {
   }
 }
 
-module.exports = ReadingListView;
+function select(store) {
+    return {
+    };
+}
+
+function actions(dispatch) {
+    return {
+        getGameConfig: (gameId,navigator) => dispatch(getGameConfig(gameId,navigator)),
+    };
+}
+
+module.exports = connect(select, actions)(ReadingListView);

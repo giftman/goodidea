@@ -9,6 +9,8 @@ const StyleSheet = require('../utils/CustomStyleSheet');
 import Icon from 'react-native-vector-icons/Ionicons';
 import F8Header from '../common/F8Header';
 import MainList from './MainList';
+import LoadingView from '../common/LoadingView';
+import { connect } from 'react-redux';
 class TwitterPost extends Component {
     constructor(props) {
         super(props);
@@ -32,7 +34,7 @@ class TwitterPost extends Component {
             'des':'每10分钟一期  总期数:72期',
             'img': 'https://facebook.github.io/react/img/logo_og.png'
         }, {
-            'gameId':6,
+            'gameId':8,
             'title': 'XJSSC',
             'time':'销售时间:10:00~23:00',
             'des':'每10分钟一期  总期数:72期',
@@ -71,6 +73,7 @@ class TwitterPost extends Component {
             tintColor="#ddd"
             />
             }>
+
       </MainList>
         )
     }
@@ -97,6 +100,7 @@ class TwitterFlow extends Component {
      
       </F8Header>
         <TwitterPost navigator={this.props.navigator}></TwitterPost>
+        {this.props.loading?<LoadingView />:<View />}
       </View>
         )
     }
@@ -109,4 +113,14 @@ const styles = StyleSheet.create({
 });
 
 
-export default TwitterFlow;
+function select(store) {
+    return {
+        loading:store.buy.loading,
+    };
+}
+
+function actions(dispatch) {
+    return {
+    };
+}
+module.exports = connect(select, actions)(TwitterFlow);

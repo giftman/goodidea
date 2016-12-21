@@ -46,6 +46,9 @@ type State = {
   multNum:number;
   gameName:string;
   orderNum:string;
+  currentTime:number;
+  orderNumberEndTime:number;
+  currentPrice:string;
 };
 
 const initialState: State = { allTypes: {},buyPackage:[],loading:false,
@@ -55,7 +58,15 @@ const initialState: State = { allTypes: {},buyPackage:[],loading:false,
 function buy(state: State = initialState, action: Action): State {
 	switch(action.type){
 		case 'LOAD_MENU':
-			return {...state,menu:action.menu,loading:true,allTypes:action.allTypes,defaultGame:action.allTypes[state.defaultType]};
+			return {...state,menu:action.payload.menu,
+        allTypes:action.payload.allTypes,
+        defaultGame:action.payload.allTypes[state.defaultType],
+        currentPrice:action.payload.currentPrice,
+          gameName:action.payload.gameName,
+          orderNum:action.payload.orderNum,
+          currentTime:action.payload.currentTime,
+          orderNumberEndTime:action.payload.orderNumberEndTime,
+      };
 		case 'LOAD_REQUEST':
 			return {...state,loading:true};
 		case 'LOAD_FAILED':
@@ -74,6 +85,10 @@ function buy(state: State = initialState, action: Action): State {
       return {...state,buyPackage:action.buyPackage};
     case 'UPDATE_GAME':
       return {...state,defaultGame:action.game};
+    case 'SHOW_LOADING':
+      return {...state,loading:true};
+    case 'CLOSE_LOADING':
+      return {...state,loading:false};
 	}
   
   return state;

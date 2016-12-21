@@ -31,7 +31,7 @@ const LoadingView = () => (
       size="large"
       color="#3e9ce9"
     />
-    <Text style={styles.loadingText}>数据加载中...</Text>
+    <Text style={styles.loadingText}>努力加载中...</Text>
   </View>
   </View>
 );
@@ -40,6 +40,7 @@ const styles = StyleSheet.create({
   container:{
     position: 'absolute',
     width:Dimensions.get('window').width,
+    height:Dimensions.get('window').height,
     bottom: 10,
     margin: 10,
     paddingVertical: 10,
@@ -51,7 +52,7 @@ const styles = StyleSheet.create({
     height:70,
      alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#0a0603',
+    backgroundColor: '#666',
     borderRadius:30,
     flexDirection: 'row',
   },

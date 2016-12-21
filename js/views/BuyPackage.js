@@ -83,26 +83,26 @@ class BuyPackage extends Component {
         let {defaultGame,buyPackage,orderNum} = this.props;
         let data = {};
         let allAmount = 0;
-        data["gameId"] = defaultGame.gameId;
+        data["gameId"] = defaultGame.gameId + "";
         data["isTrace"] = "0";//todo
         data["traceWinStop"] = "1";//todo
         data["traceStopValue"] = "1"; //todo
         data["prize"] = "1950"//todo
         buyPackage.map((elem,index)=>{
             allAmount = allAmount + elem.amount;
-            data["balls[" + index + "]jsId]"] = elem.jsId;
-            data["balls[" + index + "][wayId]"]      = elem.wayId;
-            data["balls[" + index + "][ball]"]       = elem.ball
-            data["balls[" + index + "][viewBalls]"]  = elem.viewBalls
-            data["balls[" + index + "][num]"]        = elem.num
+            data["balls[" + index + "]jsId]"] = elem.jsId + "";
+            data["balls[" + index + "][wayId]"]      = elem.wayId + "";
+            data["balls[" + index + "][ball]"]       = elem.ball;
+            data["balls[" + index + "][viewBalls]"]  = "";
+            data["balls[" + index + "][num]"]        = elem.num + "";
             data["balls[" + index + "][type]"]       = elem.type
-            data["balls[" + index + "][onePrice]"]   = elem.onePrice
-            data["balls[" + index + "][moneyunit]"]  = elem.moneyunit
-            data["balls[" + index + "][multiple]"]   = elem.multiple
-            data["balls[" + index + "][is_dekaron]"] = elem.is_dekaron
+            data["balls[" + index + "][onePrice]"]   = elem.onePrice + "";
+            data["balls[" + index + "][moneyunit]"]  = elem.moneyunit + "";
+            data["balls[" + index + "][multiple]"]   = elem.multiple + "";
+            data["balls[" + index + "][is_dekaron]"] = elem.is_dekaron + "";
         });
 
-        data["amount"] = allAmount;
+        data["amount"] = allAmount + ".00";
         data["orders[" + orderNum + "]" ] = "1";//todo
         console.log(data)
 

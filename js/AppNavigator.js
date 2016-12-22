@@ -106,7 +106,7 @@ var AppNavigator = React.createClass({
     },
 
     renderScene: function(route, navigator) {
-        if (route.article) {
+        if (route.game) {
             return (
                 <BuyView
                 {...route}

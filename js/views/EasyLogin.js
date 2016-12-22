@@ -40,6 +40,7 @@ const {connect} = require('react-redux');
 import Util from '../utils/Util';
 import {login} from '../actions';
 import {normalize,headerBG} from '../common/F8Colors';
+import LoadingView from '../common/LoadingView';
 export type Status = 'login' | 'register';
 
 export type Props = {
@@ -244,7 +245,7 @@ const styles = StyleSheet.create({
 
 function select(store) {
   return {
-    loading: store.user.loading,
+    loading: store.buy.loading,
   };
 }
 module.exports = connect(select)(EasyLogin);

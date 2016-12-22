@@ -58,6 +58,7 @@ function checkToken(){
 
 function login(data,navigator) {
   return dispatch => {
+    dispatch(showLoading());
     return new AppAuthToken().getSessionToken()
 
       .then((token) => {
@@ -66,10 +67,16 @@ function login(data,navigator) {
     
       .then((result) => {
         console.log(result);
-        navigator.resetTo({
+         dispatch(closeLoading());
+        if(result.error_code == '00'){
+          // dispatch(loadMenu(result));//todo load User Info
+          navigator.resetTo({
             "twitterTab":true
           });
         toastShort(result.message);
+      }else{
+        toastShort(result.message);
+      }
       })                
 
       .catch((error) => {

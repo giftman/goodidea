@@ -167,6 +167,9 @@ function updatePackage(defaultGame, numOfChips, multNum, buyPackage, result) {
             oneChoice["des"] = defaultGame.name_cn + " " + numOfChips + "注 X " + multNum + "倍="
             + amount + "元";
             oneChoice["amount"] = amount;
+            if(defaultGame.positions){
+                oneChoice["position"] = defaultGame.positions;
+            }
         buyPackage.push(oneChoice);
     }
     return buyPackage

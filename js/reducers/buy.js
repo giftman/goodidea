@@ -53,7 +53,8 @@ type State = {
 
 const initialState: State = { allTypes: {},buyPackage:[],loading:false,
                             multNum:1,choice:{},numOfChips:0,menu:{},
-                            defaultType:'wuxing.zuxuan.zuxuan30',defaultGame:{},gameName:"cqssc",orderNum:""};
+                            defaultType:'renxuan.renxuan2.zuxuanfushi',
+                            defaultGame:{},gameName:"cqssc",orderNum:""};
 
 function buy(state: State = initialState, action: Action): State {
 	switch(action.type){

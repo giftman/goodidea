@@ -135,10 +135,10 @@ export default class Parse extends Backend {
                         throw (response);
                     }
                 })
-                .then((json) => {
-                    console.log(json);
-                    return json.data;
-                })
+                // .then((json) => {
+                //     console.log(json);
+                //     return json.data;
+                // })
                 .catch((error) => {
                     throw (error);
                 });
@@ -406,17 +406,22 @@ _token:VbZVLaUP4rGVBlDIqMlJa6WOnA5P138bJY13KcDx}
             console.log("sessionToken: " + this._sessionToken);
             let formBody = [];
             for (var property in opts.body) {
-                var encodedKey = encodeURIComponent(property);
+                if(property != 'positions'){
+                  var encodedKey = encodeURIComponent(property);
                 var encodedValue = encodeURIComponent(opts.body[property]);
                 formBody.push(encodedKey + "=" + encodedValue);
+                }
+                
             }
             ;
             // let positions = [0, 0, 1, 1, 0];
-            // for (var position in positions) {
-            //     var encodedKey = encodeURIComponent("balls[0][position][]");
-            //     var encodedValue = encodeURIComponent(positions[position]);
-            //     formBody.push(encodedKey + "=" + encodedValue);
-            // }
+            for (var position in opts.body["positions"]) {
+                for (var p of opts.body["positions"][position]){
+                    var encodedKey = encodeURIComponent("balls[" + position +"][position][]");
+                    var encodedValue = encodeURIComponent(p);
+                    formBody.push(encodedKey + "=" + encodedValue);
+                }
+            }
             reqOpts.body = formBody.join("&");
             // reqOpts.body = JSON.stringify(opts.body);
             console.log("request body:" + reqOpts.body);
@@ -428,7 +433,7 @@ _token:VbZVLaUP4rGVBlDIqMlJa6WOnA5P138bJY13KcDx}
     _addToken(body) {
         let tmp = "";
         Object.keys(body).sort().map((elem, index) => {
-            if (elem.includes('balls') || elem.includes('orders')) {
+            if (elem.includes('balls') || elem.includes('orders')|| elem.includes('positions')) {
 
             } else {
                 tmp = tmp + body[elem];

@@ -24,15 +24,20 @@ function loadMenu(dataA): ThunkAction {
               allTypes[i].positions = buyCell[i].positions;
             }
            }
-            dispatch({type:"LOAD_MENU",
-              payload:{menu,
+            dispatch(
+              {
+              type:"LOAD_MENU",
+              payload:
+              {
+                menu,
                 allTypes,
                 currentPrice,
                 gameName:data.gameName_cn,
                 orderNum:data.currentNumber,
                 currentTime:data.currentTime,
                 orderNumberEndTime:data.currentNumberTime,
-              }})
+              }
+            })
       
 
       }

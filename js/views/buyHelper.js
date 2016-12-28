@@ -134,7 +134,7 @@ function checkHowManyNumOfChipsAndAddToPackage(defaultGame, choice) {
     }
     if( numOfChips > 0 && defaultGame.type.includes("zhixuanfushi")){
         //todo
-        numOfChips = zuxuanCount(defaultGame,choice,numOfChips);
+        numOfChips = zhixuanfushiCount(defaultGame,choice,numOfChips);
     }
     //only for wuxing hezhi 24 numbers bug 
     numOfChips = Math.round(numOfChips);
@@ -198,14 +198,54 @@ function checkIsValidDansi(choice, num) {
     return result;
 }
 
+function zhixuanfushiCount(defaultGame,choice,numOfChips) {
+    console.log(choice);
+    let cLength = _.map(choice,(c) =>{return c.length})
+    console.log(cLength);
+    numOfChips = 0;
+    if(defaultGame.type.includes("renxuan2")){
+        for(var i=0;i<cLength.length;i++){
+             for(var j=0;j<cLength.length;j++){
+                  if(i < j){
+                    numOfChips = cLength[i]*cLength[j] + numOfChips;
+                  }
+            }
+        }
+    }else if(defaultGame.type.includes("renxuan3")){
+        for(var i=0;i<cLength.length;i++){
+             for(var j=0;j<cLength.length;j++){
+                for(var k=0;k<cLength.length;k++){
+                  if(i < j && j < k){
+                    numOfChips = cLength[i]*cLength[j]*cLength[k] + numOfChips;
+                  }
+                }
+            }
+        }
+            
+    }else if(defaultGame.type.includes("renxuan4")){
+           for(var i=0;i<cLength.length;i++){
+             for(var j=0;j<cLength.length;j++){
+                for(var k=0;k<cLength.length;k++){
+                  for(var l=0;l<cLength.length;l++){
+                  if(i < j && j < k && i < l && j < l && k < l){
+                    numOfChips = cLength[i]*cLength[j]*cLength[k]*cLength[l] + numOfChips;
+                  }
+                }
+                }
+            }
+        }
+    }
+    return numOfChips;
+}
+
 function danshiCount(defaultGame,choice,numOfChips) {
     var reg2 = /(\d)\d?\1/;
     var reg3 = /(\d)\1\1/;
-    console.log(choice);
+    // console.log(choice);
     if(defaultGame.type.includes("zusandanshi")){
             let clone = clearRepeatChoice(choice);
             numOfChips = clone.length;
-            console.log(clone);
+            // console.log(clone);
             for(let c in clone){
                     if(!reg2.test(clone[c]) || reg3.test(clone[c])){
                         numOfChips = numOfChips - 1;

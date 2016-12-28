@@ -2110,7 +2110,6 @@
     },
     "renxuan.renxuan3.zhixuanfushi": {
         "num":3,
-        "positions":[0,0,1,1,1],
         "methods": {
             "万": {
                 "num": 1,

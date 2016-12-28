@@ -15,31 +15,85 @@ class TwitterPost extends Component {
     constructor(props) {
         super(props);
 
-        this.data = [{
+        this.data = [
+        {
             'gameId':1,
             'title': '重庆时时彩',
             'time':'销售时间:10:00~23:00',
             'des':'每10分钟一期  总期数:72期',
             'img': 'https://facebook.github.io/react/img/logo_og.png'
-        }, {
-            'gameId':3,
-            'title': 'HLJSSC',
-            'time':'销售时间:10:00~23:00',
-            'des':'每10分钟一期  总期数:72期',
-            'img': 'https://facebook.github.io/react/img/logo_og.png'
-        }, {
+        }, 
+        {
             'gameId':5,
             'title': 'JXSSC',
             'time':'销售时间:10:00~23:00',
             'des':'每10分钟一期  总期数:72期',
             'img': 'https://facebook.github.io/react/img/logo_og.png'
-        }, {
-            'gameId':8,
+        }, 
+        {
+            'gameId':6,
             'title': 'XJSSC',
             'time':'销售时间:10:00~23:00',
             'des':'每10分钟一期  总期数:72期',
             'img': 'https://facebook.github.io/react/img/logo_og.png'
-        }]
+        }, 
+        {
+            'gameId':7,
+            'title': 'TJSSC',
+            'time':'销售时间:10:00~23:00',
+            'des':'每10分钟一期  总期数:72期',
+            'img': 'https://facebook.github.io/react/img/logo_og.png'
+        }, 
+        {
+            'gameId':11,
+            'title': '正点1分彩',
+            'time':'销售时间:10:00~23:00',
+            'des':'每10分钟一期  总期数:72期',
+            'img': 'https://facebook.github.io/react/img/logo_og.png'
+        }, 
+        {
+            'gameId':13,
+            'title': '正点3分彩',
+            'time':'销售时间:10:00~23:00',
+            'des':'每10分钟一期  总期数:72期',
+            'img': 'https://facebook.github.io/react/img/logo_og.png'
+        }, 
+        {
+            'gameId':14,
+            'title': '正点5分彩',
+            'time':'销售时间:10:00~23:00',
+            'des':'每10分钟一期  总期数:72期',
+            'img': 'https://facebook.github.io/react/img/logo_og.png'
+        }, 
+        {
+            'gameId':17,
+            'title': '正点5分彩',
+            'time':'销售时间:10:00~23:00',
+            'des':'每10分钟一期  总期数:72期',
+            'img': 'https://facebook.github.io/react/img/logo_og.png'
+        }, 
+        {
+            'gameId':25,
+            'title': '北京五分彩',
+            'time':'销售时间:10:00~23:00',
+            'des':'每10分钟一期  总期数:72期',
+            'img': 'https://facebook.github.io/react/img/logo_og.png'
+        }, 
+        {
+            'gameId':26,
+            'title': '台湾五分彩',
+            'time':'销售时间:10:00~23:00',
+            'des':'每10分钟一期  总期数:72期',
+            'img': 'https://facebook.github.io/react/img/logo_og.png'
+        }, 
+        {
+            'gameId':27,
+            'title': '韩国1-5分彩',
+            'time':'销售时间:10:00~23:00',
+            'des':'每10分钟一期  总期数:72期',
+            'img': 'https://facebook.github.io/react/img/logo_og.png'
+        }
+        ]
 
         this.state = {
             isRefreshing: false,

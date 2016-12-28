@@ -109,14 +109,17 @@ function checkHowManyNumOfChipsAndAddToPackage(defaultGame, choice) {
     }
     //单式特殊处理
     if (defaultGame.layout == 2) {
+
         if (!checkIsValidDansi(choice, defaultGame.num)) {
             return {
                 "numOfChips": 0
             };
         }
+
         if(_.isArray(choice)){//fix renxuan.zhixuandanshi
            numOfChips = choice.length;
            result = choice.join(',');
+           console.log(choice);
            numOfChips = danshiCount(defaultGame,choice,numOfChips);
         }else{
             numOfChips = 0
@@ -129,6 +132,12 @@ function checkHowManyNumOfChipsAndAddToPackage(defaultGame, choice) {
         let sum = _.reduce(defaultGame.positions,(memo,num)=>{return memo + num;},0);
         numOfChips = countNum(sum, defaultGame.num) * numOfChips;
     }
+    if( numOfChips > 0 && defaultGame.type.includes("zhixuanfushi")){
+        //todo
+        numOfChips = zuxuanCount(defaultGame,choice,numOfChips);
+    }
+    //only for wuxing hezhi 24 numbers bug 
+    numOfChips = Math.round(numOfChips);
 
     console.log("choice result:" + result);
     console.log("numOfChips:" + numOfChips);
@@ -192,30 +201,64 @@ function checkIsValidDansi(choice, num) {
 function danshiCount(defaultGame,choice,numOfChips) {
     var reg2 = /(\d)\d?\1/;
     var reg3 = /(\d)\1\1/;
+    console.log(choice);
     if(defaultGame.type.includes("zusandanshi")){
-            for(let c in choice){
-                    if(!reg2.test(choice[c]) || reg3.test(choice[c])){
+            let clone = clearRepeatChoice(choice);
+            numOfChips = clone.length;
+            console.log(clone);
+            for(let c in clone){
+                    if(!reg2.test(clone[c]) || reg3.test(clone[c])){
                         numOfChips = numOfChips - 1;
                     }
                 }
     }else if(defaultGame.type.includes("zuliudanshi")){
+            let clone = clearRepeatChoice(choice);
+            numOfChips = clone.length;
+            for(let c in clone){
+                    if(reg2.test(clone[c])){
+                        numOfChips = numOfChips - 1;
+                    }
+                }
+    }else if(defaultGame.type.includes("zuxuandanshi")){
             for(let c in choice){
                     if(reg2.test(choice[c])){
                         numOfChips = numOfChips - 1;
                     }
                 }
-    }else if(defaultGame.type.includes("zuliudanshi") 
-        || defaultGame.type.includes("houerdanshi") 
-        || defaultGame.type.includes("qianerdanshi")
-        || defaultGame.type.includes("zuxuandanshi")
+    }else if(defaultGame.type.includes("hunhezuxuan")){
+        let clone = clearRepeatChoice(choice);
+            numOfChips = clone.length;
+            for(let c in clone){
+                    if(reg3.test(clone[c])){
+                        numOfChips = numOfChips - 1;
+                    }
+                }
+    }else if(defaultGame.type.includes("zuxuan.houerdanshi") 
+        || defaultGame.type.includes("zuxuan.qianerdanshi")
         ){
-            for(let c in choice){
-                    if(reg2.test(choice[c])){
+            let clone = clearRepeatChoice(choice);
+            numOfChips = clone.length;
+            console.log(clone);
+            for(let c in clone){
+                    if(reg2.test(clone[c])){
                         numOfChips = numOfChips - 1;
                     }
                 }
     }
     return numOfChips;
+}
+//有些玩法(zuxuan)89,98类似这种当成一种的
+function clearRepeatChoice(choice){
+    let newChoice = [];
+    let choiceSet = new Set();
+    // for(let c in choice){
+    //     choiceSet.add(choice[c].toString().split('').sort().toString());
+    // }
+    choice.map(x => choiceSet.add(x.toString().split('').sort().toString()));
+    for(var p of choiceSet){
+        newChoice.push(p.replace(',',''));
+    }
+    return newChoice;
 }
 
 function zuxuanCount(defaultGame,choice,numOfChips) {

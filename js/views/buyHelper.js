@@ -179,6 +179,14 @@ function updatePackage(defaultGame, numOfChips, multNum, buyPackage, result) {
             if(defaultGame.positions){
                 oneChoice["position"] = defaultGame.positions;
             }
+            if(defaultGame.type.includes('zhixuanfushi')){
+                let tmp = result.split('|');
+                oneChoice["position"] = _.map(tmp, function(num){ if(num != ''){
+                    return 1;
+                }else{
+                    return 0;
+                } });
+            }
         buyPackage.push(oneChoice);
     }
     return buyPackage

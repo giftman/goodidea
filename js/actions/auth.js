@@ -96,6 +96,9 @@ function bet(data,navigator) {
     
       .then((result) => {
         console.log(result);
+        // if(result.error_code == '00'){
+        //   dispatch()
+        // }
         toastShort(result.message);
       })                
 

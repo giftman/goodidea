@@ -32,9 +32,9 @@ class BuyList extends Component {
 
     _onChangeText(number) {
         this.props.onToggle(number, 0);
-        this.setState({
-            number
-        });
+        // this.setState({
+        //     number
+        // });
     }
 
     render() {
@@ -63,8 +63,11 @@ class BuyList extends Component {
             ref={(number) => this.number = number}
             onFocus={() => this.number.focus()}
             onChangeText={(number) => this._onChangeText(number)}
+            keyboardType={"numbers-and-punctuation"}
             multiline={true}
             style={styles.input}
+            // value=""
+            // value={choice == {} ? '':choice}
             placeholder='请输入命中注定的号码，每一个号码之间请用一个空格[ ]或者逗号[,]或者[;]分开，尾末不需要分割符'
             underlineColorAndroid={'transparent'}
             />

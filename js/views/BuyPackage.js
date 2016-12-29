@@ -114,6 +114,10 @@ class BuyPackage extends Component {
         console.log(data)
 
         this.props.bet(data);
+        this.props.updatePackageProps([]);
+        this.setState({
+            "data":[]
+        })
         
     }
     render() {

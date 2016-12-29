@@ -119,8 +119,8 @@ function checkHowManyNumOfChipsAndAddToPackage(defaultGame, choice) {
         if(_.isArray(choice)){//fix renxuan.zhixuandanshi
            numOfChips = choice.length;
            result = choice.join(',');
-           console.log(choice);
-           numOfChips = danshiCount(defaultGame,choice,numOfChips);
+           // console.log(choice);
+           // numOfChips = danshiCount(defaultGame,choice,numOfChips);
         }else{
             numOfChips = 0
         }
@@ -164,7 +164,10 @@ function updatePackage(defaultGame, numOfChips, multNum, buyPackage, result) {
             oneChoice["wayId"] = defaultGame.series_way_id;
             oneChoice["onePrice"] = defaultGame.price;
             oneChoice["ball"] = result;
-            oneChoice["viewBalls"] = defaultGame.viewBalls|"";
+            if(defaultGame.type.includes('danshi')){
+                oneChoice["ball"] = result.replace(/,/g,'|');
+            }
+            oneChoice["viewBalls"] = defaultGame.viewBalls||"";
             oneChoice["num"]  = numOfChips;
             oneChoice["type"] = defaultGame.type;
             oneChoice["moneyunit"] = "1";//todo
@@ -246,55 +249,103 @@ function zhixuanfushiCount(defaultGame,choice,numOfChips) {
     return numOfChips;
 }
 
-function danshiCount(defaultGame,choice,numOfChips) {
+// function danshiCount(defaultGame,choice,numOfChips) {
+//     var reg2 = /(\d)\d?\1/;
+//     var reg3 = /(\d)\1\1/;
+//     // console.log(choice);
+//     if(defaultGame.type.includes("zusandanshi")){
+//             let clone = clearRepeatChoice(choice);
+//             numOfChips = clone.length;
+//             console.log(clone);
+//             for(let c in clone){
+//                     if((!reg2.test(clone[c])) || reg3.test(clone[c])){
+//                         numOfChips = numOfChips - 1;
+//                     }
+//                 }
+//     }else if(defaultGame.type.includes("zuliudanshi")){
+//             let clone = clearRepeatChoice(choice);
+//             numOfChips = clone.length;
+//             for(let c in clone){
+//                     if(reg2.test(clone[c])){
+//                         numOfChips = numOfChips - 1;
+//                     }
+//                 }
+//     }else if(defaultGame.type.includes("zuxuandanshi")){
+//             for(let c in choice){
+//                     if(reg2.test(choice[c])){
+//                         numOfChips = numOfChips - 1;
+//                     }
+//                 }
+//     }else if(defaultGame.type.includes("hunhezuxuan")){
+//         let clone = clearRepeatChoice(choice);
+//             numOfChips = clone.length;
+//             for(let c in clone){
+//                     if(reg3.test(clone[c])){
+//                         numOfChips = numOfChips - 1;
+//                     }
+//                 }
+//     }else if(defaultGame.type.includes("zuxuan.houerdanshi") 
+//         || defaultGame.type.includes("zuxuan.qianerdanshi")
+//         ){
+//             let clone = clearRepeatChoice(choice);
+//             numOfChips = clone.length;
+//             console.log(clone);
+//             for(let c in clone){
+//                     if(reg2.test(clone[c])){
+//                         numOfChips = numOfChips - 1;
+//                     }
+//                 }
+//     }
+//     return numOfChips;
+// }
+
+function clearValidChoice(defaultGame,choice){
+    let newChoice = _.clone(choice);
+    
     var reg2 = /(\d)\d?\1/;
     var reg3 = /(\d)\1\1/;
     // console.log(choice);
     if(defaultGame.type.includes("zusandanshi")){
-            let clone = clearRepeatChoice(choice);
-            numOfChips = clone.length;
-            // console.log(clone);
-            for(let c in clone){
-                    if(!reg2.test(clone[c]) || reg3.test(clone[c])){
-                        numOfChips = numOfChips - 1;
+            newChoice = clearRepeatChoice(choice);
+            for(let c in newChoice){
+                    if((!reg2.test(newChoice[c])) || reg3.test(newChoice[c])){
+                        newChoice.splice(c,1);
                     }
                 }
     }else if(defaultGame.type.includes("zuliudanshi")){
-            let clone = clearRepeatChoice(choice);
-            numOfChips = clone.length;
-            for(let c in clone){
-                    if(reg2.test(clone[c])){
-                        numOfChips = numOfChips - 1;
+           newChoice = clearRepeatChoice(choice);
+            for(let c in newChoice){
+                    if(reg2.test(newChoice[c])){
+                        newChoice.splice(c,1);
                     }
                 }
     }else if(defaultGame.type.includes("zuxuandanshi")){
             for(let c in choice){
                     if(reg2.test(choice[c])){
-                        numOfChips = numOfChips - 1;
+                        newChoice.splice(c,1);
                     }
                 }
     }else if(defaultGame.type.includes("hunhezuxuan")){
-        let clone = clearRepeatChoice(choice);
-            numOfChips = clone.length;
-            for(let c in clone){
-                    if(reg3.test(clone[c])){
-                        numOfChips = numOfChips - 1;
+        newChoice = clearRepeatChoice(choice);
+            for(let c in newChoice){
+                    if(reg3.test(newChoice[c])){
+                        newChoice.splice(c,1);
                     }
                 }
     }else if(defaultGame.type.includes("zuxuan.houerdanshi") 
         || defaultGame.type.includes("zuxuan.qianerdanshi")
         ){
-            let clone = clearRepeatChoice(choice);
-            numOfChips = clone.length;
-            console.log(clone);
-            for(let c in clone){
-                    if(reg2.test(clone[c])){
-                        numOfChips = numOfChips - 1;
+           newChoice = clearRepeatChoice(choice);
+            for(let c in newChoice){
+                    if(reg2.test(newChoice[c])){
+                        newChoice.splice(c,1);
                     }
                 }
     }
-    return numOfChips;
+
+    return newChoice;
 }
+
 //有些玩法(zuxuan)89,98类似这种当成一种的
 function clearRepeatChoice(choice){
     let newChoice = [];
@@ -304,7 +355,7 @@ function clearRepeatChoice(choice){
     // }
     choice.map(x => choiceSet.add(x.toString().split('').sort().toString()));
     for(var p of choiceSet){
-        newChoice.push(p.replace(',',''));
+        newChoice.push(p.replace(/,/g,''));
     }
     return newChoice;
 }
@@ -375,5 +426,6 @@ function mathDouble(num) {
 module.exports = {
     checkHowManyNumOfChipsAndAddToPackage,
     randomPick,
-    updatePackage
+    updatePackage,
+    clearValidChoice
 };

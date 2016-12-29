@@ -17,7 +17,7 @@ import { connect } from 'react-redux';
 import { getGameConfig, changeType, loadMenu, updateChoice, updateNumOfChips, updatePackageProps,updateDefaultGame } from '../actions';
 import TipPadding from './TipPadding';
 import CoverView from './CoverView';
-import { checkHowManyNumOfChipsAndAddToPackage, updatePackage } from './buyHelper';
+import { checkHowManyNumOfChipsAndAddToPackage, updatePackage,clearValidChoice } from './buyHelper';
 import _ from 'underscore';
 
 class BuyView extends Component {
@@ -72,7 +72,7 @@ class BuyView extends Component {
             }
             choice[name] = choice[name].sort();
         }
-
+        choice = clearValidChoice(defaultGame,choice);
         let {result, numOfChips} = checkHowManyNumOfChipsAndAddToPackage(defaultGame, choice);
         this.result = result;
         this.props.updateChoice(choice);
@@ -218,7 +218,9 @@ class BuyView extends Component {
             this.props.navigator.push({
                 "addToPackage": true,
             });
-
+            // if(defaultGame.type.includes('danshi')){
+            //      toastShort("无效的数字会自动帮助主人过滤，请主人放心投注!");
+            // }
             this.setState({
                 choice: {}
             });

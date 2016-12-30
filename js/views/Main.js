@@ -19,38 +19,42 @@ class TwitterPost extends Component {
         {
             'gameId':1,
             'title': '重庆时时彩',
+            'name':'cqssc',
             'time':'销售时间:10:00~23:00',
             'des':'每10分钟一期  总期数:72期',
             'img': 'https://facebook.github.io/react/img/logo_og.png'
         }, 
         {
             'gameId':5,
-            'title': 'JXSSC',
+            'title': '江西时时彩',
+            'name':'jxssc',
             'time':'销售时间:10:00~23:00',
             'des':'每10分钟一期  总期数:72期',
             'img': 'https://facebook.github.io/react/img/logo_og.png'
         }, 
         {
             'gameId':6,
-            'title': 'XJSSC',
+            'title': '新缰时时彩',
+            'name': 'XJSSC',
             'time':'销售时间:10:00~23:00',
             'des':'每10分钟一期  总期数:72期',
             'img': 'https://facebook.github.io/react/img/logo_og.png'
         }, 
         {
             'gameId':7,
-            'title': 'TJSSC',
+            'title': '天津时时彩',
+            'name': 'TJSSC',
             'time':'销售时间:10:00~23:00',
             'des':'每10分钟一期  总期数:72期',
             'img': 'https://facebook.github.io/react/img/logo_og.png'
         }, 
-        {
-            'gameId':11,
-            'title': '正点1分彩',
-            'time':'销售时间:10:00~23:00',
-            'des':'每10分钟一期  总期数:72期',
-            'img': 'https://facebook.github.io/react/img/logo_og.png'
-        }, 
+        // {
+        //     'gameId':11,
+        //     'title': '正点1分彩',
+        //     'time':'销售时间:10:00~23:00',
+        //     'des':'每10分钟一期  总期数:72期',
+        //     'img': 'https://facebook.github.io/react/img/logo_og.png'
+        // }, 
         {
             'gameId':13,
             'title': '正点3分彩',
@@ -86,13 +90,13 @@ class TwitterPost extends Component {
             'des':'每10分钟一期  总期数:72期',
             'img': 'https://facebook.github.io/react/img/logo_og.png'
         }, 
-        {
-            'gameId':27,
-            'title': '韩国1-5分彩',
-            'time':'销售时间:10:00~23:00',
-            'des':'每10分钟一期  总期数:72期',
-            'img': 'https://facebook.github.io/react/img/logo_og.png'
-        }
+        // {
+        //     'gameId':27,
+        //     'title': '韩国1-5分彩',
+        //     'time':'销售时间:10:00~23:00',
+        //     'des':'每10分钟一期  总期数:72期',
+        //     'img': 'https://facebook.github.io/react/img/logo_og.png'
+        // }
         ]
 
         this.state = {

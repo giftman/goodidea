@@ -18,7 +18,7 @@ export default class MyPage extends Component {
         console.log(tab);
         this.props.navigator.push({
             "my": tab
-        })
+        });
     }
 
 
@@ -106,7 +106,7 @@ export default class MyPage extends Component {
 
         <View style={styles.paddingHeight}/>
 
-        <TouchableOpacity style={styles.itemContain} onPress={() => this.onClick("detail")}>
+        <TouchableOpacity style={styles.itemContain} onPress={() => this.onClick("setting")}>
             <Icon name='md-settings' size={30} color="#666"></Icon>
             <View style={styles.item}>
                 <Text style={styles.itemTitle}>设置</Text>

@@ -42,24 +42,27 @@ export type User = {
 };
 
 type State = {
-  auth:User;
-  loading:bool;
+  username:string;
+  nickname:string;
+  prize_group:string;
+  balance:string;
   token:string;
 };
 
-const initialState: State = { user: {},loading:false};
+const initialState: State = { username:'',nickname:'',prize_group:'',balance:'0'};
 
 function user(state: State = initialState, action: Action): State {
 	switch(action.type){
 		case 'SIGNUP_SUCCESS':
 		case 'LOGIN_SUCCESS':
-			return {...state,user:action.data,loading:false};
+		new AppAuthToken().storeUser(action.payload);
+		return {...state,...action.payload};
 		case 'SIGNUP_REQUEST':
-		case 'LOGIN_REQUEST':
-			return {...state,loading:true};
-		case 'LOGIN_FAILED':
-		case 'SIGNUP_FAILED':
-			return {...state,loading:false};
+		// case 'LOGIN_REQUEST':
+		// 	return {...state,loading:true};
+		// case 'LOGIN_FAILED':
+		// case 'SIGNUP_FAILED':
+		// 	return {...state,loading:false};
 		case 'SAVE_TOKEN':
 			new AppAuthToken().storeSessionToken(action.token);
 			return {...state,token:action.token};

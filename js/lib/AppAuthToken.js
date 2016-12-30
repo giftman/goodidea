@@ -22,6 +22,7 @@ export default class AppAuthToken {
    */
   constructor () {
     this.SESSION_TOKEN_KEY = CONFIG.PARSE.SESSION_TOKEN_KEY;
+    this.USER_INFO_KEY = 'user_info';
   }
 
   /**
@@ -58,6 +59,33 @@ export default class AppAuthToken {
    */
   deleteSessionToken() {
     return store.delete(this.SESSION_TOKEN_KEY);
+  }
+
+  /**
+   * ### storeSessionToken
+   * Store the session key 
+   */
+  storeUser(json) {
+    return store.save(this.USER_INFO_KEY,json);
+
+  }
+  /**
+   * ### getSessionToken
+   * @param {Object} sessionToken the currentUser object from Parse.com
+   *
+   * When Hot Loading, the sessionToken  will be passed in, and if so,
+   * it needs to be stored on the device.  Remember, the store is a
+   * promise so, have to be careful.
+   */
+  getUser() {
+    return store.get(this.USER_INFO_KEY);
+  }
+  /**
+   * ### deleteSessionToken
+   * Deleted during log out
+   */
+  deleteUser() {
+    return store.delete(this.USER_INFO_KEY);
   }
 }
 

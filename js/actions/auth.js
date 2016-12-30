@@ -32,13 +32,17 @@ function getToken():Action {
 
 function checkToken(){
   return dispatch => {
-    return new AppAuthToken().getSessionToken()
+    return new AppAuthToken().getUser()
 
       .then((token) => {
         
         console.log(token);
         if(token != null){
           console.log("token exit,go to tabbar" );
+          dispatch({
+            type:'LOGIN_SUCCESS',
+            payload:token,
+          })
           return true;
         }else{
           dispatch(getToken());
@@ -72,6 +76,41 @@ function login(data,navigator) {
           // dispatch(loadMenu(result));//todo load User Info
           navigator.resetTo({
             "twitterTab":true
+          });
+          dispatch({
+            type:'LOGIN_SUCCESS',
+            payload:result.data,
+          })
+        toastShort(result.message);
+      }else{
+        toastShort(result.message);
+      }
+      })                
+
+      .catch((error) => {
+        console.log(error);
+        // dispatch(getToken());
+      });
+  };
+}
+function logout(navigator) {
+  return dispatch => {
+    dispatch(showLoading());
+    return new AppAuthToken().getSessionToken()
+
+      .then((token) => {
+        return BackendFactory(token.sessionToken).logout();
+      })
+      .then((result) => {
+        console.log(result);
+         dispatch(closeLoading());
+        if(result.error_code == '00'){
+          // dispatch(loadMenu(result));//todo load User Info
+          new AppAuthToken().deleteUser();
+          //重新获取token
+          dispatch(getToken());
+          navigator.resetTo({
+            "login":true
           });
         toastShort(result.message);
       }else{
@@ -156,4 +195,4 @@ function closeLoading(): Action {
 }
 
 
-module.exports = {getToken,login,getGameConfig,checkToken,bet};
+module.exports = {getToken,login,getGameConfig,checkToken,bet,logout};

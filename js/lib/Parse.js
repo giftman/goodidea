@@ -249,22 +249,20 @@ _token:VbZVLaUP4rGVBlDIqMlJa6WOnA5P138bJY13KcDx}
     async logout() {
         return await this._fetch({
                 method: 'POST',
-                url: '/1/logout',
+                url: '/phone/login-out',
                 body: {}
             })
                 .then((response) => {
-                    var res = JSON.parse(response._bodyInit);
-                    if ((response.status === 200 || response.status === 201)
-                            || //invalid session token
-                            (response.status === 400 && res.code === 209)) {
-                        return {};
+                    if ( (response.status === 200 || response.status === 201) ) {
+                        return response.json();
                     } else {
-                        throw ({
-                            code: 404,
-                            error: 'unknown error from Parse.com'
-                        });
+                        throw (response);
                     }
                 })
+                // .then((json) => {
+                //     console.log(json);
+                //     return json.data;
+                // })
                 .catch((error) => {
                     throw (error);
                 });

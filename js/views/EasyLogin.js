@@ -55,8 +55,8 @@ class EasyLogin extends Component{
     super(props);
 
     this.state={
-      username:'',
-      passwd:'',
+      username:'ceshi001',
+      passwd:'a123456',
       status:'login',
     }
     // this.renderEmptySessionsList = this.renderEmptySessionsList.bind(this);

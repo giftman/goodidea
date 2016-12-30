@@ -37,6 +37,7 @@ import TwitterTab from './views/TwitterTab';
 import BuyView from './views/BuyView';
 import TrendSet from './views/Trending/TrendSet';
 import MoneyDetail from './views/Other/MoneyDetail';
+import SettingView from './views/Other/SettingView';
 import BuyPackage from './views/BuyPackage';
 import SplashView from './common/SplashView';
 import { checkToken } from './actions';
@@ -140,6 +141,9 @@ var AppNavigator = React.createClass({
             case "moneyDetail":
                 return <MoneyDetail navigator={navigator} />;
                 break;
+            case "setting":
+                return <SettingView navigator={navigator} />;
+                break;    
             case 2:
                 break;
             default:

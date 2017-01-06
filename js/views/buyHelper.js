@@ -71,13 +71,24 @@ function checkHowManyNumOfChipsAndAddToPackage(defaultGame, choice) {
                     if (methods[i].startOne) {
                         n = n + 1;
                     }
-                    // if(n){
+                    
                     result = result + n;
-                    // }
+                    
                     if (methods[i].extra) {
                         numOfChips = methods[i].extra[n] + numOfChips;
                     }
                 })
+
+                if(defaultGame.type.includes("zhixuan.hezhi") || 
+                   defaultGame.type.includes("zhixuanhezhi")  ||
+                   defaultGame.type.includes("zuxuan.hezhi")  ||
+                   defaultGame.type.includes("zuxuanhezhi")   ||
+                   defaultGame.type.includes("qianerhezhi")   ||
+                   defaultGame.type.includes("houerhezhi")   ||
+                   defaultGame.type.includes("wuxing.hezhi")
+                ){
+                        result = choice[i].join("|");
+                }
             }
 
             result = result + "|";
@@ -164,7 +175,7 @@ function updatePackage(defaultGame, numOfChips, multNum, buyPackage, result) {
             oneChoice["wayId"] = defaultGame.series_way_id;
             oneChoice["onePrice"] = defaultGame.price;
             oneChoice["ball"] = result;
-            if(defaultGame.type.includes('danshi')){
+            if(defaultGame.type.includes('danshi') || defaultGame.type.includes('hunhezuxuan')){
                 oneChoice["ball"] = result.replace(/,/g,'|');
             }
             oneChoice["viewBalls"] = defaultGame.viewBalls||"";
@@ -341,6 +352,12 @@ function clearValidChoice(defaultGame,choice){
                         newChoice.splice(c,1);
                     }
                 }
+    }else if(defaultGame.type.includes("zhixuandanshii") 
+        || defaultGame.type.includes("zhixuan.danshi")
+        || defaultGame.type.includes("zhixuan.qianerdanshi")
+        || defaultGame.type.includes("zhixuan.houerdanshi")
+        ){
+           newChoice = clearZhiXuanRepeatChoice(choice);
     }
 
     return newChoice;
@@ -354,6 +371,20 @@ function clearRepeatChoice(choice){
     //     choiceSet.add(choice[c].toString().split('').sort().toString());
     // }
     choice.map(x => choiceSet.add(x.toString().split('').sort().toString()));
+    for(var p of choiceSet){
+        newChoice.push(p.replace(/,/g,''));
+    }
+    return newChoice;
+}
+
+//有些玩法(zhixuan)99,99类似这种只是重复的不需要排序后再过滤
+function clearZhiXuanRepeatChoice(choice){
+    let newChoice = [];
+    let choiceSet = new Set();
+    // for(let c in choice){
+    //     choiceSet.add(choice[c].toString().split('').sort().toString());
+    // }
+    choice.map(x => choiceSet.add(x.toString()));
     for(var p of choiceSet){
         newChoice.push(p.replace(/,/g,''));
     }
@@ -376,7 +407,7 @@ function zuxuanCount(defaultGame,choice,numOfChips) {
         let minus = lenDouble + lenDang - _.union(choice["二重"],choice["单"]).length;
         console.log("lenDouble: " + lenDouble + " lenDang: " +lenDang + " minus: " + minus);
         numOfChips = numOfChips - minus*countNum(lenDang - 1,2);
-    }else if(defaultGame.type.includes("zuxuan12")){
+    }else if(defaultGame.type.includes("zuxuan12") && !defaultGame.type.includes("zuxuan120")){
         let lenDouble = choice["二重"].length;
         let lenDang = choice["单"].length;
         let minus = lenDouble + lenDang - _.union(choice["二重"],choice["单"]).length;

@@ -25,9 +25,9 @@ class TwitterPost extends Component {
             'img': 'https://facebook.github.io/react/img/logo_og.png'
         }, 
         {
-            'gameId':5,
-            'title': '江西时时彩',
-            'name':'jxssc',
+            'gameId':3,
+            'title': '黑龙江时时彩',
+            'name':'hljssc',
             'time':'销售时间:10:00~23:00',
             'des':'每10分钟一期  总期数:72期',
             'img': 'https://facebook.github.io/react/img/logo_og.png'
@@ -48,13 +48,13 @@ class TwitterPost extends Component {
             'des':'每10分钟一期  总期数:72期',
             'img': 'https://facebook.github.io/react/img/logo_og.png'
         }, 
-        // {
-        //     'gameId':11,
-        //     'title': '正点1分彩',
-        //     'time':'销售时间:10:00~23:00',
-        //     'des':'每10分钟一期  总期数:72期',
-        //     'img': 'https://facebook.github.io/react/img/logo_og.png'
-        // }, 
+        {
+            'gameId':11,
+            'title': '正点1分彩',
+            'time':'销售时间:10:00~23:00',
+            'des':'每10分钟一期  总期数:72期',
+            'img': 'https://facebook.github.io/react/img/logo_og.png'
+        }, 
         {
             'gameId':13,
             'title': '正点3分彩',
@@ -71,7 +71,7 @@ class TwitterPost extends Component {
         }, 
         {
             'gameId':17,
-            'title': '正点5分彩',
+            'title': '云南时时彩',
             'time':'销售时间:10:00~23:00',
             'des':'每10分钟一期  总期数:72期',
             'img': 'https://facebook.github.io/react/img/logo_og.png'

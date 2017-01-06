@@ -179,7 +179,7 @@ _token:VbZVLaUP4rGVBlDIqMlJa6WOnA5P138bJY13KcDx}
      * username: "barton"
      *
      */
-    async bet(data) {
+    async bet(data,betUrl) {
         // data = {
         //     "gameId": "1",
         //     "isTrace": "0",
@@ -201,7 +201,7 @@ _token:VbZVLaUP4rGVBlDIqMlJa6WOnA5P138bJY13KcDx}
         // }
         return await this._fetch({
                 method: 'POST',
-                url: '/phone/bet/1',
+                url: betUrl,
                 body: data
             })
                 .then((response) => {

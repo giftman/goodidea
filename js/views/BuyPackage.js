@@ -112,8 +112,8 @@ class BuyPackage extends Component {
         data["positions"] = positions;
         
         console.log(data)
-
-        this.props.bet(data);
+        let betUrl = `/phone/bet/${defaultGame.gameId}`;
+        this.props.bet(data,betUrl,this.props.navigator);
         this.props.updatePackageProps([]);
         this.setState({
             "data":[]
@@ -241,7 +241,7 @@ function actions(dispatch) {
         clearPackage:()=>dispatch(clearPackage()),
         randomPick:(num)=>dispatch(randomPick(num)),
         updatePackageProps:(buyPackage)=>dispatch(updatePackageProps(buyPackage)),
-        bet:(data)=>dispatch(bet(data)),
+        bet:(data,betUrl,navigator)=>dispatch(bet(data,betUrl,navigator)),
     };
 }
 module.exports = connect(select, actions)(BuyPackage);

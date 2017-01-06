@@ -125,12 +125,12 @@ function logout(navigator) {
   };
 }
 
-function bet(data,navigator) {
+function bet(data,betUrl,navigator) {
   return dispatch => {
     return new AppAuthToken().getSessionToken()
 
       .then((token) => {
-        return BackendFactory(token.sessionToken).bet(data);
+        return BackendFactory(token.sessionToken).bet(data,betUrl);
       })
     
       .then((result) => {

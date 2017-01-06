@@ -165,7 +165,7 @@ function getGameConfig(game,navigator) {
           navigator.push({
             game,
           });
-      }else if(result.message == 'token error'){
+      }else if(result.error_code == '99'){
         toastShort(result.message  + " 请重新登陆");
         dispatch(getToken());
         navigator.push({

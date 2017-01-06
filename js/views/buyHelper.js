@@ -317,41 +317,21 @@ function clearValidChoice(defaultGame,choice){
     var reg3 = /(\d)\1\1/;
     // console.log(choice);
     if(defaultGame.type.includes("zusandanshi")){
-            newChoice = clearRepeatChoice(choice);
-            for(let c in newChoice){
-                    if((!reg2.test(newChoice[c])) || reg3.test(newChoice[c])){
-                        newChoice.splice(c,1);
-                    }
-                }
+           newChoice = clearRepeatChoice(choice);
+           newChoice = _.filter(newChoice,function(num){return （reg3.test(num) == false && reg2.test(num) == true})
     }else if(defaultGame.type.includes("zuliudanshi")){
            newChoice = clearRepeatChoice(choice);
-            for(let c in newChoice){
-                    if(reg2.test(newChoice[c])){
-                        newChoice.splice(c,1);
-                    }
-                }
+           newChoice = _.filter(newChoice,function(num){return reg2.test(num) == false})
     }else if(defaultGame.type.includes("zuxuandanshi")){
-            for(let c in choice){
-                    if(reg2.test(choice[c])){
-                        newChoice.splice(c,1);
-                    }
-                }
+           newChoice = _.filter(newChoice,function(num){return reg2.test(num) == false})
     }else if(defaultGame.type.includes("hunhezuxuan")){
         newChoice = clearRepeatChoice(choice);
-            for(let c in newChoice){
-                    if(reg3.test(newChoice[c])){
-                        newChoice.splice(c,1);
-                    }
-                }
+        newChoice = _.filter(newChoice,function(num){return reg3.test(num) == false})
     }else if(defaultGame.type.includes("zuxuan.houerdanshi") 
         || defaultGame.type.includes("zuxuan.qianerdanshi")
         ){
            newChoice = clearRepeatChoice(choice);
-            for(let c in newChoice){
-                    if(reg2.test(newChoice[c])){
-                        newChoice.splice(c,1);
-                    }
-                }
+           newChoice = _.filter(newChoice,function(num){return reg2.test(num) == false})
     }else if(defaultGame.type.includes("zhixuandanshii") 
         || defaultGame.type.includes("zhixuan.danshi")
         || defaultGame.type.includes("zhixuan.qianerdanshi")

@@ -162,10 +162,17 @@ function getGameConfig(game,navigator) {
         dispatch(closeLoading());
         if(result.error_code == '00'){
           dispatch(loadMenu(result));
+          navigator.push({
+            game,
+          });
+      }else if(result.message == 'token error'){
+        toastShort(result.message  + " 请重新登陆");
+        dispatch(getToken());
         navigator.push({
-      game,
-    });
-      }else{
+            "login":true
+          });
+      }
+      else{
         toastShort(result.message);
       }
         

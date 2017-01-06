@@ -318,7 +318,7 @@ function clearValidChoice(defaultGame,choice){
     // console.log(choice);
     if(defaultGame.type.includes("zusandanshi")){
            newChoice = clearRepeatChoice(choice);
-           newChoice = _.filter(newChoice,function(num){return （reg3.test(num) == false && reg2.test(num) == true})
+           newChoice = _.filter(newChoice,function(num){return reg3.test(num) == false && reg2.test(num) == true})
     }else if(defaultGame.type.includes("zuliudanshi")){
            newChoice = clearRepeatChoice(choice);
            newChoice = _.filter(newChoice,function(num){return reg2.test(num) == false})

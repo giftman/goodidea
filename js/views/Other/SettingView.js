@@ -17,10 +17,13 @@ class SettingView extends Component {
     constructor(props) {
         super(props);
     }
-    
 
-    onClick(){
 
+    onClick(tab) {
+        console.log(tab);
+        this.props.navigator.push({
+            "my": tab
+        });
     }
 
 
@@ -46,14 +49,14 @@ class SettingView extends Component {
                 flex: 1
             }}>
         <View style={styles.paddingHeight}/>
-        <TouchableOpacity style={styles.itemContain} onPress={() => this.onClick("moneyDetail")}>
+        <TouchableOpacity style={styles.itemContain} onPress={() => this.onClick("changePasswd")}>
             <Icon name='md-cash' size={30} color="#666"></Icon>
             <View style={styles.item}>
                 <Text style={styles.itemTitle}>修改登录密码</Text>
                  <Icon name='ios-arrow-forward' size={25} color="#eee"></Icon>
             </View>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.itemContain} onPress={() => this.onClick("detail")}>
+        <TouchableOpacity style={styles.itemContain} onPress={() => this.onClick("changeSafeQuestion")}>
             <Icon name='md-card' size={30} color="#666"></Icon>
             <View style={styles.item}>
                 <Text style={styles.itemTitle}>修改密保</Text>
@@ -62,7 +65,7 @@ class SettingView extends Component {
         </TouchableOpacity>
 
         <View style={styles.paddingHeight}/>
-        <View style={{flex:1,justifyContent:'center',alignItems:'center'}}> 
+        <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
         <TouchableOpacity style={[styles.confirmBtn, {
                 backgroundColor: '#666'
             }]} onPress={() => this.props.logout(this.props.navigator)}>
@@ -124,7 +127,7 @@ const styles = StyleSheet.create({
         width: Util.size.width*.9,
         height: 50,
     },
-    
+
 });
 
 function select(store) {

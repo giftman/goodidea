@@ -53,7 +53,7 @@ type State = {
 
 const initialState: State = { allTypes: {},buyPackage:[],loading:false,
                             multNum:1,choice:{},numOfChips:0,menu:{},
-                            defaultType:'qiansan.zuxuan.zusandanshi',
+                            defaultType:'erxing.zuxuan.houerhezhi',
                             defaultGame:{},gameName:"cqssc",orderNum:""};
 
 function buy(state: State = initialState, action: Action): State {
@@ -91,7 +91,7 @@ function buy(state: State = initialState, action: Action): State {
     case 'CLOSE_LOADING':
       return {...state,loading:false};
 	}
-  
+
   return state;
 }
 

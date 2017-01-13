@@ -57,7 +57,7 @@ function checkHowManyNumOfChipsAndAddToPackage(defaultGame, choice) {
                 choiceLen = choice[i].length;
             }
             numOfChips = countNum(choiceLen, methods[i].num) * numOfChips;
-            
+
             if (methods[i].each_num_represent_chips_num) {
                 numOfChips = numOfChips * methods[i].each_num_represent_chips_num;
             }
@@ -67,19 +67,17 @@ function checkHowManyNumOfChipsAndAddToPackage(defaultGame, choice) {
             ;
             if (choice[i]) {
                 choice[i].map((n, index) => {
-                    console.log(n);
                     if (methods[i].startOne) {
                         n = n + 1;
                     }
-                    
                     result = result + n;
-                    
+
                     if (methods[i].extra) {
                         numOfChips = methods[i].extra[n] + numOfChips;
                     }
                 })
 
-                if(defaultGame.type.includes("zhixuan.hezhi") || 
+                if(defaultGame.type.includes("zhixuan.hezhi") ||
                    defaultGame.type.includes("zhixuanhezhi")  ||
                    defaultGame.type.includes("zuxuan.hezhi")  ||
                    defaultGame.type.includes("zuxuanhezhi")   ||
@@ -87,7 +85,10 @@ function checkHowManyNumOfChipsAndAddToPackage(defaultGame, choice) {
                    defaultGame.type.includes("houerhezhi")   ||
                    defaultGame.type.includes("wuxing.hezhi")
                 ){
-                        result = choice[i].join("|");
+                  if (!methods[i].startOne) {
+                      result = choice[i].join("|");
+                  }
+
                 }
             }
 
@@ -135,7 +136,7 @@ function checkHowManyNumOfChipsAndAddToPackage(defaultGame, choice) {
         }else{
             numOfChips = 0
         }
-        
+
     }
 
     //Todo 任选直选复式需要计算选了多少位
@@ -147,7 +148,7 @@ function checkHowManyNumOfChipsAndAddToPackage(defaultGame, choice) {
         //todo
         numOfChips = zhixuanfushiCount(defaultGame,choice,numOfChips);
     }
-    //only for wuxing hezhi 24 numbers bug 
+    //only for wuxing hezhi 24 numbers bug
     numOfChips = Math.round(numOfChips);
 
     console.log("choice result:" + result);
@@ -243,7 +244,7 @@ function zhixuanfushiCount(defaultGame,choice,numOfChips) {
                 }
             }
         }
-            
+
     }else if(defaultGame.type.includes("renxuan4")){
            for(var i=0;i<cLength.length;i++){
              for(var j=0;j<cLength.length;j++){
@@ -295,7 +296,7 @@ function zhixuanfushiCount(defaultGame,choice,numOfChips) {
 //                         numOfChips = numOfChips - 1;
 //                     }
 //                 }
-//     }else if(defaultGame.type.includes("zuxuan.houerdanshi") 
+//     }else if(defaultGame.type.includes("zuxuan.houerdanshi")
 //         || defaultGame.type.includes("zuxuan.qianerdanshi")
 //         ){
 //             let clone = clearRepeatChoice(choice);
@@ -312,7 +313,7 @@ function zhixuanfushiCount(defaultGame,choice,numOfChips) {
 
 function clearValidChoice(defaultGame,choice){
     let newChoice = _.clone(choice);
-    
+
     var reg2 = /(\d)\d?\1/;
     var reg3 = /(\d)\1\1/;
     // console.log(choice);
@@ -323,16 +324,17 @@ function clearValidChoice(defaultGame,choice){
            newChoice = clearRepeatChoice(choice);
            newChoice = _.filter(newChoice,function(num){return reg2.test(num) == false})
     }else if(defaultGame.type.includes("zuxuandanshi")){
+           newChoice = clearRepeatChoice(choice);
            newChoice = _.filter(newChoice,function(num){return reg2.test(num) == false})
     }else if(defaultGame.type.includes("hunhezuxuan")){
         newChoice = clearRepeatChoice(choice);
         newChoice = _.filter(newChoice,function(num){return reg3.test(num) == false})
-    }else if(defaultGame.type.includes("zuxuan.houerdanshi") 
+    }else if(defaultGame.type.includes("zuxuan.houerdanshi")
         || defaultGame.type.includes("zuxuan.qianerdanshi")
         ){
            newChoice = clearRepeatChoice(choice);
            newChoice = _.filter(newChoice,function(num){return reg2.test(num) == false})
-    }else if(defaultGame.type.includes("zhixuandanshii") 
+    }else if(defaultGame.type.includes("zhixuandanshi")
         || defaultGame.type.includes("zhixuan.danshi")
         || defaultGame.type.includes("zhixuan.qianerdanshi")
         || defaultGame.type.includes("zhixuan.houerdanshi")
@@ -421,7 +423,7 @@ function zuxuanCount(defaultGame,choice,numOfChips) {
     return numOfChips;
 }
 
-//组合计算 
+//组合计算
 function countNum(n, m) {
     return mathDouble(n) / (mathDouble(n - m) * mathDouble(m));
 }

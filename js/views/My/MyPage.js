@@ -72,23 +72,23 @@ export default class MyPage extends Component {
                  <Icon name='ios-arrow-forward' size={25} color="#eee"></Icon>
             </View>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.itemContain} onPress={() => this.onClick("detail")}>
+        <TouchableOpacity style={styles.itemContain} onPress={() => this.onClick("gameRecord")}>
             <Icon name='md-card' size={30} color="#666"></Icon>
             <View style={styles.item}>
-                <Text style={styles.itemTitle}>记录</Text>
+                <Text style={styles.itemTitle}>游戏记录</Text>
                  <Icon name='ios-arrow-forward' size={25} color="#eee"></Icon>
             </View>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.itemContain} onPress={() => this.onClick("detail")}>
+        <TouchableOpacity style={styles.itemContain} onPress={() => this.onClick("gameRecord")}>
             <Icon name='md-albums' size={30} color="#666"></Icon>
             <View style={styles.item}>
-                <Text style={styles.itemTitle}>记录</Text>
+                <Text style={styles.itemTitle}>追号记录</Text>
                  <Icon name='ios-arrow-forward' size={25} color="#eee"></Icon>
             </View>
         </TouchableOpacity>
 
         <View style={styles.paddingHeight}/>
-
+        {/*
         <TouchableOpacity style={styles.itemContain} onPress={() => this.onClick("detail")}>
             <Icon name='md-mail' size={30} color="#666"></Icon>
             <View style={styles.item}>
@@ -105,7 +105,7 @@ export default class MyPage extends Component {
         </TouchableOpacity>
 
         <View style={styles.paddingHeight}/>
-
+        */}
         <TouchableOpacity style={styles.itemContain} onPress={() => this.onClick("setting")}>
             <Icon name='md-settings' size={30} color="#666"></Icon>
             <View style={styles.item}>

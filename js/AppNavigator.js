@@ -37,6 +37,8 @@ import TwitterTab from './views/TwitterTab';
 import BuyView from './views/BuyView';
 import TrendSet from './views/Trending/TrendSet';
 import MoneyDetail from './views/Other/MoneyDetail';
+import GameRecord from './views/Other/GameRecord';
+import ChangePasswd from './views/Other/ChangePasswd';
 import SettingView from './views/Other/SettingView';
 import BuyPackage from './views/BuyPackage';
 import SplashView from './common/SplashView';
@@ -143,7 +145,13 @@ var AppNavigator = React.createClass({
                 break;
             case "setting":
                 return <SettingView navigator={navigator} />;
-                break;    
+                break;
+            case "gameRecord":
+                return <GameRecord navigator={navigator} />;
+                break;
+            case "changePasswd":
+                return <ChangePasswd navigator={navigator} />;
+                break;
             case 2:
                 break;
             default:

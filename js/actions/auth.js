@@ -35,7 +35,7 @@ function checkToken(){
     return new AppAuthToken().getUser()
 
       .then((token) => {
-        
+
         console.log(token);
         if(token != null){
           console.log("token exit,go to tabbar" );
@@ -48,10 +48,10 @@ function checkToken(){
           dispatch(getToken());
           console.log("token not exit,go to easyLogin" );
           return false;
-          
+
         }
-        
-      })            
+
+      })
 
       .catch((error) => {
         console.log(error);
@@ -68,7 +68,7 @@ function login(data,navigator) {
       .then((token) => {
         return BackendFactory(token.sessionToken).login(data);
       })
-    
+
       .then((result) => {
         console.log(result);
          dispatch(closeLoading());
@@ -85,7 +85,7 @@ function login(data,navigator) {
       }else{
         toastShort(result.message);
       }
-      })                
+      })
 
       .catch((error) => {
         console.log(error);
@@ -116,7 +116,7 @@ function logout(navigator) {
       }else{
         toastShort(result.message);
       }
-      })                
+      })
 
       .catch((error) => {
         console.log(error);
@@ -132,14 +132,14 @@ function bet(data,betUrl,navigator) {
       .then((token) => {
         return BackendFactory(token.sessionToken).bet(data,betUrl);
       })
-    
+
       .then((result) => {
         console.log(result);
         // if(result.error_code == '00'){
         //   dispatch()
         // }
         toastShort(result.message);
-      })                
+      })
 
       .catch((error) => {
         console.log(error);
@@ -156,7 +156,7 @@ function getGameConfig(game,navigator) {
       .then((token) => {
         return BackendFactory(token.sessionToken).getGameConfig(game.gameId);
       })
-    
+
       .then((result) => {
         console.log(result);
         dispatch(closeLoading());
@@ -175,13 +175,93 @@ function getGameConfig(game,navigator) {
       else{
         toastShort(result.message);
       }
-        
+
         // if(result.is_success){
         //   return result.data;
         // }else{
         //   return result.message;
         // }
-      })                
+      })
+
+      .catch((error) => {
+        console.log(error);
+        // dispatch(getToken());
+      });
+  };
+}
+
+function checkSecurityQuestion(navigator) {
+  return dispatch => {
+    dispatch(showLoading());
+    return new AppAuthToken().getSessionToken()
+
+      .then((token) => {
+        return BackendFactory(token.sessionToken).checkSecurityQuestion();
+      })
+      .then((result) => {
+        console.log(result);
+         dispatch(closeLoading());
+      if(result.error_code == '05'){
+        toastShort(result.message);
+      }else{
+        navigator.push({
+          "my":"changeSafeQuestion",
+          "data":result.data
+        });
+      }
+      })
+
+      .catch((error) => {
+        console.log(error);
+        // dispatch(getToken());
+      });
+  };
+}
+
+function setSecurityQuestion(questionInfo,navigator) {
+  return dispatch => {
+    dispatch(showLoading());
+    return new AppAuthToken().getSessionToken()
+
+      .then((token) => {
+        return BackendFactory(token.sessionToken).setSecurityQuestion(questionInfo);
+      })
+      .then((result) => {
+        console.log(result);
+         dispatch(closeLoading());
+      if(result.error_code == '00'){
+        toastShort(result.message);
+        navigator.pop();
+      }else{
+        toastShort(result.message);
+      }
+      })
+      .catch((error) => {
+        console.log(error);
+        // dispatch(getToken());
+      });
+  };
+}
+
+function resetPasswordA(user,data) {
+  return dispatch => {
+    // dispatch(showLoading());
+    // console.log("reset");
+    return new AppAuthToken().getSessionToken()
+      .then((token) => {
+        console.log(token);
+        return BackendFactory(token.sessionToken).resetPassword(user,data);
+      })
+      .then((result) => {
+        console.log(result);
+         dispatch(closeLoading());
+      if(result.error_code == '00'){
+        toastShort(result.message);
+        // navigator.pop();
+      }else{
+        toastShort(result.message);
+      }
+      })
 
       .catch((error) => {
         console.log(error);
@@ -202,4 +282,4 @@ function closeLoading(): Action {
 }
 
 
-module.exports = {getToken,login,getGameConfig,checkToken,bet,logout};
+module.exports = {setSecurityQuestion,getToken,login,getGameConfig,checkToken,bet,logout,checkSecurityQuestion,resetPasswordA};

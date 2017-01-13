@@ -1,6 +1,6 @@
 /**
  * # Parse.js
- * 
+ *
  * This class interfaces with Parse.com using the rest api
  * see [https://parse.com/docs/rest/guide](https://parse.com/docs/rest/guide)
  *
@@ -8,13 +8,13 @@
 'use strict';
 /**
  * ## Async support
- * 
+ *
  */
 // require('regenerator/runtime');
 
 /**
  * ## Imports
- * 
+ *
  * Config for defaults and underscore for a couple of features
  */
 import CONFIG from './config';
@@ -80,7 +80,7 @@ export default class Parse extends Backend {
      *
      * @return
      * if ok, {createdAt: "2015-12-30T15:17:05.379Z",
-     *   objectId: "5TgExo2wBA", 
+     *   objectId: "5TgExo2wBA",
      *   sessionToken: "r:dEgdUkcs2ydMV9Y9mt8HcBrDM"}
      *
      * if error, {code: xxx, error: 'message'}
@@ -268,34 +268,89 @@ _token:VbZVLaUP4rGVBlDIqMlJa6WOnA5P138bJY13KcDx}
                 });
 
     }
+
+    /**
+     * ### checkSecurityQuestion
+     * prepare the request and call _fetch
+     */
+    async checkSecurityQuestion() {
+        return await this._fetch({
+                method: 'POST',
+                url: '/phone/user-security-questions',
+                body: {}
+            })
+                .then((response) => {
+                    if ( (response.status === 200 || response.status === 201) ) {
+                        return response.json();
+                    } else {
+                        throw (response);
+                    }
+                })
+                // .then((json) => {
+                //     console.log(json);
+                //     return json.data;
+                // })
+                .catch((error) => {
+                    throw (error);
+                });
+
+    }
+    async setSecurityQuestion(data) {
+        return await this._fetch({
+                method: 'POST',
+                url: '/phone/user-security-questions/create',
+                body: data
+            })
+                .then((response) => {
+                    if ( (response.status === 200 || response.status === 201) ) {
+                        return response.json();
+                    } else {
+                        throw (response);
+                    }
+                })
+                // .then((json) => {
+                //     console.log(json);
+                //     return json.data;
+                // })
+                .catch((error) => {
+                    throw (error);
+                });
+    }
     /**
      * ### resetPassword
      * the data is already in a JSON format, so call _fetch
      *
-     * @param data 
+     * @param data
      * {email: "barton@foo.com"}
      *
      * @returns empty object
      *
      * if error:  {code: xxx, error: 'message'}
      */
-    async resetPassword(data) {
+    async resetPassword(username,data) {
+      var md5 = require("./md5")
+        data['new_password'] = md5(md5(md5(username + data["new_password"])))
+        data['old_password'] = md5(md5(md5(username + data["old_password"])))
+        console.log(data);
         return await this._fetch({
                 method: 'POST',
-                url: '/1/requestPasswordReset',
+                url: '/phone/update-login-password',
                 body: data
             })
-                .then((response) => {
-                    if ( (response.status === 200 || response.status === 201) ) {
-                        return {};
-                    } else {
-                        var res = JSON.parse(response._bodyInit);
-                        throw (res);
-                    }
-                })
-                .catch((error) => {
-                    throw (error);
-                });
+            .then((response) => {
+                if ( (response.status === 200 || response.status === 201) ) {
+                    return response.json();
+                } else {
+                    throw (response);
+                }
+            })
+            // .then((json) => {
+            //     console.log(json);
+            //     return json.data;
+            // })
+            .catch((error) => {
+                throw (error);
+            });
     }
     /**
      * ### getProfile
@@ -409,7 +464,7 @@ _token:VbZVLaUP4rGVBlDIqMlJa6WOnA5P138bJY13KcDx}
                 var encodedValue = encodeURIComponent(opts.body[property]);
                 formBody.push(encodedKey + "=" + encodedValue);
                 }
-                
+
             }
             ;
             // let positions = [0, 0, 1, 1, 0];
@@ -451,4 +506,3 @@ _token:VbZVLaUP4rGVBlDIqMlJa6WOnA5P138bJY13KcDx}
 
 }
 ;
-

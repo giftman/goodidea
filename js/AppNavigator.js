@@ -39,6 +39,7 @@ import TrendSet from './views/Trending/TrendSet';
 import MoneyDetail from './views/Other/MoneyDetail';
 import GameRecord from './views/Other/GameRecord';
 import ChangePasswd from './views/Other/ChangePasswd';
+import SetSecurityQuestion from './views/Other/SetSecurityQuestion';
 import SettingView from './views/Other/SettingView';
 import BuyPackage from './views/BuyPackage';
 import SplashView from './common/SplashView';
@@ -151,6 +152,9 @@ var AppNavigator = React.createClass({
                 break;
             case "changePasswd":
                 return <ChangePasswd navigator={navigator} />;
+                break;
+            case "changeSafeQuestion":
+                return <SetSecurityQuestion navigator={navigator} data={route.data}/>;
                 break;
             case 2:
                 break;

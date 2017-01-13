@@ -11,30 +11,42 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import F8Header from '../../common/F8Header';
 import EasyButton from '../../common/EasyButton';
 import {normalize,headerBG} from '../../common/F8Colors';
-import { resetPasswordA} from '../../actions';
-
+import { setSecurityQuestion} from '../../actions';
+import ModalDropdown from 'react-native-modal-dropdown';
 import { connect } from 'react-redux';
-class ChangePasswd extends Component {
+import _ from 'underscore';
+
+class SetSecurityQuestion extends Component {
   constructor(props) {
     super(props);
+    this.data = this.props.data
+    console.log(this.data);
 
     this.state={
-      passwd:'a123456',
-      newPasswd:'a123',
-      newPasswd2:'',
+      questionInfo:{
+        "conf-question1":0,
+        "conf-question2":0,
+        "conf-question3":0,
+        "question1":"",
+        "question2":"",
+        "question3":"",
+      }
     }
     // this.renderEmptySessionsList = this.renderEmptySessionsList.bind(this);
     // this.openSharingSettings = this.openSharingSettings.bind(this);
     // this.handleSegmentChanged = this.handleSegmentChanged.bind(this);
   }
 
-
-  _resetClick(){
-    console.log("_resetClick");
-    let new_password = this.state.newPasswd;
-    let old_password = this.state.passwd;
-    let data = {"new_password":new_password,"old_password":old_password};
-    this.props.resetPasswordA(this.props.username,data);
+  _dropDownSelect(question,index){
+    let {questionInfo} = this.state;
+    questionInfo["conf-question" + question] = index;
+    this.setState({
+      questionInfo
+    })
+  }
+  _onConfirm(){
+    let {questionInfo} = this.state;
+    this.props.setSecurityQuestion(questionInfo,this.props.navigator);
   }
 
     render() {
@@ -51,7 +63,7 @@ class ChangePasswd extends Component {
               style={{
                 backgroundColor: "#323245"
               }}
-              title="修改登录密码"
+              title="设置安全问题"
               leftItem={leftItem}
               >
             </F8Header>
@@ -60,36 +72,41 @@ class ChangePasswd extends Component {
                 justifyContent:'flex-start',
                 alignItems:'center',
               }}>
+              {Object.keys(this.data).map((elem,index) => {
+                  // console.log(elem);
+                  let saveIndex = _.keys(this.data[elem]);
+                  let saveOption = _.values(this.data[elem]);
+                  return (
+                    <View key={index} style={{justifyContent:'center',alignItems:'center'}}>
+                      <View style={styles.paddingHeight}/>
+                    <ModalDropdown
+                        defaultValue={'< 请选择 > 问题' + elem}
+                        style={{padding:5,alignItems:'flex-start'}}
+                        options={saveOption}
+                        textStyle={{color:'#666',fontSize:16,textAlign:'left',width:Util.size.width*.9}}
+                        onSelect={(i,value) => this._dropDownSelect(elem,saveIndex[i])}
+                        />
+                    <View style={styles.inputContainer}>
+                      <TextInput
+                        style={styles.input}
+                        onChangeText={(passwd) => {let {questionInfo} = this.state;questionInfo["question" + elem]= passwd;this.setState({ questionInfo})}}
+                        underlineColorAndroid={'transparent'}
+                        placeholder={'答案' + elem}/>
+                    </View>
+                  </View>)
+              })}
               <View style={styles.paddingHeight}/>
-              <View style={styles.inputContainer}>
-                <TextInput
-                  ref={(passwd) => this.passwd = passwd}
-                  onFocus={() => this.passwd.focus()}
-                  style={styles.input}
-                  onChangeText={(passwd) => {this.setState({passwd})}}
-                  underlineColorAndroid={'transparent'}
-                  placeholder='当前密码'/>
-              </View>
-              <View style={styles.inputContainer}>
-              <TextInput
-                style={styles.input}
-                onChangeText={(newPasswd) => {this.setState({newPasswd})}}
-                underlineColorAndroid={'transparent'}
-                placeholder='新密码'/>
-            </View>
-              <View style={styles.paddingHeight}/>
-              <Text style={{fontSize:16,color:'#666',paddingBottom:10}}>(由字母和数字组成6-16个字符，且必须包含数字和字母，不允许连续三位相同。)</Text>
               <View style={{justifyContent:'center',alignItems:'center'}}>
                 <TouchableOpacity
                   style={[styles.confirmBtn, {
                     backgroundColor: 'red'
                   }]}
-                  onPress={() => this._resetClick()}>
+                  onPress={() => this._onConfirm()}>
                   <Text style={{
                       color: '#fff',
                       fontSize: 18,
                       fontWeight: '400'
-                    }}>确认修改</Text>
+                    }}>确认</Text>
                   </TouchableOpacity>
                 </View>
               </View>
@@ -146,7 +163,7 @@ function select(store) {
 function actions(dispatch) {
     return {
         clearPackage:()=>dispatch(clearPackage()),
-        resetPasswordA:(user,data)=>dispatch(resetPasswordA(user,data)),
+        setSecurityQuestion:(que,nav)=>dispatch(setSecurityQuestion(que,nav)),
     };
 }
-module.exports = connect(select,actions)(ChangePasswd);
+module.exports = connect(select,actions)(SetSecurityQuestion);

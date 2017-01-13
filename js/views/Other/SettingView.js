@@ -10,7 +10,7 @@ const StyleSheet = require('../../utils/CustomStyleSheet');
 import Icon from 'react-native-vector-icons/Ionicons';
 import F8Header from '../../common/F8Header';
 import EasyButton from '../../common/EasyButton';
-import { logout} from '../../actions';
+import { checkSecurityQuestion} from '../../actions';
 
 import { connect } from 'react-redux';
 class SettingView extends Component {
@@ -21,9 +21,16 @@ class SettingView extends Component {
 
     onClick(tab) {
         console.log(tab);
-        this.props.navigator.push({
-            "my": tab
-        });
+        switch (tab) {
+          case "changeSafeQuestion":
+            this.props.checkSecurityQuestion(this.props.navigator);
+            break;
+          default:
+            this.props.navigator.push({
+                "my": tab
+            });
+        }
+
     }
 
 
@@ -139,7 +146,7 @@ function select(store) {
 function actions(dispatch) {
     return {
         clearPackage:()=>dispatch(clearPackage()),
-        logout:(nav)=>dispatch(logout(nav)),
+        checkSecurityQuestion:(nav)=>dispatch(checkSecurityQuestion(nav)),
     };
 }
 module.exports = connect(select,actions)(SettingView);

@@ -1,16 +1,47 @@
-"bet_note":"从万、千、百位各选一个号码组成三注",
-"bonus_note":"从万位、千位、百位中至少各选择一个号码组成1-3星的组合共三注，当百位号码与开奖号码相同，则中1个3等奖；如果百位与千位号码与开奖号码相同，则中1个3等奖以及1个2等奖，依此类推，最高可中3个奖。",
-"dekaron":Object,
-"gameId":1,
-"id":14,
-"is_enable_extra":null,
-"jsId":8,
-"max_multiple":204,
-"name_cn":"直选组合",
-"name_en":"zuhe",
-"pid":10,
-"price":2,
-"prize":"1952.0000",
-"series_way_id":14,
-"total_count":3000,
-"type":"qiansan.zhixuan.zuhe",
+account_id:5
+amount:"2.0000"
+bet_count:1
+bet_number:"122"  //bet_num
+bet_percent:"0.0111"
+bet_source:null
+bought_at:"2017-01-06 17:58:47"  //time
+canceled_at:null
+canceled_by:null
+coefficient:"1.000"
+commission_sent_at:"2017-01-06 18:01:17"
+counted_at:null
+created_at:"2017-01-06 17:58:47"
+display_bet_number:"122"
+id:4201
+ip:"175.13.243.210"
+is_dekaron:0
+is_payout:9
+is_tester:0
+issue:"170106072"
+locked_commission:0
+locked_prize:0
+lottery_id:1  //gameid
+multiple:1   //
+position:""
+prize:null
+prize_added:0
+prize_group:"1950"
+prize_sent_at:null
+prize_set:"{"2":{"1":"650.0000"}}"
+proxy_ip:"175.13.243.210"
+serial_number:"54A4CD4EBEC48466E66065CAFA9EBB00"
+series_id:1
+series_set_id:1
+single_amount:"2.0000"
+status:2
+status_commission:4
+status_prize:0
+title:"前三组三单式" /title
+total_prize:null
+trace_id:null
+updated_at:"2017-01-06 18:01:22"
+user_forefather_ids:"194,195"
+user_id:196
+username:"ceshi001"
+way_id:2
+winning_number:"19868"

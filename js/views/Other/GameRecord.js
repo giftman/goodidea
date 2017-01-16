@@ -11,33 +11,32 @@ import { headerBG } from '../../common/F8Colors';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 import ScrollableTabView, { ScrollableTabBar, } from 'react-native-scrollable-tab-view';
+const gameStatusType = {
+  0:"待开奖", 1:"已撤消",
+2:"未中奖", 3:"已中奖" ,4:"已派奖" ,5:"系统撤消", 6:"超额撤单" ,7:"管理撤单"
+}
 class GameRecord extends Component {
     constructor(props: Props) {
         super(props);
-        this.data = [{
-            'title': '重庆时时彩',
-            'money': '2.00元',
-            'time': '01月12日',
-            'status':0,
-            'statusDes':'待开奖' //0待开 1中 2不中
-        }, {
-          'title': '重庆时时彩',
-          'money': '2.00元',
-          'time': '01月12日',
-          'status':1,
-          'statusDes':'中奖' //0待开 1中 2不中
-        }, {
-          'title': '重庆时时彩',
-          'money': '2.00元',
-          'time': '01月12日',
-          'status':2,
-          'statusDes':'未中奖' //0待开 1中 2不中
-        }]
+        this.data = this.props.data.data
+        // [{
+        //     'title': '重庆时时彩',
+        //     'money': '2.00元',
+        //     'time': '01月12日',
+        //     'status':0,
+        //     'statusDes':'待开奖' //0待开 1中 2不中
+        // }, {
+        //   'title': '重庆时时彩',
+        //   'money': '2.00元',
+        //   'time': '01月12日',
+        //   'status':1,
+        //   'statusDes':'中奖' //0待开 1中 2不中
+        // }]
         let moneyGet = [];
         let moneyPay = [];
         this.data.map((elem, index) => {
             switch (elem.status) {
-              case 1:
+              case 3:
                 moneyGet.push(elem);
                 break;
               default:
@@ -86,9 +85,9 @@ class GameRecord extends Component {
             }}
             renderTabBar={() => <ScrollableTabBar />}
             >
-      <ReadingListView tabLabel='全部' data={this.state.data}>All</ReadingListView>
-      <ReadingListView tabLabel='中奖' data={this.state.get}>game</ReadingListView>
-      <ReadingListView tabLabel='待开奖' data={this.state.pay}>reword</ReadingListView>
+      <ReadingListView tabLabel='全部' data={this.state.data} navigator={this.props.navigator}>All</ReadingListView>
+      <ReadingListView tabLabel='中奖' data={this.state.get} navigator={this.props.navigator}>game</ReadingListView>
+      <ReadingListView tabLabel='待开奖' data={this.state.pay} navigator={this.props.navigator}>reword</ReadingListView>
     </ScrollableTabView>
       </View>
         )
@@ -141,20 +140,24 @@ class ReadingListView extends React.Component {
 
     renderRow(article: any, typeId: number) {
         return (
-            <View style={styles.container}>
-              <Text style={styles.title}>{article.time}</Text>
+            <TouchableOpacity key={article.serial_number} style={styles.container} onPress={()=>this._onPress(article)}>
+              <Text style={styles.time}>{article.bought_at}</Text>
               <View >
                 <Text style={styles.title}>{article.title}</Text>
-                <Text style={styles.time}>{article.money}</Text>
+                <Text style={styles.time}>{article.amount}</Text>
               </View>
-              <Text style={styles.title}>{article.statusDes}</Text>
+              <Text style={styles.title}>{gameStatusType[article.status]}</Text>
               <Icon  name="ios-arrow-forward" size={30} color="#eee" />
-            </View>
+            </TouchableOpacity>
             );
     }
 
+    _onPress(article){
+      this.props.navigator.push({"my":"GameRecordDetail","data":article});
+    }
+
     renderEmptyList(): ?ReactElement {
-        return <View />
+        return <View style={{flex:1,paddingTop:10,width:Util.size.width,justifyContent:'center',alignItems:'center'}}><Text>暂无数据</Text></View>
     }
 
 
@@ -181,7 +184,9 @@ const styles = StyleSheet.create({
     },
     time: {
         color: '#666',
-        fontSize: 10
+        fontSize: 12,
+        width:80,
+        flexWrap:'wrap',
     },
     money: {
         fontSize: 10,

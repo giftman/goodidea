@@ -316,17 +316,43 @@ _token:VbZVLaUP4rGVBlDIqMlJa6WOnA5P138bJY13KcDx}
                     throw (error);
                 });
     }
-    /**
-     * ### resetPassword
-     * the data is already in a JSON format, so call _fetch
-     *
-     * @param data
-     * {email: "barton@foo.com"}
-     *
-     * @returns empty object
-     *
-     * if error:  {code: xxx, error: 'message'}
-     */
+
+    async getGameRecord(data) {
+        return await this._fetch({
+                method: 'POST',
+                url: '/phone-project/projects',
+                body: data
+            })
+                .then((response) => {
+                    if ( (response.status === 200 || response.status === 201) ) {
+                        return response.json();
+                    } else {
+                        throw (response);
+                    }
+                })
+                .catch((error) => {
+                    throw (error);
+                });
+    }
+
+    async getGameRecordDetail(id) {
+        return await this._fetch({
+                method: 'POST',
+                url: `/phone-project/view/${id}`,
+                body: {}
+            })
+                .then((response) => {
+                    if ( (response.status === 200 || response.status === 201) ) {
+                        return response.json();
+                    } else {
+                        throw (response);
+                    }
+                })
+                .catch((error) => {
+                    throw (error);
+                });
+    }
+
     async resetPassword(username,data) {
       var md5 = require("./md5")
         data['new_password'] = md5(md5(md5(username + data["new_password"])))
@@ -412,8 +438,8 @@ _token:VbZVLaUP4rGVBlDIqMlJa6WOnA5P138bJY13KcDx}
                 .catch((error) => {
                     throw (error);
                 });
-
     }
+
     /**
      * ### _fetch
      * A generic function that prepares the request to Parse.com

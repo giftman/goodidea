@@ -3,8 +3,11 @@ import React, { Component } from "react";
 import { StyleSheet, View, Text, Platform, ScrollView, TouchableOpacity } from "react-native";
 import Util from '../../utils/Util';
 import Icon from 'react-native-vector-icons/Ionicons';
-import {normalize} from '../../common/F8Colors';
-export default class MyPage extends Component {
+import {normalize} from '../../common/F8Colors'
+import { getGameRecord} from '../../actions';
+import { connect } from 'react-redux';
+
+class MyPage extends Component {
 
     constructor(props) {
         super(props);
@@ -16,12 +19,24 @@ export default class MyPage extends Component {
 
     onClick(tab) {
         console.log(tab);
-        this.props.navigator.push({
-            "my": tab
-        });
+        switch (tab) {
+          case "gameRecord":
+            var gameInfo = {};
+            gameInfo['page']=1;
+            // gameInfo['bought_at_from']=new Date();
+            gameInfo['bought_at_from']='2017-01-16 00:00:00';
+            gameInfo['bought_at_to']=new Date();
+            // gameInfo['bought_at_to']='2017-01-16 23:00:00';
+            this.props.getGameRecord(gameInfo,this.props.navigator);
+            break;
+          default:
+            this.props.navigator.push({
+                "my": tab
+            });
+        }
     }
 
-
+//
     render() {
         return (
             <View style={styles.container}>
@@ -161,3 +176,16 @@ const styles = StyleSheet.create({
         backgroundColor: '#eee'
     }
 })
+
+function select(store) {
+    return {
+        username:store.user.username,
+    };
+}
+
+function actions(dispatch) {
+    return {
+        getGameRecord:(game,nav)=>dispatch(getGameRecord(game,nav)),
+    };
+}
+module.exports = connect(select,actions)(MyPage);

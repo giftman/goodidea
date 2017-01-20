@@ -2,7 +2,7 @@
 
 import type { Action,ThunkAction } from './types';
 function loadMenu(dataA): ThunkAction {
-	 
+
      return (dispatch) => {
      	// let data = require('./_mock_/buyNo.json');
       let data = dataA.data;
@@ -13,7 +13,7 @@ function loadMenu(dataA): ThunkAction {
            data.gameMethods["1950"].map((article, index) => {
               renderCells(article,"","",article.id,data.gameId,menu,allTypes,buyCell);
           })
-           
+
            for(let i in buyCell){
             if(allTypes[i]){
               allTypes[i].only_one = buyCell[i].only_one;
@@ -38,11 +38,11 @@ function loadMenu(dataA): ThunkAction {
                 orderNumberEndTime:data.currentNumberTime,
               }
             })
-      
+
 
       }
-      
- 
+
+
 }
 
 function skipLogin(): Action {
@@ -96,6 +96,13 @@ function updateNumOfChips(num):Action{
   }
 }
 
+function updateOrderNum(num):Action{
+  return{
+    type:'UPDATE_ORDERNUM',
+    playload:num,
+  }
+}
+
 function updatePackageProps(buyPackage):Action{
   return{
     type:'UPDATE_PACKAGE',
@@ -118,7 +125,7 @@ function renderCells(cells,name,en_name,jsId,gameId,menu,allTypes,buyCell){
   if(cells.children){
     if(cells.name_cn){
       name = name + cells.name_cn;
-      
+
     }
     cells.children.map((children) => renderCells(children,name,en_name,jsId,gameId,menu,allTypes,buyCell));
   }else{
@@ -136,4 +143,4 @@ function renderCells(cells,name,en_name,jsId,gameId,menu,allTypes,buyCell){
   }
 }
 
-module.exports = {loadMenu,changeType,updateChoice,clearPackage,updateNumOfChips,updatePackageProps,updateDefaultGame,showLoading,closeLoading};
+module.exports = {updateOrderNum,loadMenu,changeType,updateChoice,clearPackage,updateNumOfChips,updatePackageProps,updateDefaultGame,showLoading,closeLoading};

@@ -270,6 +270,33 @@ function getGameRecord(questionInfo,navigator) {
   };
 }
 
+function getTraceRecord(questionInfo,navigator) {
+  return dispatch => {
+    dispatch(showLoading());
+    return new AppAuthToken().getSessionToken()
+
+      .then((token) => {
+        return BackendFactory(token.sessionToken).getTraceRecord(questionInfo);
+      })
+      .then((result) => {
+        console.log(result);
+         dispatch(closeLoading());
+      if(result.error_code == '00'){
+        navigator.push({
+            "my": 'traceRecord',
+            data:result.data
+        });
+      }else{
+        toastShort(result.message);
+      }
+      })
+      .catch((error) => {
+        console.log(error);
+        // dispatch(getToken());
+      });
+  };
+}
+
 function getGameRecordDetail(id,callback) {
   return dispatch => {
     dispatch(showLoading());
@@ -333,4 +360,4 @@ function closeLoading(): Action {
 }
 
 
-module.exports = {getGameRecordDetail,getGameRecord,setSecurityQuestion,getToken,login,getGameConfig,checkToken,bet,logout,checkSecurityQuestion,resetPasswordA};
+module.exports = {getTraceRecord,getGameRecordDetail,getGameRecord,setSecurityQuestion,getToken,login,getGameConfig,checkToken,bet,logout,checkSecurityQuestion,resetPasswordA};

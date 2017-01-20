@@ -19,8 +19,8 @@ class ChangePasswd extends Component {
     super(props);
 
     this.state={
-      passwd:'a123456',
-      newPasswd:'a123',
+      passwd:'',
+      newPasswd:'',
       newPasswd2:'',
     }
     // this.renderEmptySessionsList = this.renderEmptySessionsList.bind(this);
@@ -31,10 +31,19 @@ class ChangePasswd extends Component {
 
   _resetClick(){
     console.log("_resetClick");
-    let new_password = this.state.newPasswd;
-    let old_password = this.state.passwd;
-    let data = {"new_password":new_password,"old_password":old_password};
-    this.props.resetPasswordA(this.props.username,data);
+    if(this.state.newPasswd === this.state.newPasswd2){
+      let new_password = this.state.newPasswd;
+      let old_password = this.state.passwd;
+      let data = {"new_password":new_password,"old_password":old_password};
+      this.props.resetPasswordA(this.props.username,data);
+    }else{
+      this.setState({
+        newPasswd:'',
+        newPasswd2:'',
+      })
+      toastShort("两次密码输入不一致，请重新输入")
+    }
+
   }
 
     render() {
@@ -68,6 +77,7 @@ class ChangePasswd extends Component {
                   style={styles.input}
                   onChangeText={(passwd) => {this.setState({passwd})}}
                   underlineColorAndroid={'transparent'}
+                  password={true}
                   placeholder='当前密码'/>
               </View>
               <View style={styles.inputContainer}>
@@ -75,8 +85,17 @@ class ChangePasswd extends Component {
                 style={styles.input}
                 onChangeText={(newPasswd) => {this.setState({newPasswd})}}
                 underlineColorAndroid={'transparent'}
+                password={true}
                 placeholder='新密码'/>
             </View>
+            <View style={styles.inputContainer}>
+            <TextInput
+              style={styles.input}
+              onChangeText={(newPasswd2) => {this.setState({newPasswd2})}}
+              underlineColorAndroid={'transparent'}
+              password={true}
+              placeholder='确认新密码'/>
+          </View>
               <View style={styles.paddingHeight}/>
               <Text style={{fontSize:16,color:'#666',paddingBottom:10}}>(由字母和数字组成6-16个字符，且必须包含数字和字母，不允许连续三位相同。)</Text>
               <View style={{justifyContent:'center',alignItems:'center'}}>

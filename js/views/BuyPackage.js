@@ -26,7 +26,7 @@ class BuyPackage extends Component {
             "showDialog":false,
         }
     }
-    
+
 
     _onclick(type){
         // console.log(type);
@@ -85,7 +85,11 @@ class BuyPackage extends Component {
         let positions = {};
         let allAmount = 0;
         data["gameId"] = defaultGame.gameId + "";
-        data["isTrace"] = "0";//todo
+        if(this.traceNum > 1){
+          data["isTrace"] = "1";//todo
+        }else{
+          data["isTrace"] = "0";//todo
+        }
         data["traceWinStop"] = "1";//todo
         data["traceStopValue"] = "1"; //todo
         data["prize"] = "1950"//todo
@@ -108,9 +112,17 @@ class BuyPackage extends Component {
         });
 
         data["amount"] = allAmount + ".00";
-        data["orders[" + orderNum + "]" ] = "1";//todo
+        //追号
+        if(this.traceNum > 1){
+          for(var i = 0;i< this.traceNum;i++){
+            let temOrderNum = parseInt(orderNum) + i ;
+            data["orders[" + temOrderNum + "]" ] = "1";
+          }
+        }else{
+          data["orders[" + orderNum + "]" ] = "1";
+        }
         data["positions"] = positions;
-        
+
         console.log(data)
         let betUrl = `/phone/bet/${defaultGame.gameId}`;
         this.props.bet(data,betUrl,this.props.navigator);
@@ -118,7 +130,7 @@ class BuyPackage extends Component {
         this.setState({
             "data":[]
         })
-        
+
     }
     render() {
 
@@ -222,7 +234,7 @@ const styles = StyleSheet.create({
         padding:5,
         paddingLeft:15,
     },
-    
+
 });
 
 function select(store) {

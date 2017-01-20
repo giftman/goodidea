@@ -21,6 +21,7 @@ class TipPadding extends React.Component {
             <View style={[styles.containerItem,this.props.style]}>
         {icon ? <Icon name={icon} size={15} color="#fff"></Icon> : <View />}
         <Text style={styles.title}>{content}</Text>
+        <View>{this.props.children}</View>
       </View>
         )
     }
@@ -45,6 +46,3 @@ var styles = StyleSheet.create({
 
 
 module.exports = TipPadding;
-
-
- 

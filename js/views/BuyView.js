@@ -9,12 +9,15 @@ import { toastShort } from '../utils/ToastUtil';
 const StyleSheet = require('../utils/CustomStyleSheet');
 import Icon from 'react-native-vector-icons/Ionicons';
 import F8Header from '../common/F8Header';
+import CountDown from '../common/CountDown';
 import { HEADER_HEIGHT, LAYER, TIP_HEIGHT } from '../common/F8Colors';
 import BuyList from './BuyList';
 import BuyMenu from './BuyMenu';
 import BuyControl from './BuyControl';
 import { connect } from 'react-redux';
-import { getGameConfig, changeType, loadMenu, updateChoice, updateNumOfChips, updatePackageProps,updateDefaultGame } from '../actions';
+import { updateOrderNum,getGameConfig, changeType, loadMenu,
+  updateChoice, updateNumOfChips,
+  updatePackageProps,updateDefaultGame } from '../actions';
 import TipPadding from './TipPadding';
 import CoverView from './CoverView';
 import { checkHowManyNumOfChipsAndAddToPackage, updatePackage,clearValidChoice } from './buyHelper';
@@ -56,7 +59,7 @@ class BuyView extends Component {
             }else if(name.includes(";")){
                 splitText = ";";
             }
-            choice = name.split(splitText);
+            choice = name.trim().split(splitText);
         } else {
             if (choice[name] && !this.props.defaultGame.only_one) {
                 if (choice[name].includes(index)) {
@@ -240,6 +243,10 @@ class BuyView extends Component {
         this.props.updateNumOfChips(0);
     }
 
+    _updateCurrentorderNum(){
+      let orderNum = parseInt(this.props.orderNum) + 1
+      this.props.updateOrderNum(orderNum + '');
+    }
     _menuScroll(event:Object) {
         this.menuY = event.nativeEvent.contentOffset.y;
         console.log(this.menuY);
@@ -264,7 +271,10 @@ class BuyView extends Component {
             onPress: () => this._tipClick(),
         }
         let headerImg = this.state.showMenu ? <Icon name="ios-arrow-down" size={25} color="#616161" /> : <Icon name="ios-arrow-up" size={25} color="#616161" />;
-        return (
+        let {currentTime,orderNumberEndTime} = this.props
+        let timeMinus = orderNumberEndTime - currentTime
+
+      return (
             <View>
             {this.state.showTip ? <CoverView layer={LAYER.MIDDLE}/> : <View/>}
            {this.state.showTip ? <Animated.View style={{
@@ -277,7 +287,7 @@ class BuyView extends Component {
 
                 : <View/>
             }
-            
+
       <F8Header
             style={{
                 backgroundColor: "#100118",
@@ -301,7 +311,13 @@ class BuyView extends Component {
         {headerImg}
       </TouchableOpacity>
       </F8Header>
-      <TipPadding content="remain time:-"></TipPadding>
+      <TipPadding >
+        <CountDown
+          text={'投注截止:'}
+          time={timeMinus}
+          timesUp={() => this._updateCurrentorderNum()}
+          />
+      </TipPadding>
       {this.state.showMenu ? <CoverView layer={LAYER.BOTTOM}/> : <View/>}
       {this.state.showMenu ? <Animated.View style={{
                 zIndex: LAYER.BOTTOM,
@@ -317,13 +333,13 @@ class BuyView extends Component {
                 : <View/>
             }
 
-      <BuyList onToggle={(name, index) => this._onToggle(name, index)} 
+      <BuyList onToggle={(name, index) => this._onToggle(name, index)}
       onCheckBoxClick={(index) => this._onCheckBoxClick(index)}
       choice={this.state.choice}
       />
-    
+
       <BuyControl price={2} numOfChips={this.props.numOfChips}  confirmBtn={() => this._onConfirmBtn()} clearBtn={() => this._clearBtn()}/>
-      
+
       </View>
         )
     }
@@ -346,6 +362,9 @@ function select(store) {
         multNum: store.buy.multNum,
         numOfChips: store.buy.numOfChips,
         buyPackage: store.buy.buyPackage,
+        currentTime:store.buy.currentTime,
+        orderNum:store.buy.orderNum,
+        orderNumberEndTime:store.buy.orderNumberEndTime,
     };
 }
 
@@ -357,6 +376,7 @@ function actions(dispatch) {
         updateChoice: (choice) => dispatch(updateChoice(choice)),
         clearPackage: () => dispatch(clearPackage()),
         randomPick: (num) => dispatch(randomPick(num)),
+        updateOrderNum: (num) => dispatch(updateOrderNum(num)),
         updateNumOfChips: (num) => dispatch(updateNumOfChips(num)),
         updatePackageProps: (buyPackage) => dispatch(updatePackageProps(buyPackage)),
         updateDefaultGame:(game)=>dispatch(updateDefaultGame(game)),

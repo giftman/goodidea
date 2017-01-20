@@ -63,6 +63,15 @@ function normalize(size:number){
     return Math.round(getScale() * size);
 }
 
+const GAME_TYPE = {
+    '1': '重庆时时彩',
+    '3': '黑龙江时时彩',
+    '5': '江西时时彩',
+    '6': '新疆时时彩',
+    '7': '天津时时',
+    '11': '正点1分彩',
+    '13': '正点3分彩',
+};
 import { Platform } from 'react-native';
 let STATUS_BAR_HEIGHT = Platform.OS === 'ios' ? 20 : 0;
 let HEADER_HEIGHT = Platform.OS === 'ios' ? 44 + STATUS_BAR_HEIGHT : 56 + STATUS_BAR_HEIGHT;
@@ -73,6 +82,7 @@ let LAYER = {
     TOP: 3,
     DIALOG: 4,
 }
+
 module.exports = {
     actionText: '#3FB4CF',
     inactiveText: '#9B9B9B',
@@ -89,4 +99,5 @@ module.exports = {
     TIP_HEIGHT:36,
     getScale,
     normalize,
+    GAME_TYPE
 };

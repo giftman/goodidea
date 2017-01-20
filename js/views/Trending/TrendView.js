@@ -89,9 +89,9 @@ class TwitterFlow extends Component {
             rightItem={rightItem}
             >
       </F8Header>
-      <TipPadding content="正点游戏已累计中奖 Xx亿" icon="md-clock"></TipPadding>
+      <TipPadding content="正点游戏已累计中奖 2亿5122万元" icon="md-clock"></TipPadding>
         <TwitterPost></TwitterPost>
-      
+
       </View>
         )
     }

@@ -12,10 +12,10 @@ import Icon from 'react-native-vector-icons/Ionicons';
 
 import ScrollableTabView, { ScrollableTabBar, } from 'react-native-scrollable-tab-view';
 const gameStatusType = {
-  0:"待开奖", 1:"已撤消",
-2:"未中奖", 3:"已中奖" ,4:"已派奖" ,5:"系统撤消", 6:"超额撤单" ,7:"管理撤单"
+  0:"进行中", 1:"已完成",
+2:"用户终止", 3:"平台终止" ,4:"管理终止" 
 }
-class GameRecord extends Component {
+class TraceRecord extends Component {
     constructor(props: Props) {
         super(props);
         this.data = this.props.data.data
@@ -36,7 +36,7 @@ class GameRecord extends Component {
         let moneyPay = [];
         this.data.map((elem, index) => {
             switch (elem.status) {
-              case 3:
+              case 0:
                 moneyGet.push(elem);
                 break;
               default:
@@ -86,8 +86,8 @@ class GameRecord extends Component {
             renderTabBar={() => <ScrollableTabBar />}
             >
       <ReadingListView tabLabel='全部' data={this.state.data} navigator={this.props.navigator}>All</ReadingListView>
-      <ReadingListView tabLabel='中奖' data={this.state.get} navigator={this.props.navigator}>game</ReadingListView>
-      <ReadingListView tabLabel='待开奖' data={this.state.pay} navigator={this.props.navigator}>reword</ReadingListView>
+      <ReadingListView tabLabel='进行中' data={this.state.get} navigator={this.props.navigator}>game</ReadingListView>
+      <ReadingListView tabLabel='已结束' data={this.state.pay} navigator={this.props.navigator}>reword</ReadingListView>
     </ScrollableTabView>
       </View>
         )
@@ -141,8 +141,8 @@ class ReadingListView extends React.Component {
     renderRow(article: any, typeId: number) {
         return (
             <TouchableOpacity key={article.serial_number} style={styles.container} onPress={()=>this._onPress(article)}>
-              <Text style={[styles.time,{backgroundColor:'transparent'}]}>{article.bought_at}</Text>
-              <View style={{flex:1}}>
+              <Text style={styles.time}>{article.bought_at}</Text>
+              <View >
                 <Text style={styles.title}>{article.title}</Text>
                 <Text style={styles.time}>{article.amount}</Text>
               </View>
@@ -201,4 +201,4 @@ const styles = StyleSheet.create({
 });
 
 
-export default GameRecord;
+export default TraceRecord;

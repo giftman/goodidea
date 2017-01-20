@@ -325,6 +325,25 @@ _token:VbZVLaUP4rGVBlDIqMlJa6WOnA5P138bJY13KcDx}
             })
                 .then((response) => {
                     if ( (response.status === 200 || response.status === 201) ) {
+                        // console.log(response);
+                        return response.json();
+                    } else {
+                        throw (response);
+                    }
+                })
+                .catch((error) => {
+                    throw (error);
+                });
+    }
+
+    async getTraceRecord(data) {
+        return await this._fetch({
+                method: 'POST',
+                url: '/phone-project/traces',
+                body: data
+            })
+                .then((response) => {
+                    if ( (response.status === 200 || response.status === 201) ) {
                         return response.json();
                     } else {
                         throw (response);

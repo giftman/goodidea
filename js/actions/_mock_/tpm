@@ -45,3 +45,45 @@ user_id:196
 username:"ceshi001"
 way_id:2
 winning_number:"19868"
+
+
+//trace
+account_id:5
+amount:"4.0000"
+bet_count:1
+bet_number:"4|5|6"
+bet_percent:"0.0010"
+bet_source:null
+bought_at:"2017-01-19 16:06:35"
+canceled_amount:"0.0000"
+canceled_at:null
+canceled_issues:0
+coefficient:"1.000"
+created_at:"2017-01-19 16:06:35"
+display_bet_number:"4|5|6"
+finished_amount:"4.0000"
+finished_issues:2
+id:121
+ip:"14.23.124.162"
+is_dekaron:0
+lottery_id:1
+position:""
+prize:"0.0000"
+prize_group:"1950"
+prize_set:"{"1":{"1":"1950.0000"}}"
+proxy_ip:"14.23.124.162"
+serial_number:"C0D72C82A8A506C4E77C4EDC5BC50B9C"
+single_amount:"0000000002.0000"
+start_issue:"170119061"
+status:1
+stop_on_won:1
+stoped_at:null
+title:"后三直选复式"
+total_issues:2
+updated_at:"2017-01-19 16:10:59"
+user_forefather_ids:"194,195"
+user_id:196
+username:"ceshi001"
+way_id:69
+won_count:0
+won_issue:null

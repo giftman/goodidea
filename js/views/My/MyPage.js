@@ -4,9 +4,21 @@ import { StyleSheet, View, Text, Platform, ScrollView, TouchableOpacity } from "
 import Util from '../../utils/Util';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {normalize} from '../../common/F8Colors'
-import { getGameRecord} from '../../actions';
+import { getGameRecord , getTraceRecord} from '../../actions';
 import { connect } from 'react-redux';
 
+function formatMinutes(minutes){
+    var day = parseInt(Math.floor(minutes / 86400));
+    var hour = day >0? Math.floor((minutes - day*86400)/3600):Math.floor(minutes/3600);
+    var minute = hour > 0? Math.floor((minutes -day*86400 - hour*3600)/60):Math.floor(minutes/60);
+    var second = minute > 0? Math.floor(minutes -day*86400 - hour*3600-minute*60):minutes;
+    var time="";
+    if (day > 0) time += day + "天";
+    if (hour > 0) time += hour + "小时";
+    if (minute > 0) time += minute + "分钟";
+    time += second+"秒";
+    return time;
+}
 class MyPage extends Component {
 
     constructor(props) {
@@ -19,15 +31,31 @@ class MyPage extends Component {
 
     onClick(tab) {
         console.log(tab);
+        var gameInfo = {};
+        gameInfo['page']=1;
+        var timestamp = new Date().getTime()
+
+        var todate=new Date(timestamp).getDate();
+        var tomonth=new Date(timestamp).getMonth()+1;
+        var toyear=new Date(timestamp).getFullYear();
+        var bought_at_to=toyear + '-' + tomonth + '-'+todate;
+        //查询一个星期内订单
+        var from_timestamp = new Date().getTime() - 60*60*24*7*1000
+        var fromdate=new Date(from_timestamp).getDate();
+        var frommonth=new Date(from_timestamp).getMonth()+1;
+        var fromyear=new Date(from_timestamp).getFullYear();
+        var bought_at_from=fromyear + '-' + frommonth + '-'+fromdate;
+        // gameInfo['bought_at_from']=new Date();
+        gameInfo['bought_at_from']=bought_at_from + ' 00:00:00';
+        // gameInfo['bought_at_to']=new Date();
+        gameInfo['bought_at_to']= bought_at_to + ' 23:59:59';
+        console.log(gameInfo);
         switch (tab) {
           case "gameRecord":
-            var gameInfo = {};
-            gameInfo['page']=1;
-            // gameInfo['bought_at_from']=new Date();
-            gameInfo['bought_at_from']='2017-01-16 00:00:00';
-            gameInfo['bought_at_to']=new Date();
-            // gameInfo['bought_at_to']='2017-01-16 23:00:00';
             this.props.getGameRecord(gameInfo,this.props.navigator);
+            break;
+          case "traceRecord":
+            this.props.getTraceRecord(gameInfo,this.props.navigator);
             break;
           default:
             this.props.navigator.push({
@@ -94,7 +122,7 @@ class MyPage extends Component {
                  <Icon name='ios-arrow-forward' size={25} color="#eee"></Icon>
             </View>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.itemContain} onPress={() => this.onClick("gameRecord")}>
+        <TouchableOpacity style={styles.itemContain} onPress={() => this.onClick("traceRecord")}>
             <Icon name='md-albums' size={30} color="#666"></Icon>
             <View style={styles.item}>
                 <Text style={styles.itemTitle}>追号记录</Text>
@@ -185,7 +213,8 @@ function select(store) {
 
 function actions(dispatch) {
     return {
-        getGameRecord:(game,nav)=>dispatch(getGameRecord(game,nav)),
+      getGameRecord:(game,nav)=>dispatch(getGameRecord(game,nav)),
+        getTraceRecord:(game,nav)=>dispatch(getTraceRecord(game,nav)),
     };
 }
 module.exports = connect(select,actions)(MyPage);

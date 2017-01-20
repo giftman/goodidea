@@ -22,6 +22,7 @@ import TipPadding from './TipPadding';
 import CoverView from './CoverView';
 import { checkHowManyNumOfChipsAndAddToPackage, updatePackage,clearValidChoice } from './buyHelper';
 import _ from 'underscore';
+import DrawerLayout from 'react-native-drawer-layout';
 
 class BuyView extends Component {
     constructor(props) {
@@ -265,7 +266,7 @@ class BuyView extends Component {
 
         var rightItem = {
             icon: require('../common/img/hamburger.png'),
-            onPress: () => this.props.navigator.pop(),
+            onPress: () => this.drawer.openDrawer(),
         }
         var helpItem = {
             layout: 'title',
@@ -275,8 +276,36 @@ class BuyView extends Component {
         let headerImg = this.state.showMenu ? <Icon name="ios-arrow-down" size={25} color="#616161" /> : <Icon name="ios-arrow-up" size={25} color="#616161" />;
         let {currentTime,orderNumberEndTime} = this.props
         let timeMinus = orderNumberEndTime - currentTime
+        var navigationView = (
+          <View style={{flex: 1, width:116, backgroundColor: '#232323'}}>
+            <Text style={styles.helperText}>购票助手</Text>
+            <TouchableOpacity>
+                <View style={styles.recordBtn}>
+                  <Icon name="ios-clipboard-outline" size={25} color="#fff" />
+                  <Text style={[styles.helperText,{fontSize:14}]}>游戏记录</Text>
+                </View>
+            </TouchableOpacity>
+            <TouchableOpacity>
+                <View style={styles.recordBtn}>
+                  <Icon name="md-sunny" size={25} color="#fff" />
+                  <Text style={[styles.helperText,{fontSize:14}]}>玩法说明</Text>
+                </View>
+            </TouchableOpacity>
+            <View style={styles.recordBtn}>
+              <Icon name="logo-yen" size={20} color="#fff" />
 
+            </View>
+            <View style={{flex:1}}></View>
+          </View>
+        );
       return (
+        <DrawerLayout
+          ref={(drawer) => this.drawer = drawer}
+          drawerWidth={116}
+          drawerPosition={DrawerLayout.positions.Right}
+          renderNavigationView={() => navigationView}>
+
+
             <View>
             {this.state.showTip ? <CoverView layer={LAYER.MIDDLE}/> : <View/>}
            {this.state.showTip ? <Animated.View style={{
@@ -286,7 +315,6 @@ class BuyView extends Component {
             }}>
       <TipPadding content={this.props.defaultGame.bet_note}></TipPadding>
       </Animated.View>
-
                 : <View/>
             }
 
@@ -343,6 +371,7 @@ class BuyView extends Component {
       <BuyControl price={2} numOfChips={this.props.numOfChips}  confirmBtn={() => this._onConfirmBtn()} clearBtn={() => this._clearBtn()}/>
 
       </View>
+      </DrawerLayout>
         )
     }
 }
@@ -350,7 +379,13 @@ class BuyView extends Component {
 
 
 const styles = StyleSheet.create({
-
+    recordBtn:{
+      paddingTop:6,flexDirection:'row',
+      borderColor:'#eee',borderTopWidth:1,justifyContent:'center',alignItems:'center'
+    },
+    helperText:{
+      margin: 10, fontSize: 18, textAlign: 'left',color:'white'
+    }
 });
 
 

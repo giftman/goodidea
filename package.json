@@ -9,6 +9,7 @@
   "dependencies": {
     "react": "15.3.2",
     "react-native": "^0.36.1",
+    "react-native-drawer-layout": "^1.1.0",
     "react-native-modal-dropdown": "^0.4.1",
     "react-native-scrollable-tab-view": "^0.6.0",
     "react-native-simple-store": "^1.1.0",

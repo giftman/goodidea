@@ -153,7 +153,7 @@ class ReadingListView extends React.Component {
     }
 
     _onPress(article){
-      this.props.navigator.push({"my":"GameRecordDetail","data":article});
+      this.props.navigator.push({"my":"TraceRecordDetail","data":article});
     }
 
     renderEmptyList(): ?ReactElement {

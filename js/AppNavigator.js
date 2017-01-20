@@ -38,7 +38,9 @@ import BuyView from './views/BuyView';
 import TrendSet from './views/Trending/TrendSet';
 import MoneyDetail from './views/Other/MoneyDetail';
 import GameRecord from './views/Other/GameRecord';
+import TraceRecord from './views/Other/TraceRecord';
 import GameRecordDetail from './views/Other/GameRecordDetail';
+import TraceRecordDetail from './views/Other/TraceRecordDetail';
 import ChangePasswd from './views/Other/ChangePasswd';
 import SetSecurityQuestion from './views/Other/SetSecurityQuestion';
 import SettingView from './views/Other/SettingView';
@@ -151,6 +153,9 @@ var AppNavigator = React.createClass({
             case "gameRecord":
                 return <GameRecord navigator={navigator} data={route.data}/>;
                 break;
+            case "traceRecord":
+                return <TraceRecord navigator={navigator} data={route.data}/>;
+                break;
             case "changePasswd":
                 return <ChangePasswd navigator={navigator} />;
                 break;
@@ -159,6 +164,9 @@ var AppNavigator = React.createClass({
                 break;
             case "GameRecordDetail":
                 return <GameRecordDetail navigator={navigator} data={route.data}/>;
+                break;
+            case "TraceRecordDetail":
+                return <TraceRecordDetail navigator={navigator} data={route.data}/>;
                 break;
             case 2:
                 break;

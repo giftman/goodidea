@@ -66,7 +66,7 @@ function checkHowManyNumOfChipsAndAddToPackage(defaultGame, choice) {
             }
             ;
             if (choice[i]) {
-                choice[i].map((n, index) => {
+                choice[i].sort().map((n, index) => {
                     if (methods[i].startOne) {
                         n = n + 1;
                     }
@@ -87,6 +87,9 @@ function checkHowManyNumOfChipsAndAddToPackage(defaultGame, choice) {
                 ){
                   if (!methods[i].startOne) {
                       result = choice[i].join("|");
+                  }else{
+                    result = _.map(choice[i],function(num){return num + 1}).join("|");
+
                   }
 
                 }

@@ -170,6 +170,8 @@ class BuyView extends Component {
         this.setState({
             choice: {}
         })
+        this.props.updateNumOfChips(0);
+        this.props.updateChoice({});
     }
 
     _tipClick() {

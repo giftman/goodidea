@@ -34,7 +34,7 @@ class TwitterPost extends Component {
         },
         {
             'gameId':6,
-            'title': '新缰时时彩',
+            'title': '新疆时时彩',
             'name': 'xjssc',
             'time':'销售时间:10:00~23:00',
             'des':'每10分钟一期  总期数:72期',

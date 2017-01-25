@@ -343,7 +343,7 @@ class BuyView extends Component {
       </F8Header>
       <TipPadding >
         <CountDown
-          text={'投注截止:'}
+          text={'当前期数:' + this.props.orderNum + '  投注截止:'}
           time={timeMinus}
           timesUp={() => this._updateCurrentorderNum()}
           />
@@ -368,7 +368,7 @@ class BuyView extends Component {
       choice={this.state.choice}
       />
 
-      <BuyControl price={2} numOfChips={this.props.numOfChips}  confirmBtn={() => this._onConfirmBtn()} clearBtn={() => this._clearBtn()}/>
+    <BuyControl price={this.props.defaultGame.price} balance={this.props.balance} numOfChips={this.props.numOfChips}  confirmBtn={() => this._onConfirmBtn()} clearBtn={() => this._clearBtn()}/>
 
       </View>
       </DrawerLayout>
@@ -402,6 +402,7 @@ function select(store) {
         currentTime:store.buy.currentTime,
         orderNum:store.buy.orderNum,
         orderNumberEndTime:store.buy.orderNumberEndTime,
+        balance:store.user.balance,
     };
 }
 

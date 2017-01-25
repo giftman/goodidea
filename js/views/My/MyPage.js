@@ -97,7 +97,7 @@ class MyPage extends Component {
                 color: 'white',
                 fontSize: 18,
                 fontWeight: '300'
-            }}>余额:￥12.5元</Text>
+            }}>余额:￥{this.props.balance}元</Text>
         </View>
         <View style={{
                 flex: 1
@@ -208,6 +208,7 @@ const styles = StyleSheet.create({
 function select(store) {
     return {
         username:store.user.username,
+        balance:store.user.balance,
     };
 }
 

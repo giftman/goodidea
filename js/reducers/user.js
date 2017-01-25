@@ -57,17 +57,23 @@ function user(state: State = initialState, action: Action): State {
 		case 'LOGIN_SUCCESS':
 		new AppAuthToken().storeUser(action.payload);
 		return {...state,...action.payload};
+		break;
 		case 'SIGNUP_REQUEST':
 		// case 'LOGIN_REQUEST':
 		// 	return {...state,loading:true};
 		// case 'LOGIN_FAILED':
 		// case 'SIGNUP_FAILED':
 		// 	return {...state,loading:false};
+		break;
 		case 'SAVE_TOKEN':
 			new AppAuthToken().storeSessionToken(action.token);
 			return {...state,token:action.token};
+		case 'UPDATE_BALANCE':
+			 var newBalance = parseFloat(state.balance) - action.payload
+			 new AppAuthToken().storeUser({...state,balance:newBalance});
+			return {...state,balance:newBalance}
 	}
-  
+
   return state;
 }
 

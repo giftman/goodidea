@@ -51,7 +51,7 @@ class BuyControl extends Component {
         let color = this.props.numOfChips > 0 ? "red" : "#666";
         let confirmText = this.props.type === "package" ? "投注" : "确定";
         let upView = this.props.type === "package"
-            ? <View style={styles.upContainer}>  
+            ? <View style={styles.upContainer}>
         <View style={styles.multView}>
                         <Icon name="md-thunderstorm" size={28} color="#333333"></Icon>
                         <Text style={styles.clearText}>追号:</Text>
@@ -66,12 +66,12 @@ class BuyControl extends Component {
             placeholderTextColor="red"
             underlineColorAndroid="transparent"
             onChangeText={(text) => this._updateTraceNum(text)}></TextInput>
-                    </View> 
+                    </View>
                     </View>
             : <View style={styles.upContainer}>
         <TouchableOpacity style={styles.clearBtn} onPress={() => this.props.clearBtn()}>
                         <Icon name="ios-trash-outline" size={15} color="#333333"></Icon>
-                        <Text style={styles.clearText}>清空</Text> 
+                        <Text style={styles.clearText}>清空</Text>
                     </TouchableOpacity>
                     <View style={styles.multView}>
                         <Icon name="md-color-wand" size={15} color="#333333"></Icon>
@@ -102,10 +102,10 @@ class BuyControl extends Component {
             }]}>{des}</Text>
                         <Text style={[styles.des, {
                 color: 'white'
-            }]}>可用余额:12.5</Text>
+            }]}>可用余额:{this.props.balance}</Text>
                     </View>
 
-                
+
             <TouchableOpacity style={[styles.confirmBtn, {
                 backgroundColor: color
             }]} onPress={() => this.props.confirmBtn()}>

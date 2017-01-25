@@ -96,6 +96,13 @@ function updateNumOfChips(num):Action{
   }
 }
 
+function updateBalance(num):Action{
+  return{
+    type:'UPDATE_BALANCE',
+    payload:num,
+  }
+}
+
 function updateOrderNum(num):Action{
   return{
     type:'UPDATE_ORDERNUM',
@@ -143,4 +150,4 @@ function renderCells(cells,name,en_name,jsId,gameId,menu,allTypes,buyCell){
   }
 }
 
-module.exports = {updateOrderNum,loadMenu,changeType,updateChoice,clearPackage,updateNumOfChips,updatePackageProps,updateDefaultGame,showLoading,closeLoading};
+module.exports = {updateBalance,updateOrderNum,loadMenu,changeType,updateChoice,clearPackage,updateNumOfChips,updatePackageProps,updateDefaultGame,showLoading,closeLoading};

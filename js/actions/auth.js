@@ -3,7 +3,7 @@
 import type { Action,ThunkAction } from './types';
 import  BackendFactory from '../lib/BackendFactory';
 import AppAuthToken from '../lib/AppAuthToken';
-import {loadMenu} from './buy';
+import {loadMenu,updateBalance} from './buy';
 import { toastShort } from '../utils/ToastUtil';
 function skipLogin(): Action {
   return {
@@ -135,9 +135,9 @@ function bet(data,betUrl,navigator) {
 
       .then((result) => {
         console.log(result);
-        // if(result.error_code == '00'){
-        //   dispatch()
-        // }
+        if(result.error_code == '00'){
+          dispatch(updateBalance(data['amount']));
+        }
         toastShort(result.message);
       })
 

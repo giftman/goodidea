@@ -85,7 +85,7 @@ class TwitterFlow extends Component {
             style={{
                 backgroundColor: "#323245"
             }}
-            title="Trending"
+            title="开奖走势"
             rightItem={rightItem}
             >
       </F8Header>

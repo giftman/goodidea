@@ -183,7 +183,7 @@ class BuyPackage extends Component {
                 {list}
                 {clearBtn}
             </ScrollView>
-            <BuyControl price={2} numOfChips={allNumOfChips} type="package" confirmBtn={()=>this._onConfirmBtn()} updateTraceNum={(text)=> {this.traceNum = text}}/>
+            <BuyControl price={this.props.defaultGame.price} balance={this.props.balance} numOfChips={allNumOfChips} type="package" confirmBtn={()=>this._onConfirmBtn()} updateTraceNum={(text)=> {this.traceNum = text}}/>
             <EasyDialog show={this.state.showDialog} cancleBtn={()=>this._onConfirmBtn()} orderInfo={orderInfo} confirmBet={()=>this._confirmBet()}/>
       </View>
         )
@@ -245,6 +245,7 @@ function select(store) {
         buyPackage:store.buy.buyPackage,
         gameName:store.buy.gameName,
         orderNum:store.buy.orderNum,
+        balance:store.user.balance,
     };
 }
 

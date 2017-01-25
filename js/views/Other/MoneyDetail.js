@@ -61,10 +61,10 @@ class TwitterFlow extends Component {
             style={{
                 backgroundColor: "#323245"
             }}
-            title="Test"
+            title="资金明细"
             leftItem={leftItem}
             >
-      
+
       </F8Header>
       <ScrollableTabView
             initialPage={0}
@@ -137,7 +137,7 @@ class ReadingListView extends React.Component {
                 <Text style={styles.time}>{article.timestamp}</Text>
               </View>
               {article.money > 0 ? <Text style={styles.money2} > + {article.money}</Text> : <Text style={styles.money}>{article.money}</Text>}
-              
+
             </View>
             );
     }

@@ -87,14 +87,14 @@ class GameRecordDetail extends Component {
                 </View>
                   <View style={{height:normalize(80),width:1,backgroundColor:'white'}}></View>
                   <View style={styles.mainMoneyEle}>
-                    <Text style={styles.mainMoneyEleText}>{data.prize}元</Text>
+                    <Text style={styles.mainMoneyEleText}>{data.prize || 0}元</Text>
                     <Text style={[styles.mainMoneyEleText,{fontSize:18}]}>中奖金额</Text>
                     </View>
               </View>
               <View style={styles.mainInfo}>
                 <View style={styles.mainInfoEle}>
                   <Text style={styles.mainInfoText}>订单详情:</Text>
-                  <Text style={[styles.mainInfoText,{color:'black'}]}>{gameRecordStatus(data.lottery_id)}</Text>
+                  <Text style={[styles.mainInfoText,{color:'black'}]}>{gameRecordStatus(data.status)}</Text>
                 </View>
                 <View style={styles.mainInfoEle}>
                   <Text style={styles.mainInfoText}>开奖号码:</Text>

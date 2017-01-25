@@ -21,7 +21,7 @@ class TwitterPost extends Component {
             'title': '重庆时时彩',
             'name':'cqssc',
             'time':'销售时间:10:00~23:00',
-            'des':'每10分钟一期  总期数:72期',
+            'des':'每10分钟一期  ',
             'img': 'http://oeyxehw3i.bkt.clouddn.com/17-1-12/51097921-file_1484231264295_15a2f.png'
         },
         {
@@ -29,7 +29,7 @@ class TwitterPost extends Component {
             'title': '黑龙江时时彩',
             'name':'hljssc',
             'time':'销售时间:10:00~23:00',
-            'des':'每10分钟一期  总期数:72期',
+            'des':'每10分钟一期  ',
             'img': 'http://oeyxehw3i.bkt.clouddn.com/17-1-12/21928558-file_1484231261373_15017.png'
         },
         {
@@ -37,7 +37,7 @@ class TwitterPost extends Component {
             'title': '新疆时时彩',
             'name': 'xjssc',
             'time':'销售时间:10:00~23:00',
-            'des':'每10分钟一期  总期数:72期',
+            'des':'每10分钟一期  ',
             'img': 'http://oeyxehw3i.bkt.clouddn.com/17-1-12/59140739-file_1484231261706_15b50.png'
         },
         {
@@ -45,56 +45,56 @@ class TwitterPost extends Component {
             'title': '天津时时彩',
             'name': 'tjssc',
             'time':'销售时间:10:00~23:00',
-            'des':'每10分钟一期  总期数:72期',
+            'des':'每10分钟一期  ',
             'img': 'http://oeyxehw3i.bkt.clouddn.com/17-1-12/5286450-file_1484231264628_1d5c.png'
         },
         {
             'gameId':11,
             'title': '正点1分彩',
             'time':'销售时间:10:00~23:00',
-            'des':'每10分钟一期  总期数:72期',
+            'des':'每10分钟一期  ',
             'img': 'https://facebook.github.io/react/img/logo_og.png'
         },
         {
             'gameId':13,
             'title': '正点3分彩',
             'time':'销售时间:10:00~23:00',
-            'des':'每10分钟一期  总期数:72期',
+            'des':'每10分钟一期  ',
             'img': 'https://facebook.github.io/react/img/logo_og.png'
         },
         {
             'gameId':14,
             'title': '正点5分彩',
             'time':'销售时间:10:00~23:00',
-            'des':'每10分钟一期  总期数:72期',
+            'des':'每10分钟一期  ',
             'img': 'https://facebook.github.io/react/img/logo_og.png'
         },
           // {
           //     'gameId':17,
           //     'title': '云南时时彩',
           //     'time':'销售时间:10:00~23:00',
-          //     'des':'每10分钟一期  总期数:72期',
+          //     'des':'每10分钟一期  ',
           //     'img': 'https://facebook.github.io/react/img/logo_og.png'
           // },
         {
             'gameId':25,
             'title': '北京五分彩',
             'time':'销售时间:10:00~23:00',
-            'des':'每10分钟一期  总期数:72期',
+            'des':'每10分钟一期  ',
             'img': 'https://facebook.github.io/react/img/logo_og.png'
         },
         {
             'gameId':26,
             'title': '台湾五分彩',
             'time':'销售时间:10:00~23:00',
-            'des':'每10分钟一期  总期数:72期',
+            'des':'每10分钟一期  ',
             'img': 'https://facebook.github.io/react/img/logo_og.png'
         },
         // {
         //     'gameId':27,
         //     'title': '韩国1-5分彩',
         //     'time':'销售时间:10:00~23:00',
-        //     'des':'每10分钟一期  总期数:72期',
+        //     'des':'每10分钟一期  ',
         //     'img': 'https://facebook.github.io/react/img/logo_og.png'
         // }
         ]

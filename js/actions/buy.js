@@ -82,6 +82,20 @@ function updateChoice(choice):Action{
   }
 }
 
+function updateMoneyUnit(choice):Action{
+  return{
+    type:'UPDATE_MONEYUNIT',
+    payload:choice,
+  }
+}
+
+function updatePrize(choice):Action{
+  return{
+    type:'UPDATE_PRIZE',
+    payload:choice,
+  }
+}
+
 function updateDefaultGame(game):Action{
   return{
     type:'UPDATE_GAME',
@@ -150,4 +164,4 @@ function renderCells(cells,name,en_name,jsId,gameId,menu,allTypes,buyCell){
   }
 }
 
-module.exports = {updateBalance,updateOrderNum,loadMenu,changeType,updateChoice,clearPackage,updateNumOfChips,updatePackageProps,updateDefaultGame,showLoading,closeLoading};
+module.exports = {updateMoneyUnit,updatePrize,updateBalance,updateOrderNum,loadMenu,changeType,updateChoice,clearPackage,updateNumOfChips,updatePackageProps,updateDefaultGame,showLoading,closeLoading};

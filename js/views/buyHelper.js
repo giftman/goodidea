@@ -162,7 +162,7 @@ function checkHowManyNumOfChipsAndAddToPackage(defaultGame, choice) {
     };
 }
 
-function updatePackage(defaultGame, numOfChips, multNum, buyPackage, result) {
+function updatePackage(defaultGame, numOfChips, multNum, buyPackage,moneyUnit, result) {
     if (numOfChips >= 1) {
         let oneChoice = {};
             // "balls[0][jsId]": "1",
@@ -185,12 +185,12 @@ function updatePackage(defaultGame, numOfChips, multNum, buyPackage, result) {
             oneChoice["viewBalls"] = defaultGame.viewBalls||"";
             oneChoice["num"]  = numOfChips;
             oneChoice["type"] = defaultGame.type;
-            oneChoice["moneyunit"] = "1";//todo
+            oneChoice["moneyunit"] = moneyUnit;//todo
             oneChoice["multiple"] = multNum;
             let is_dekaron = numOfChips > defaultGame.dekaron.dekaron_count ? false:true;
             oneChoice["is_dekaron"] = is_dekaron;
             oneChoice["numShow"] = result.replace(/\|/g, ",");
-            let amount = defaultGame.price * multNum * numOfChips;
+            let amount = defaultGame.price * multNum * numOfChips * moneyUnit;
             oneChoice["des"] = defaultGame.name_cn + " " + numOfChips + "注 X " + multNum + "倍="
             + amount + "元";
             oneChoice["amount"] = amount;

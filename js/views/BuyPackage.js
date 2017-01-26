@@ -92,7 +92,7 @@ class BuyPackage extends Component {
         }
         data["traceWinStop"] = "1";//todo
         data["traceStopValue"] = "1"; //todo
-        data["prize"] = "1950"//todo
+        data["prize"] = this.props.prize//todo
 
         buyPackage.map((elem,index)=>{
             allAmount = allAmount + elem.amount;
@@ -246,6 +246,7 @@ function select(store) {
         gameName:store.buy.gameName,
         orderNum:store.buy.orderNum,
         balance:store.user.balance,
+        prize:store.buy.prize,
     };
 }
 

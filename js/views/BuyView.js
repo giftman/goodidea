@@ -15,7 +15,7 @@ import BuyList from './BuyList';
 import BuyMenu from './BuyMenu';
 import BuyControl from './BuyControl';
 import { connect } from 'react-redux';
-import { updateOrderNum,getGameConfig, changeType, loadMenu,
+import { updatePrize,updateMoneyUnit,updateOrderNum,getGameConfig, changeType, loadMenu,
   updateChoice, updateNumOfChips,
   updatePackageProps,updateDefaultGame } from '../actions';
 import TipPadding from './TipPadding';
@@ -218,8 +218,8 @@ class BuyView extends Component {
 
     _onConfirmBtn() {
         if (this.props.numOfChips > 0) {
-            let {defaultGame, numOfChips, multNum, buyPackage} = this.props;
-            buyPackage = updatePackage(defaultGame, numOfChips, multNum, buyPackage, this.result);
+            let {defaultGame, numOfChips, multNum, buyPackage,moneyUnit} = this.props;
+            buyPackage = updatePackage(defaultGame, numOfChips, multNum, buyPackage,moneyUnit, this.result);
             this.props.updatePackageProps(buyPackage);
             this.props.navigator.push({
                 "addToPackage": true,
@@ -253,6 +253,12 @@ class BuyView extends Component {
     _menuScroll(event:Object) {
         this.menuY = event.nativeEvent.contentOffset.y;
         console.log(this.menuY);
+    }
+    _changeUnit(unit){
+      this.props.updateMoneyUnit(unit);
+    }
+    _changePrize(unit){
+      this.props.updatePrize(unit);
     }
     render() {
         // console.log(this.props.allTypes["14"]);
@@ -292,8 +298,30 @@ class BuyView extends Component {
                 </View>
             </TouchableOpacity>
             <View style={styles.recordBtn}>
-              <Icon name="logo-yen" size={20} color="#fff" />
+              <Icon style={{paddingLeft:5}} name="logo-yen" size={20} color="#fff" />
+              <View style={{paddingLeft:5,flexDirection:'row',flex:1}}>
+                <TouchableOpacity onPress={()=>this._changeUnit("1")} style={{flex:1,backgroundColor:this.props.moneyUnit === '1' ?'#8D846B' :'#323244',padding:5}}>
+                  <View ><Text style={{color:'white'}}>元</Text></View>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={()=>this._changeUnit("0.1")} style={{flex:1,backgroundColor:this.props.moneyUnit === '0.1' ?'#8D846B' :'#323244',padding:5}}>
+                  <View ><Text style={{color:'white'}}>角</Text></View>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={()=>this._changeUnit("0.01")} style={{flex:1,backgroundColor:this.props.moneyUnit === '0.01' ?'#8D846B' :'#323244',padding:5}}>
+                  <View ><Text style={{color:'white'}}>分</Text></View>
+                </TouchableOpacity>
+              </View>
+            </View>
 
+            <View style={styles.recordBtn}>
+              <Icon style={{paddingLeft:5}} name="logo-yen" size={20} color="#fff" />
+              <View style={{paddingLeft:5,flexDirection:'row',flex:1}}>
+                <TouchableOpacity onPress={()=>this._changePrize("1950")} style={{flex:1,backgroundColor:this.props.prize === '1950' ?'#8D846B' :'#323244',padding:5}}>
+                  <View ><Text style={{color:'white'}}>1950</Text></View>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={()=>this._changePrize("1800")} style={{flex:1,backgroundColor:this.props.prize === '1800' ?'#8D846B' :'#323244',padding:5}}>
+                  <View ><Text style={{color:'white'}}>1800</Text></View>
+                </TouchableOpacity>
+              </View>
             </View>
             <View style={{flex:1}}></View>
           </View>
@@ -403,6 +431,8 @@ function select(store) {
         orderNum:store.buy.orderNum,
         orderNumberEndTime:store.buy.orderNumberEndTime,
         balance:store.user.balance,
+        moneyUnit:store.buy.moneyUnit,
+        prize:store.buy.prize,
     };
 }
 
@@ -418,6 +448,8 @@ function actions(dispatch) {
         updateNumOfChips: (num) => dispatch(updateNumOfChips(num)),
         updatePackageProps: (buyPackage) => dispatch(updatePackageProps(buyPackage)),
         updateDefaultGame:(game)=>dispatch(updateDefaultGame(game)),
+        updateMoneyUnit:(unit)=>dispatch(updateMoneyUnit(unit)),
+        updatePrize:(unit)=>dispatch(updatePrize(unit)),
     };
 }
 

@@ -49,12 +49,14 @@ type State = {
   currentTime:number;
   orderNumberEndTime:number;
   currentPrice:string;
+	moneyUnit:string;
+	prize:string;//'1950'
 };
 
 const initialState: State = { allTypes: {},buyPackage:[],loading:false,
                             multNum:1,choice:{},numOfChips:0,menu:{},
                             defaultType:'qiansan.zuxuan.hezhi',
-                            defaultGame:{},gameName:"",orderNum:""};
+                            defaultGame:{},gameName:"",orderNum:"",moneyUnit:"1",prize:'1950'};
 
 function buy(state: State = initialState, action: Action): State {
 	switch(action.type){
@@ -68,30 +70,48 @@ function buy(state: State = initialState, action: Action): State {
           currentTime:action.payload.currentTime,
           orderNumberEndTime:action.payload.orderNumberEndTime,
       };
+			break;
 		case 'LOAD_REQUEST':
 			return {...state,loading:true};
+			break;
 		case 'LOAD_FAILED':
 			return {...state,loading:false};
+			break;
 		case 'CHANGE_TYPE':
 			return {...state,defaultType:action.defaultType,defaultGame:state.allTypes[action.defaultType],choice:{}};
+			break;
     case 'UPDATE_CHOICE':
       return {...state,choice:action.choice};
+			break;
     case 'CLEAR_PACKAGE':
       return {...state,buyPackage:[]};
     // case 'RANDOM_PICK':
     //   return _randomPick(state,action.times);
+		break;
     case 'UPDATE_NUMOFCHIPS':
       return {...state,numOfChips:action.num};
+			break;
     case 'UPDATE_PACKAGE':
       return {...state,buyPackage:action.buyPackage};
+			break;
     case 'UPDATE_GAME':
       return {...state,defaultGame:action.game};
+			break;
     case 'SHOW_LOADING':
       return {...state,loading:true};
+			break;
     case 'CLOSE_LOADING':
       return {...state,loading:false};
+			break;
 		case 'UPDATE_ORDERNUM':
 			return {...state,orderNum:action.payload};
+			break;
+		case 'UPDATE_MONEYUNIT':
+				return {...state,moneyUnit:action.payload};
+				break;
+		case 'UPDATE_PRIZE':
+						return {...state,prize:action.payload};
+						break;
 	}
 
   return state;

@@ -10,7 +10,7 @@ const StyleSheet = require('../../utils/CustomStyleSheet');
 import Icon from 'react-native-vector-icons/Ionicons';
 import F8Header from '../../common/F8Header';
 import EasyButton from '../../common/EasyButton';
-import { checkSecurityQuestion} from '../../actions';
+import { checkSecurityQuestion,logout} from '../../actions';
 
 import { connect } from 'react-redux';
 class SettingView extends Component {
@@ -147,6 +147,7 @@ function actions(dispatch) {
     return {
         clearPackage:()=>dispatch(clearPackage()),
         checkSecurityQuestion:(nav)=>dispatch(checkSecurityQuestion(nav)),
+        logout:(nav)=>dispatch(logout(nav)),
     };
 }
 module.exports = connect(select,actions)(SettingView);

@@ -1,7 +1,7 @@
 'use strict';
 
 import React, { Component } from 'react';
-import { Navigator } from 'react-native';
+import { Navigator,Image} from 'react-native';
 import Util from '../utils/Util';
 const StyleSheet = require('../utils/CustomStyleSheet');
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -46,30 +46,36 @@ class TwitterTab extends Component {
 
     render() {
         return (
-            <TabNavigator>
+            <TabNavigator
+              tabBarStyle={{overflow: 'hidden',backgroundColor:'#323335' }}
+              >
       <TabNavigator.Item
             title="主页"
-            renderIcon={() => <Icon  name="md-home" size={30} color="#666" />}
-            renderSelectedIcon={() => <Icon name="md-home" size={30} color="#4F8EF7" />}
-            // badgeText="1"
+            renderIcon={() => <Image style={styles.tabBar} source={require('../img/goucaidating2.png')} resizeMode='contain' />}
+            renderSelectedIcon={() => <Image style={styles.tabBar} source={require('../img/goucaidating.png')} resizeMode='contain' />}
             onPress={ () => this.changeTab('主页')}
+            selectedTitleStyle={{color:'#AC9B65'}}
             selected={this.props.selectedTab === '主页'}>
           <Main navigator={this.props.navigator}/>
         </TabNavigator.Item>
          <TabNavigator.Item
-            title="通知"
-            renderIcon={() => <Icon name="md-aperture" size={30} color="#666" />}
-            renderSelectedIcon={() => <Icon name="md-aperture" size={30} color="#4F8EF7" />}
+            title="开奖走势"
+            renderIcon={() => <Image style={styles.tabBar} source={require('../img/kaijiang1.png')} resizeMode='contain' />}
+            renderSelectedIcon={() => <Image style={styles.tabBar} source={require('../img/kaijiang2.png')} resizeMode='contain' />}
             // badgeText="1"
+            selectedTitleStyle={{color:'#AC9B65'}}
+
             onPress={ () => this.changeTab('通知')}
             selected={this.props.selectedTab === '通知'}>
           <TrendView navigator={this.props.navigator}/>
         </TabNavigator.Item>
          <TabNavigator.Item
-            title="我"
-            renderIcon={() => <Icon name="md-person" size={30} color="#666" />}
-            renderSelectedIcon={() => <Icon name="md-person" size={30} color="#4F8EF7" />}
+            title="我的正点"
+            renderIcon={() => <Image style={styles.tabBar} source={require('../img/wodezhengdian1.png')} resizeMode='contain' />}
+            renderSelectedIcon={() => <Image style={styles.tabBar} source={require('../img/wodezhengdian2.png')} resizeMode='contain' />}
             // badgeText="1"
+            selectedTitleStyle={{color:'#AC9B65'}}
+
             onPress={ () => this.changeTab('我')}
             selected={this.props.selectedTab === '我'}>
           <MyPage navigator={this.props.navigator}/>
@@ -82,7 +88,9 @@ class TwitterTab extends Component {
 
 
 const styles = StyleSheet.create({
-
+  tabBar:{
+    // height:30,
+  }
 });
 
 function select(store) {

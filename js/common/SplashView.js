@@ -38,16 +38,11 @@ componentWillUnmount() {
         >
         <View style = {styles.section}>
       <Image
-      source={require('../img/logo2.png')}
+      source={require('../img/logo.png')}
       />
         </View>
 
-        <View style = {styles.section}>
-        </View>
-
-        <View style = {[styles.section,styles.last]}>
-        <Text style={styles.loginComment}>@copyright xxx#xxx.com</Text>
-        </View>
+        
       </View>
     );
   }

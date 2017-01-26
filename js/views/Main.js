@@ -53,21 +53,21 @@ class TwitterPost extends Component {
             'title': '正点1分彩',
             'time':'销售时间:10:00~23:00',
             'des':'每10分钟一期  ',
-            'img': 'https://facebook.github.io/react/img/logo_og.png'
+            'img': 'http://oeyxehw3i.bkt.clouddn.com/17-1-26/15041077-file_1485410586273_1788f.png'
         },
         {
             'gameId':13,
             'title': '正点3分彩',
             'time':'销售时间:10:00~23:00',
             'des':'每10分钟一期  ',
-            'img': 'https://facebook.github.io/react/img/logo_og.png'
+            'img': 'http://oeyxehw3i.bkt.clouddn.com/17-1-26/54381966-file_1485410586164_a676.png'
         },
         {
             'gameId':14,
             'title': '正点5分彩',
             'time':'销售时间:10:00~23:00',
             'des':'每10分钟一期  ',
-            'img': 'https://facebook.github.io/react/img/logo_og.png'
+            'img': 'http://oeyxehw3i.bkt.clouddn.com/17-1-26/30418472-file_1485410586052_1221f.png'
         },
           // {
           //     'gameId':17,
@@ -81,15 +81,15 @@ class TwitterPost extends Component {
             'title': '北京五分彩',
             'time':'销售时间:10:00~23:00',
             'des':'每10分钟一期  ',
-            'img': 'https://facebook.github.io/react/img/logo_og.png'
+            'img': 'http://oeyxehw3i.bkt.clouddn.com/17-1-26/4446956-file_1485410585890_e872.png'
         },
-        {
-            'gameId':26,
-            'title': '台湾五分彩',
-            'time':'销售时间:10:00~23:00',
-            'des':'每10分钟一期  ',
-            'img': 'https://facebook.github.io/react/img/logo_og.png'
-        },
+        // {
+        //     'gameId':26,
+        //     'title': '台湾五分彩',
+        //     'time':'销售时间:10:00~23:00',
+        //     'des':'每10分钟一期  ',
+        //     'img': 'https://facebook.github.io/react/img/logo_og.png'
+        // },
         // {
         //     'gameId':27,
         //     'title': '韩国1-5分彩',

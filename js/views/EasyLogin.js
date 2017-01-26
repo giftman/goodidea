@@ -18,7 +18,7 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE
- 
+
  * @flow
  */
 'use strict';
@@ -74,7 +74,7 @@ class EasyLogin extends Component{
            <View style={{flex:1}} />
            <Text style={[styles.text,{justifyContent:'flex-end'}]}>忘记密码？</Text>
            </View>
-          
+
       );
 
     if(this.state.status === 'register'){
@@ -90,8 +90,8 @@ class EasyLogin extends Component{
         <View style={styles.toolbar} />
         <View style={[styles.container,this.props.style]} >
           <View style={[styles.baseComponent]}>
-            
-            <Image source={{uri:'http://www.zhengdiangame.net/assets/images_v2/logo.png'}} style={styles.logo} />
+
+            <Image source={require('../img/logo.png')} style={styles.logo} resizeMode='contain' />
            <View style={styles.inputContainer}>
            <Image source={{uri:'https://d17oy1vhnax1f7.cloudfront.net/items/2A2i1S1m3t3S2H1P2C2j/user.png?v=cec82b32'}} style={{width:30,height:30,margin:5}} />
            <TextInput
@@ -99,7 +99,7 @@ class EasyLogin extends Component{
             onFocus={() => this.username.focus()}
             style={styles.input}
             onChangeText={(username) => {this.setState({username})}}
-             underlineColorAndroid={'transparent'}  
+             underlineColorAndroid={'transparent'}
             placeholder='帐号'/>
            </View>
            <View style={styles.inputContainer}>
@@ -110,7 +110,7 @@ class EasyLogin extends Component{
             onChangeText={(passwd) => {this.setState({passwd})}}
             style={styles.input}
             placeholder='密码'
-            underlineColorAndroid={'transparent'}  
+            underlineColorAndroid={'transparent'}
             password={true}/>
            </View>
           <View style={[styles.inputContainer,{marginTop:30,borderWidth:0,justifyContent:'center'}]}>
@@ -122,7 +122,7 @@ class EasyLogin extends Component{
         </View>
         );
       }
-    
+
 
   leftPress(){
     console.log("leftPress");
@@ -159,7 +159,7 @@ class EasyLogin extends Component{
  //        console.log(e.message);
  //        // this.setState({events:e.message});
  //    }
- //  } 
+ //  }
 
   rightPress(){
     const {dispatch} = this.props;
@@ -167,13 +167,13 @@ class EasyLogin extends Component{
        console.log(this.state.username);
        console.log(this.state.passwd);
        dispatch(login({"username":this.state.username,"password":this.state.passwd},this.props.navigator));
-    
+
     }else{
       console.log(this.state.username);
       console.log(this.state.passwd);
       // dispatch(signup(this.state.username, this.state.passwd));
     }
-    
+
   }
 }
 
@@ -196,8 +196,8 @@ const styles = StyleSheet.create({
      marginTop:-90,
   },
   logo:{
-    width:200,
-    height:60,
+    width:144,
+    height:144,
   },
   inputContainer: {
     marginTop: normalize(5),
@@ -227,7 +227,7 @@ const styles = StyleSheet.create({
     borderWidth:.2,
     borderColor:'#0890d6'
   },
-  style_view_commit:{  
+  style_view_commit:{ 
     width:normalize(275),
     height:normalize(50),
       backgroundColor:'#63B8FF',
@@ -240,7 +240,7 @@ const styles = StyleSheet.create({
     // fontWeight: 'bold',
     fontSize: 18,
   },
-  
+
 });
 
 function select(store) {
@@ -249,5 +249,3 @@ function select(store) {
   };
 }
 module.exports = connect(select)(EasyLogin);
-
-

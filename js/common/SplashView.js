@@ -33,17 +33,12 @@ componentWillUnmount() {
   render() {
     return (
 
-      <View
-        style={styles.container}
-        >
-        <View style = {styles.section}>
-      <Image
-      source={require('../img/logo.png')}
-      />
-        </View>
 
-        
-      </View>
+      <Image
+        style={styles.container}
+      source={require('../img/logo2.png')}
+      />
+
     );
   }
 }
@@ -54,7 +49,7 @@ var styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'white',
-    padding: 26,
+    // padding: 26,
     // Image's source contains explicit size, but we want
     // it to prefer flex: 1
     width: undefined,

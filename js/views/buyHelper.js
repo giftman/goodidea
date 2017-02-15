@@ -40,6 +40,17 @@ function randomPick(defaultGame) {
 
 }
 
+function ascOrder(x,y)
+{
+  if (x>y)
+  {
+    return 1;
+  }
+  else
+  {
+    return -1;
+  }
+}
 //check how many times had pay.
 function checkHowManyNumOfChipsAndAddToPackage(defaultGame, choice) {
 
@@ -66,7 +77,7 @@ function checkHowManyNumOfChipsAndAddToPackage(defaultGame, choice) {
             }
             ;
             if (choice[i]) {
-                choice[i].sort().map((n, index) => {
+                choice[i].sort(ascOrder).map((n, index) => {
                     if (methods[i].startOne) {
                         n = n + 1;
                     }

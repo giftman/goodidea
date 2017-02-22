@@ -1,7 +1,7 @@
 'use strict';
 
 import React, { Component } from 'react';
-import { Navigator,Image} from 'react-native';
+import { Navigator, Image, WebView} from 'react-native';
 import Util from '../utils/Util';
 const StyleSheet = require('../utils/CustomStyleSheet');
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -80,6 +80,33 @@ class TwitterTab extends Component {
             selected={this.props.selectedTab === '我'}>
           <MyPage navigator={this.props.navigator}/>
         </TabNavigator.Item>
+        <TabNavigator.Item
+           title="客服"
+           renderIcon={() => <Image style={styles.tabBar} source={require('../img/lianxikefu1.png')} resizeMode='contain' />}
+           renderSelectedIcon={() => <Image style={styles.tabBar} source={require('../img/lianxikefu2.png')} resizeMode='contain' />}
+           // badgeText="1"
+           selectedTitleStyle={{color:'#AC9B65'}}
+
+           onPress={ () => this.changeTab('客服')}
+           selected={this.props.selectedTab === '客服'}>
+           <WebView
+            ref={(ref) => { this.webview = ref; }}
+            automaticallyAdjustContentInsets={false}
+            style={styles.base}
+            source={{ uri: 'https://chat6.livechatvalue.com/chat/chatClient/chatbox.jsp?companyID=632777&configID=48959&jid=7175212580&s=1' }}
+            javaScriptEnabled
+            domStorageEnabled
+            startInLoadingState
+            scalesPageToFit
+            decelerationRate="normal"
+            onShouldStartLoadWithRequest={() => {
+              const shouldStartLoad = true;
+              return shouldStartLoad;
+            }}
+            // onNavigationStateChange={this.onNavigationStateChange}
+            // renderLoading={this.renderLoading}
+          />
+       </TabNavigator.Item>
       </TabNavigator>
             );
     }
@@ -88,8 +115,8 @@ class TwitterTab extends Component {
 
 
 const styles = StyleSheet.create({
-  tabBar:{
-    // height:30,
+  base: {
+    flex: 1
   }
 });
 

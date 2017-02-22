@@ -26,7 +26,7 @@
 
 import type {Action} from '../actions/types';
 
-export type Tab = '主页' | '通知' | '我';
+export type Tab = '主页' | '通知' | '我' | '客服';
 
 type State = {
   selectedTab: Tab;

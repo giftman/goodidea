@@ -8,29 +8,31 @@ import Util from '../../utils/Util';
 import F8Header from '../../common/F8Header';
 import PureListView from '../../common/PureListView';
 import { headerBG } from '../../common/F8Colors';
+import { gameMoneyDetailType } from '../ssc';
 import ScrollableTabView, { ScrollableTabBar, } from 'react-native-scrollable-tab-view';
 class TwitterFlow extends Component {
     constructor(props: Props) {
         super(props);
-        this.data = [{
-            'title': '加入游戏',
-            'timestamp': 123123,
-            'money': -1231
-        }, {
-            'title': '派发现金',
-            'timestamp': 123123,
-            'money': +1231
-        }, {
-            'title': '加入游戏',
-            'timestamp': 123123,
-            'money': 1231
-        }]
+        this.data = this.props.data.data
+        // [{
+        //     'title': '加入游戏',
+        //     'timestamp': 123123,
+        //     'money': -1231
+        // }, {
+        //     'title': '派发现金',
+        //     'timestamp': 123123,
+        //     'money': +1231
+        // }, {
+        //     'title': '加入游戏',
+        //     'timestamp': 123123,
+        //     'money': 1231
+        // }]
         let moneyGet = [];
         let moneyPay = [];
         this.data.map((elem, index) => {
-            if (elem.money > 0) {
+            if (elem.type_id === 7) {
                 moneyGet.push(elem);
-            } else {
+            } else if(elem.type_id === 11) {
                 moneyPay.push(elem);
             }
         });
@@ -133,11 +135,10 @@ class ReadingListView extends React.Component {
         return (
             <View style={styles.container}>
               <View>
-                <Text style={styles.title}>{article.title}</Text>
-                <Text style={styles.time}>{article.timestamp}</Text>
+                <Text style={styles.title}>{gameMoneyDetailType(article.type_id)}</Text>
+                <Text style={styles.time}>{article.created_at}</Text>
               </View>
-              {article.money > 0 ? <Text style={styles.money2} > + {article.money}</Text> : <Text style={styles.money}>{article.money}</Text>}
-
+              {parseInt(article.amount) > 0 ? <Text style={styles.money2} > + {article.amount}</Text> : <Text style={styles.money}>{article.amount}</Text>}
             </View>
             );
     }

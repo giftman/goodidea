@@ -297,6 +297,33 @@ function getTraceRecord(questionInfo,navigator) {
   };
 }
 
+function getMoneyDetail(questionInfo,navigator) {
+  return dispatch => {
+    dispatch(showLoading());
+    return new AppAuthToken().getSessionToken()
+
+      .then((token) => {
+        return BackendFactory(token.sessionToken).getMoneyDetail(questionInfo);
+      })
+      .then((result) => {
+        console.log(result);
+         dispatch(closeLoading());
+      if(result.error_code == '00'){
+        navigator.push({
+            "my": 'moneyDetail',
+            data:result.data
+        });
+      }else{
+        toastShort(result.message);
+      }
+      })
+      .catch((error) => {
+        console.log(error);
+        // dispatch(getToken());
+      });
+  };
+}
+
 function getGameRecordDetail(id,callback) {
   return dispatch => {
     dispatch(showLoading());
@@ -360,4 +387,18 @@ function closeLoading(): Action {
 }
 
 
-module.exports = {getTraceRecord,getGameRecordDetail,getGameRecord,setSecurityQuestion,getToken,login,getGameConfig,checkToken,bet,logout,checkSecurityQuestion,resetPasswordA};
+module.exports = {
+  getMoneyDetail,
+  getTraceRecord,
+  getGameRecordDetail,
+  getGameRecord,
+  setSecurityQuestion,
+  getToken,
+  login,
+  getGameConfig,
+  checkToken,
+  bet,
+  logout,
+  checkSecurityQuestion,
+  resetPasswordA
+};

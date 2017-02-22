@@ -4,7 +4,7 @@ import { StyleSheet, View, Text, Platform, ScrollView, TouchableOpacity } from "
 import Util from '../../utils/Util';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {normalize} from '../../common/F8Colors'
-import { getGameRecord , getTraceRecord} from '../../actions';
+import { getGameRecord , getTraceRecord , getMoneyDetail} from '../../actions';
 import { connect } from 'react-redux';
 
 function formatMinutes(minutes){
@@ -45,17 +45,29 @@ class MyPage extends Component {
         var frommonth=new Date(from_timestamp).getMonth()+1;
         var fromyear=new Date(from_timestamp).getFullYear();
         var bought_at_from=fromyear + '-' + frommonth + '-'+fromdate;
-        // gameInfo['bought_at_from']=new Date();
-        gameInfo['bought_at_from']=bought_at_from + ' 00:00:00';
-        // gameInfo['bought_at_to']=new Date();
-        gameInfo['bought_at_to']= bought_at_to + ' 23:59:59';
+
         console.log(gameInfo);
         switch (tab) {
           case "gameRecord":
+          // gameInfo['bought_at_from']=new Date();
+          gameInfo['bought_at_from']=bought_at_from + ' 00:00:00';
+          // gameInfo['bought_at_to']=new Date();
+          gameInfo['bought_at_to']= bought_at_to + ' 23:59:59';
             this.props.getGameRecord(gameInfo,this.props.navigator);
             break;
           case "traceRecord":
+          // gameInfo['bought_at_from']=new Date();
+          gameInfo['bought_at_from']=bought_at_from + ' 00:00:00';
+          // gameInfo['bought_at_to']=new Date();
+          gameInfo['bought_at_to']= bought_at_to + ' 23:59:59';
             this.props.getTraceRecord(gameInfo,this.props.navigator);
+            break;
+          case "moneyDetail":
+          // gameInfo['bought_at_from']=new Date();
+          gameInfo['created_at_from']=bought_at_from + ' 00:00:00';
+          // gameInfo['bought_at_to']=new Date();
+          gameInfo['created_at_to']= bought_at_to + ' 23:59:59';
+            this.props.getMoneyDetail(gameInfo,this.props.navigator);
             break;
           default:
             this.props.navigator.push({
@@ -215,7 +227,8 @@ function select(store) {
 function actions(dispatch) {
     return {
       getGameRecord:(game,nav)=>dispatch(getGameRecord(game,nav)),
-        getTraceRecord:(game,nav)=>dispatch(getTraceRecord(game,nav)),
+      getTraceRecord:(game,nav)=>dispatch(getTraceRecord(game,nav)),
+        getMoneyDetail:(game,nav)=>dispatch(getMoneyDetail(game,nav)),
     };
 }
 module.exports = connect(select,actions)(MyPage);

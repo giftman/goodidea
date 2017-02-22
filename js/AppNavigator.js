@@ -145,7 +145,7 @@ var AppNavigator = React.createClass({
         if (route.my) {
             switch (route.my) {
             case "moneyDetail":
-                return <MoneyDetail navigator={navigator} />;
+                return <MoneyDetail navigator={navigator} data={route.data}/>;
                 break;
             case "setting":
                 return <SettingView navigator={navigator} />;

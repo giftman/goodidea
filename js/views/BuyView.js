@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react';
 
-import { View, Text, Image, ScrollView, TouchableOpacity, RefreshControl, Animated, Easing } from 'react-native';
+import {Platform, View, Text, Image, ScrollView, TouchableOpacity, RefreshControl, Animated, Easing } from 'react-native';
 
 import Util from '../utils/Util';
 import { toastShort } from '../utils/ToastUtil';
@@ -176,12 +176,17 @@ class BuyView extends Component {
     }
 
     _tipClick() {
+      if(Platform.OS === 'ios'){
         let showTip = this.state.showTip;
         if (showTip) {
             this._popTip();
         } else {
             this._pushTip();
         }
+      }else{
+        toastShort(this.state.showTip);
+      }
+
     }
 
     _popTip() {
@@ -373,6 +378,7 @@ class BuyView extends Component {
         <CountDown
           text={'当前期数:' + this.props.orderNum + '  投注截止:'}
           time={timeMinus}
+          changeAfterTen={[1,14,25,26].includes(this.props.defaultGame.gameId)}
           timesUp={() => this._updateCurrentorderNum()}
           />
       </TipPadding>

@@ -354,6 +354,24 @@ _token:VbZVLaUP4rGVBlDIqMlJa6WOnA5P138bJY13KcDx}
                 });
     }
 
+    async getMoneyDetail(data) {
+        return await this._fetch({
+                method: 'POST',
+                url: '/phone-transaction',
+                body: data
+            })
+                .then((response) => {
+                    if ( (response.status === 200 || response.status === 201) ) {
+                        return response.json();
+                    } else {
+                        throw (response);
+                    }
+                })
+                .catch((error) => {
+                    throw (error);
+                });
+    }
+
     async getGameRecordDetail(id) {
         return await this._fetch({
                 method: 'POST',

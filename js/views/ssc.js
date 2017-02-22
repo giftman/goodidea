@@ -47,6 +47,31 @@ const gameRecordStatusType = {
   0:"待开奖", 1:"已撤消",
 2:"未中奖", 3:"已中奖" ,4:"已派奖" ,5:"系统撤消", 6:"超额撤单" ,7:"管理撤单"
 }
+
+const moneyDetailType = {
+  1:"在线充值",
+  2:"提取现金",
+  3:"转账转入",
+  4:"转账转出",
+  5:"追号冻结",
+  6:"追号解冻",
+  7:"加入游戏",
+  8:"撤单返款",
+  9:"提现冻结",
+  10:"提现解冻",
+  11:"派发奖金",
+  12:"撤销派奖",
+  13:"投注返点",
+  14:"撤销佣金",
+  15:"追号返款",
+  16:"充值费用返还",
+  17:"提现手续费",
+  18:"人工充值",
+  19:"管理员提现",
+  20:"分红",//总代可见
+  21:"撤销分红",//总代可见
+  22:"理赔充值"
+}
 function getGameTypeConfig(type){
   return GAME_TYPE[type];
 }
@@ -58,9 +83,14 @@ function gameRecordStatus(type){
   return gameRecordStatusType[type];
 }
 
+function gameMoneyDetailType(type){
+  return moneyDetailType[type];
+}
+
 
 module.exports = {
   getGameTypeConfig,
   gameTraceStatus,
-  gameRecordStatus
+  gameRecordStatus,
+  gameMoneyDetailType
 }

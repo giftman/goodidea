@@ -83,13 +83,13 @@ class TwitterPost extends Component {
             'des':'每10分钟一期  ',
             'img': 'http://oeyxehw3i.bkt.clouddn.com/17-1-26/4446956-file_1485410585890_e872.png'
         },
-        // {
-        //     'gameId':26,
-        //     'title': '台湾五分彩',
-        //     'time':'销售时间:10:00~23:00',
-        //     'des':'每10分钟一期  ',
-        //     'img': 'https://facebook.github.io/react/img/logo_og.png'
-        // },
+        {
+            'gameId':26,
+            'title': '台湾五分彩',
+            'time':'销售时间:10:00~23:00',
+            'des':'每10分钟一期  ',
+            'img': 'https://facebook.github.io/react/img/logo_og.png'
+        },
         // {
         //     'gameId':27,
         //     'title': '韩国1-5分彩',

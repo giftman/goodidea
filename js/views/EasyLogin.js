@@ -86,7 +86,7 @@ class EasyLogin extends Component{
         );
     }
       return (
-        <View style={{flex:1,alignItems:'center',justifyContent:'center',backgroundColor: 'white',height:Util.size.height}} >
+        <View style={{flex:1,alignItems:'center',justifyContent:'center',backgroundColor: headerBG,height:Util.size.height}} >
         <View style={styles.toolbar} />
         <View style={[styles.container,this.props.style]} >
           <View style={[styles.baseComponent]}>
@@ -114,7 +114,7 @@ class EasyLogin extends Component{
             password={true}/>
            </View>
           <View style={[styles.inputContainer,{marginTop:30,borderWidth:0,justifyContent:'center'}]}>
-           <TouchableOpacity style={[styles.style_view_commit,{backgroundColor:headerBG}]} onPress={this.rightPress.bind(this)} activeOpacity={0.8}><Text style={styles.buttonText}>{words[1]}</Text></TouchableOpacity>
+           <TouchableOpacity style={[styles.style_view_commit,{backgroundColor:'#CA5D48'}]} onPress={this.rightPress.bind(this)} activeOpacity={0.8}><Text style={styles.buttonText}>{words[1]}</Text></TouchableOpacity>
            </View>
           </View>
         </View>
@@ -198,6 +198,7 @@ const styles = StyleSheet.create({
   logo:{
     width:144,
     height:144,
+    marginBottom:50,
   },
   inputContainer: {
     marginTop: normalize(5),
@@ -205,9 +206,10 @@ const styles = StyleSheet.create({
     width:normalize(275),
     borderRadius: 5,
     borderWidth: 1,
-    borderColor: headerBG,
+    // borderColor: headerBG,
     alignItems: 'center',
     flexDirection: 'row',
+    backgroundColor: '#fff'
   },
   input:{
     flex:1,
@@ -220,18 +222,18 @@ const styles = StyleSheet.create({
   },
   container: {
     // flexDirection: 'row',
-    backgroundColor:'white',
+    backgroundColor:headerBG,
     width:Util.size.width,
     height:Util.size.height,
-    borderRadius:normalize(30),
-    borderWidth:.2,
-    borderColor:'#0890d6'
+    // borderRadius:normalize(30),
+    // borderWidth:.2,
+    // borderColor:'#0890d6'
   },
   style_view_commit:{ 
     width:normalize(275),
     height:normalize(50),
       backgroundColor:'#63B8FF',
-      borderRadius:15,
+//       borderRadius:15,
       justifyContent: 'center',
       alignItems: 'center',
   },

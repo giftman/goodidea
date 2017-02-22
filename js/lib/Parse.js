@@ -415,6 +415,32 @@ _token:VbZVLaUP4rGVBlDIqMlJa6WOnA5P138bJY13KcDx}
                 throw (error);
             });
     }
+    async resetMoneyPass(username,data) {
+      var md5 = require("./md5")
+        data['new_fund_password_confirm'] = md5(md5(md5(username + data["new_password"])))
+        data['new_fund_password'] = md5(md5(md5(username + data["new_password"])))
+        data['old_fund_password'] = md5(md5(md5(username + data["old_password"])))
+        console.log(data);
+        return await this._fetch({
+                method: 'POST',
+                url: '/phone/update-fund-password',
+                body: data
+            })
+            .then((response) => {
+                if ( (response.status === 200 || response.status === 201) ) {
+                    return response.json();
+                } else {
+                    throw (response);
+                }
+            })
+            // .then((json) => {
+            //     console.log(json);
+            //     return json.data;
+            // })
+            .catch((error) => {
+                throw (error);
+            });
+    }
     /**
      * ### getProfile
      * Using the sessionToken, we'll get everything about

@@ -63,6 +63,13 @@ class SettingView extends Component {
                  <Icon name='ios-arrow-forward' size={25} color="#eee"></Icon>
             </View>
         </TouchableOpacity>
+        <TouchableOpacity style={styles.itemContain} onPress={() => this.onClick("changeMoneyPass")}>
+            <Icon name='md-cash' size={30} color="#666"></Icon>
+            <View style={styles.item}>
+                <Text style={styles.itemTitle}>修改资金密码</Text>
+                 <Icon name='ios-arrow-forward' size={25} color="#eee"></Icon>
+            </View>
+        </TouchableOpacity>
         <TouchableOpacity style={styles.itemContain} onPress={() => this.onClick("changeSafeQuestion")}>
             <Icon name='md-card' size={30} color="#666"></Icon>
             <View style={styles.item}>

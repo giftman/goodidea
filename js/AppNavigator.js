@@ -42,6 +42,7 @@ import TraceRecord from './views/Other/TraceRecord';
 import GameRecordDetail from './views/Other/GameRecordDetail';
 import TraceRecordDetail from './views/Other/TraceRecordDetail';
 import ChangePasswd from './views/Other/ChangePasswd';
+import ChangeMoneyPass from './views/Other/ChangeMoneyPass';
 import SetSecurityQuestion from './views/Other/SetSecurityQuestion';
 import SettingView from './views/Other/SettingView';
 import BuyPackage from './views/BuyPackage';
@@ -158,6 +159,9 @@ var AppNavigator = React.createClass({
                 break;
             case "changePasswd":
                 return <ChangePasswd navigator={navigator} />;
+                break;
+            case "changeMoneyPass":
+                return <ChangeMoneyPass navigator={navigator} />;
                 break;
             case "changeSafeQuestion":
                 return <SetSecurityQuestion navigator={navigator} data={route.data}/>;

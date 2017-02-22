@@ -375,6 +375,33 @@ function resetPasswordA(user,data) {
   };
 }
 
+function resetMoneyPass(user,data) {
+  return dispatch => {
+    // dispatch(showLoading());
+    // console.log("reset");
+    return new AppAuthToken().getSessionToken()
+      .then((token) => {
+        console.log(token);
+        return BackendFactory(token.sessionToken).resetMoneyPass(user,data);
+      })
+      .then((result) => {
+        console.log(result);
+         dispatch(closeLoading());
+      if(result.error_code == '00'){
+        toastShort(result.message);
+        // navigator.pop();
+      }else{
+        toastShort(result.message);
+      }
+      })
+
+      .catch((error) => {
+        console.log(error);
+        // dispatch(getToken());
+      });
+  };
+}
+
 function showLoading(): Action {
   return {
     type: 'SHOW_LOADING',

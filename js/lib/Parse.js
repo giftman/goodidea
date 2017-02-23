@@ -270,6 +270,54 @@ _token:VbZVLaUP4rGVBlDIqMlJa6WOnA5P138bJY13KcDx}
     }
 
     /**
+     * ### logout
+     * prepare the request and call _fetch
+     */
+    async withdrawalInfo() {
+        return await this._fetch({
+                method: 'POST',
+                url: '/phone-withdrawal/init',
+                body: {}
+            })
+                .then((response) => {
+                    if ( (response.status === 200 || response.status === 201) ) {
+                        return response.json();
+                    } else {
+                        throw (response);
+                    }
+                })
+                // .then((json) => {
+                //     console.log(json);
+                //     return json.data;
+                // })
+                .catch((error) => {
+                    throw (error);
+                });
+
+    }
+
+    async withdrawalApply(data) {
+        return await this._fetch({
+                method: 'POST',
+                url: '/phone-withdrawal/withdrawal',
+                body: data
+            })
+                .then((response) => {
+                    if ( (response.status === 200 || response.status === 201) ) {
+                        return response.json();
+                    } else {
+                        throw (response);
+                    }
+                })
+                // .then((json) => {
+                //     console.log(json);
+                //     return json.data;
+                // })
+                .catch((error) => {
+                    throw (error);
+                });
+    }
+    /**
      * ### checkSecurityQuestion
      * prepare the request and call _fetch
      */

@@ -1,11 +1,12 @@
 'use strict';
 import React, { Component } from "react";
-import { StyleSheet, View, Text, Platform, ScrollView, TouchableOpacity } from "react-native";
+import { StyleSheet, View, Image, Text, Platform, ScrollView, TouchableOpacity } from "react-native";
 import Util from '../../utils/Util';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {normalize} from '../../common/F8Colors'
 import { getGameRecord , getTraceRecord , getMoneyDetail} from '../../actions';
 import { connect } from 'react-redux';
+import F8Header from '../../common/F8Header';
 
 function formatMinutes(minutes){
     var day = parseInt(Math.floor(minutes / 86400));
@@ -79,96 +80,154 @@ class MyPage extends Component {
 //
     render() {
         return (
-            <View style={styles.container}>
-            <View style={{
-                width: Util.size.width,
-                height: normalize(100),
-                backgroundColor: '#323245',
-            }} />
+          <View style={styles.container}>
+            <F8Header style={{
+                backgroundColor: "#323245"
+              }}
+              title="个人中心"
+              />
 
-    <View style={{
-                width: Util.size.width,
-                height: normalize(82),
-                backgroundColor: '#3DAAA4',
-                flexDirection: 'row',
-                alignItems: 'center'
-            }} >
-        <View style={{
-                flex: 1
-            }}/>
-        <View style={{
-                flex: 2,
-                borderLeftWidth: 1,
-                borderColor: '#eee',
-                borderRightWidth: 1,
-                height: normalize(70),
-                alignItems: 'center',
-                justifyContent: 'center'
-            }} >
-        <Text style={{
-                color: 'white',
-                fontSize: 18,
-                fontWeight: '300'
-            }}>余额:￥{this.props.balance}元</Text>
-        </View>
-        <View style={{
-                flex: 1
-            }} />
-    </View>
+              <View style={{
+                  width: Util.size.width,
+                  height: normalize(82),
+                  backgroundColor: '#56B7A4',
+                  flexDirection: 'row',
+                  alignItems: 'center'
+                }} >
+                <TouchableOpacity
+                  style={{flex: 1}}
+                  onPress={() => this.onClick("pay")}>
+                  <View style={{
+                      flex: 1,
+                      alignItems: 'center',
+                      justifyContent: 'center'
+                    }}>
+                    <Image source={require('../../img/chongzhi.png')} resizeMode='contain' />
+                    <Text style={{
+                          color: 'white',
+                          fontSize: 18,
+                          fontWeight: '400',
+                          paddingTop:5,
+                        }}>充值</Text>
+                  </View>
+                </TouchableOpacity>
 
-    <ScrollView style={{
-                flex: 1
-            }}>
-        <View style={styles.paddingHeight}/>
-        <TouchableOpacity style={styles.itemContain} onPress={() => this.onClick("moneyDetail")}>
-            <Icon name='md-cash' size={30} color="#666"></Icon>
-            <View style={styles.item}>
-                <Text style={styles.itemTitle}>资金明细</Text>
-                 <Icon name='ios-arrow-forward' size={25} color="#eee"></Icon>
-            </View>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.itemContain} onPress={() => this.onClick("gameRecord")}>
-            <Icon name='md-card' size={30} color="#666"></Icon>
-            <View style={styles.item}>
-                <Text style={styles.itemTitle}>游戏记录</Text>
-                 <Icon name='ios-arrow-forward' size={25} color="#eee"></Icon>
-            </View>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.itemContain} onPress={() => this.onClick("traceRecord")}>
-            <Icon name='md-albums' size={30} color="#666"></Icon>
-            <View style={styles.item}>
-                <Text style={styles.itemTitle}>追号记录</Text>
-                 <Icon name='ios-arrow-forward' size={25} color="#eee"></Icon>
-            </View>
-        </TouchableOpacity>
+                  <View style={{
+                      flex: 2,
+                      borderLeftWidth: 1,
+                      borderColor: '#eee',
+                      borderRightWidth: 1,
+                      height: normalize(70),
+                      alignItems: 'center',
+                      justifyContent: 'center'
+                    }} >
+                    <Image source={require('../../img/logo.png')} style={styles.logo} resizeMode='contain' />
 
-        <View style={styles.paddingHeight}/>
-        {/*
-        <TouchableOpacity style={styles.itemContain} onPress={() => this.onClick("detail")}>
-            <Icon name='md-mail' size={30} color="#666"></Icon>
-            <View style={styles.item}>
-                <Text style={styles.itemTitle}>站内信</Text>
-                 <Icon name='ios-arrow-forward' size={25} color="#eee"></Icon>
-            </View>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.itemContain} onPress={() => this.onClick("detail")}>
-            <Icon name='md-alarm' size={30} color="#666"></Icon>
-            <View style={styles.item}>
-                <Text style={styles.itemTitle}>公告</Text>
-                 <Icon name='ios-arrow-forward' size={25} color="#eee"></Icon>
-            </View>
-        </TouchableOpacity>
+                    <Text style={{
+                        color: 'white',
+                        fontSize: 16,
+                        fontWeight: '300'
+                      }}>余额: {this.props.balance}元</Text>
+                    </View>
+                    <TouchableOpacity
+                      style={{flex: 1}}
+                      onPress={() => this.onClick("withdraw")}>
+                      <View style={{
+                          flex: 1,
+                          alignItems: 'center',
+                          justifyContent: 'center'
+                        }}>
+                        <Image source={require('../../img/tixian.png')} resizeMode='contain' />
+                        <Text style={{
+                              color: 'white',
+                              fontSize: 18,
+                              fontWeight: '400',
+                              paddingTop:5,
+                            }}>提现</Text>
+                      </View>
+                    </TouchableOpacity>
+                    </View>
 
-        <View style={styles.paddingHeight}/>
-        */}
-        <TouchableOpacity style={styles.itemContain} onPress={() => this.onClick("setting")}>
-            <Icon name='md-settings' size={30} color="#666"></Icon>
-            <View style={styles.item}>
-                <Text style={styles.itemTitle}>设置</Text>
-                 <Icon name='ios-arrow-forward' size={25} color="#eee"></Icon>
-            </View>
-        </TouchableOpacity>
-    </ScrollView>
+                    <ScrollView style={{
+                        flex: 1
+                      }}>
+                      <View style={styles.paddingHeight}/>
+                      <TouchableOpacity
+                        style={styles.itemContain}
+                        onPress={() => this.onClick("moneyDetail")}>
+                      <Image source={require('../../img/zijinmixi.png')} resizeMode='contain' />
+                        <View style={styles.item}>
+                          <Text style={styles.itemTitle}>资金明细</Text>
+                          <Icon
+                            name='ios-arrow-forward'
+                            size={25}
+                            color="#eee">
+                          </Icon>
+                        </View>
+                      </TouchableOpacity>
+                      <TouchableOpacity
+                        style={styles.itemContain}
+                        onPress={() => this.onClick("gameRecord")}>
+                        <Image source={require('../../img/youxijilu.png')} resizeMode='contain' />
+
+                        <View style={styles.item}>
+                          <Text style={styles.itemTitle}>游戏记录</Text>
+                          <Icon
+                            name='ios-arrow-forward'
+                            size={25}
+                            color="#eee">
+                          </Icon>
+                        </View>
+                      </TouchableOpacity>
+                      <TouchableOpacity
+                        style={styles.itemContain}
+                        onPress={() => this.onClick("traceRecord")}>
+                        <Image source={require('../../img/zhuihaojilu.png')} resizeMode='contain' />
+
+                        <View style={styles.item}>
+                          <Text style={styles.itemTitle}>追号记录</Text>
+                          <Icon
+                            name='ios-arrow-forward'
+                            size={25}
+                            color="#eee">
+                          </Icon>
+                        </View>
+                      </TouchableOpacity>
+
+                      <View style={styles.paddingHeight}/>
+                      {/*
+                        <TouchableOpacity style={styles.itemContain} onPress={() => this.onClick("detail")}>
+                        <Icon name='md-mail' size={30} color="#666"></Icon>
+                        <View style={styles.item}>
+                        <Text style={styles.itemTitle}>站内信</Text>
+                        <Icon name='ios-arrow-forward' size={25} color="#eee"></Icon>
+                      </View>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.itemContain} onPress={() => this.onClick("detail")}>
+                    <Icon name='md-alarm' size={30} color="#666"></Icon>
+                    <View style={styles.item}>
+                    <Text style={styles.itemTitle}>公告</Text>
+                    <Icon name='ios-arrow-forward' size={25} color="#eee"></Icon>
+                  </View>
+                </TouchableOpacity>
+
+                <View style={styles.paddingHeight}/>
+                */}
+                <TouchableOpacity
+                  style={styles.itemContain}
+                  onPress={() => this.onClick("setting")}>
+                  <Image source={require('../../img/shezhi.png')} resizeMode='contain' />
+
+                  <View style={styles.item}>
+                    <Text style={styles.itemTitle}>设置</Text>
+                    <Icon
+                      name='ios-arrow-forward'
+                      size={25}
+                      color="#eee">
+                    </Icon>
+                  </View>
+                </TouchableOpacity>
+              </ScrollView>
 
             </View>
 
@@ -206,7 +265,7 @@ const styles = StyleSheet.create({
         borderColor: '#bbb'
     },
     itemTitle: {
-        fontWeight: '500',
+        fontWeight: '400',
         fontSize: 18,
         color: 'gray'
     },
@@ -214,7 +273,15 @@ const styles = StyleSheet.create({
         width: Util.size.width,
         height: 15,
         backgroundColor: '#eee'
-    }
+    },
+    logo:{
+      width:42,
+      height:42,
+      marginBottom:5,
+      borderRadius:20,
+      padding:8,
+      backgroundColor:'#fff'
+    },
 })
 
 function select(store) {

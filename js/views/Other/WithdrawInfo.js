@@ -2,7 +2,8 @@
 
 import React, { Component } from 'react';
 
-import { View, Text,ScrollView, TouchableOpacity,TextInput} from 'react-native';
+import { View, Text, ScrollView, TouchableOpacity,TextInput} from 'react-native';
+import ModalDropdown from 'react-native-modal-dropdown';
 
 import Util from '../../utils/Util';
 import { toastShort } from '../../utils/ToastUtil';
@@ -11,10 +12,11 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import F8Header from '../../common/F8Header';
 import EasyButton from '../../common/EasyButton';
 import {normalize,headerBG} from '../../common/F8Colors';
+import TipPadding from '../TipPadding';
 import { resetMoneyPass} from '../../actions';
 
 import { connect } from 'react-redux';
-class ChangeMoneyPass extends Component {
+class WithdrawalInfo extends Component {
   constructor(props) {
     super(props);
 
@@ -54,13 +56,15 @@ class ChangeMoneyPass extends Component {
             onPress: () => this.props.navigator.pop(),
         };
 
+        var tip = '每日限提20次，今天您已经发起了0次提现申请，每日免费提现3次，今日已经免费提现0次'
+
         return (
           <View style={styles.container}>
             <F8Header
               style={{
                 backgroundColor: "#323245"
               }}
-              title="修改资金密码"
+              title="提现"
               leftItem={leftItem}
               >
             </F8Header>
@@ -69,35 +73,42 @@ class ChangeMoneyPass extends Component {
                 justifyContent:'flex-start',
                 alignItems:'center',
               }}>
-              <View style={styles.paddingHeight}/>
-              <View style={styles.inputContainer}>
-                <TextInput
-                  ref={(passwd) => this.passwd = passwd}
-                  onFocus={() => this.passwd.focus()}
-                  style={styles.input}
-                  onChangeText={(passwd) => {this.setState({passwd})}}
-                  underlineColorAndroid={'transparent'}
-                  password={true}
-                  placeholder='当前密码'/>
+              <TipPadding style={{height:60}} content={tip} />
+              <View style={[styles.inputContainer,{backgroundColor:'#eaeaea'}]}>
+                <Text style={{fontSize:16,paddingRight:5}}> 用户名:</Text>
+                <Text style={{fontSize:16,paddingRight:5,color:'#666'}}> hhksa7787</Text>
+              </View>
+              <View style={[styles.inputContainer,{backgroundColor:'#eaeaea'}]}>
+                <Text style={{fontSize:16,paddingRight:5}}> 可提现金额:</Text>
+                <Text style={{fontSize:16,paddingRight:5,color:'#DC5341'}}>
+                  50000 元
+                </Text>
               </View>
               <View style={styles.inputContainer}>
-              <TextInput
-                style={styles.input}
-                onChangeText={(newPasswd) => {this.setState({newPasswd})}}
-                underlineColorAndroid={'transparent'}
-                password={true}
-                placeholder='新密码'/>
-            </View>
-            <View style={styles.inputContainer}>
-            <TextInput
-              style={styles.input}
-              onChangeText={(newPasswd2) => {this.setState({newPasswd2})}}
-              underlineColorAndroid={'transparent'}
-              password={true}
-              placeholder='确认新密码'/>
-          </View>
+                <Text style={{fontSize:16,paddingRight:5}}> 到账银行卡: </Text>
+                <ModalDropdown
+                    defaultValue={' 请选择收款银行卡'}
+                    style={{padding:5,alignItems:'flex-start',backgroundColor:'transparent'}}
+                    options={['CCMB','NBC','WDT']}
+                    textStyle={{color:'#666',fontSize:16,textAlign:'left',width:Util.size.width*.9}}
+                    onSelect={(i,value) => this._dropDownSelect(i)}
+                    />
+              </View>
               <View style={styles.paddingHeight}/>
-              <Text style={{fontSize:16,color:'#666',paddingBottom:10}}>(由字母和数字组成6-16个字符，且必须包含数字和字母，不允许连续三位相同。)</Text>
+
+              <View style={styles.inputContainer}>
+                <Text style={{fontSize:16,paddingRight:5}}> 提现金额:</Text>
+                <TextInput
+                  style={styles.input}
+                  onChangeText={(newPasswd2) => {this.setState({newPasswd2})}}
+                  underlineColorAndroid={'transparent'}
+                  password={false}
+                  placeholder='请在此输入金额'/>
+              </View>
+              <View style={styles.paddingHeight}/>
+              <Text style={{fontSize:16,color:'#666',padding:10}}>
+                单笔最低提现金额 100 元，最高 50000 元，超过免费提现次数，则单次提现将收取2元手续费
+              </Text>
               <View style={{justifyContent:'center',alignItems:'center'}}>
                 <TouchableOpacity
                   style={[styles.confirmBtn, {
@@ -108,7 +119,7 @@ class ChangeMoneyPass extends Component {
                       color: '#fff',
                       fontSize: 18,
                       fontWeight: '400'
-                    }}>确认修改</Text>
+                    }}>下一步</Text>
                   </TouchableOpacity>
                 </View>
               </View>
@@ -168,4 +179,4 @@ function actions(dispatch) {
         resetMoneyPass:(user,data)=>dispatch(resetMoneyPass(user,data)),
     };
 }
-module.exports = connect(select,actions)(ChangeMoneyPass);
+module.exports = connect(select,actions)(WithdrawalInfo);

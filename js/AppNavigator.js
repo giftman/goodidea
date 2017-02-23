@@ -43,6 +43,9 @@ import GameRecordDetail from './views/Other/GameRecordDetail';
 import TraceRecordDetail from './views/Other/TraceRecordDetail';
 import ChangePasswd from './views/Other/ChangePasswd';
 import ChangeMoneyPass from './views/Other/ChangeMoneyPass';
+import WithdrawInfo from './views/Other/WithdrawInfo';
+import WithdrawalApply from './views/Other/WithdrawApply';
+import WithdrawalResult from './views/Other/WithdrawResult';
 import SetSecurityQuestion from './views/Other/SetSecurityQuestion';
 import SettingView from './views/Other/SettingView';
 import BuyPackage from './views/BuyPackage';
@@ -150,6 +153,18 @@ var AppNavigator = React.createClass({
                 break;
             case "setting":
                 return <SettingView navigator={navigator} />;
+                break;
+            case "pay":
+                return <SettingView navigator={navigator} />;
+                break;
+            case "withdraw":
+                return <WithdrawInfo navigator={navigator} data={route.data}/>;
+                break;
+            case "withdrawApply":
+                return <WithdrawalApply navigator={navigator} data={route.data} amount={route.amount} bank={route.bank} />;
+                break;
+            case "withdrawResult":
+                return <WithdrawalResult navigator={navigator} />;
                 break;
             case "gameRecord":
                 return <GameRecord navigator={navigator} data={route.data}/>;

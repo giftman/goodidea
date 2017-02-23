@@ -273,7 +273,7 @@ _token:VbZVLaUP4rGVBlDIqMlJa6WOnA5P138bJY13KcDx}
      * ### logout
      * prepare the request and call _fetch
      */
-    async withdrawalInfo() {
+    async withdraw() {
         return await this._fetch({
                 method: 'POST',
                 url: '/phone-withdrawal/init',
@@ -296,7 +296,7 @@ _token:VbZVLaUP4rGVBlDIqMlJa6WOnA5P138bJY13KcDx}
 
     }
 
-    async withdrawalApply(data) {
+    async withdrawApply(data) {
         return await this._fetch({
                 method: 'POST',
                 url: '/phone-withdrawal/withdrawal',

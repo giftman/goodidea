@@ -125,6 +125,58 @@ function logout(navigator) {
   };
 }
 
+function withdraw(navigator) {
+  return dispatch => {
+    dispatch(showLoading());
+    return new AppAuthToken().getSessionToken()
+
+      .then((token) => {
+        return BackendFactory(token.sessionToken).withdraw();
+      })
+      .then((result) => {
+         dispatch(closeLoading());
+         console.log(result);
+        if(result.error_code == '00'){
+          navigator.push({
+            my:'withdraw',
+            data:result.data,
+          })
+        }else{
+          toastShort(result.message);
+        }
+      })
+
+      .catch((error) => {
+        console.log(error);
+        // dispatch(getToken());
+      });
+  };
+}
+
+function withdrawApply(data,navigator) {
+  return dispatch => {
+    return new AppAuthToken().getSessionToken()
+
+      .then((token) => {
+        return BackendFactory(token.sessionToken).withdrawApply(data);
+      })
+
+      .then((result) => {
+        console.log(result);
+        if(result.error_code == '00'){
+          navigator.push({
+            my:'withdrawResult'
+          })
+        }
+        toastShort(result.message);
+      })
+
+      .catch((error) => {
+        console.log(error);
+        // dispatch(getToken());
+      });
+  };
+}
 function bet(data,betUrl,navigator) {
   return dispatch => {
     return new AppAuthToken().getSessionToken()
@@ -415,6 +467,8 @@ function closeLoading(): Action {
 
 
 module.exports = {
+  withdraw,
+  withdrawApply,
   getMoneyDetail,
   getTraceRecord,
   getGameRecordDetail,

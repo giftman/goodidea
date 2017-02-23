@@ -4,7 +4,7 @@ import { StyleSheet, View, Image, Text, Platform, ScrollView, TouchableOpacity }
 import Util from '../../utils/Util';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {normalize} from '../../common/F8Colors'
-import { getGameRecord , getTraceRecord , getMoneyDetail} from '../../actions';
+import { withdraw, getGameRecord , getTraceRecord , getMoneyDetail} from '../../actions';
 import { connect } from 'react-redux';
 import F8Header from '../../common/F8Header';
 
@@ -69,6 +69,9 @@ class MyPage extends Component {
           // gameInfo['bought_at_to']=new Date();
           gameInfo['created_at_to']= bought_at_to + ' 23:59:59';
             this.props.getMoneyDetail(gameInfo,this.props.navigator);
+            break;
+          case "withdraw":
+            this.props.withdraw(this.props.navigator);
             break;
           default:
             this.props.navigator.push({
@@ -295,7 +298,8 @@ function actions(dispatch) {
     return {
       getGameRecord:(game,nav)=>dispatch(getGameRecord(game,nav)),
       getTraceRecord:(game,nav)=>dispatch(getTraceRecord(game,nav)),
-        getMoneyDetail:(game,nav)=>dispatch(getMoneyDetail(game,nav)),
+      getMoneyDetail:(game,nav)=>dispatch(getMoneyDetail(game,nav)),
+      withdraw:(nav)=>dispatch(withdraw(nav)),
     };
 }
 module.exports = connect(select,actions)(MyPage);

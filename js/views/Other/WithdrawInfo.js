@@ -21,9 +21,8 @@ class WithdrawalInfo extends Component {
     super(props);
 
     this.state={
-      passwd:'',
-      newPasswd:'',
-      newPasswd2:'',
+      bank:{},
+      amount:'0',
     }
     // this.renderEmptySessionsList = this.renderEmptySessionsList.bind(this);
     // this.openSharingSettings = this.openSharingSettings.bind(this);
@@ -33,17 +32,18 @@ class WithdrawalInfo extends Component {
 
   _resetClick(){
     console.log("_resetClick");
-    if(this.state.newPasswd === this.state.newPasswd2){
-      let new_password = this.state.newPasswd;
-      let old_password = this.state.passwd;
-      let data = {"new_password":new_password,"old_password":old_password};
-      this.props.resetMoneyPass(this.props.username,data);
-    }else{
-      this.setState({
-        newPasswd:'',
-        newPasswd2:'',
+    if(this.state.bank
+      && parseInt(his.state.amount)
+      && parseInt(his.state.amount) > parseInt(his.props.data.withdraw_default_min_amount)
+    ){
+      this.props.navigator.push({
+        my:'withdrawApply',
+        data:this.props.data,
+        bank:this.state.bank,
+        amount:this.state.amount,
       })
-      toastShort("两次密码输入不一致，请重新输入")
+    }else{
+      toastShort('请选择银行并且输入正确金额')
     }
 
   }
@@ -55,8 +55,31 @@ class WithdrawalInfo extends Component {
             title: 'ios-arrow-back',
             onPress: () => this.props.navigator.pop(),
         };
-
-        var tip = '每日限提20次，今天您已经发起了0次提现申请，每日免费提现3次，今日已经免费提现0次'
+        var {
+          withdraw_one_fee,
+          day_withdraw_limit,
+          day_withdraw_count,
+          day_free_count,
+          balance,
+          withdraw_default_min_amount,
+          withdraw_default_max_amount,
+          bankcards ,
+          is_user_security_questions,
+          user_security_questions
+       } = this.props.data
+       var tip = '每日限提20次，今天您已经发起了0次提现申请，每日免费提现3次，今日已经免费提现0次';
+       var info = '单笔最低提现金额 100 元，最高 50000 元，超过免费提现次数，则单次提现将收取2元手续费';
+        if(day_withdraw_limit){
+          tip = `每日限提${day_withdraw_limit}次，今天您已经发起了${day_withdraw_count}次提现申请，
+                 每日免费提现${day_free_count}次，今日已经免费提现${day_withdraw_count}次`
+          info = `单笔最低提现金额 ${withdraw_default_min_amount} 元，最高 ${withdraw_default_max_amount} 元，超过免费提现次数，则单次提现将收取${withdraw_one_fee}元手续费`
+        }
+      var options = []
+      if(bankcards){
+        bankcards.forEach((i)=>{
+          options.push(i.bank)
+        })
+      }
 
         return (
           <View style={styles.container}>
@@ -68,6 +91,7 @@ class WithdrawalInfo extends Component {
               leftItem={leftItem}
               >
             </F8Header>
+
             <View style={{
                 flex: 1,
                 justifyContent:'flex-start',
@@ -76,12 +100,12 @@ class WithdrawalInfo extends Component {
               <TipPadding style={{height:60}} content={tip} />
               <View style={[styles.inputContainer,{backgroundColor:'#eaeaea'}]}>
                 <Text style={{fontSize:16,paddingRight:5}}> 用户名:</Text>
-                <Text style={{fontSize:16,paddingRight:5,color:'#666'}}> hhksa7787</Text>
+                <Text style={{fontSize:16,paddingRight:5,color:'#666'}}> {this.props.username}</Text>
               </View>
               <View style={[styles.inputContainer,{backgroundColor:'#eaeaea'}]}>
                 <Text style={{fontSize:16,paddingRight:5}}> 可提现金额:</Text>
                 <Text style={{fontSize:16,paddingRight:5,color:'#DC5341'}}>
-                  50000 元
+                  {balance} 元
                 </Text>
               </View>
               <View style={styles.inputContainer}>
@@ -89,9 +113,9 @@ class WithdrawalInfo extends Component {
                 <ModalDropdown
                     defaultValue={' 请选择收款银行卡'}
                     style={{padding:5,alignItems:'flex-start',backgroundColor:'transparent'}}
-                    options={['CCMB','NBC','WDT']}
-                    textStyle={{color:'#666',fontSize:16,textAlign:'left',width:Util.size.width*.9}}
-                    onSelect={(i,value) => this._dropDownSelect(i)}
+                    options={options}
+                    textStyle={{color:'#666',fontSize:16,textAlign:'left',width:Util.size.width*.8}}
+                    onSelect={(i,value) => this.setState({bank:bankcards[i]})}
                     />
               </View>
               <View style={styles.paddingHeight}/>
@@ -100,14 +124,14 @@ class WithdrawalInfo extends Component {
                 <Text style={{fontSize:16,paddingRight:5}}> 提现金额:</Text>
                 <TextInput
                   style={styles.input}
-                  onChangeText={(newPasswd2) => {this.setState({newPasswd2})}}
+                  onChangeText={(amount) => {this.setState({amount})}}
                   underlineColorAndroid={'transparent'}
                   password={false}
                   placeholder='请在此输入金额'/>
               </View>
               <View style={styles.paddingHeight}/>
               <Text style={{fontSize:16,color:'#666',padding:10}}>
-                单笔最低提现金额 100 元，最高 50000 元，超过免费提现次数，则单次提现将收取2元手续费
+                {info}
               </Text>
               <View style={{justifyContent:'center',alignItems:'center'}}>
                 <TouchableOpacity
@@ -123,6 +147,7 @@ class WithdrawalInfo extends Component {
                   </TouchableOpacity>
                 </View>
               </View>
+
             </View>
         )
     }

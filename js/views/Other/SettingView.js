@@ -57,21 +57,18 @@ class SettingView extends Component {
             }}>
         <View style={styles.paddingHeight}/>
         <TouchableOpacity style={styles.itemContain} onPress={() => this.onClick("changePasswd")}>
-            <Icon name='md-cash' size={30} color="#666"></Icon>
             <View style={styles.item}>
                 <Text style={styles.itemTitle}>修改登录密码</Text>
                  <Icon name='ios-arrow-forward' size={25} color="#eee"></Icon>
             </View>
         </TouchableOpacity>
         <TouchableOpacity style={styles.itemContain} onPress={() => this.onClick("changeMoneyPass")}>
-            <Icon name='md-cash' size={30} color="#666"></Icon>
             <View style={styles.item}>
                 <Text style={styles.itemTitle}>修改资金密码</Text>
                  <Icon name='ios-arrow-forward' size={25} color="#eee"></Icon>
             </View>
         </TouchableOpacity>
         <TouchableOpacity style={styles.itemContain} onPress={() => this.onClick("changeSafeQuestion")}>
-            <Icon name='md-card' size={30} color="#666"></Icon>
             <View style={styles.item}>
                 <Text style={styles.itemTitle}>修改密保</Text>
                  <Icon name='ios-arrow-forward' size={25} color="#eee"></Icon>
@@ -81,7 +78,7 @@ class SettingView extends Component {
         <View style={styles.paddingHeight}/>
         <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
         <TouchableOpacity style={[styles.confirmBtn, {
-                backgroundColor: '#666'
+                backgroundColor: '#DA543F'
             }]} onPress={() => this.props.logout(this.props.navigator)}>
                 <Text style={{
                 color: '#fff',

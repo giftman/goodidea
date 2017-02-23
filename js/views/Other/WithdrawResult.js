@@ -15,7 +15,9 @@ import {normalize,headerBG} from '../../common/F8Colors';
 class WithdrawalResult extends Component {
 
   _resetClick(){
-
+      this.props.navigator.resetTo({
+        "twitterTab":true
+      });
   }
 
     render() {

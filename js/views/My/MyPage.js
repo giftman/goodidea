@@ -4,8 +4,9 @@ import { StyleSheet, View, Image, Text, Platform, ScrollView, TouchableOpacity }
 import Util from '../../utils/Util';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {normalize} from '../../common/F8Colors'
-import { withdraw, getGameRecord , getTraceRecord , getMoneyDetail} from '../../actions';
+import {createOrder, withdraw, getGameRecord , getTraceRecord , getMoneyDetail} from '../../actions';
 import { connect } from 'react-redux';
+import LoadingView from '../../common/LoadingView';
 import F8Header from '../../common/F8Header';
 
 function formatMinutes(minutes){
@@ -73,6 +74,9 @@ class MyPage extends Component {
           case "withdraw":
             this.props.withdraw(this.props.navigator);
             break;
+          case "pay":
+            this.props.createOrder(this.props.navigator);
+            break;
           default:
             this.props.navigator.push({
                 "my": tab
@@ -82,6 +86,7 @@ class MyPage extends Component {
 
 //
     render() {
+      let loadingView =this.props.loading === true ? <LoadingView /> : <View />;
         return (
           <View style={styles.container}>
             <F8Header style={{
@@ -89,7 +94,6 @@ class MyPage extends Component {
               }}
               title="个人中心"
               />
-
               <View style={{
                   width: Util.size.width,
                   height: normalize(82),
@@ -231,7 +235,7 @@ class MyPage extends Component {
                   </View>
                 </TouchableOpacity>
               </ScrollView>
-
+              {loadingView}
             </View>
 
 
@@ -291,6 +295,7 @@ function select(store) {
     return {
         username:store.user.username,
         balance:store.user.balance,
+        loading: store.buy.loading,
     };
 }
 
@@ -300,6 +305,7 @@ function actions(dispatch) {
       getTraceRecord:(game,nav)=>dispatch(getTraceRecord(game,nav)),
       getMoneyDetail:(game,nav)=>dispatch(getMoneyDetail(game,nav)),
       withdraw:(nav)=>dispatch(withdraw(nav)),
+      createOrder:(nav)=>dispatch(createOrder(nav)),
     };
 }
 module.exports = connect(select,actions)(MyPage);

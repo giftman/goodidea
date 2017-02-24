@@ -73,14 +73,20 @@ var CountDown = React.createClass({
       if (time > 0) {
         this.setTimeout(timer, 1000);
       } else {
-        this.props.timesUp();
+        if(this.props.timesUp){
+          this.props.timesUp();
+        }
         var newTime = 60*10;
         if(this.props.changeAfterTen && (new Date().getHours() > 16)){
           newTime = 60*5;
         }
-        this.setState({time: newTime});
-        this.setState({countText: formatMinutes(newTime)});
-        this.setTimeout(timer, 1000);
+        if(this.props.stop){
+
+        }else{
+          this.setState({time: newTime});
+          this.setState({countText: formatMinutes(newTime)});
+          this.setTimeout(timer, 1000);
+        }
 
       }
     };

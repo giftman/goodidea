@@ -380,6 +380,7 @@ class BuyView extends Component {
           time={timeMinus}
           changeAfterTen={[1,14,25,26].includes(this.props.defaultGame.gameId)}
           timesUp={() => this._updateCurrentorderNum()}
+          stop={false}
           />
       </TipPadding>
       {this.state.showMenu ? <CoverView layer={LAYER.BOTTOM}/> : <View/>}

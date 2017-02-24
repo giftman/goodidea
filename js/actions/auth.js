@@ -177,6 +177,88 @@ function withdrawApply(data,navigator) {
       });
   };
 }
+
+function createOrder(navigator) {
+  return dispatch => {
+    dispatch(showLoading());
+    return new AppAuthToken().getSessionToken()
+
+      .then((token) => {
+        return BackendFactory(token.sessionToken).createOrder();
+      })
+      .then((result) => {
+         dispatch(closeLoading());
+         console.log(result);
+        if(result.error_code == '00'){
+          navigator.push({
+            my:'pay',
+            data:result.data,
+          })
+        }else{
+          toastShort(result.message);
+        }
+      })
+
+      .catch((error) => {
+        console.log(error);
+        // dispatch(getToken());
+      });
+  };
+}
+
+function confirmPayTwo(data,navigator) {
+  return dispatch => {
+    return new AppAuthToken().getSessionToken()
+
+      .then((token) => {
+        return BackendFactory(token.sessionToken).confirmPayTwo(data);
+      })
+
+      .then((result) => {
+        console.log(result);
+        if(result.error_code == '00'){
+          navigator.push({
+            my:'webview',
+            data:result.data.deposit.break_url
+          })
+        }else{
+          toastShort(result.message);
+        }
+      })
+
+      .catch((error) => {
+        console.log(error);
+        // dispatch(getToken());
+      });
+  };
+}
+
+function confirmPayOne(data,navigator) {
+  return dispatch => {
+    return new AppAuthToken().getSessionToken()
+
+      .then((token) => {
+        return BackendFactory(token.sessionToken).confirmPayOne(data);
+      })
+
+      .then((result) => {
+        console.log(result);
+        if(result.error_code == '00'){
+          navigator.push({
+            my:'payOneResult',
+            data:result.data
+          })
+        }else{
+          toastShort(result.message);
+        }
+      })
+
+      .catch((error) => {
+        console.log(error);
+        // dispatch(getToken());
+      });
+  };
+}
 function bet(data,betUrl,navigator) {
   return dispatch => {
     return new AppAuthToken().getSessionToken()
@@ -467,6 +549,9 @@ function closeLoading(): Action {
 
 
 module.exports = {
+  confirmPayOne,
+  confirmPayTwo,
+  createOrder,
   withdraw,
   withdrawApply,
   getMoneyDetail,

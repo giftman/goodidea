@@ -106,7 +106,7 @@ class WithdrawalApply extends Component {
               >
             </F8Header>
 
-            <ScrollView style={{
+            <View style={{
                 flex: 1,
                 justifyContent:'flex-start',
                 alignItems:'center',
@@ -187,7 +187,7 @@ class WithdrawalApply extends Component {
                   style={styles.input}
                   onChangeText={(passwd) => {this.setState({passwd})}}
                   underlineColorAndroid={'transparent'}
-                  password={false}
+                  password={true}
                   placeholder='请输入密码'/>
               </View>
               <View style={styles.paddingHeight}/>
@@ -206,7 +206,7 @@ class WithdrawalApply extends Component {
                     }}>点击提现</Text>
                   </TouchableOpacity>
                 </View>
-              </ScrollView>
+              </View>
 
             </View>
         )

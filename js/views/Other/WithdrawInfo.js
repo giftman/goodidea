@@ -33,8 +33,8 @@ class WithdrawalInfo extends Component {
   _resetClick(){
     console.log("_resetClick");
     if(this.state.bank
-      && parseInt(his.state.amount)
-      && parseInt(his.state.amount) > parseInt(his.props.data.withdraw_default_min_amount)
+      && parseInt(this.state.amount)
+      && parseInt(this.state.amount) >= parseInt(this.props.data.withdraw_default_min_amount)
     ){
       this.props.navigator.push({
         my:'withdrawApply',

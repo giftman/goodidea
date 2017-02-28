@@ -120,7 +120,7 @@ function updateBalance(num):Action{
 function updateOrderNum(num):Action{
   return{
     type:'UPDATE_ORDERNUM',
-    playload:num,
+    payload:num,
   }
 }
 

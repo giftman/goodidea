@@ -102,7 +102,7 @@ class BuyControl extends Component {
             }]}>{des}</Text>
                         <Text style={[styles.des, {
                 color: 'white'
-            }]}>可用余额:{this.props.balance}</Text>
+            }]}>可用余额:{parseFloat(this.props.balance).toFixed(2)}</Text>
                     </View>
 
 

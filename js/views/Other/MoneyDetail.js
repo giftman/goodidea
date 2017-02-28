@@ -138,7 +138,7 @@ class ReadingListView extends React.Component {
                 <Text style={styles.title}>{gameMoneyDetailType(article.type_id)}</Text>
                 <Text style={styles.time}>{article.created_at}</Text>
               </View>
-              {parseInt(article.amount) > 0 ? <Text style={styles.money2} > + {article.amount}</Text> : <Text style={styles.money}>{article.amount}</Text>}
+              {parseInt(article.amount) > 0 ? <Text style={styles.money2} > + {parseFloat(article.amount).toFixed(4)}</Text> : <Text style={styles.money}>{article.amount}</Text>}
             </View>
             );
     }

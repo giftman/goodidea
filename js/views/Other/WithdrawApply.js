@@ -122,7 +122,7 @@ class WithdrawalApply extends Component {
               <View style={[styles.inputContainer]}>
                 <Text style={{fontSize:16,paddingRight:5,color:'#666'}}> 可提现金额:</Text>
                 <Text style={{fontSize:16,paddingRight:5,color:'#DC5341'}}>
-                  {balance} 元
+                  {parseFloat(balance).toFixed(4)} 元
                 </Text>
               </View>
               <View style={[styles.inputContainer]}>

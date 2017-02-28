@@ -59,6 +59,8 @@ class BuyView extends Component {
                 splitText = ",";
             }else if(name.includes(";")){
                 splitText = ";";
+            }else if(name.includes("\n")){
+                splitText = "\n";
             }
             choice = name.trim().split(splitText);
         } else {
@@ -305,13 +307,13 @@ class BuyView extends Component {
             <View style={styles.recordBtn}>
               <Icon style={{paddingLeft:5}} name="logo-yen" size={20} color="#fff" />
               <View style={{paddingLeft:5,flexDirection:'row',flex:1}}>
-                <TouchableOpacity onPress={()=>this._changeUnit("1")} style={{flex:1,backgroundColor:this.props.moneyUnit === '1' ?'#8D846B' :'#323244',padding:5}}>
+                <TouchableOpacity onPress={()=>this._changeUnit(1)} style={{flex:1,backgroundColor:this.props.moneyUnit === 1 ?'#8D846B' :'#323244',padding:5}}>
                   <View ><Text style={{color:'white'}}>元</Text></View>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={()=>this._changeUnit("0.1")} style={{flex:1,backgroundColor:this.props.moneyUnit === '0.1' ?'#8D846B' :'#323244',padding:5}}>
+                <TouchableOpacity onPress={()=>this._changeUnit(0.1)} style={{flex:1,backgroundColor:this.props.moneyUnit === 0.1 ?'#8D846B' :'#323244',padding:5}}>
                   <View ><Text style={{color:'white'}}>角</Text></View>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={()=>this._changeUnit("0.01")} style={{flex:1,backgroundColor:this.props.moneyUnit === '0.01' ?'#8D846B' :'#323244',padding:5}}>
+                <TouchableOpacity onPress={()=>this._changeUnit(0.01)} style={{flex:1,backgroundColor:this.props.moneyUnit === 0.01 ?'#8D846B' :'#323244',padding:5}}>
                   <View ><Text style={{color:'white'}}>分</Text></View>
                 </TouchableOpacity>
               </View>
@@ -403,7 +405,7 @@ class BuyView extends Component {
       choice={this.state.choice}
       />
 
-    <BuyControl price={this.props.defaultGame.price} balance={this.props.balance} numOfChips={this.props.numOfChips}  confirmBtn={() => this._onConfirmBtn()} clearBtn={() => this._clearBtn()}/>
+    <BuyControl price={this.props.defaultGame.price * this.props.moneyUnit} balance={this.props.balance} numOfChips={this.props.numOfChips}  confirmBtn={() => this._onConfirmBtn()} clearBtn={() => this._clearBtn()}/>
 
       </View>
       </DrawerLayout>

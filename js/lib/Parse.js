@@ -530,11 +530,11 @@ _token:VbZVLaUP4rGVBlDIqMlJa6WOnA5P138bJY13KcDx}
             });
     }
     async resetMoneyPass(username,data) {
-      var md5 = require("./md5")
-        data['new_fund_password_confirm'] = md5(md5(md5(username + data["new_password"])))
-        data['new_fund_password'] = md5(md5(md5(username + data["new_password"])))
-        data['old_fund_password'] = md5(md5(md5(username + data["old_password"])))
-        console.log(data);
+      // var md5 = require("./md5")
+      //   data['new_fund_password_confirm'] = data["new_password"]
+      //   data['new_fund_password'] = data["new_password"]
+      //   data['old_fund_password'] = data["old_password"]
+      // console.log(data);
         return await this._fetch({
                 method: 'POST',
                 url: '/phone/update-fund-password',

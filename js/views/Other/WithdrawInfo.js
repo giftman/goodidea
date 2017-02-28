@@ -77,7 +77,8 @@ class WithdrawalInfo extends Component {
       var options = []
       if(bankcards){
         bankcards.forEach((i)=>{
-          options.push(i.bank)
+          var des = '至' + i.account_name + ' ' + i.account + ' [' + i.bank + ']'
+          options.push(des)
         })
       }
 

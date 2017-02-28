@@ -43,7 +43,7 @@ class BuyControl extends Component {
         this.props.updateTraceNum(text);
     }
     render() {
-        let des = this.props.numOfChips + "注 X" + this.state.multNum + "倍=" + this.props.price * this.state.multNum * this.props.numOfChips + "元";
+        let des = this.props.numOfChips + "注 X" + this.state.multNum + "倍=" + parseFloat(this.props.price * this.state.multNum * this.props.numOfChips).toFixed(2) + "元";
         if(this.props.type == "package"){
             des  = this.props.numOfChips + "注 X" + this.state.traceNum + "期=" + this.props.price * this.state.traceNum * this.props.numOfChips + "元";
         }

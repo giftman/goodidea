@@ -34,7 +34,7 @@ class ChangeMoneyPass extends Component {
     if(this.state.newPasswd === this.state.newPasswd2){
       let new_password = this.state.newPasswd;
       let old_password = this.state.passwd;
-      let data = {"new_password":new_password,"old_password":old_password};
+      let data = {"new_fund_password":new_password,"new_fund_password_confirm":new_password,"old_fund_password":old_password};
       this.props.resetMoneyPass(this.props.username,data);
     }else{
       this.setState({

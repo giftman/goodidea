@@ -566,5 +566,6 @@ module.exports = {
   bet,
   logout,
   checkSecurityQuestion,
-  resetPasswordA
+  resetPasswordA,
+  resetMoneyPass
 };

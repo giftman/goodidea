@@ -1,10 +1,11 @@
 'use strict';
 import React, { Component } from "react";
-import { StyleSheet, View, Image, Text,TextInput, Platform, ScrollView, TouchableOpacity } from "react-native";
+import { StyleSheet, Picker, View, Image, Text,TextInput, Platform, ScrollView, TouchableOpacity } from "react-native";
 import Util from '../../utils/Util';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {normalize} from '../../common/F8Colors'
 import F8Header from '../../common/F8Header';
+import PickerView from '../../common/PickerView';
 import TipPadding from '../TipPadding';
 import {confirmPayOne,confirmPayTwo} from '../../actions';
 import { connect } from 'react-redux';
@@ -12,12 +13,31 @@ class PayChoice extends Component {
 
   constructor(props) {
     super(props);
-
+    var choiceBank = null;
+    if(props.data && props.data.bank_list && props.data.bank_list.length > 1){
+      choiceBank = props.data.bank_list[0]
+    }
     this.state={
       amount:'',
+      choiceBank:choiceBank,
+      showBank:false,
     }
   }
+    _choiceBank(){
+      if(this.props.data.name === "银行转账"){
+        this.setState({
+          showBank:true
+        })
+      }
+    }
 
+    _pick(choiceBank){
+      console.log(choiceBank);
+      this.setState({
+        choiceBank,
+        showBank:false
+      })
+    }
     _onClick(tab) {
       var {data} = this.props;
       if(this.state.amount === ''){
@@ -35,6 +55,9 @@ class PayChoice extends Component {
           this.props.navigator)
       }else{
         var bank = data.bank_list ? data.bank_list[0].id :data.id;
+        if(this.props.data.name === "银行转账"){
+          bank = this.state.choiceBank.id
+        }
         var postData = {
           'deposit_type':bank,
           'bank':bank,
@@ -80,6 +103,10 @@ class PayChoice extends Component {
       if(data.bank_list && data.bank_list[0].min_load){
          tip = `单次最低充值${data.bank_list[0].min_load}元，最高${data.bank_list[0].max_load}元`
        }
+       if(this.state.choiceBank != null){
+         tip = `单次最低充值${this.state.choiceBank.min_load}元，最高${this.state.choiceBank.max_load}元`
+       }
+
         return (
           <View style={styles.container}>
             <F8Header style={{
@@ -95,10 +122,10 @@ class PayChoice extends Component {
             <View style={styles.paddingHeight}/>
                       <TouchableOpacity
                         style={styles.itemContain}
-                        onPress={()=>{}}>
+                        onPress={()=>this._choiceBank()}>
                       <Image source={require('../../img/zijinmixi.png')} resizeMode='contain' />
                         <View style={styles.item}>
-                          <Text style={styles.itemTitle}>{data.name}</Text>
+                          <Text style={styles.itemTitle}>{this.state.choiceBank ? this.state.choiceBank.name :data.name}</Text>
                           <Icon
                             name='ios-arrow-forward'
                             size={25}
@@ -138,7 +165,10 @@ class PayChoice extends Component {
                             </TouchableOpacity>
                       </View>
 
+
               </View>
+              {this.state.showBank ? <PickerView data={data.bank_list} pick={(bank) => this._pick(bank)} bank={this.state.choiceBank}/>
+              :<View />}
 
             </View>
 

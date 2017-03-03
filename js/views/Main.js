@@ -147,6 +147,15 @@ class TwitterFlow extends Component {
             onPress: () => this.props.navigator.pop(),
         };
 
+        var rightItem = {
+            icon: require('../img/lianxikefu1.png'),
+            // title: 'kefu',
+            onPress: () => this.props.navigator.push({
+              'my':'webview',
+              data:'https://chat6.livechatvalue.com/chat/chatClient/chatbox.jsp?companyID=632777&configID=48959&jid=7175212580&s=1'
+            }),
+        };
+
         return (
             <View>
          <F8Header
@@ -154,6 +163,7 @@ class TwitterFlow extends Component {
                 backgroundColor: "#323245"
             }}
             leftItem={leftItem}
+            rightItem={rightItem}
             >
 
       </F8Header>

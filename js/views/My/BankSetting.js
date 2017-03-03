@@ -8,8 +8,27 @@ import F8Header from '../../common/F8Header';
 import TipPadding from '../TipPadding';
 import CountDown from '../../common/CountDown';
 import { toastShort } from '../../utils/ToastUtil';
+import { getBankCardStatus} from '../../actions';
+import { connect } from 'react-redux';
+
 
 class BankSetting extends Component {
+
+    _bind(){
+
+    }
+
+    _modify(card){
+
+    }
+
+    _lock(){
+
+    }
+
+    _del(card){
+      this.props.getBankCardStatus('delete',{'card_id':card.id},this.props.navigator)
+    }
 
     render() {
       var {old_card,bIsFirst} = this.props.data;
@@ -33,7 +52,7 @@ class BankSetting extends Component {
       ? <View style={{paddingTop:20,justifyContent:'center',alignItems:'center'}}>
           <TouchableOpacity
             style={[styles.confirmBtn]}
-            onPress={() => this._resetClick()}>
+            onPress={() => this._bind()}>
             <Text style={{
                 color: '#fff',
                 fontSize: 18,
@@ -44,7 +63,7 @@ class BankSetting extends Component {
         :<View style={{flexDirection:'row',marginLeft:Util.size.width*.05,paddingTop:20,width:Util.size.width*.9,justifyContent:'space-around',alignItems:'center'}}>
             <TouchableOpacity
               style={[styles.confirmBtn,{width:Util.size.width*.35}]}
-              onPress={() => this._resetClick()}>
+              onPress={() => this._bind()}>
               <Text style={{
                   color: '#fff',
                   fontSize: 18,
@@ -53,7 +72,7 @@ class BankSetting extends Component {
               </TouchableOpacity>
               <TouchableOpacity
                 style={[styles.confirmBtn,{width:Util.size.width*.35}]}
-                onPress={() => this._resetClick()}>
+                onPress={() => this._lock()}>
                 <Text style={{
                     color: '#fff',
                     fontSize: 18,
@@ -63,7 +82,7 @@ class BankSetting extends Component {
         </View>;
         var content = old_card.map((card,index)=>{
           return (
-            <View style={styles.contentContainer}>
+            <View style={styles.contentContainer} key={index}>
                 <View style={[styles.left]}>
                   <Image style={styles.img} source={require('../../img/zhongguogongshangyinhang.png')} resizeMode='contain'/>
                   <View>
@@ -74,7 +93,7 @@ class BankSetting extends Component {
                 <View style={styles.right}>
                   <TouchableOpacity
                     style={[styles.button]}
-                    onPress={() => this._resetClick()}>
+                    onPress={() => this._modify(card)}>
                     <Text style={{
                         color: '#fff',
                         fontSize: 18,
@@ -83,7 +102,7 @@ class BankSetting extends Component {
                     </TouchableOpacity>
                     <TouchableOpacity
                       style={[styles.button]}
-                      onPress={() => this._resetClick()}>
+                      onPress={() => this._del(card)}>
                       <Text style={{
                           color: '#fff',
                           fontSize: 18,
@@ -103,7 +122,6 @@ class BankSetting extends Component {
               leftItem={leftItem}
               />
             <TipPadding content={tip} />
-
             {content}
             {button}
             </View>
@@ -192,5 +210,15 @@ const styles = StyleSheet.create({
 
 })
 
+function select(store) {
+    return {
+        username:store.user.username,
+    };
+}
 
-module.exports = BankSetting;
+function actions(dispatch) {
+    return {
+        getBankCardStatus:(action,data,nav)=>dispatch(getBankCardStatus(action,data,nav))
+    };
+}
+module.exports = connect(select,actions)(BankSetting);

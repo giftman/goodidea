@@ -80,33 +80,7 @@ class TwitterTab extends Component {
             selected={this.props.selectedTab === '我'}>
           <MyPage navigator={this.props.navigator}/>
         </TabNavigator.Item>
-        <TabNavigator.Item
-           title="客服"
-           renderIcon={() => <Image style={styles.tabBar} source={require('../img/lianxikefu1.png')} resizeMode='contain' />}
-           renderSelectedIcon={() => <Image style={styles.tabBar} source={require('../img/lianxikefu2.png')} resizeMode='contain' />}
-           // badgeText="1"
-           selectedTitleStyle={{color:'#AC9B65'}}
-
-           onPress={ () => this.changeTab('客服')}
-           selected={this.props.selectedTab === '客服'}>
-           <WebView
-            ref={(ref) => { this.webview = ref; }}
-            automaticallyAdjustContentInsets={false}
-            style={styles.base}
-            source={{ uri: 'https://chat6.livechatvalue.com/chat/chatClient/chatbox.jsp?companyID=632777&configID=48959&jid=7175212580&s=1' }}
-            javaScriptEnabled
-            domStorageEnabled
-            startInLoadingState
-            scalesPageToFit
-            decelerationRate="normal"
-            onShouldStartLoadWithRequest={() => {
-              const shouldStartLoad = true;
-              return shouldStartLoad;
-            }}
-            // onNavigationStateChange={this.onNavigationStateChange}
-            // renderLoading={this.renderLoading}
-          />
-       </TabNavigator.Item>
+      
       </TabNavigator>
             );
     }

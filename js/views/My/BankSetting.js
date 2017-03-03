@@ -23,7 +23,7 @@ class BankSetting extends Component {
     }
 
     _lock(){
-
+      this.props.getBankCardStatus('lock',{},this.props.navigator)
     }
 
     _del(card){
@@ -140,6 +140,8 @@ const styles = StyleSheet.create({
     flexDirection:'row',
     padding:10,
     height:normalize(93),
+    borderBottomWidth:.4,
+    borderColor:'#666'
   },
   img:{
     width:normalize(50),

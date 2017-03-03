@@ -553,11 +553,76 @@ function getBankCardStatus(action,data,navigator) {
               "my": 'bankSetting',
               data:result.data
           });
+        }else if(action === 'lock'){
+          navigator.push({
+              "my": 'bankActionConfirm',
+              data:result.data,
+              title:'锁定银行卡',
+              type:'lock'
+          });
+        }else if(action === 'delete'){
+          navigator.push({
+              "my": 'bankActionConfirm',
+              data:result.data,
+              title:'删除银行卡',
+              type:'delete'
+          });
         }
         // navigator.push({
         //     "my": 'gameRecord',
         //     data:result.data
         // });
+      }else{
+        toastShort(result.message);
+      }
+      })
+      .catch((error) => {
+        console.log(error);
+        // dispatch(getToken());
+      });
+  };
+}
+
+
+function lockBankCard(data,navigator) {
+  return dispatch => {
+    dispatch(showLoading());
+    return new AppAuthToken().getSessionToken()
+
+      .then((token) => {
+        return BackendFactory(token.sessionToken).lockBankCard(data);
+      })
+      .then((result) => {
+        console.log(result);
+         dispatch(closeLoading());
+      if(result.error_code == '00'){
+        toastShort(result.message);
+        navigator.resetTo({ twitterTab:123 });
+      }else{
+        toastShort(result.message);
+      }
+      })
+      .catch((error) => {
+        console.log(error);
+        // dispatch(getToken());
+      });
+  };
+}
+
+function delBankCard(data,navigator) {
+  return dispatch => {
+    dispatch(showLoading());
+    return new AppAuthToken().getSessionToken()
+
+      .then((token) => {
+        return BackendFactory(token.sessionToken).delBankCard(data);
+      })
+      .then((result) => {
+        console.log(result);
+         dispatch(closeLoading());
+      if(result.error_code == '00'){
+        toastShort(result.message);
+        navigator.resetTo({ twitterTab:123 });
       }else{
         toastShort(result.message);
       }
@@ -582,6 +647,8 @@ function closeLoading(): Action {
 
 
 module.exports = {
+  delBankCard,
+  lockBankCard,
   getBankCardStatus,
   confirmPayOne,
   confirmPayTwo,

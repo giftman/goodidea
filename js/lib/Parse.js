@@ -469,6 +469,44 @@ _token:VbZVLaUP4rGVBlDIqMlJa6WOnA5P138bJY13KcDx}
                 });
     }
 
+    async lockBankCard(data) {
+        return await this._fetch({
+                method: 'POST',
+                url: '/phone-bankcard/lock',
+                body: data
+            })
+                .then((response) => {
+                    if ( (response.status === 200 || response.status === 201) ) {
+                        // console.log(response);
+                        return response.json();
+                    } else {
+                        throw (response);
+                    }
+                })
+                .catch((error) => {
+                    throw (error);
+                });
+    }
+
+    async delBankCard(data) {
+        return await this._fetch({
+                method: 'POST',
+                url: '/phone-bankcard/delete',
+                body: data
+            })
+                .then((response) => {
+                    if ( (response.status === 200 || response.status === 201) ) {
+                        // console.log(response);
+                        return response.json();
+                    } else {
+                        throw (response);
+                    }
+                })
+                .catch((error) => {
+                    throw (error);
+                });
+    }
+
     async getTraceRecord(data) {
         return await this._fetch({
                 method: 'POST',

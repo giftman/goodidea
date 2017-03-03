@@ -49,6 +49,8 @@ import WithdrawalResult from './views/Other/WithdrawResult';
 import Pay from './views/My/Pay';
 import PayChoice from './views/My/PayChoice';
 import PayOneResult from './views/My/PayOneResult';
+import BankSetting from './views/My/BankSetting';
+import BankActionConfirm from './views/My/BankActionConfirm';
 import WebView from './views/My/WebView';
 import SetSecurityQuestion from './views/Other/SetSecurityQuestion';
 import SettingView from './views/Other/SettingView';
@@ -158,11 +160,17 @@ var AppNavigator = React.createClass({
             case "setting":
                 return <SettingView navigator={navigator} />;
                 break;
+            case "bankActionConfirm":
+                return <BankActionConfirm navigator={navigator} {...route}/>;
+                break;
             case "pay":
                 return <Pay navigator={navigator} data={route.data}/>;
                 break;
             case "payOneResult":
                 return <PayOneResult navigator={navigator} data={route.data}/>;
+                break;
+            case "bankSetting":
+                return <BankSetting navigator={navigator} data={route.data}/>;
                 break;
             case "webview":
                 return <WebView navigator={navigator} data={route.data}/>;

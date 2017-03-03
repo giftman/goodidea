@@ -536,6 +536,39 @@ function resetMoneyPass(user,data) {
   };
 }
 
+function getBankCardStatus(action,data,navigator) {
+  return dispatch => {
+    dispatch(showLoading());
+    return new AppAuthToken().getSessionToken()
+
+      .then((token) => {
+        return BackendFactory(token.sessionToken).getBankCardStatus(action,data);
+      })
+      .then((result) => {
+        console.log(result);
+         dispatch(closeLoading());
+      if(result.error_code == '00'){
+        if(action === 'bind'){
+          navigator.push({
+              "my": 'bankSetting',
+              data:result.data
+          });
+        }
+        // navigator.push({
+        //     "my": 'gameRecord',
+        //     data:result.data
+        // });
+      }else{
+        toastShort(result.message);
+      }
+      })
+      .catch((error) => {
+        console.log(error);
+        // dispatch(getToken());
+      });
+  };
+}
+
 function showLoading(): Action {
   return {
     type: 'SHOW_LOADING',
@@ -549,6 +582,7 @@ function closeLoading(): Action {
 
 
 module.exports = {
+  getBankCardStatus,
   confirmPayOne,
   confirmPayTwo,
   createOrder,

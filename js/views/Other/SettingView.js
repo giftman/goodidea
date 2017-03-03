@@ -10,7 +10,7 @@ const StyleSheet = require('../../utils/CustomStyleSheet');
 import Icon from 'react-native-vector-icons/Ionicons';
 import F8Header from '../../common/F8Header';
 import EasyButton from '../../common/EasyButton';
-import { checkSecurityQuestion,logout} from '../../actions';
+import { checkSecurityQuestion,logout,getBankCardStatus} from '../../actions';
 
 import { connect } from 'react-redux';
 class SettingView extends Component {
@@ -24,6 +24,9 @@ class SettingView extends Component {
         switch (tab) {
           case "changeSafeQuestion":
             this.props.checkSecurityQuestion(this.props.navigator);
+            break;
+          case "bankCardSetting":
+            this.props.getBankCardStatus('bind',{},this.props.navigator);
             break;
           default:
             this.props.navigator.push({
@@ -70,7 +73,14 @@ class SettingView extends Component {
         </TouchableOpacity>
         <TouchableOpacity style={styles.itemContain} onPress={() => this.onClick("changeSafeQuestion")}>
             <View style={styles.item}>
-                <Text style={styles.itemTitle}>修改密保</Text>
+                <Text style={styles.itemTitle}>密保问题</Text>
+                 <Icon name='ios-arrow-forward' size={25} color="#eee"></Icon>
+            </View>
+        </TouchableOpacity>
+        <View style={styles.paddingHeight}/>
+        <TouchableOpacity style={styles.itemContain} onPress={() => this.onClick("bankCardSetting")}>
+            <View style={styles.item}>
+                <Text style={styles.itemTitle}>银行卡绑定</Text>
                  <Icon name='ios-arrow-forward' size={25} color="#eee"></Icon>
             </View>
         </TouchableOpacity>
@@ -121,8 +131,8 @@ const styles = StyleSheet.create({
         borderColor: '#bbb'
     },
     itemTitle: {
-        fontWeight: '500',
-        fontSize: 18,
+        fontWeight: '400',
+        fontSize: 16,
         color: 'gray'
     },
     paddingHeight: {
@@ -152,6 +162,7 @@ function actions(dispatch) {
         clearPackage:()=>dispatch(clearPackage()),
         checkSecurityQuestion:(nav)=>dispatch(checkSecurityQuestion(nav)),
         logout:(nav)=>dispatch(logout(nav)),
+        getBankCardStatus:(action,data,nav)=>dispatch(getBankCardStatus(action,data,nav))
     };
 }
 module.exports = connect(select,actions)(SettingView);

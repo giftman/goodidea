@@ -4,6 +4,7 @@ import type { Action,ThunkAction } from './types';
 import  BackendFactory from '../lib/BackendFactory';
 import AppAuthToken from '../lib/AppAuthToken';
 import {loadMenu,updateBalance} from './buy';
+import {updateTrend,showRefresh,closeRefresh} from './trend';
 import { toastShort } from '../utils/ToastUtil';
 function skipLogin(): Action {
   return {
@@ -299,6 +300,55 @@ function getGameConfig(game,navigator) {
           navigator.push({
             game,
           });
+      }else if(result.error_code == '99'){
+        toastShort(result.message  + " 请重新登陆");
+        dispatch(getToken());
+        navigator.push({
+            "login":true
+          });
+      }
+      else{
+        toastShort(result.message);
+      }
+
+        // if(result.is_success){
+        //   return result.data;
+        // }else{
+        //   return result.message;
+        // }
+      })
+
+      .catch((error) => {
+        console.log(error);
+        // dispatch(getToken());
+      });
+  };
+}
+
+function getTrendData(lottery_id,navigator) {
+  return dispatch => {
+    dispatch(showRefresh());
+    return new AppAuthToken().getSessionToken()
+
+      .then((token) => {
+        return BackendFactory(token.sessionToken).getTrendData(lottery_id);
+      })
+
+      .then((result) => {
+        console.log(result);
+        dispatch(closeRefresh());
+      if(result.error_code == '00'){
+          var data = result.data
+          var dataList = [];
+          Object.keys(result.data).forEach((item)=>{
+            if(item != 'balance'){
+              dataList.push(data[item])
+            }
+          })
+          dispatch(updateTrend(dataList));
+          // navigator.push({
+          //   game,
+          // });
       }else if(result.error_code == '99'){
         toastShort(result.message  + " 请重新登陆");
         dispatch(getToken());
@@ -647,6 +697,7 @@ function closeLoading(): Action {
 
 
 module.exports = {
+  getTrendData,
   delBankCard,
   lockBankCard,
   getBankCardStatus,

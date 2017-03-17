@@ -31,4 +31,5 @@ module.exports = combineReducers({
   user: require('./user'),
   filter: require('./filter'),
   buy:require('./buy'),
+  trend:require('./trend'),
 });

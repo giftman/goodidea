@@ -18,7 +18,7 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE
- 
+
  * @flow
  */
 
@@ -30,6 +30,7 @@ var { connect } = require('react-redux');
 import React,{Component} from 'react';
 import {Image,View,StyleSheet,Text} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
+import { getGameTypeConfig } from '../ssc'
 
 class ReadingCell extends React.Component {
   props: {
@@ -40,40 +41,49 @@ class ReadingCell extends React.Component {
 
   render() {
     var article = this.props.session;
-    var title = article.title;
+    console.log(article);
+    console.log(getGameTypeConfig[article.lottery_id]);
+    var title = '此玩法暂时没开放，服务器不要发过来';
+    var img = 'http://oeyxehw3i.bkt.clouddn.com/17-1-26/4446956-file_1485410585890_e872.png';
+    if(getGameTypeConfig[article.lottery_id]){
+      title = getGameTypeConfig[article.lottery_id].title;
+      img = getGameTypeConfig[article.lottery_id].img;
+    }
+    var willNum;
+    if(article.winNumber.includes(' ')){
+      willNum = article.winNumber.split(' ')
+    }else{
+      willNum = article.winNumber.split('')
+    }
+    console.log(willNum);
     var cell =
         <View style={styles.containerItem}>
           <Image
             style={{width: 90, height: 80}}
-            source={{uri: article.img}}
+            source={{uri: img}}
             resizeMode='cover'
           />
 
           <View style={{flex: 1, flexDirection: 'column',paddingLeft:20}} >
             <View style={{flexDirection:'row'}} >
               <Text numberOfLines={2} tyle={styles.title}>
-                {article.title}
+                {title}
               </Text>
               <Text style={styles.des}>
-                  {article.numOf}
+                  {'第' + article.issue + '期'}
               </Text>
             </View>
             <View style={styles.bolls}>
-              <View style={styles.boll}>
-                <Text style={styles.bollText}>1</Text>
-              </View>
-               <View style={styles.boll}>
-                <Text style={styles.bollText}>1</Text>
-              </View>
-               <View style={styles.boll}>
-                <Text style={styles.bollText}>1</Text>
-              </View>
-               <View style={styles.boll}>
-                <Text style={styles.bollText}>1</Text>
-              </View>
-               <View style={styles.boll}>
-                <Text style={styles.bollText}>1</Text>
-              </View>
+              {willNum.map((num,index) => {
+                return (
+                  // <Image key={index} source={require('../../img/ball_bg.png')} style={styles.ball} resizeMode='contain'>
+                  //     <Text style={styles.bollText}>{num}</Text>
+                  // </Image>
+                  <View  key={index} style={styles.boll}>
+                    <Text style={styles.bollText}>{num}</Text>
+                  </View>
+                )
+              })}
             </View>
           </View>
           <Icon name="ios-arrow-forward" size={25} color="#616161" />
@@ -143,7 +153,7 @@ var styles = StyleSheet.create({
   bollText:{
     fontSize:14,
     color:'white',
-    fontWeight:'300',
+    fontWeight:'700',
   },
   added: {
     position: 'absolute',

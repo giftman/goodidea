@@ -36,7 +36,6 @@ class BankActionConfirm extends Component {
           sendData['old_account'] = data.card.account
           sendData['old_account_name'] = data.card.bank
           this.props.delBankCard(sendData,this.props.navigator);
-
         }
       }else{
         toastShort("请输入问题答案并输入密码")

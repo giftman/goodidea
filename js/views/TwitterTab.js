@@ -8,7 +8,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import TabNavigator from 'react-native-tab-navigator';
 import { connect } from 'react-redux';
 
-import { changeTab,bet,getToken,login} from '../actions';
+import { changeTab,bet,getToken,login,getTrendData} from '../actions';
 
 import type { Tab } from '../reducers/navigation';
 
@@ -32,6 +32,9 @@ class TwitterTab extends Component {
     // this.props.bet();
 
     // this.props.getGameConfig();
+    }
+    componentDidMount(){
+      this.props.getTrendData('',this.props.navigator);
     }
 
     changeTab(tab) {
@@ -80,7 +83,7 @@ class TwitterTab extends Component {
             selected={this.props.selectedTab === '我'}>
           <MyPage navigator={this.props.navigator}/>
         </TabNavigator.Item>
-      
+
       </TabNavigator>
             );
     }
@@ -97,6 +100,7 @@ const styles = StyleSheet.create({
 function select(store) {
     return {
         selectedTab: store.navigation.selectedTab,
+        trendData: store.trend.latestTrend,
     };
 }
 
@@ -106,7 +110,8 @@ function actions(dispatch) {
         getToken:()=>dispatch(getToken()),
         bet:()=>dispatch(bet({"username":"ceshi001","password":"a123456"})),
         login:()=>dispatch(login({"username":"ceshi001","password":"a123456"})),
-        // getGameConfig: ()=>dispatch(getGameConfig(1)),
+        //getGameConfig: ()=>dispatch(getGameConfig(1)),
+        getTrendData: (lottery_id,nav)=>dispatch(getTrendData(lottery_id,nav)),
     };
 }
 

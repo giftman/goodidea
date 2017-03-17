@@ -241,6 +241,31 @@ _token:VbZVLaUP4rGVBlDIqMlJa6WOnA5P138bJY13KcDx}
                 });
     }
 
+    async getTrendData(lottery_id) {
+        let data = {};
+        if(lottery_id){
+          data["lottery_id"] = lottery_id;
+        }
+        return await this._fetch({
+                method: 'POST',
+                url: '/phone/trend-data',
+                body: data
+            })
+                .then((response) => {
+                    if ( (response.status === 200 || response.status === 201) ) {
+                        return response.json();
+                    } else {
+                        throw (response);
+                    }
+                })
+                // .then((json) => {
+                //     console.log(json);
+                //     return json.data;
+                // })
+                .catch((error) => {
+                    throw (error);
+                });
+    }
 
     /**
      * ### logout

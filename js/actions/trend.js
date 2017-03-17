@@ -24,16 +24,30 @@
 
 'use strict';
 
-const navigationActions = require('./navigation');
-const filterActions = require('./filter');
-const buyActions = require('./buy');
-const authActions = require('./auth');
-const trendAction = require('./trend');
+import type { Action } from './types';
+function showRefresh(): Action {
+  return {
+    type: 'SHOW_REFRESH',
+  };
+}
+function closeRefresh(): Action {
+  return {
+    type: 'CLOSE_REFRESH',
+  };
+}
 
+function updateSetting(data): Action {
+  return {
+    type: 'UPDATE_SETTING',
+    payload:data
+  };
+}
 module.exports = {
-  ...filterActions,
-  ...navigationActions,
-  ...buyActions,
-  ...authActions,
-  ...trendAction,
+  updateTrend: (data): Action => ({
+    type: 'UPDATE_TREND',
+    payload:data,
+  }),
+  showRefresh,
+  closeRefresh,
+  updateSetting,
 };

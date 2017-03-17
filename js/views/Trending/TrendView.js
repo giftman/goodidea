@@ -10,43 +10,22 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import F8Header from '../../common/F8Header';
 import TrendList from './TrendList';
 import TipPadding from '../TipPadding';
+import { connect } from 'react-redux';
+import { getTrendData } from '../../actions';
+import _ from 'underscore';
+
 class TwitterPost extends Component {
-    constructor(props) {
-        super(props);
-
-        this.data = [{
-            'title': '黑龙江时时彩',
-            'numOf': '第0022334期',
-            'img': 'https://facebook.github.io/react/img/logo_og.png'
-        }, {
-            'title': '黑龙江时时彩',
-            'numOf': '第0022334期',
-            'img': 'https://facebook.github.io/react/img/logo_og.png'
-        }, {
-            'title': '黑龙江时时彩',
-            'numOf': '第0022334期',
-            'img': 'https://facebook.github.io/react/img/logo_og.png'
-        }, {
-            'title': '黑龙江时时彩',
-            'numOf': '第0022334期',
-            'img': 'https://facebook.github.io/react/img/logo_og.png'
-        }]
-
-        this.state = {
-            isRefreshing: false,
-            data: this.data,
-        };
-    }
 
     _onRefresh() {
-        this.setState({
-            isRefreshing: true
-        });
-        setTimeout(() => {
-            this.setState({
-                isRefreshing: false
-            });
-        }, 2000);
+        // this.setState({
+        //     isRefreshing: true
+        // });
+        this.props.getTrendData('',this.props.navigation);
+        // setTimeout(() => {
+        //     this.setState({
+        //         isRefreshing: false
+        //     });
+        // }, 2000);
     }
 
     render() {
@@ -56,10 +35,11 @@ class TwitterPost extends Component {
                 width: Util.size.width,
                 height: Util.size.height - 90,
             }}  navigator={this.props.navigator}
-            data = {this.state.data}
+            data = {this.props.trendData}
+            renderEmptyList={()=><View />}
             refreshControl = {
             <RefreshControl
-            refreshing={this.state.isRefreshing}
+            refreshing={this.props.isRefreshing}
             onRefresh ={this._onRefresh.bind(this)}
             tintColor="#ddd"
             />
@@ -79,20 +59,26 @@ class TwitterFlow extends Component {
                 'trendSet': '123'
             }),
         }
-        return (
-            <View>
-         <F8Header
-            style={{
-                backgroundColor: "#323245"
-            }}
-            title="开奖走势"
-            rightItem={rightItem}
-            >
-      </F8Header>
-      <TipPadding content="正点游戏已累计中奖 2亿5122万元" icon="md-clock"></TipPadding>
-        <TwitterPost></TwitterPost>
 
-      </View>
+        var displayData = this.props.trendData;
+        var setting = this.props.setting;
+        if(this.props.setting !== []){
+          displayData = _.filter(displayData, function(num){ return setting.includes(num.lottery_id); });
+        }
+        console.log(displayData);
+        return (
+          <View>
+            <F8Header
+                  style={{
+                      backgroundColor: "#323245"
+                  }}
+                  title="开奖走势"
+                  rightItem={rightItem}
+                  >
+            </F8Header>
+            <TipPadding content="正点游戏已累计中奖 2亿5122万元" icon="md-clock"></TipPadding>
+            <TwitterPost isRefreshing={this.props.isRefreshing} trendData={displayData} getTrendData={(lottery_id,nav)=>this.props.getTrendData(lottery_id,nav)} navigator={this.props.navigator}></TwitterPost>
+          </View>
         )
     }
 }
@@ -159,5 +145,18 @@ const styles = StyleSheet.create({
     },
 });
 
+function select(store) {
+    return {
+        trendData: store.trend.latestTrend,
+        isRefreshing: store.trend.isRefreshing,
+        setting: store.trend.tSetting,
+    };
+}
 
-export default TwitterFlow;
+function actions(dispatch) {
+    return {
+        getTrendData: (lottery_id,nav)=>dispatch(getTrendData(lottery_id,nav)),
+    };
+}
+
+module.exports = connect(select, actions)(TwitterFlow);

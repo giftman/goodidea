@@ -24,16 +24,35 @@
 
 'use strict';
 
-const navigationActions = require('./navigation');
-const filterActions = require('./filter');
-const buyActions = require('./buy');
-const authActions = require('./auth');
-const trendAction = require('./trend');
+import type {Action} from '../actions/types';
 
-module.exports = {
-  ...filterActions,
-  ...navigationActions,
-  ...buyActions,
-  ...authActions,
-  ...trendAction,
+type State = {
+  latestTrend: array;
+  isRefreshing:boolean;
+  tSetting:array;
 };
+
+const initialState: State = { latestTrend: [],isRefreshing:true,tSetting:[1,2,3,11]};
+
+function trend(state: State = initialState, action: Action): State {
+  switch(action.type){
+		case 'UPDATE_TREND':
+      return {...state, latestTrend: action.payload};
+      break;
+    case 'SHOW_REFRESH':
+      return {...state,isRefreshing:true};
+			break;
+    case 'CLOSE_REFRESH':
+      return {...state,isRefreshing:false};
+			break;
+    case 'UPDATE_SETTING':
+      return {...state,tSetting:action.payload};
+			break;
+
+
+	}
+
+  return state;
+}
+
+module.exports = trend;

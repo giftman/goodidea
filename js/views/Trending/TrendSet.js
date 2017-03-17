@@ -16,7 +16,9 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import F8Header from '../../common/F8Header';
 import  PureListView from '../../common/PureListView';
 import { connect } from 'react-redux';
-import {applyTopicsFilter} from '../../actions';
+import {updateSetting} from '../../actions';
+import { getGameTypeConfig } from '../ssc'
+import TipPadding from '../TipPadding';
 
 type Props = {
   data: Array<any>;
@@ -30,34 +32,27 @@ class ReadingListView extends React.Component {
   constructor(props: Props) {
     super(props);
      this.state = {
-      data:this.props.data,
+      tSetting:this.props.tSetting,
     };
+
   }
 
-  //  componentWillReceiveProps(nextProps: Props) {
-  //   // if (nextProps.data !== this.props.data ||
-  //   //     nextProps.rowId !== this.props.rowId) {
-  //     this.setState({
-  //       data:nextProps.data,
-  //     });
-
-  //   // }
-  // }
 
   render() {
-    const boxes = this.state.data.map((cell, index) => {
+    console.log(this.props.tSetting)
+    const boxes = this.props.data.map((cell, index) => {
      //Text position can be justify to its parent then it easy to align Center.
       return(
-       <TouchableOpacity  key={index} onPress={() => this._click(cell, index)}>
+       <TouchableOpacity  key={index} onPress={() => this._click(cell.lottery_id, index)}>
        <View style={styles.cell}>
-        <Text style={styles.title}>{cell.title}</Text>
-        {cell.checked ? <Icon name="md-checkmark-circle" size={25} color="#4CAF50"></Icon> :<View />}
+        <Text style={styles.title}>{getGameTypeConfig[cell.lottery_id]?getGameTypeConfig[cell.lottery_id].title : '没开彩种' }</Text>
+        {this.state.tSetting.includes(cell.lottery_id) ? <Icon name="md-checkmark-circle" size={25} color="#4CAF50"></Icon> :<View />}
         </View>
       </TouchableOpacity>
       );
     })
     return (
-      <ScrollView 
+      <ScrollView
         style={{flex:1,backgroundColor:'white'}}
         {...this.props}
       >
@@ -66,14 +61,24 @@ class ReadingListView extends React.Component {
     );
   }
 
-  _click(cell, index){
-    console.log(cell);
-    // this.props.openSession(cell, index,rowId);
-    let {data}= this.state;
-    data[index].checked = !data[index].checked;
-     this.setState({
-      data
-     })
+  _click(id, index){
+    console.log(id);
+    let {tSetting}= this.state;
+    console.log(tSetting);
+    if(tSetting){
+      if (tSetting.includes(id)) {
+          console.log("del " + id);
+          let where = tSetting.indexOf(id);
+          tSetting.splice(where, 1);
+      } else {
+          tSetting.push(id);
+      }
+      this.props.updateSetting(tSetting);
+      this.setState({
+        tSetting
+      })
+    }
+
   }
 
 
@@ -84,48 +89,46 @@ class TwitterFlow extends Component{
 
   constructor(props) {
     super(props);
-    
+
     this.state = {
       data : this.props.data,
       rowId:0,
     };
-    
+
   }
 
   render() {
-    
+
     var rightItem = {
       layout:'text',
-      title:'Finish',
+      title:'完成',
       onPress: () => this.done(),
     }
 
     return(
       <View style={{flex:1,backgroundColor:'#fff'}}>
-         <F8Header
+      <F8Header
       style={{backgroundColor:"#100118"}}
-      title="TrendingSet"
+      title="自定义开奖走势"
       rightItem={rightItem}
       >
       </F8Header>
-
-     <ReadingListView data={this.props.data}></ReadingListView>
+      <TipPadding content="将你关心的彩种添加到开奖走势" icon="md-heart"></TipPadding>
+     <ReadingListView data={this.props.trendData} updateSetting={(data)=>this.props.updateSetting(data)} tSetting={this.props.tSetting}></ReadingListView>
      </View>
     )
   }
 
   done() {
-    
-     this.props.applyTopicsFilter(this.state.data);
+    //  this.props.applyTopicsFilter(this.state.data);
      this.props.navigator.pop();
   }
-  
+
 }
 
 
-
 const styles = StyleSheet.create({
-  
+
   cell:{
    height:60,alignItems:'center',justifyContent:'space-between',paddingLeft:20,paddingRight:20,flexDirection:'row'
   },
@@ -140,13 +143,14 @@ const styles = StyleSheet.create({
 
 function select(store) {
   return {
-    data: store.filter.typeData,
+    trendData: store.trend.latestTrend,
+    tSetting: store.trend.tSetting,
   };
 }
 
 function actions(dispatch) {
   return {
-    applyTopicsFilter: (data,rowId) => dispatch(applyTopicsFilter(data,rowId)),
+    updateSetting: (data) => dispatch(updateSetting(data)),
   };
 }
 

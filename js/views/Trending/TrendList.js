@@ -91,7 +91,8 @@ class ReadingListView extends React.Component {
     //   typeId,
     //   article,
     // });
-    console.log(article);
+    // console.log(article);
+    this.props.onclick(article.lottery_id);
   }
 
   storeInnerRef(ref: ?PureListView) {

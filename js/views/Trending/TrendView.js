@@ -13,6 +13,7 @@ import TipPadding from '../TipPadding';
 import { connect } from 'react-redux';
 import { getTrendData } from '../../actions';
 import _ from 'underscore';
+import {TIP_HEIGHT} from '../../common/F8Colors';
 
 class TwitterPost extends Component {
 
@@ -20,7 +21,7 @@ class TwitterPost extends Component {
         // this.setState({
         //     isRefreshing: true
         // });
-        this.props.getTrendData('',this.props.navigation);
+        this.props.getTrendData('',this.props.navigator);
         // setTimeout(() => {
         //     this.setState({
         //         isRefreshing: false
@@ -28,15 +29,20 @@ class TwitterPost extends Component {
         // }, 2000);
     }
 
+    _getTrendDataById(id){
+      this.props.getTrendData(id,this.props.navigator);
+    }
     render() {
         return (
             <TrendList style={{
                 backgroundColor: '#eee',
                 width: Util.size.width,
                 height: Util.size.height - 90,
-            }}  navigator={this.props.navigator}
+                // paddingTop:TIP_HEIGHT
+            }} navigator={this.props.navigator}
             data = {this.props.trendData}
             renderEmptyList={()=><View />}
+            onclick={(lottery_id)=> this._getTrendDataById(lottery_id)}
             refreshControl = {
             <RefreshControl
             refreshing={this.props.isRefreshing}

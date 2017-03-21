@@ -338,14 +338,23 @@ function getTrendData(lottery_id,navigator) {
         console.log(result);
         dispatch(closeRefresh());
       if(result.error_code == '00'){
-          var data = result.data
-          var dataList = [];
-          Object.keys(result.data).forEach((item)=>{
-            if(item != 'balance'){
-              dataList.push(data[item])
-            }
-          })
-          dispatch(updateTrend(dataList));
+
+            var data = result.data
+            var dataList = [];
+            Object.keys(result.data).forEach((item)=>{
+              if(item != 'balance'){
+                dataList.push(data[item])
+              }
+            })
+          if(result.data['1'].winNumber){
+            dispatch(updateTrend(dataList));
+          }else{
+            navigator.push({
+              'TrendIssueList':true,
+              data:dataList
+            })
+          }
+
           // navigator.push({
           //   game,
           // });

@@ -36,6 +36,7 @@ import EasyLogin from './views/EasyLogin';
 import TwitterTab from './views/TwitterTab';
 import BuyView from './views/BuyView';
 import TrendSet from './views/Trending/TrendSet';
+import TrendIssueList from './views/Trending/TrendIssueList';
 import MoneyDetail from './views/Other/MoneyDetail';
 import GameRecord from './views/Other/GameRecord';
 import TraceRecord from './views/Other/TraceRecord';
@@ -144,6 +145,9 @@ var AppNavigator = React.createClass({
 
         if (route.trendSet) {
             return <TrendSet navigator={navigator} />;
+        }
+        if (route.TrendIssueList) {
+            return <TrendIssueList data={route.data} navigator={navigator} />;
         }
         if (route.addToPackage) {
             return <BuyPackage navigator={navigator}/>;

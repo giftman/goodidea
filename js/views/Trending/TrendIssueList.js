@@ -10,40 +10,18 @@ import PureListView from '../../common/PureListView';
 import { headerBG } from '../../common/F8Colors';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-import ScrollableTabView, { ScrollableTabBar, } from 'react-native-scrollable-tab-view';
 class TrendIssueList extends Component {
     constructor(props: Props) {
         super(props);
         this.data = [{
-            'title': '重庆时时彩',
-            'money': '2.00元',
+            'code': '95655',
+            'number': '170317073',
             'time': '01月12日',
-            'status':0,
-            'statusDes':'待开奖' //0待开 1中 2不中
         }, {
-          'title': '重庆时时彩',
-          'money': '2.00元',
+          'code': '95655',
+          'number': '170317073',
           'time': '01月12日',
-          'status':1,
-          'statusDes':'中奖' //0待开 1中 2不中
         }]
-        let moneyGet = [];
-        let moneyPay = [];
-        this.data.map((elem, index) => {
-            switch (elem.status) {
-              case 3:
-                moneyGet.push(elem);
-                break;
-              default:
-                moneyPay.push(elem);
-            }
-        });
-        this.state = {
-            data: this.data,
-            pay: moneyPay,
-            get: moneyGet,
-            isRefreshing: false,
-        };
 
     }
     render() {
@@ -65,25 +43,12 @@ class TrendIssueList extends Component {
             style={{
                 backgroundColor: "#323245"
             }}
-            title="游戏记录"
+            title="记录"
             leftItem={leftItem}
             >
 
       </F8Header>
-      <ScrollableTabView
-            initialPage={0}
-            tabBarBackgroundColor={headerBG}
-            tabBarActiveTextColor='#fff'
-            tabBarInactiveTextColor='#fff'
-            tabBarUnderlineStyle={{
-                backgroundColor: '#fff'
-            }}
-            renderTabBar={() => <ScrollableTabBar />}
-            >
-      <ReadingListView tabLabel='全部' data={this.state.data} navigator={this.props.navigator}>All</ReadingListView>
-      <ReadingListView tabLabel='中奖' data={this.state.get} navigator={this.props.navigator}>game</ReadingListView>
-      <ReadingListView tabLabel='待开奖' data={this.state.pay} navigator={this.props.navigator}>reword</ReadingListView>
-    </ScrollableTabView>
+      <ReadingListView data={this.props.data} navigator={this.props.navigator}></ReadingListView>
       </View>
         )
     }
@@ -134,21 +99,34 @@ class ReadingListView extends React.Component {
 
 
     renderRow(article: any, typeId: number) {
+      var balls = <View />
+      if(article.code){
+        balls = article.code.split("").map((ele,index)=>{
+          return (
+            <Image key={index} source={require('../../img/ball_bg.png')} style={styles.balls} resizeMode='contain'>
+                <Text style={styles.ballText}>{ele}</Text>
+            </Image>
+          )
+        })
+      }
         return (
             <TouchableOpacity key={article.serial_number} style={styles.container} onPress={()=>this._onPress(article)}>
-              <Text style={[styles.time,{backgroundColor:'transparent'}]}>{article.bought_at}</Text>
-              <View style={{flex:1}}>
-                <Text style={styles.title}>{article.title}</Text>
-                <Text style={styles.time}>{article.amount}</Text>
+              <View style={{width:Util.size.width,flexDirection:'row',justifyContent:'space-between'}}>
+                <Text style={[styles.time,{backgroundColor:'transparent'}]}>{'第' + article.number +'期'}</Text>
+                <Text style={[styles.time,{backgroundColor:'transparent'}]}>{'1月6号'}</Text>
               </View>
-              <Text style={styles.title}>{gameStatusType[article.status]}</Text>
-              <Icon  name="ios-arrow-forward" size={30} color="#eee" />
+              <View style={{width:Util.size.width,flexDirection:'row',justifyContent:'center',alignItems:'center'}}>
+                <View style={{flexDirection:'row',justifyContent:'center',alignItems:'center',flex:1}}>
+                    {balls}
+                </View>
+                <Icon  style={{alignSelf:'flex-end',paddingRight:10}}name="ios-arrow-forward" size={30} color="#A0A0A0" />
+              </View>
             </TouchableOpacity>
             );
     }
 
     _onPress(article){
-      this.props.navigator.push({"my":"GameRecordDetail","data":article});
+      // this.props.navigator.push({"my":"GameRecordDetail","data":article});
     }
 
     renderEmptyList(): ?ReactElement {
@@ -161,16 +139,22 @@ class ReadingListView extends React.Component {
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: 'white',
-        flexDirection: 'row',
+        backgroundColor: '#F7F7F7',
         alignItems: 'center',
         justifyContent: 'space-between',
         paddingLeft: 20,
         paddingRight: 20,
         padding: 8,
+        width:Util.size.width,
         // backgroundColor:'#eee',
         // borderBottomWidth:0.2,
         // borderColor:'#666'
+    },
+    balls:{
+      flexDirection:'row',justifyContent:'center',alignItems:'center',width:34,height:34,marginLeft:10,
+    },
+    ballText:{
+      backgroundColor:'transparent',color:'white',fontWeight:'700',fontSize:18
     },
     title: {
         fontWeight: '300',
@@ -178,10 +162,10 @@ const styles = StyleSheet.create({
         paddingBottom:5,
     },
     time: {
-        color: '#666',
-        fontSize: 12,
-        width:80,
-        flexWrap:'wrap',
+        paddingLeft:10,
+        paddingRight:20,
+        color: '#ACACAC',
+        fontSize: 14,
     },
     money: {
         fontSize: 10,

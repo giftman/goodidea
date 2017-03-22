@@ -11,13 +11,15 @@ import {delBankCard,lockBankCard} from '../../actions';
 import { toastShort } from '../../utils/ToastUtil';
 import { connect } from 'react-redux';
 
-class BankActionConfirm extends Component {
+class BankDelete extends Component {
 
   constructor(props) {
     super(props);
     this.state={
       answers:'',
       passwd:'',
+      username:'',
+      card:'',
     }
   }
 
@@ -33,8 +35,8 @@ class BankActionConfirm extends Component {
           this.props.lockBankCard(sendData,this.props.navigator);
         }else{
           sendData['old_card_id'] = data.card.id
-          sendData['old_account'] = data.card.account
-          sendData['old_account_name'] = data.card.bank
+          sendData['old_account'] = this.state.card
+          sendData['old_account_name'] = this.state.username
           this.props.delBankCard(sendData,this.props.navigator);
         }
       }else{
@@ -65,9 +67,39 @@ class BankActionConfirm extends Component {
                 alignItems:'center',
               }}>
               <View style={styles.paddingHeight}/>
+              <View style={styles.inputContainer}>
+                <Text style={{fontSize:16,paddingRight:5}}> 已绑卡</Text>
+                <TextInput
+                  style={styles.input}
+                  onChangeText={(answers) => {this.setState({answers})}}
+                  underlineColorAndroid={'transparent'}
+                  password={false}
+                  value={data.card.bank + ' ' + data.card.account}/>
+              </View>
+              <View style={styles.paddingHeight}/>
+              <View style={styles.inputContainer}>
+                <Text style={{fontSize:16,paddingRight:5}}> 开户人姓名</Text>
+                <TextInput
+                  style={styles.input}
+                  onChangeText={(username) => {this.setState({username})}}
+                  underlineColorAndroid={'transparent'}
+                  password={false}
+                  placeholder={'请输入旧银行卡开户人姓名'}/>
+              </View>
+              <View style={styles.paddingHeight}/>
+              <View style={styles.inputContainer}>
+                <Text style={{fontSize:16,paddingRight:5}}> 银行账号</Text>
+                <TextInput
+                  style={styles.input}
+                  onChangeText={(card) => {this.setState({card})}}
+                  underlineColorAndroid={'transparent'}
+                  password={false}
+                  placeholder={'请输入旧银行卡卡号'}/>
+              </View>
+              <View style={styles.paddingHeight}/>
               {data.question ?
               <View style={styles.inputContainer}>
-                <Text style={{fontSize:16,paddingRight:5}}> 安全问题:</Text>
+                <Text style={{fontSize:16,paddingRight:5}}> 安全问题</Text>
                 <TextInput
                   style={styles.input}
                   onChangeText={(answers) => {this.setState({answers})}}
@@ -82,7 +114,7 @@ class BankActionConfirm extends Component {
               {data.question ?
                 <View style={{justifyContent:'flex-start',
                   alignItems:'center',width:Util.size.width}}>
-                  <Text style={{color:'#666'}}>请填写安全问题的答案</Text>
+                  <Text style={{paddingLeft:20,alignSelf:'flex-start',color:'#666'}}>请填写安全问题的答案</Text>
                 </View>:<View />}
 
 
@@ -110,7 +142,7 @@ class BankActionConfirm extends Component {
                       color: '#fff',
                       fontSize: 18,
                       fontWeight: '400'
-                    }}>{type === 'lock'?'提交锁定':'确认删除'}</Text>
+                    }}>{type === 'modify'?'确认修改':'确认删除'}</Text>
                   </TouchableOpacity>
                 </View>
                 <View style={styles.paddingHeight}/>
@@ -216,4 +248,4 @@ function actions(dispatch) {
         delBankCard:(data,nav)=>dispatch(delBankCard(data,nav))
     };
 }
-module.exports = connect(select,actions)(BankActionConfirm);
+module.exports = connect(select,actions)(BankDelete);

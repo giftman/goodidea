@@ -52,6 +52,8 @@ import PayChoice from './views/My/PayChoice';
 import PayOneResult from './views/My/PayOneResult';
 import BankSetting from './views/My/BankSetting';
 import BankActionConfirm from './views/My/BankActionConfirm';
+import BankDelete from './views/My/BankDelete';
+import BankAdd from './views/My/BankAdd';
 import WebView from './views/My/WebView';
 import SetSecurityQuestion from './views/Other/SetSecurityQuestion';
 import SettingView from './views/Other/SettingView';
@@ -153,7 +155,7 @@ var AppNavigator = React.createClass({
             return <BuyPackage navigator={navigator}/>;
         }
 
-         if (route.dialog) {
+        if (route.dialog) {
             return <EasyDialog navigator={navigator} />;
         }
         if (route.my) {
@@ -166,6 +168,12 @@ var AppNavigator = React.createClass({
                 break;
             case "bankActionConfirm":
                 return <BankActionConfirm navigator={navigator} {...route}/>;
+                break;
+            case "bankDelete":
+                return <BankDelete navigator={navigator} {...route}/>;
+                break;
+            case "bankAdd":
+                return <BankAdd navigator={navigator} {...route}/>;
                 break;
             case "pay":
                 return <Pay navigator={navigator} data={route.data}/>;

@@ -15,11 +15,16 @@ import { connect } from 'react-redux';
 class BankSetting extends Component {
 
     _bind(){
-
+      this.props.navigator.push({
+              "my": 'bankAdd',
+              data:this.props.data,
+              title:'绑定银行卡',
+              type:'add'
+          });
     }
 
     _modify(card){
-
+      this.props.getBankCardStatus('modify',{'card_id':card.id},this.props.navigator)
     }
 
     _lock(){

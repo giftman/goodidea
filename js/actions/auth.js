@@ -621,10 +621,17 @@ function getBankCardStatus(action,data,navigator) {
           });
         }else if(action === 'delete'){
           navigator.push({
-              "my": 'bankActionConfirm',
+              "my": 'bankDelete',
               data:result.data,
               title:'删除银行卡',
               type:'delete'
+          });
+        }else if(action === 'modify'){
+          navigator.push({
+              "my": 'bankDelete',
+              data:result.data,
+              title:'修改',
+              type:'modify'
           });
         }
         // navigator.push({

@@ -11,13 +11,15 @@ import {delBankCard,lockBankCard} from '../../actions';
 import { toastShort } from '../../utils/ToastUtil';
 import { connect } from 'react-redux';
 
-class BankActionConfirm extends Component {
+class BankAdd extends Component {
 
   constructor(props) {
     super(props);
     this.state={
       answers:'',
       passwd:'',
+      username:'',
+      card:'',
     }
   }
 
@@ -33,8 +35,8 @@ class BankActionConfirm extends Component {
           this.props.lockBankCard(sendData,this.props.navigator);
         }else{
           sendData['old_card_id'] = data.card.id
-          sendData['old_account'] = data.card.account
-          sendData['old_account_name'] = data.card.bank
+          sendData['old_account'] = this.state.card
+          sendData['old_account_name'] = this.state.username
           this.props.delBankCard(sendData,this.props.navigator);
         }
       }else{
@@ -49,7 +51,7 @@ class BankActionConfirm extends Component {
           title: 'ios-arrow-back',
           onPress: () => this.props.navigator.pop(),
       };
-      var tip = '请填写安全问题的答案';
+      var tip = '为了你的账户安全，绑卡将在操作完成2小时后，才能发起“向平台提现”';
 
         return (
           <View style={styles.container}>
@@ -60,14 +62,65 @@ class BankActionConfirm extends Component {
               title={title}
               leftItem={leftItem}
               />
+            <TipPadding content={tip} />
             <View style={{
                 flex: 1,
                 alignItems:'center',
               }}>
               <View style={styles.paddingHeight}/>
+              <View style={styles.inputContainer}>
+                <Text style={{fontSize:16,paddingRight:5}}> 银行卡类型</Text>
+                <View style={{flex:1}} />
+                <Icon style={{justifyContent:'flex-end',paddingRight:10}} name='ios-arrow-forward'
+                  size={25}
+                  color="#eee">
+                </Icon>
+              </View>
+              <View style={styles.paddingHeight}/>
+              <View style={styles.inputContainer}>
+                <Text style={{fontSize:16,paddingRight:5}}> 开户地</Text>
+                <TextInput
+                  style={styles.input}
+                  onChangeText={(username) => {this.setState({username})}}
+                  underlineColorAndroid={'transparent'}
+                  password={false}
+                  placeholder={'    省份       > 城市        >'}/>
+              </View>
+              <View style={styles.inputContainer}>
+                <Text style={{fontSize:16,paddingRight:5}}> 支行名称</Text>
+                <TextInput
+                  style={styles.input}
+                  onChangeText={(card) => {this.setState({card})}}
+                  underlineColorAndroid={'transparent'}
+                  password={false}/>
+              </View>
+              <View style={styles.paddingHeight}/>
+              <View style={styles.inputContainer}>
+                <Text style={{fontSize:16,paddingRight:5}}> 银行户名</Text>
+                <TextInput
+                  style={styles.input}
+                  onChangeText={(card) => {this.setState({card})}}
+                  underlineColorAndroid={'transparent'}
+                  password={false}/>
+              </View>
+              <View style={styles.inputContainer}>
+                <Text style={{fontSize:16,paddingRight:5}}> 银行卡号</Text>
+                <TextInput
+                  style={styles.input}
+                  onChangeText={(card) => {this.setState({card})}}
+                  underlineColorAndroid={'transparent'}
+                  password={false}/>
+              </View>
+              <View style={styles.paddingHeight}/>
+              <View style={{justifyContent:'flex-start',
+                  alignItems:'center',width:Util.size.width}}>
+                  <Text style={{paddingLeft:20,alignSelf:'flex-start',color:'#666'}}>银行卡号由16到19位数字 组成 </Text>
+                </View>
+              <View style={styles.paddingHeight}/>
+                
               {data.question ?
               <View style={styles.inputContainer}>
-                <Text style={{fontSize:16,paddingRight:5}}> 安全问题:</Text>
+                <Text style={{fontSize:16,paddingRight:5}}> 安全问题</Text>
                 <TextInput
                   style={styles.input}
                   onChangeText={(answers) => {this.setState({answers})}}
@@ -82,7 +135,7 @@ class BankActionConfirm extends Component {
               {data.question ?
                 <View style={{justifyContent:'flex-start',
                   alignItems:'center',width:Util.size.width}}>
-                  <Text style={{color:'#666'}}>请填写安全问题的答案</Text>
+                  <Text style={{paddingLeft:20,alignSelf:'flex-start',color:'#666'}}>请填写安全问题的答案</Text>
                 </View>:<View />}
 
 
@@ -110,7 +163,7 @@ class BankActionConfirm extends Component {
                       color: '#fff',
                       fontSize: 18,
                       fontWeight: '400'
-                    }}>{type === 'lock'?'提交锁定':'确认删除'}</Text>
+                    }}>{'下一步'}</Text>
                   </TouchableOpacity>
                 </View>
                 <View style={styles.paddingHeight}/>
@@ -180,9 +233,9 @@ const styles = StyleSheet.create({
     },
     inputContainer: {
       // marginTop: normalize(5),
-      height: normalize(50),
-      width:Util.size.width*0.9 ,
-      borderRadius: 5,
+      height: normalize(40),
+      width:Util.size.width,
+      // borderRadius: 5,
       // borderWidth: 0.11,
       borderColor: '#eee',
       alignItems: 'center',
@@ -216,4 +269,4 @@ function actions(dispatch) {
         delBankCard:(data,nav)=>dispatch(delBankCard(data,nav))
     };
 }
-module.exports = connect(select,actions)(BankActionConfirm);
+module.exports = connect(select,actions)(BankAdd);

@@ -1,6 +1,6 @@
 'use strict';
 import React, { Component } from "react";
-import { StyleSheet, Picker, View, Image, Text,TextInput, Platform, ScrollView, TouchableOpacity } from "react-native";
+import { StyleSheet,View, Image, Text,TextInput, Platform, ScrollView, TouchableOpacity } from "react-native";
 import Util from '../../utils/Util';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {normalize} from '../../common/F8Colors'
@@ -10,6 +10,7 @@ import TipPadding from '../TipPadding';
 import {delBankCard,lockBankCard} from '../../actions';
 import { toastShort } from '../../utils/ToastUtil';
 import { connect } from 'react-redux';
+import Picker from 'react-native-picker';
 
 class BankAdd extends Component {
 
@@ -18,6 +19,7 @@ class BankAdd extends Component {
     this.state={
       answers:'',
       passwd:'',
+      cityNameDisplay:'     省份       > 城市        >',
       username:'',
       card:'',
     }
@@ -44,8 +46,52 @@ class BankAdd extends Component {
       }
     }
 
+    _choiceBank(){
+      console.log('choiceBank');
+    }
+    _choiceCity(){
+      console.log('_choiceCity');
+
+      this.setState({
+        cityNameDisplay:'choiceCity'
+      })
+    }
+
     render() {
-      var {data,title,type} = this.props;
+    var { data,title,type } = this.props;
+    //   var { city, bank } = data
+    //   var pickleData = []
+    //   var cityData = {}
+    //   Object.keys(city).forEach((item)=>{
+    //     var tmp = []
+    //     city[item].children.forEach((t) => {
+    //       tmp.push(t.name)
+    //       var cityTmp = {'province_id':city[item].id,'city_id':t.id}
+    //       cityData[t.name] = cityTmp
+    //     })
+    //     var listName = city
+    //     var pTmp = {
+    //       'id':1,
+    //       city[item].name:2
+    //     }
+    //     pickleData.push(pTmp);
+    //   })
+    //   console.log(cityData)
+    //   console.log(pickleData)
+    //   Picker.init({
+    //     pickerData: pickleData,
+    //     selectedValue: [59],
+    //     onPickerConfirm: data => {
+    //         console.log(data);
+    //     },
+    //     onPickerCancel: data => {
+    //         console.log(data);
+    //     },
+    //     onPickerSelect: data => {
+    //         console.log(data);
+    //     }
+    // });
+    // Picker.show();
       var leftItem = {
           layout: 'title',
           title: 'ios-arrow-back',
@@ -68,24 +114,21 @@ class BankAdd extends Component {
                 alignItems:'center',
               }}>
               <View style={styles.paddingHeight}/>
-              <View style={styles.inputContainer}>
-                <Text style={{fontSize:16,paddingRight:5}}> 银行卡类型</Text>
-                <View style={{flex:1}} />
-                <Icon style={{justifyContent:'flex-end',paddingRight:10}} name='ios-arrow-forward'
-                  size={25}
-                  color="#eee">
-                </Icon>
-              </View>
+              <TouchableOpacity style={styles.inputContainer} onPress={() => this._onClick()}>
+                <View style={{flex:1}}>
+                  <Text style={{fontSize:16,paddingRight:5}}> 银行卡类型</Text>
+                  <View style={{flex:1}} />
+                  <Icon style={{justifyContent:'flex-end',paddingRight:10}} name='ios-arrow-forward'
+                    size={25}
+                    color="#eee">
+                  </Icon>
+                </View>
+              </TouchableOpacity>
               <View style={styles.paddingHeight}/>
-              <View style={styles.inputContainer}>
+              <TouchableOpacity style={styles.inputContainer} onPress={() => this._choiceCity()}>
                 <Text style={{fontSize:16,paddingRight:5}}> 开户地</Text>
-                <TextInput
-                  style={styles.input}
-                  onChangeText={(username) => {this.setState({username})}}
-                  underlineColorAndroid={'transparent'}
-                  password={false}
-                  placeholder={'    省份       > 城市        >'}/>
-              </View>
+                <Text style={{fontSize:16,paddingRight:5}}>{this.state.cityNameDisplay}</Text>
+              </TouchableOpacity>
               <View style={styles.inputContainer}>
                 <Text style={{fontSize:16,paddingRight:5}}> 支行名称</Text>
                 <TextInput

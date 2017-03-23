@@ -61,6 +61,28 @@ function checkToken(){
   };
 }
 
+function loadSetting(){
+  return dispatch => {
+    return new AppAuthToken().getSetting()
+
+      .then((token) => {
+        console.log(token);
+        if(token != null){
+          dispatch({
+            type:'LOAD_SETTING',
+            payload:token,
+          })
+          return true;
+        }
+
+      })
+
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+}
+
 function login(data,navigator) {
   return dispatch => {
     dispatch(showLoading());
@@ -713,6 +735,7 @@ function closeLoading(): Action {
 
 
 module.exports = {
+  loadSetting,
   getTrendData,
   delBankCard,
   lockBankCard,

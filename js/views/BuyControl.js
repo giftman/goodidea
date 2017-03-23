@@ -99,7 +99,7 @@ class BuyControl extends Component {
                     }}> 
                      <Text style={[styles.des, {
                             color: 'white'
-                        }]}>奖金: {this.props.prize}元</Text>
+                        }]}>奖金: {this.props.prize * this.state.multNum * this.props.moneyUnit}元</Text>
                         <Text style={[styles.des, {
                             color: '#DEDCA3'
                         }]}>{des}</Text>

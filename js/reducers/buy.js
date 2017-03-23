@@ -4,6 +4,8 @@
 
 import type {Action} from '../actions/types';
 import _ from 'underscore';
+import AppAuthToken from '../lib/AppAuthToken';
+
 export type UserInfo = {
 	username:'',
 	email:'',
@@ -107,11 +109,15 @@ function buy(state: State = initialState, action: Action): State {
 			return {...state,orderNum:action.payload};
 			break;
 		case 'UPDATE_MONEYUNIT':
+        new AppAuthToken().storeSetting({moneyUnit:action.payload,prize:state.prize});
 				return {...state,moneyUnit:action.payload};
 				break;
 		case 'UPDATE_PRIZE':
+        new AppAuthToken().storeSetting({moneyUnit:state.moneyUnit,prize:action.payload});
 						return {...state,prize:action.payload};
 						break;
+    case 'LOAD_SETTING':
+        return {...state,...action.payload}
 	}
 
   return state;

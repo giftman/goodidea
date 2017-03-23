@@ -15,7 +15,7 @@ import BuyList from './BuyList';
 import BuyMenu from './BuyMenu';
 import BuyControl from './BuyControl';
 import { connect } from 'react-redux';
-import { updatePrize,updateMoneyUnit,updateOrderNum,getGameConfig, changeType, loadMenu,
+import { loadSetting,updatePrize,updateMoneyUnit,updateOrderNum,getGameConfig, changeType, loadMenu,
   updateChoice, updateNumOfChips,
   updatePackageProps,updateDefaultGame } from '../actions';
 import TipPadding from './TipPadding';
@@ -40,10 +40,12 @@ class BuyView extends Component {
             tipShift: new Animated.Value(this.tipMinTop),
             choice: {},
         };
+        
         // if (this.props.article && this.props.article.gameId) {
         //     this.props.getGameConfig(this.props.article.gameId);
         // }
         // this.props.loadMenu(null);
+        this.props.loadSetting().then();
     }
 
     _onToggle(name, index) {
@@ -405,7 +407,7 @@ class BuyView extends Component {
       choice={this.state.choice}
       />
 
-    <BuyControl prize={this.props.prize} price={this.props.defaultGame.price * this.props.moneyUnit} balance={this.props.balance} numOfChips={this.props.numOfChips}  confirmBtn={() => this._onConfirmBtn()} clearBtn={() => this._clearBtn()}/>
+    <BuyControl moneyUnit={this.props.moneyUnit} prize={this.props.prize} price={this.props.defaultGame.price * this.props.moneyUnit} balance={this.props.balance} numOfChips={this.props.numOfChips}  confirmBtn={() => this._onConfirmBtn()} clearBtn={() => this._clearBtn()}/>
 
       </View>
       </DrawerLayout>
@@ -448,6 +450,7 @@ function select(store) {
 function actions(dispatch) {
     return {
         loadMenu: (tab) => dispatch(loadMenu()),
+        loadSetting: (tab) => dispatch(loadSetting()),
         changeType: (type) => dispatch(changeType(type)),
         getGameConfig: (gameId) => dispatch(getGameConfig(gameId)),
         updateChoice: (choice) => dispatch(updateChoice(choice)),

@@ -185,7 +185,7 @@ var AppNavigator = React.createClass({
                 return <BankSetting navigator={navigator} data={route.data}/>;
                 break;
             case "webview":
-                return <WebView navigator={navigator} data={route.data}/>;
+                return <WebView navigator={navigator} data={route.data} title={route.title}/>;
                 break;
             case "payChoice":
                 return <PayChoice navigator={navigator} data={route.data}/>;

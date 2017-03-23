@@ -27,7 +27,7 @@ class Pay extends Component {
       };
       var type1 = [];
       var type2 = [];
-      data.forEach((item) => {
+      data.pay_list.forEach((item) => {
         if(item.status){
           if(item.deposit_mode === 2){
             type2.push(item)

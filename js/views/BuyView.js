@@ -405,7 +405,7 @@ class BuyView extends Component {
       choice={this.state.choice}
       />
 
-    <BuyControl price={this.props.defaultGame.price * this.props.moneyUnit} balance={this.props.balance} numOfChips={this.props.numOfChips}  confirmBtn={() => this._onConfirmBtn()} clearBtn={() => this._clearBtn()}/>
+    <BuyControl prize={this.props.prize} price={this.props.defaultGame.price * this.props.moneyUnit} balance={this.props.balance} numOfChips={this.props.numOfChips}  confirmBtn={() => this._onConfirmBtn()} clearBtn={() => this._clearBtn()}/>
 
       </View>
       </DrawerLayout>

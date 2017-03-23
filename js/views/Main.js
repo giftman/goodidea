@@ -152,7 +152,8 @@ class TwitterFlow extends Component {
             // title: 'kefu',
             onPress: () => this.props.navigator.push({
               'my':'webview',
-              data:'https://chat6.livechatvalue.com/chat/chatClient/chatbox.jsp?companyID=632777&configID=48959&jid=7175212580&s=1'
+              data:'https://chat6.livechatvalue.com/chat/chatClient/chatbox.jsp?companyID=632777&configID=48959&jid=7175212580&s=1',
+              'title':'在线客服'
             }),
         };
 

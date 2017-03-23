@@ -9,7 +9,7 @@ import F8Header from '../../common/F8Header';
 class PayWebView extends React.Component {
 
     render() {
-        let {data} = this.props;
+        let {data,title} = this.props;
         var leftItem = {
             layout: 'title',
             title: 'ios-arrow-back',
@@ -20,7 +20,7 @@ class PayWebView extends React.Component {
             <F8Header style={{
                 backgroundColor: "#323245"
               }}
-              title=""
+              title={title}
               leftItem={leftItem}
               />
               <WebView

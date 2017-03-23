@@ -95,14 +95,17 @@ class BuyControl extends Component {
                 {upView}
                 <View style={styles.downContainer}>
                     <View style={{
-                padding: 5,
-            }}>
+                        padding: 5,
+                    }}> 
+                     <Text style={[styles.des, {
+                            color: 'white'
+                        }]}>奖金: {this.props.prize}元</Text>
                         <Text style={[styles.des, {
-                color: '#DEDCA3'
-            }]}>{des}</Text>
+                            color: '#DEDCA3'
+                        }]}>{des}</Text>
                         <Text style={[styles.des, {
-                color: 'white'
-            }]}>可用余额:{parseFloat(this.props.balance).toFixed(2)}</Text>
+                            color: 'white'
+                        }]}>可用余额:{parseFloat(this.props.balance).toFixed(2)}</Text>
                     </View>
 
 
@@ -207,7 +210,7 @@ const styles = StyleSheet.create({
     },
     des: {
         flex: 1,
-        fontSize: 18,
+        fontSize: 14,
         color: '#9E9E9E',
         paddingLeft: 5
     },

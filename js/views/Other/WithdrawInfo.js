@@ -106,7 +106,7 @@ class WithdrawalInfo extends Component {
               <View style={[styles.inputContainer,{backgroundColor:'#eaeaea'}]}>
                 <Text style={{fontSize:16,paddingRight:5}}> 可提现金额:</Text>
                 <Text style={{fontSize:16,paddingRight:5,color:'#DC5341'}}>
-                  {balance} 元
+                  {parseFloat(balance).toFixed(4)} 元
                 </Text>
               </View>
               <View style={styles.inputContainer}>

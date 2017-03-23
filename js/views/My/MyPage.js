@@ -134,7 +134,7 @@ class MyPage extends Component {
                         color: 'white',
                         fontSize: 16,
                         fontWeight: '300'
-                      }}>余额: {this.props.balance}元</Text>
+                      }}>余额: {parseFloat(this.props.balance).toFixed(2)}元</Text>
                     </View>
                     <TouchableOpacity
                       style={{flex: 1}}

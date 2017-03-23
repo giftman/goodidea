@@ -12,7 +12,7 @@ import F8Header from '../../common/F8Header';
 import EasyButton from '../../common/EasyButton';
 import {normalize,headerBG} from '../../common/F8Colors';
 import { withdrawApply} from '../../actions';
-
+import KeyboardSpacer from 'react-native-keyboard-spacer';
 import { connect } from 'react-redux';
 class WithdrawalApply extends Component {
   constructor(props) {
@@ -22,12 +22,9 @@ class WithdrawalApply extends Component {
       answers: '',
       passwd: '',
     }
-    // this.renderEmptySessionsList = this.renderEmptySessionsList.bind(this);
-    // this.openSharingSettings = this.openSharingSettings.bind(this);
-    // this.handleSegmentChanged = this.handleSegmentChanged.bind(this);
   }
 
-
+  
   _resetClick(){
     console.log("_resetClick");
     if(this.state.passwd && this.state.answers ){
@@ -60,6 +57,7 @@ class WithdrawalApply extends Component {
         //     "city": "东城区"//市
         // }
         var {bank,amount} = this.props
+        // var amount = 1;
         var {
           withdraw_one_fee,
           day_withdraw_limit,
@@ -96,7 +94,7 @@ class WithdrawalApply extends Component {
 
 
         return (
-          <View style={styles.container}>
+          <View ref={(view)=>{this.commentView = view}} style={styles.container}>
             <F8Header
               style={{
                 backgroundColor: "#323245"
@@ -105,12 +103,7 @@ class WithdrawalApply extends Component {
               leftItem={leftItem}
               >
             </F8Header>
-
-            <View style={{
-                flex: 1,
-                justifyContent:'flex-start',
-                alignItems:'center',
-              }}>
+            <View style={{flex:1}}>
               <View style={styles.paddingHeight}/>
 
               <View style={[styles.inputContainer,{backgroundColor:'#fff'}]}>
@@ -169,6 +162,8 @@ class WithdrawalApply extends Component {
                       </Text>
                   </View>
               </View>
+              </View>
+              <View>
               <View style={styles.paddingHeight}/>
               {is_user_security_questions === true?
               <View style={styles.inputContainer}>
@@ -205,9 +200,10 @@ class WithdrawalApply extends Component {
                       fontWeight: '400'
                     }}>点击提现</Text>
                   </TouchableOpacity>
+                  
                 </View>
               </View>
-
+              <KeyboardSpacer />
             </View>
         )
     }
@@ -218,7 +214,7 @@ class WithdrawalApply extends Component {
 const styles = StyleSheet.create({
     container:{
         backgroundColor:'#eaeaea',
-        flex:1
+        flex:1,
     },
     inputContainer: {
       // marginTop: normalize(5),

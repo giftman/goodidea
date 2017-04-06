@@ -166,6 +166,9 @@ function withdraw(navigator) {
           })
         }else{
           toastShort(result.message);
+          if(result.error_code == '95'){
+                dispatch(getBankCardStatus('bind',{},navigator));
+           }
         }
       })
 
@@ -246,6 +249,9 @@ function confirmPayTwo(data,navigator) {
           })
         }else{
           toastShort(result.message);
+          if(result.error_code == '95'){
+                dispatch(getBankCardStatus('bind',{},navigator));
+           }
         }
       })
 
@@ -273,6 +279,9 @@ function confirmPayOne(data,navigator) {
           })
         }else{
           toastShort(result.message);
+          if(result.error_code == '95'){
+                dispatch(getBankCardStatus('bind',{},navigator));
+           }
         }
       })
 

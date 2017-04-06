@@ -50,7 +50,7 @@ class PayOneResult extends Component {
                 <View style={{justifyContent:'center',alignItems:'center'}}>
                   <TouchableOpacity
                     style={[styles.confirmBtn]}
-                    onPress={() => this._resetClick(data.deposit.mownecum_order_num)}>
+                    onPress={() => this._resetClick(data.deposit.note)}>
                     <Text style={{
                         color: '#fff',
                         fontSize: 18,

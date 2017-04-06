@@ -9,6 +9,8 @@ import PickerView from '../../common/PickerView';
 import TipPadding from '../TipPadding';
 import {confirmPayOne,confirmPayTwo} from '../../actions';
 import { connect } from 'react-redux';
+import { toastShort } from '../../utils/ToastUtil';
+
 class PayChoice extends Component {
 
   constructor(props) {
@@ -19,6 +21,7 @@ class PayChoice extends Component {
     }
     this.state={
       amount:'',
+      accountName:'',
       choiceBank:choiceBank,
       showBank:false,
     }
@@ -65,7 +68,7 @@ class PayChoice extends Component {
           'amount':this.state.amount
         }
         if(data.is_pay_name){
-          postData['account_name'] = this.props.username
+          postData['account_name'] = this.state.accountName
         }
         this.props.confirmPayOne(
         postData,
@@ -135,7 +138,32 @@ class PayChoice extends Component {
                       </TouchableOpacity>
 
                       <View style={styles.paddingHeight}/>
-
+                {
+              (data.code.includes('CMB'))?
+                <View style={styles.inputContainer}>
+                        <Text style={{fontSize:16,paddingRight:5}}> 存款人姓名:</Text>
+                        <TextInput
+                          style={styles.input}
+                          onChangeText={(accountName) => {this.setState({accountName})}}
+                          underlineColorAndroid={'transparent'}
+                          password={false}
+                          placeholder='请在此输入姓名'/>
+                </View>
+                :<View />
+              }
+              {
+                (data.code.includes('CMB'))?
+                <View style={styles.paddingHeight}/>
+                :<View />
+              }
+              {
+                (data.code.includes('CMB'))?
+                      <View style={{justifyContent:'center',padding:15,
+                      alignItems:'flex-start',width:Util.size.width}}>
+                      <Text style={{color:'#666'}}>必须同付款方姓名一致</Text>
+                      </View>
+                :<View />
+              }
                       <View style={styles.inputContainer}>
                         <Text style={{fontSize:16,paddingRight:5}}> 充值金额:</Text>
                         <TextInput
@@ -147,8 +175,8 @@ class PayChoice extends Component {
                       </View>
 
                       <View style={styles.paddingHeight}/>
-                      <View style={{justifyContent:'center',
-                      alignItems:'center',width:Util.size.width}}>
+                      <View style={{justifyContent:'center',padding:15,
+                      alignItems:'flex-start',width:Util.size.width}}>
                       <Text style={{color:'#666'}}>{tip}</Text>
                       </View>
                       <View style={styles.paddingHeight}/>

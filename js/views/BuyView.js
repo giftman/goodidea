@@ -257,7 +257,7 @@ class BuyView extends Component {
 
     _updateCurrentorderNum(){
     //   let orderNum = parseInt(this.props.orderNum) + 1
-      this.props.getGameConfig(this.props.defaultGame.gameId);
+      this.props.getGameConfig(this.props.defaultGame);
     }
     _menuScroll(event:Object) {
         this.menuY = event.nativeEvent.contentOffset.y;
@@ -265,6 +265,7 @@ class BuyView extends Component {
     }
     _changeUnit(unit){
       this.props.updateMoneyUnit(unit);
+      toastShort('切换玩法单位到' + unit);
     }
     _changePrize(unit){
       this.props.updatePrize(unit);
@@ -407,7 +408,7 @@ class BuyView extends Component {
       choice={this.state.choice}
       />
 
-    <BuyControl moneyUnit={this.props.moneyUnit} prize={this.props.prize} price={this.props.defaultGame.price * this.props.moneyUnit} balance={this.props.balance} numOfChips={this.props.numOfChips}  confirmBtn={() => this._onConfirmBtn()} clearBtn={() => this._clearBtn()}/>
+    <BuyControl moneyUnit={this.props.moneyUnit} prize={this.props.defaultGame.prize} price={this.props.defaultGame.price * this.props.moneyUnit} balance={this.props.balance} numOfChips={this.props.numOfChips}  confirmBtn={() => this._onConfirmBtn()} clearBtn={() => this._clearBtn()}/>
 
       </View>
       </DrawerLayout>

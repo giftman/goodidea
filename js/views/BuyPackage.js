@@ -14,7 +14,7 @@ import BuyControl from './BuyControl';
 
 import { connect } from 'react-redux';
 import { clearPackage,updatePackageProps,bet} from '../actions';
-import {checkHowManyNumOfChipsAndAddToPackage,updatePackage,randomPick} from './buyHelper';
+import {checkHowManyNumOfChipsAndAddToPackage,updatePackage,randomPick,Fractional} from './buyHelper';
 import EasyDialog from './EasyDialog';
 class BuyPackage extends Component {
     constructor(props) {
@@ -92,7 +92,7 @@ class BuyPackage extends Component {
         }
         data["traceWinStop"] = "1";//todo
         data["traceStopValue"] = "1"; //todo
-        data["prize"] = this.props.prize//todo
+        data["prize"] = defaultGame.prize//todo
 
         buyPackage.map((elem,index)=>{
             allAmount = allAmount + elem.amount;
@@ -111,7 +111,7 @@ class BuyPackage extends Component {
             }
         });
 
-        data["amount"] = allAmount + ".00";
+        data["amount"] = Fractional(allAmount);
         //追号
         if(this.traceNum > 1){
           for(var i = 0;i< this.traceNum;i++){
@@ -160,7 +160,7 @@ class BuyPackage extends Component {
         let {defaultGame} = this.props;
         let orderInfo = {};
         orderInfo["name"] = this.props.gameName;
-        orderInfo["amount"] = allNumOfChips * defaultGame.price * this.traceNum;
+        orderInfo["amount"] = Fractional(allNumOfChips * defaultGame.price * this.traceNum * this.props.moneyUnit);
         orderInfo["orderNum"] = this.props.orderNum;
         orderInfo["des"] = this.traceNum  + "期" + allNumOfChips + "注";
 
@@ -183,7 +183,7 @@ class BuyPackage extends Component {
                 {list}
                 {clearBtn}
             </ScrollView>
-            <BuyControl moneyUnit={this.props.moneyUnit} prize={this.props.prize} price={this.props.defaultGame.price * this.props.moneyUnit} balance={this.props.balance} numOfChips={allNumOfChips} type="package" confirmBtn={()=>this._onConfirmBtn()} updateTraceNum={(text)=> {this.traceNum = text}}/>
+            <BuyControl moneyUnit={this.props.moneyUnit} prize={this.props.defaultGame.prize} price={this.props.defaultGame.price * this.props.moneyUnit} balance={this.props.balance} numOfChips={allNumOfChips} type="package" confirmBtn={()=>this._onConfirmBtn()} updateTraceNum={(text)=> {this.traceNum = text}}/>
             <EasyDialog show={this.state.showDialog} cancleBtn={()=>this._onConfirmBtn()} orderInfo={orderInfo} confirmBet={()=>this._confirmBet()}/>
       </View>
         )

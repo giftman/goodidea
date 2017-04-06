@@ -256,8 +256,8 @@ class BuyView extends Component {
     }
 
     _updateCurrentorderNum(){
-      let orderNum = parseInt(this.props.orderNum) + 1
-      this.props.updateOrderNum(orderNum + '');
+    //   let orderNum = parseInt(this.props.orderNum) + 1
+      this.props.getGameConfig(this.props.defaultGame.gameId);
     }
     _menuScroll(event:Object) {
         this.menuY = event.nativeEvent.contentOffset.y;

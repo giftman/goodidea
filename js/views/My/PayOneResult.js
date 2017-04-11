@@ -45,7 +45,7 @@ class PayOneResult extends Component {
               </TipPadding>
               <View style={styles.inputContainer}>
                 <Text style={{fontSize:16,paddingRight:5}}> 充值附言号: </Text>
-                <Text style={{fontSize:16,paddingRight:5,color:'red'}}>{data.deposit.company_order_num}</Text>
+                <Text style={{fontSize:16,paddingRight:5,color:'red'}}>{data.deposit.note}</Text>
                 <View style={{flex:1}} />
                 <View style={{justifyContent:'center',alignItems:'center'}}>
                   <TouchableOpacity

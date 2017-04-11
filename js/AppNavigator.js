@@ -227,7 +227,7 @@ var AppNavigator = React.createClass({
 
         }
 
-        return <SplashView navigator={navigator} checkToken={() => this.props.checkToken()}/>;
+        return <TwitterTab navigator={navigator} checkToken={() => this.props.checkToken()}/>;
     },
 });
 

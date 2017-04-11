@@ -74,7 +74,7 @@ class EasyDialog extends Component{
             <Text style={styles.header}>注单付款确认</Text>
             <View style={styles.content}>
               <Text style={styles.info}>游戏: {orderInfo.name}</Text>
-              <Text style={styles.info}>金额: {orderInfo.amount}.00元</Text>
+              <Text style={styles.info}>金额: {orderInfo.amount}元</Text>
               <Text style={styles.info}>期次: {orderInfo.orderNum}</Text>
               <Text style={styles.info}>追号: {orderInfo.des}</Text>
             </View>

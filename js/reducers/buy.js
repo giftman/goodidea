@@ -53,6 +53,8 @@ type State = {
   currentPrice:string;
 	moneyUnit:string;
 	prize:string;//'1950'
+  minPrize:string;
+  maxPrize:string;
 };
 
 const initialState: State = { allTypes: {},buyPackage:[],loading:false,
@@ -71,6 +73,16 @@ function buy(state: State = initialState, action: Action): State {
           orderNum:action.payload.orderNum,
           currentTime:action.payload.currentTime,
           orderNumberEndTime:action.payload.orderNumberEndTime,
+          minPrize:action.payload.minPrize,
+          maxPrize:action.payload.maxPrize,
+          prize:action.payload.maxPrize,
+          methods:action.payload.methods,
+      };
+			break;
+    case 'CHANGE_METHOD':
+			return {...state,menu:action.payload.menu,
+        allTypes:action.payload.allTypes,
+        defaultGame:action.payload.allTypes[state.defaultType],
       };
 			break;
 		case 'LOAD_REQUEST':

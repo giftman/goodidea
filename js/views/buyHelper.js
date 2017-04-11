@@ -201,7 +201,7 @@ function updatePackage(defaultGame, numOfChips, multNum, buyPackage,moneyUnit, r
             let is_dekaron = numOfChips > defaultGame.dekaron.dekaron_count ? false:true;
             oneChoice["is_dekaron"] = is_dekaron;
             oneChoice["numShow"] = result.replace(/\|/g, ",");
-            let amount = defaultGame.price * multNum * numOfChips * moneyUnit;
+            let amount = parseFloat(defaultGame.price * multNum * numOfChips * moneyUnit).toFixed(2);
             oneChoice["des"] = defaultGame.name_cn + " " + numOfChips + "注 X " + multNum + "倍="
             + amount + "元";
             oneChoice["amount"] = amount;

@@ -15,7 +15,7 @@ import BuyList from './BuyList';
 import BuyMenu from './BuyMenu';
 import BuyControl from './BuyControl';
 import { connect } from 'react-redux';
-import { loadSetting,updatePrize,updateMoneyUnit,updateOrderNum,getGameConfig, changeType, loadMenu,
+import { changeMethod,loadSetting,updatePrize,updateMoneyUnit,updateOrderNum,getGameConfig, changeType, loadMenu,
   updateChoice, updateNumOfChips,
   updatePackageProps,updateDefaultGame } from '../actions';
 import TipPadding from './TipPadding';
@@ -46,6 +46,7 @@ class BuyView extends Component {
         // }
         // this.props.loadMenu(null);
         this.props.loadSetting().then();
+        // this._updateCurrentorderNum()
     }
 
     _onToggle(name, index) {
@@ -257,7 +258,7 @@ class BuyView extends Component {
 
     _updateCurrentorderNum(){
     //   let orderNum = parseInt(this.props.orderNum) + 1
-      this.props.getGameConfig(this.props.defaultGame);
+      this.props.getGameConfig(this.props.defaultGame,null);
     }
     _menuScroll(event:Object) {
         this.menuY = event.nativeEvent.contentOffset.y;
@@ -269,6 +270,7 @@ class BuyView extends Component {
     }
     _changePrize(unit){
       this.props.updatePrize(unit);
+      this.props.changeMethod(this.props.methods[unit],this.props.defaultGame.gameId)
     }
     render() {
         // console.log(this.props.allTypes["14"]);
@@ -325,11 +327,11 @@ class BuyView extends Component {
             <View style={styles.recordBtn}>
               <Icon style={{paddingLeft:5}} name="logo-yen" size={20} color="#fff" />
               <View style={{paddingLeft:5,flexDirection:'row',flex:1}}>
-                <TouchableOpacity onPress={()=>this._changePrize("1950")} style={{flex:1,backgroundColor:this.props.prize === '1950' ?'#8D846B' :'#323244',padding:5}}>
-                  <View ><Text style={{color:'white'}}>1950</Text></View>
+                <TouchableOpacity onPress={()=>this._changePrize(this.props.maxPrize)} style={{flex:1,backgroundColor:this.props.prize === this.props.maxPrize ?'#8D846B' :'#323244',padding:5}}>
+                  <View ><Text style={{color:'white'}}>{this.props.maxPrize}</Text></View>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={()=>this._changePrize("1800")} style={{flex:1,backgroundColor:this.props.prize === '1800' ?'#8D846B' :'#323244',padding:5}}>
-                  <View ><Text style={{color:'white'}}>1800</Text></View>
+                <TouchableOpacity onPress={()=>this._changePrize(this.props.minPrize)} style={{flex:1,backgroundColor:this.props.prize === this.props.minPrize ?'#8D846B' :'#323244',padding:5}}>
+                  <View ><Text style={{color:'white'}}>{this.props.minPrize}</Text></View>
                 </TouchableOpacity>
               </View>
             </View>
@@ -445,6 +447,9 @@ function select(store) {
         balance:store.user.balance,
         moneyUnit:store.buy.moneyUnit,
         prize:store.buy.prize,
+        minPrize:store.buy.minPrize,
+        maxPrize:store.buy.maxPrize,
+        methods:store.buy.methods,
     };
 }
 
@@ -463,6 +468,7 @@ function actions(dispatch) {
         updateDefaultGame:(game)=>dispatch(updateDefaultGame(game)),
         updateMoneyUnit:(unit)=>dispatch(updateMoneyUnit(unit)),
         updatePrize:(unit)=>dispatch(updatePrize(unit)),
+        changeMethod:(method,gameId) =>dispatch(changeMethod(method,gameId))
     };
 }
 

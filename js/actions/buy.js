@@ -9,8 +9,10 @@ function loadMenu(dataA): ThunkAction {
          let buyCell = require('./_mock_/gameMethodSet.json');
          let menu = {};
          let allTypes = {};
-         let currentPrice = data.currentPrize;
-           data.gameMethods["1950"].map((article, index) => {
+         let currentPrice = data.currentPrice;
+         let maxPrize = data.maxPrize;
+         let minPrize = data.minPrize + '';
+           data.gameMethods[maxPrize].map((article, index) => {
               renderCells(article,"","",article.id,data.gameId,menu,allTypes,buyCell);
           })
 
@@ -29,13 +31,55 @@ function loadMenu(dataA): ThunkAction {
               type:"LOAD_MENU",
               payload:
               {
+                methods:data.gameMethods, //保存玩法数组方便切换
                 menu,
                 allTypes,
                 currentPrice,
+                maxPrize,
+                minPrize,
                 gameName:data.gameName_cn,
                 orderNum:data.currentNumber,
                 currentTime:data.currentTime,
                 orderNumberEndTime:data.currentNumberTime,
+              }
+            })
+
+
+      }
+
+
+}
+
+function changeMethod(method,gameId): ThunkAction {
+
+     return (dispatch) => {
+     	// let data = require('./_mock_/buyNo.json');
+      
+         let buyCell = require('./_mock_/gameMethodSet.json');
+         let menu = {};
+         let allTypes = {};
+         
+           method.map((article, index) => {
+              renderCells(article,"","",article.id,gameId,menu,allTypes,buyCell);
+          })
+
+           for(let i in buyCell){
+            if(allTypes[i]){
+              allTypes[i].only_one = buyCell[i].only_one;
+              allTypes[i].layout = buyCell[i].layout;
+              allTypes[i].methods = buyCell[i].methods;
+              allTypes[i].each_method_represent_chips_num = buyCell[i].each_method_represent_chips_num;
+              allTypes[i].num = buyCell[i].num;
+              allTypes[i].positions = buyCell[i].positions;
+            }
+           }
+            dispatch(
+              {
+              type:"CHANGE_METHOD",
+              payload:
+              {
+                menu,
+                allTypes
               }
             })
 
@@ -164,4 +208,4 @@ function renderCells(cells,name,en_name,jsId,gameId,menu,allTypes,buyCell){
   }
 }
 
-module.exports = {updateMoneyUnit,updatePrize,updateBalance,updateOrderNum,loadMenu,changeType,updateChoice,clearPackage,updateNumOfChips,updatePackageProps,updateDefaultGame,showLoading,closeLoading};
+module.exports = {changeMethod,updateMoneyUnit,updatePrize,updateBalance,updateOrderNum,loadMenu,changeType,updateChoice,clearPackage,updateNumOfChips,updatePackageProps,updateDefaultGame,showLoading,closeLoading};

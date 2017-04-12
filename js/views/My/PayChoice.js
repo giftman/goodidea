@@ -139,7 +139,7 @@ class PayChoice extends Component {
 
                       <View style={styles.paddingHeight}/>
                 {
-              (data.code.includes('CMB'))?
+              (data.code)?
                 <View style={styles.inputContainer}>
                         <Text style={{fontSize:16,paddingRight:5}}> 存款人姓名:</Text>
                         <TextInput
@@ -152,12 +152,12 @@ class PayChoice extends Component {
                 :<View />
               }
               {
-                (data.code.includes('CMB'))?
+                (data.code)?
                 <View style={styles.paddingHeight}/>
                 :<View />
               }
               {
-                (data.code.includes('CMB'))?
+                (data.code)?
                       <View style={{justifyContent:'center',padding:15,
                       alignItems:'flex-start',width:Util.size.width}}>
                       <Text style={{color:'#666'}}>必须同付款方姓名一致</Text>

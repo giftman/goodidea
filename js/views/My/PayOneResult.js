@@ -8,14 +8,18 @@ import F8Header from '../../common/F8Header';
 import TipPadding from '../TipPadding';
 import CountDown from '../../common/CountDown';
 import { toastShort } from '../../utils/ToastUtil';
-
-
+import { connect } from 'react-redux';
+import { getBankCardStatus} from '../../actions';
 
 class PayOneResult extends Component {
 
     _resetClick(tab) {
       Clipboard.setString(tab);
       toastShort('已复制<' + tab + '>')
+    }
+
+    _updateBalance(){
+      this.props.getBankCardStatus('bind',{},null)
     }
 
     render() {
@@ -61,6 +65,23 @@ class PayOneResult extends Component {
               </View>
               <View style={styles.paddingHeight}/>
               <Text style={{fontSize:14,padding:5,color:'#666'}}>  <Icon name='ios-alert-outline' size={16}/> 附言区分大小写，请正确输入 </Text>
+              <View style={styles.inputContainer}>
+                <Text style={{fontSize:16,paddingRight:5,color:'#959595'}}> 账户余额: </Text>
+                <Text style={{fontSize:16,paddingRight:5}}>{this.props.balance} 元</Text>
+                <View style={{flex:1}} />
+                <View style={{justifyContent:'center',alignItems:'center'}}>
+                  <TouchableOpacity
+                    style={[styles.confirmBtn,{backgroundColor:'transparent',width: Util.size.width*.2}]}
+                    onPress={() => this._updateBalance()}>
+                    <Text style={{
+                        color: '#666',
+                        fontSize: 18,
+                        fontWeight: '400',
+                        paddingRight:5,
+                      }}>刷新 <Icon name='ios-refresh' size={23}/></Text>
+                    </TouchableOpacity>
+                </View>
+              </View>
               <Text style={{fontSize:14,padding:5,color:'#666'}}>  收款方信息</Text>
 
               <View style={styles.inputContainer}>
@@ -175,4 +196,15 @@ const styles = StyleSheet.create({
 })
 
 
-module.exports = PayOneResult;
+function select(store) {
+    return {
+        balance:store.user.balance,
+    };
+}
+
+function actions(dispatch) {
+    return {
+       getBankCardStatus:(action,data,nav)=>dispatch(getBankCardStatus(action,data,nav))
+    };
+}
+module.exports = connect(select,actions)(PayOneResult);

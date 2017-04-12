@@ -302,7 +302,7 @@ function bet(data,betUrl,navigator) {
       .then((result) => {
         console.log(result);
         if(result.error_code == '00'){
-          dispatch(updateBalance(data['amount']));
+          dispatch(updateBalance(result.data.balance));
         }
         toastShort(result.message);
       })
@@ -642,10 +642,15 @@ function getBankCardStatus(action,data,navigator) {
          dispatch(closeLoading());
       if(result.error_code == '00'){
         if(action === 'bind'){
-          navigator.push({
-              "my": 'bankSetting',
-              data:result.data
-          });
+          if(navigator){
+            navigator.push({
+                "my": 'bankSetting',
+                data:result.data
+            });
+          }else{
+            //更新balance
+            dispatch(updateBalance(result.data.balance));
+          }
         }else if(action === 'lock'){
           navigator.push({
               "my": 'bankActionConfirm',

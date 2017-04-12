@@ -69,9 +69,9 @@ function user(state: State = initialState, action: Action): State {
 			new AppAuthToken().storeSessionToken(action.token);
 			return {...state,token:action.token};
 		case 'UPDATE_BALANCE':
-			 var newBalance = parseFloat(state.balance) - action.payload
-			 new AppAuthToken().storeUser({...state,balance:newBalance});
-			return {...state,balance:newBalance}
+			//  var newBalance = parseFloat(state.balance) - action.payload
+			 new AppAuthToken().storeUser({...state,balance:action.payload});
+			return {...state,balance:action.payload}
 	}
 
   return state;

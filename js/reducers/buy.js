@@ -129,7 +129,9 @@ function buy(state: State = initialState, action: Action): State {
 						return {...state,prize:action.payload};
 						break;
     case 'LOAD_SETTING':
-        return {...state,...action.payload}
+        return {...state,...action.payload};
+        break;
+   
 	}
 
   return state;

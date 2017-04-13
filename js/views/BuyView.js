@@ -65,6 +65,7 @@ class BuyView extends Component {
             }else if(name.includes("\n")){
                 splitText = "\n";
             }
+            name = name.replace(/\s+/g, ' ');
             choice = name.trim().split(splitText);
         } else {
             if (choice[name] && !this.props.defaultGame.only_one) {

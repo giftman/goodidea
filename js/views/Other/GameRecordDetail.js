@@ -12,7 +12,7 @@ import { HEADER_HEIGHT,normalize} from '../../common/F8Colors';
 import { getGameTypeConfig,gameRecordStatus } from '../ssc';
 import EasyCheckBox from '../../common/EasyCheckBox';
 import { connect } from 'react-redux';
-// import { getGameRecordDetail} from '../../actions';
+import { dropOrder} from '../../actions';
 
 type Props = {
 data:any;
@@ -52,6 +52,11 @@ class GameRecordDetail extends Component {
               layout: 'title',
               title: 'ios-arrow-back',
               onPress: () => this.props.navigator.pop(),
+          };
+          var rightItem = {
+              layout:'text',
+              title: '撤单',
+              onPress: () => this.props.dropOrder(data.serial_number,this.props.navigator),
           };
         var game_config = {}
         if(data && data.lottery_id){
@@ -139,6 +144,7 @@ class GameRecordDetail extends Component {
                     }}
                     title=""
                     leftItem={leftItem}
+                    rightItem={rightItem}
                     >
               </F8Header>
               {boxes}
@@ -229,7 +235,7 @@ function select(store) {
 
 function actions(dispatch) {
     return {
-      // getGameRecordDetail:(id,callback)=>dispatch(getGameRecordDetail(id,callback))
+      dropOrder:(id,nav)=>dispatch(dropOrder(id,nav))
     };
 }
 

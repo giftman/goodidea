@@ -533,6 +533,8 @@ _token:VbZVLaUP4rGVBlDIqMlJa6WOnA5P138bJY13KcDx}
                 });
     }
 
+    
+
     async bindBankCard(data) {
         return await this._fetch({
                 method: 'POST',
@@ -566,6 +568,32 @@ _token:VbZVLaUP4rGVBlDIqMlJa6WOnA5P138bJY13KcDx}
                         throw (response);
                     }
                 })
+                .catch((error) => {
+                    throw (error);
+                });
+    }
+
+     async dropOrder(orderId) {
+        let data = {};
+        if(orderId){
+          data["id"] = orderId;
+        }
+        return await this._fetch({
+                method: 'POST',
+                url: `/phone-project/drop/${orderId}`,
+                body: data
+            })
+                .then((response) => {
+                    if ( (response.status === 200 || response.status === 201) ) {
+                        return response.json();
+                    } else {
+                        throw (response);
+                    }
+                })
+                // .then((json) => {
+                //     console.log(json);
+                //     return json.data;
+                // })
                 .catch((error) => {
                     throw (error);
                 });

@@ -795,6 +795,31 @@ function delBankCard(data,navigator) {
   };
 }
 
+function dropOrder(orderId,navigator) {
+  return dispatch => {
+    dispatch(showLoading());
+    return new AppAuthToken().getSessionToken()
+
+      .then((token) => {
+        return BackendFactory(token.sessionToken).dropOrder(orderId);
+      })
+      .then((result) => {
+        console.log(result);
+         dispatch(closeLoading());
+      if(result.error_code == '00'){
+        toastShort(result.message);
+        navigator.resetTo({ twitterTab:123 });
+      }else{
+        toastShort(result.message);
+      }
+      })
+      .catch((error) => {
+        console.log(error);
+        // dispatch(getToken());
+      });
+  };
+}
+
 function showLoading(): Action {
   return {
     type: 'SHOW_LOADING',
@@ -808,6 +833,7 @@ function closeLoading(): Action {
 
 
 module.exports = {
+  dropOrder,
   bindBankCard,
   modifyBankCard,
   loadSetting,

@@ -10,15 +10,22 @@ import CountDown from '../../common/CountDown';
 import { toastShort } from '../../utils/ToastUtil';
 import { getBankCardStatus} from '../../actions';
 import { connect } from 'react-redux';
+import LoadingView from '../../common/LoadingView';
 
 
 class BankSetting extends Component {
 
     _bind(){
-      this.props.navigator.push({
-              "my": 'bankAdd',
+      // this.props.navigator.push({
+      //         "my": 'bankAdd',
+      //         data:this.props.data,
+      //         title:'绑定银行卡',
+      //         type:'add'
+      //     });
+          this.props.navigator.push({
+              "my": 'bankDelete',
               data:this.props.data,
-              title:'绑定银行卡',
+              title:'验证老银行卡',
               type:'add'
           });
     }
@@ -129,6 +136,7 @@ class BankSetting extends Component {
             <TipPadding content={tip} />
             {content}
             {button}
+            {this.props.loading?<LoadingView />:<View />}
             </View>
 
             );
@@ -220,6 +228,7 @@ const styles = StyleSheet.create({
 function select(store) {
     return {
         username:store.user.username,
+        loading:store.buy.loading,
     };
 }
 

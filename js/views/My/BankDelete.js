@@ -33,6 +33,28 @@ class BankDelete extends Component {
         }
         if(type === 'lock'){
           this.props.lockBankCard(sendData,this.props.navigator);
+        }else if(type === 'add'){
+          sendData['old_card_id'] = data.old_card[0].id
+          sendData['old_account'] = this.state.card
+          sendData['old_account_name'] = this.state.username
+          this.props.navigator.push({
+              "my": 'bankAdd',
+              data:data,
+              sendData:sendData,
+              title:'增加-新银行卡',
+              type:'add'
+          });
+        }else if(type === 'modify'){
+          sendData['old_card_id'] = data.card.id
+          sendData['old_account'] = this.state.card
+          sendData['old_account_name'] = this.state.username
+          this.props.navigator.push({
+              "my": 'bankAdd',
+              data:data,
+              sendData:sendData,
+              title:'修改银行卡',
+              type: type
+          });
         }else{
           sendData['old_card_id'] = data.card.id
           sendData['old_account'] = this.state.card
@@ -74,7 +96,7 @@ class BankDelete extends Component {
                   onChangeText={(answers) => {this.setState({answers})}}
                   underlineColorAndroid={'transparent'}
                   password={false}
-                  value={data.card.bank + ' ' + data.card.account}/>
+                  value={data.card ? (data.card.bank +' ' + data.card.account) :  (data.old_card[0].bank +' ' + data.old_card[0].account)}/>
               </View>
               <View style={styles.paddingHeight}/>
               <View style={styles.inputContainer}>
@@ -142,7 +164,7 @@ class BankDelete extends Component {
                       color: '#fff',
                       fontSize: 18,
                       fontWeight: '400'
-                    }}>{type === 'modify'?'确认修改':'确认删除'}</Text>
+                    }}>{type === 'delete'?'确认删除':'下一步'}</Text>
                   </TouchableOpacity>
                 </View>
                 <View style={styles.paddingHeight}/>

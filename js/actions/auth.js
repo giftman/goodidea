@@ -669,9 +669,15 @@ function getBankCardStatus(action,data,navigator) {
           navigator.push({
               "my": 'bankDelete',
               data:result.data,
-              title:'修改',
+              title:'验证老银行卡',
               type:'modify'
           });
+          // navigator.push({
+          //     "my": 'bankDelete',
+          //     data:result.data,
+          //     title:'修改',
+          //     type:'modify'
+          // });
         }
         // navigator.push({
         //     "my": 'gameRecord',
@@ -688,6 +694,56 @@ function getBankCardStatus(action,data,navigator) {
   };
 }
 
+
+
+function modifyBankCard(data,navigator) {
+  return dispatch => {
+    dispatch(showLoading());
+    return new AppAuthToken().getSessionToken()
+
+      .then((token) => {
+        return BackendFactory(token.sessionToken).modifyBankCard(data);
+      })
+      .then((result) => {
+        console.log(result);
+         dispatch(closeLoading());
+      if(result.error_code == '00'){
+        toastShort(result.message);
+        navigator.resetTo({ twitterTab:123 });
+      }else{
+        toastShort(result.message);
+      }
+      })
+      .catch((error) => {
+        console.log(error);
+        // dispatch(getToken());
+      });
+  };
+}
+function bindBankCard(data,navigator) {
+  return dispatch => {
+    dispatch(showLoading());
+    return new AppAuthToken().getSessionToken()
+
+      .then((token) => {
+        return BackendFactory(token.sessionToken).bindBankCard(data);
+      })
+      .then((result) => {
+        console.log(result);
+         dispatch(closeLoading());
+      if(result.error_code == '00'){
+        toastShort(result.message);
+        navigator.resetTo({ twitterTab:123 });
+      }else{
+        toastShort(result.message);
+      }
+      })
+      .catch((error) => {
+        console.log(error);
+        // dispatch(getToken());
+      });
+  };
+}
 
 function lockBankCard(data,navigator) {
   return dispatch => {
@@ -752,6 +808,8 @@ function closeLoading(): Action {
 
 
 module.exports = {
+  bindBankCard,
+  modifyBankCard,
   loadSetting,
   getTrendData,
   delBankCard,

@@ -513,6 +513,45 @@ _token:VbZVLaUP4rGVBlDIqMlJa6WOnA5P138bJY13KcDx}
                 });
     }
 
+    
+    async modifyBankCard(data) {
+        return await this._fetch({
+                method: 'POST',
+                url: '/phone-bankcard/modify',
+                body: data
+            })
+                .then((response) => {
+                    if ( (response.status === 200 || response.status === 201) ) {
+                        // console.log(response);
+                        return response.json();
+                    } else {
+                        throw (response);
+                    }
+                })
+                .catch((error) => {
+                    throw (error);
+                });
+    }
+
+    async bindBankCard(data) {
+        return await this._fetch({
+                method: 'POST',
+                url: '/phone-bankcard/bind',
+                body: data
+            })
+                .then((response) => {
+                    if ( (response.status === 200 || response.status === 201) ) {
+                        // console.log(response);
+                        return response.json();
+                    } else {
+                        throw (response);
+                    }
+                })
+                .catch((error) => {
+                    throw (error);
+                });
+    }
+
     async delBankCard(data) {
         return await this._fetch({
                 method: 'POST',

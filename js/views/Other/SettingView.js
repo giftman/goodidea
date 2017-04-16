@@ -11,6 +11,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import F8Header from '../../common/F8Header';
 import EasyButton from '../../common/EasyButton';
 import { checkSecurityQuestion,logout,getBankCardStatus} from '../../actions';
+import LoadingView from '../../common/LoadingView';
 
 import { connect } from 'react-redux';
 class SettingView extends Component {
@@ -98,6 +99,8 @@ class SettingView extends Component {
             </TouchableOpacity>
         </View>
     </ScrollView>
+                {this.props.loading?<LoadingView />:<View />}
+
       </View>
         )
     }
@@ -154,6 +157,8 @@ const styles = StyleSheet.create({
 function select(store) {
     return {
         username:store.user.username,
+        loading:store.buy.loading,
+
     };
 }
 

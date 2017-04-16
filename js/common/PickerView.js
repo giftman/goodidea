@@ -29,6 +29,7 @@ const PickerView = (props) => (
   <View style={styles.container} >
     <View style={{flex:1,opacity:0.7,backgroundColor:'#666'}}></View>
     <Picker
+      style={{backgroundColor:'#fff'}}
       selectedValue={props.bank}
       onValueChange={(bank) => props.pick(bank)}>
       {props.data.map((item,index) => {

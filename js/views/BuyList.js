@@ -13,9 +13,9 @@ import EasyCheckBox from '../common/EasyCheckBox';
 import BuyCell from './BuyCell';
 import { connect } from 'react-redux';
 type Props = {
-data:any;
-navigator: Navigator;
-choice:{};
+    data:any;
+    navigator: Navigator;
+    choice:{};
 };
 class BuyList extends Component {
     props:Props;

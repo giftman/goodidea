@@ -9,14 +9,15 @@ const StyleSheet = require('../utils/CustomStyleSheet');
 import Icon from 'react-native-vector-icons/Ionicons';
 import { HEADER_HEIGHT } from '../common/F8Colors';
 import F8Button from '../common/F8Button';
+import EasyCheckBox from '../common/EasyCheckBox';
 class BuyControl extends Component {
     props:{
-    clearBtn:()=> void,
-    maxMultNum:number,
-    confirmBtn:() =>void,
-    numOfChips:number,
-    price:number,
-    type:"buy" | "package",
+        clearBtn:()=> void,
+        maxMultNum:number,
+        confirmBtn:() =>void,
+        numOfChips:number,
+        price:number,
+        type:"buy" | "package",
     }
 
     constructor(props) {
@@ -26,6 +27,7 @@ class BuyControl extends Component {
         this.state = {
             multNum: 1,
             traceNum:1,
+            traceWinStop:true,
         };
     }
 
@@ -42,6 +44,12 @@ class BuyControl extends Component {
         });
         this.props.updateTraceNum(text);
     }
+    _traceBtnClick(){
+        this.setState({
+            traceWinStop:!this.state.traceWinStop
+        })
+        this.props.traceBtnClick()
+    }
     render() {
         let des = this.props.numOfChips + "注 X" + this.state.multNum + "倍=" + parseFloat(this.props.price * this.state.multNum * this.props.numOfChips).toFixed(2) + "元";
         if(this.props.type == "package"){
@@ -51,23 +59,27 @@ class BuyControl extends Component {
         let color = this.props.numOfChips > 0 ? "red" : "#666";
         let confirmText = this.props.type === "package" ? "投注" : "确定";
         let upView = this.props.type === "package"
-            ? <View style={styles.upContainer}>
-        <View style={styles.multView}>
-                        <Icon name="md-thunderstorm" size={28} color="#333333"></Icon>
-                        <Text style={styles.clearText}>追号:</Text>
-                        <TextInput
-            ref="multInput"
-            style={styles.multInput}
-            keyboardType="numeric"
-            maxLength={3}
-            defaultValue="1"
-            multiline={false}
-            selectionColor="#2aa2ef"
-            placeholderTextColor="red"
-            underlineColorAndroid="transparent"
-            onChangeText={(text) => this._updateTraceNum(text)}></TextInput>
-                    </View>
-                    </View>
+        ? <View style={styles.upContainer}>
+            <View style={styles.multView}>
+                <Icon name="md-thunderstorm" size={28} color="#333333"></Icon>
+                <Text style={styles.clearText}>追号:</Text>
+                <TextInput
+                    ref="multInput"
+                    style={styles.multInput}
+                    keyboardType="numeric"
+                    maxLength={3}
+                    defaultValue="1"
+                    multiline={false}
+                    selectionColor="#2aa2ef"
+                    placeholderTextColor="red"
+                    underlineColorAndroid="transparent"
+                    onChangeText={(text) => this._updateTraceNum(text)}></TextInput>
+            </View>
+            <TouchableOpacity style={styles.multView} onPress={() => this._traceBtnClick()}>
+                <Icon name="md-checkbox" size={17} color={this.state.traceWinStop ? '#3B99FC':'#666'}></Icon>
+                <Text style={styles.clearText}>中奖后停止追号</Text>
+            </TouchableOpacity>
+        </View>
             : <View style={styles.upContainer}>
         <TouchableOpacity style={styles.clearBtn} onPress={() => this.props.clearBtn()}>
                         <Icon name="ios-trash-outline" size={15} color="#333333"></Icon>
@@ -117,6 +129,17 @@ class BuyControl extends Component {
                 fontSize: 18,
                 fontWeight: '400'
             }}>{confirmText}</Text>
+            {this.props.buyPackage && this.props.buyPackage.length >= 1 
+            ? <View style={styles.bandge}>
+                    <Text style={{
+                color: '#fff',
+                fontSize: 14,
+                fontWeight: '400'
+            }}>{this.props.buyPackage.length}</Text>
+                </View>
+            :<View />}
+                
+
             </TouchableOpacity>
 
                 </View>
@@ -128,6 +151,18 @@ class BuyControl extends Component {
 
 
 const styles = StyleSheet.create({
+    bandge:{
+        width: 20,
+        height: 20,
+        borderRadius: 10,
+        // borderWidth: 1,
+        backgroundColor: "#737274",
+        alignItems: "center",
+        justifyContent: "center",
+        top:-5,
+        right:-5,
+        position: 'absolute',
+    },
     container: {
         width: Util.size.width,
         height: 100,

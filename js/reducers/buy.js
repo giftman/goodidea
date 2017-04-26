@@ -55,12 +55,13 @@ type State = {
 	prize:string;//'1950'
   minPrize:string;
   maxPrize:string;
+  tracewinStop:any;
 };
 
 const initialState: State = { allTypes: {},buyPackage:[],loading:false,
                             multNum:1,choice:{},numOfChips:0,menu:{},
                             defaultType:'qiansan.zuxuan.hezhi',
-                            defaultGame:{},gameName:"",orderNum:"",moneyUnit:1,prize:'1950'};
+                            defaultGame:{},gameName:"",orderNum:"",moneyUnit:1,prize:'1950',tracewinStop:true};
 
 function buy(state: State = initialState, action: Action): State {
 	switch(action.type){
@@ -130,6 +131,9 @@ function buy(state: State = initialState, action: Action): State {
 						break;
     case 'LOAD_SETTING':
         return {...state,...action.payload};
+        break;
+    case 'UPDATE_TRACE_WIN_STOP':
+        return {...state,tracewinStop:!state.tracewinStop};
         break;
    
 	}

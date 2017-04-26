@@ -58,7 +58,7 @@ function checkHowManyNumOfChipsAndAddToPackage(defaultGame, choice) {
     // console.log(methods);
     let result = "";
     let numOfChips = 1;
-    console.log(defaultGame.num);
+    // console.log(defaultGame.num);
     let numLen = Object.keys(choice).length;
     //bu quan xuan
     let choiceLen = 1;
@@ -200,7 +200,7 @@ function updatePackage(defaultGame, numOfChips, multNum, buyPackage,moneyUnit, r
             oneChoice["multiple"] = multNum;
             let is_dekaron = numOfChips > defaultGame.dekaron.dekaron_count ? false:true;
             oneChoice["is_dekaron"] = is_dekaron;
-            oneChoice["numShow"] = result.replace(/\|/g, ",");
+            oneChoice["numShow"] = result ? result.replace(/\|/g, ","):"";
             let amount = parseFloat(defaultGame.price * multNum * numOfChips * moneyUnit).toFixed(2);
             oneChoice["des"] = defaultGame.name_cn + " " + numOfChips + "注 X " + multNum + "倍="
             + amount + "元";

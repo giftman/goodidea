@@ -39,29 +39,13 @@ const {connect} = require('react-redux');
 import Util from '../utils/Util';
 import {login} from '../actions';
 import {normalize,headerBG} from '../common/F8Colors';
-export type Status = 'login' | 'register';
 
-export type Props = {
-  status:Status,
-  navigator:Navigator
-}
 
-class EasyDialog extends Component{
-  props:Props;
-  constructor(props) {
-    super(props);
-
-    this.state={
-      username:'',
-      passwd:'',
-    }
-    // this.renderEmptySessionsList = this.renderEmptySessionsList.bind(this);
-    // this.openSharingSettings = this.openSharingSettings.bind(this);
-    // this.handleSegmentChanged = this.handleSegmentChanged.bind(this);
-  }
+class Dialog extends Component{
+  
   render(){
-    let words = ['取消','投注'];
-    let {orderInfo} = this.props;
+    let words = ['取消','确定'];
+    // let {orderInfo} = this.props;
       return (
         <Modal
            animationType='slide'
@@ -71,16 +55,14 @@ class EasyDialog extends Component{
            onRequestClose={() => {}} >
         <View style={styles.mainContainer} >
             <View style={[styles.container,this.props.style]} >
-            <Text style={styles.header}>注单付款确认</Text>
+            {/*<Text style={styles.header}>注单付款确认</Text>*/}
             <View style={styles.content}>
-              <Text style={styles.info}>游戏: {orderInfo.name}</Text>
-              <Text style={styles.info}>金额: {orderInfo.amount}元</Text>
-              <Text style={styles.info}>期次: {orderInfo.orderNum}</Text>
-              <Text style={styles.info}>追号: {orderInfo.des}</Text>
+              <Text style={styles.info}>{this.props.content}</Text>
+              
             </View>
           <View style={[styles.inputContainer,{marginTop:0,borderWidth:0,justifyContent:'space-between'}]}>
             <TouchableOpacity style={styles.style_view_commit}  activeOpacity={0.8} onPress={this.leftPress.bind(this)}><Text style={styles.buttonText}>{words[0]}</Text></TouchableOpacity>
-            <TouchableOpacity style={[styles.style_view_commit,{backgroundColor:'#ff9600'}]} onPress={this.rightPress.bind(this)} activeOpacity={0.8}><Text style={styles.buttonText}>{words[1]}</Text></TouchableOpacity>
+            <TouchableOpacity style={[styles.style_view_commit,{backgroundColor:'#666'}]} onPress={this.rightPress.bind(this)} activeOpacity={0.8}><Text style={styles.buttonText}>{words[1]}</Text></TouchableOpacity>
            </View>
           </View>
           <View style={styles.cover} />
@@ -121,6 +103,8 @@ const styles = StyleSheet.create({
   content:{
     flex:1,
     backgroundColor:'transparent',
+    justifyContent:'center',
+    alignItems:'center'
   },
   inputContainer: {
     margin: normalize(10),
@@ -156,6 +140,7 @@ const styles = StyleSheet.create({
   },
   style_view_commit:{  
     width:normalize(110),
+    // flex:1,
     height:normalize(50),
       backgroundColor:'#666',
       justifyContent: 'center',
@@ -168,6 +153,6 @@ const styles = StyleSheet.create({
   
 });
 
-module.exports = EasyDialog;
+module.exports = Dialog;
 
 

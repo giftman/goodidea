@@ -43,7 +43,7 @@ class TraceRecordDetail extends Component {
           };
         var game_config = {}
         if(data && data.lottery_id){
-            game_config = getGameTypeConfig(data.lottery_id)
+            game_config = getGameTypeConfig[data.lottery_id]
         }
         // console.log(game_config);
         boxes = (

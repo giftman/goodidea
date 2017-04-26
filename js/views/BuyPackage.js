@@ -13,7 +13,7 @@ import EasyButton from '../common/EasyButton';
 import BuyControl from './BuyControl';
 
 import { connect } from 'react-redux';
-import { clearPackage,updatePackageProps,bet} from '../actions';
+import { clearPackage,updatePackageProps,bet,updateTraceWinStop} from '../actions';
 import {checkHowManyNumOfChipsAndAddToPackage,updatePackage,randomPick,Fractional} from './buyHelper';
 import EasyDialog from './EasyDialog';
 class BuyPackage extends Component {
@@ -30,16 +30,16 @@ class BuyPackage extends Component {
 
     _onclick(type){
         // console.log(type);
-        let {defaultGame,multNum,buyPackage} = this.props;
+        let {defaultGame,multNum,buyPackage,moneyUnit} = this.props;
         if(defaultGame.type.includes("renxuan") || defaultGame.type.includes("danshi")){
             toastShort("此玩法精妙之处机器无法模拟，请主人亲自挑选");
             return;
         }
-      for(var i=0;i<type;i++){
+        for(var i=0;i<type;i++){
         let choice = randomPick(defaultGame);
         let {result,numOfChips} = checkHowManyNumOfChipsAndAddToPackage(defaultGame,choice);
-        buyPackage = updatePackage(defaultGame,numOfChips,multNum,buyPackage,result);
-    }
+        buyPackage = updatePackage(defaultGame,numOfChips,multNum,buyPackage,moneyUnit,result);
+        }
         this.setState({
             "data":buyPackage
         })
@@ -58,7 +58,9 @@ class BuyPackage extends Component {
             "showDialog":!this.state.showDialog
         })
     }
-
+    _traceBtnClick(){
+        this.props.updateTraceWinStop();
+    }
     _confirmBet(){
         // data = {
         //     "gameId": "1",
@@ -80,7 +82,7 @@ class BuyPackage extends Component {
         //     "prize": "1950"
         // }
         this._onConfirmBtn();
-        let {defaultGame,buyPackage,orderNum} = this.props;
+        let {defaultGame,buyPackage,orderNum,traceWinStop} = this.props;
         let data = {};
         let positions = {};
         let allAmount = 0;
@@ -90,7 +92,7 @@ class BuyPackage extends Component {
         }else{
           data["isTrace"] = "0";//todo
         }
-        data["traceWinStop"] = "1";//todo
+        data["traceWinStop"] = traceWinStop ? "1" :"0";//todo
         data["traceStopValue"] = "1"; //todo
         data["prize"] = defaultGame.prize//todo
 
@@ -160,9 +162,12 @@ class BuyPackage extends Component {
         let {defaultGame} = this.props;
         let orderInfo = {};
         orderInfo["name"] = this.props.gameName;
-        orderInfo["amount"] = Fractional(allNumOfChips * defaultGame.price * this.traceNum * this.props.moneyUnit);
+        // orderInfo["amount"] = Fractional(allNumOfChips * defaultGame.price * this.traceNum * this.props.moneyUnit);
         orderInfo["orderNum"] = this.props.orderNum;
         orderInfo["des"] = this.traceNum  + "期" + allNumOfChips + "注";
+        var tmpAll = allNumOfChips * defaultGame.price * this.traceNum * this.props.moneyUnit
+        console.log(tmpAll)
+        orderInfo["amount"] = Fractional(tmpAll);
 
         return (
             <View style={styles.container}>
@@ -183,7 +188,16 @@ class BuyPackage extends Component {
                 {list}
                 {clearBtn}
             </ScrollView>
-            <BuyControl moneyUnit={this.props.moneyUnit} prize={this.props.defaultGame.prize} price={this.props.defaultGame.price * this.props.moneyUnit} balance={this.props.balance} numOfChips={allNumOfChips} type="package" confirmBtn={()=>this._onConfirmBtn()} updateTraceNum={(text)=> {this.traceNum = text}}/>
+            <BuyControl 
+                moneyUnit={this.props.moneyUnit} 
+                prize={this.props.defaultGame.prize} 
+                price={this.props.defaultGame.price * this.props.moneyUnit} 
+                balance={this.props.balance} numOfChips={allNumOfChips} 
+                type="package" 
+                confirmBtn={()=>this._onConfirmBtn()} 
+                updateTraceNum={(text)=> {this.traceNum = text}}
+                traceBtnClick={()=>this._traceBtnClick()}
+            />
             <EasyDialog show={this.state.showDialog} cancleBtn={()=>this._onConfirmBtn()} orderInfo={orderInfo} confirmBet={()=>this._confirmBet()}/>
       </View>
         )
@@ -248,12 +262,14 @@ function select(store) {
         balance:store.user.balance,
         prize:store.buy.prize,
         moneyUnit:store.buy.moneyUnit,
+        traceWinStop:store.buy.traceWinStop,
     };
 }
 
 function actions(dispatch) {
     return {
         clearPackage:()=>dispatch(clearPackage()),
+        updateTraceWinStop:()=>dispatch(updateTraceWinStop()),
         randomPick:(num)=>dispatch(randomPick(num)),
         updatePackageProps:(buyPackage)=>dispatch(updatePackageProps(buyPackage)),
         bet:(data,betUrl,navigator)=>dispatch(bet(data,betUrl,navigator)),

@@ -9,12 +9,12 @@ import Icon from 'react-native-vector-icons/Ionicons';
 
 class EasyCheckBox extends React.Component {
     props: {
-    isChecked:any;
-    name:string;
-    icon:string;
-    onPress: ()=>void;
-    index:number;
-    style: any;
+        isChecked:any;
+        name:string;
+        icon:string;
+        onPress: ()=>void;
+        index:number;
+        style: any;
     };
 
     constructor(props) {

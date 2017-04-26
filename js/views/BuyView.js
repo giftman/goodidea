@@ -20,6 +20,7 @@ import { changeMethod,loadSetting,updatePrize,updateMoneyUnit,updateOrderNum,get
   updatePackageProps,updateDefaultGame } from '../actions';
 import TipPadding from './TipPadding';
 import CoverView from './CoverView';
+import Dialog from './Dialog';
 import { checkHowManyNumOfChipsAndAddToPackage, updatePackage,clearValidChoice } from './buyHelper';
 import _ from 'underscore';
 import DrawerLayout from 'react-native-drawer-layout';
@@ -39,6 +40,7 @@ class BuyView extends Component {
             shift: new Animated.Value(this.minTop),
             tipShift: new Animated.Value(this.tipMinTop),
             choice: {},
+            showDialog: false,
         };
         
         // if (this.props.article && this.props.article.gameId) {
@@ -273,6 +275,15 @@ class BuyView extends Component {
       this.props.updatePrize(unit);
       this.props.changeMethod(this.props.methods[unit],this.props.defaultGame.gameId)
     }
+    _back(){
+        if(this.props.buyPackage && this.props.buyPackage.length >=1 ){
+            this.setState({
+                showDialog:true
+            })
+        }else{
+           this.props.navigator.pop() 
+        }
+    }
     render() {
         // console.log(this.props.allTypes["14"]);
         var leftItem = this.props.leftItem;
@@ -280,7 +291,7 @@ class BuyView extends Component {
         leftItem = {
             layout: 'title',
             title: 'ios-arrow-back',
-            onPress: () => this.props.navigator.pop(),
+            onPress: () => this._back(),
         };
 
         var rightItem = {
@@ -411,7 +422,22 @@ class BuyView extends Component {
       choice={this.state.choice}
       />
 
-    <BuyControl moneyUnit={this.props.moneyUnit} prize={this.props.defaultGame.prize} price={this.props.defaultGame.price * this.props.moneyUnit} balance={this.props.balance} numOfChips={this.props.numOfChips}  confirmBtn={() => this._onConfirmBtn()} clearBtn={() => this._clearBtn()}/>
+    <BuyControl 
+        moneyUnit={this.props.moneyUnit} 
+        prize={this.props.defaultGame.prize} 
+        price={this.props.defaultGame.price * this.props.moneyUnit} 
+        balance={this.props.balance} 
+        numOfChips={this.props.numOfChips}  
+        buyPackage={this.props.buyPackage}  
+        confirmBtn={() => this._onConfirmBtn()} 
+        clearBtn={() => this._clearBtn()}
+    />
+    <Dialog 
+        show={this.state.showDialog} 
+        cancleBtn={()=>this.setState({showDialog:false})} 
+        content="返回上层将清空所选号码，你确定返回吗?" 
+        confirmBet={()=>{this.setState({showDialog:false});this.props.navigator.pop()}}
+    />
 
       </View>
       </DrawerLayout>

@@ -105,6 +105,11 @@ function closeLoading(): Action {
     type: 'CLOSE_LOADING',
   };
 }
+function updateTraceWinStop():Action{
+  return {
+    type: 'UPDATE_TRACE_WIN_STOP',
+  };
+}
 // function randomPick(num): Action {
 //   return {
 //     type: 'RANDOM_PICK',
@@ -208,4 +213,4 @@ function renderCells(cells,name,en_name,jsId,gameId,menu,allTypes,buyCell){
   }
 }
 
-module.exports = {changeMethod,updateMoneyUnit,updatePrize,updateBalance,updateOrderNum,loadMenu,changeType,updateChoice,clearPackage,updateNumOfChips,updatePackageProps,updateDefaultGame,showLoading,closeLoading};
+module.exports = {updateTraceWinStop,changeMethod,updateMoneyUnit,updatePrize,updateBalance,updateOrderNum,loadMenu,changeType,updateChoice,clearPackage,updateNumOfChips,updatePackageProps,updateDefaultGame,showLoading,closeLoading};

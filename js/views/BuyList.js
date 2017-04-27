@@ -40,6 +40,7 @@ class BuyList extends Component {
     render() {
         let boxes = <View />
         let {defaultGame, choice, onToggle} = this.props;
+        var displayChoice = choice == {} ? '':choice;
         console.log(defaultGame);
         if (defaultGame && defaultGame.methods) {
             boxes = Object.keys(defaultGame.methods).map((name, index) => {
@@ -66,8 +67,7 @@ class BuyList extends Component {
             keyboardType={"numbers-and-punctuation"}
             multiline={true}
             style={styles.input}
-            // value=""
-            // value={choice == {} ? '':choice}
+            value={displayChoice}
             placeholder='请输入命中注定的号码，每一个号码之间请用一个空格[ ]或者逗号[,]或者[;]分开，尾末不需要分割符'
             underlineColorAndroid={'transparent'}
             />

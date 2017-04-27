@@ -176,11 +176,16 @@ class BuyView extends Component {
     _changeType(type) {
         this.props.changeType(type);
         this._popMenu();
-        this.setState({
-            choice: {}
-        })
         this.props.updateNumOfChips(0);
-        this.props.updateChoice({});
+        console.log(type)
+        var choice = {}
+        if(type.includes('danshi')){
+            choice = ''
+        }
+        this.props.updateChoice(choice);
+        this.setState({
+            choice: choice
+        })
     }
 
     _tipClick() {

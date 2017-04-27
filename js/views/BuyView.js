@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react';
 
-import {Platform, View, Text, Image, ScrollView, TouchableOpacity, RefreshControl, Animated, Easing } from 'react-native';
+import {AppState,Platform, View, Text, Image, ScrollView, TouchableOpacity, RefreshControl, Animated, Easing } from 'react-native';
 
 import Util from '../utils/Util';
 import { toastShort } from '../utils/ToastUtil';
@@ -10,6 +10,7 @@ const StyleSheet = require('../utils/CustomStyleSheet');
 import Icon from 'react-native-vector-icons/Ionicons';
 import F8Header from '../common/F8Header';
 import CountDown from '../common/CountDown';
+import LoadingView from '../common/LoadingView';
 import { HEADER_HEIGHT, LAYER, TIP_HEIGHT } from '../common/F8Colors';
 import BuyList from './BuyList';
 import BuyMenu from './BuyMenu';
@@ -33,6 +34,8 @@ class BuyView extends Component {
         this.maxTop = HEADER_HEIGHT;
         this.menuY = 0;
         this.result = "";
+        let {currentTime,orderNumberEndTime} = this.props
+        let timeMinus = orderNumberEndTime - currentTime
         this.state = {
             data: this.data,
             showMenu: false,
@@ -41,6 +44,8 @@ class BuyView extends Component {
             tipShift: new Animated.Value(this.tipMinTop),
             choice: {},
             showDialog: false,
+            loading:false,
+            timeMinus:timeMinus,
         };
         
         // if (this.props.article && this.props.article.gameId) {
@@ -49,7 +54,31 @@ class BuyView extends Component {
         // this.props.loadMenu(null);
         this.props.loadSetting().then();
         // this._updateCurrentorderNum()
+        // this.renderEmptyList = this.renderEmptyList.bind(this);
+        // this.storeInnerRef = this.storeInnerRef.bind(this);
+        this._updateCurrentorderNum = this._updateCurrentorderNum.bind(this)
+        this.handleAppStateChange = this.handleAppStateChange.bind(this)
     }
+
+    componentDidMount() {
+    AppState.addEventListener('change', this.handleAppStateChange);
+
+    // TODO: Make this list smaller, we basically download the whole internet
+  
+    // CodePush.sync();
+  }
+
+  componentWillUnmount() {
+    AppState.removeEventListener('change', this.handleAppStateChange);
+  }
+
+  handleAppStateChange(appState) {
+    if (appState === 'active') {
+      // CodePush.sync();
+    //    var timestamp = Math.round(new Date().getTime()/1000);
+        this._updateCurrentorderNum()
+    }
+  }
 
     _onToggle(name, index) {
         // console.log(name, index);
@@ -267,6 +296,22 @@ class BuyView extends Component {
     _updateCurrentorderNum(){
     //   let orderNum = parseInt(this.props.orderNum) + 1
       this.props.getGameConfig(this.props.defaultGame,null);
+      
+      
+      this.setState({
+          loading: true
+      });
+      console.log('before setState')
+      setTimeout(() => {
+            let {currentTime,orderNumberEndTime} = this.props
+            let timeMinus = orderNumberEndTime - currentTime
+            console.log(timeMinus)
+            this.setState({
+                loading: false,
+                timeMinus
+            });
+            console.log('after setState')
+        }, 10000);
     }
     _menuScroll(event:Object) {
         this.menuY = event.nativeEvent.contentOffset.y;
@@ -311,8 +356,7 @@ class BuyView extends Component {
             onPress: () => this._tipClick(),
         }
         let headerImg = this.state.showMenu ? <Icon name="ios-arrow-down" size={25} color="#616161" /> : <Icon name="ios-arrow-up" size={25} color="#616161" />;
-        let {currentTime,orderNumberEndTime} = this.props
-        let timeMinus = orderNumberEndTime - currentTime
+        
         var navigationView = (
           <View style={{flex: 1, width:116, backgroundColor: '#232323'}}>
             <Text style={styles.helperText}>购票助手</Text>
@@ -401,13 +445,16 @@ class BuyView extends Component {
       </TouchableOpacity>
       </F8Header>
       <TipPadding >
-        <CountDown
+    {this.state.loading ? <View />:
+    <CountDown
           text={'当前期数:' + this.props.orderNum + '  投注截止:'}
-          time={timeMinus}
+          time={this.state.timeMinus}
           changeAfterTen={[1,14,25,26].includes(this.props.defaultGame.gameId)}
           timesUp={() => this._updateCurrentorderNum()}
           stop={false}
           />
+    }
+        
       </TipPadding>
       {this.state.showMenu ? <CoverView layer={LAYER.BOTTOM}/> : <View/>}
       {this.state.showMenu ? <Animated.View style={{
@@ -445,6 +492,7 @@ class BuyView extends Component {
         content="返回上层将清空所选号码，你确定返回吗?" 
         confirmBet={()=>{this.setState({showDialog:false});this.props.navigator.pop()}}
     />
+    {this.state.loading?<LoadingView content="加载新奖期"/>:<View />}
 
       </View>
       </DrawerLayout>

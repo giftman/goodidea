@@ -24,14 +24,14 @@ import {
   Switch,
   Dimensions
 } from 'react-native';
-const LoadingView = () => (
+const LoadingView = (props) => (
   <View style={styles.container} >
   <View style={styles.loading}>
     <ActivityIndicator
       size="large"
       color="#3e9ce9"
     />
-    <Text style={styles.loadingText}>努力加载中...</Text>
+    <Text style={styles.loadingText}>{props.content ? props.content :"努力加载中..."}</Text>
   </View>
   </View>
 );

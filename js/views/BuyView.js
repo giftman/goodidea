@@ -279,6 +279,8 @@ class BuyView extends Component {
     _changePrize(unit){
       this.props.updatePrize(unit);
       this.props.changeMethod(this.props.methods[unit],this.props.defaultGame.gameId)
+      this._changeType(this.props.defaultGame.type)
+      toastShort("已切换到 " + unit + " 请重新选择号码");
     }
     _back(){
         if(this.props.buyPackage && this.props.buyPackage.length >=1 ){

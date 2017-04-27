@@ -16,18 +16,28 @@ import LoadingView from '../../common/LoadingView';
 class BankSetting extends Component {
 
     _bind(){
+
       // this.props.navigator.push({
       //         "my": 'bankAdd',
       //         data:this.props.data,
       //         title:'绑定银行卡',
       //         type:'add'
       //     });
-          this.props.navigator.push({
+      if(this.props.data.card){
+        this.props.navigator.push({
               "my": 'bankDelete',
               data:this.props.data,
               title:'验证老银行卡',
               type:'add'
           });
+      }else{
+        this.props.navigator.push({
+                "my": 'bankAdd',
+                data:this.props.data,
+                title:'绑定银行卡',
+                type:'add'
+            });
+      }
     }
 
     _modify(card){

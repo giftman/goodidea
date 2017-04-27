@@ -41,8 +41,8 @@ class BankAdd extends Component {
         sendData['city_id'] = this.state.cityId
         sendData['branch'] = this.state.branch
         sendData['account_name'] = this.state.account_name
-       
-        
+        sendData['answer'] = this.state.answers
+        sendData['fund_password'] = this.state.fund_password
         
         if(type === 'modify'){
           this.props.modifyBankCard(sendData,this.props.navigator);

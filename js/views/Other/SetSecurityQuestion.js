@@ -74,6 +74,7 @@ class SetSecurityQuestion extends Component {
               }}>
               {Object.keys(this.data).map((elem,index) => {
                   // console.log(elem);
+                  if(elem != 'balance'){
                   let saveIndex = _.keys(this.data[elem]);
                   let saveOption = _.values(this.data[elem]);
                   return (
@@ -94,6 +95,8 @@ class SetSecurityQuestion extends Component {
                         placeholder={'答案' + elem}/>
                     </View>
                   </View>)
+                  }
+                  
               })}
               <View style={styles.paddingHeight}/>
               <View style={{justifyContent:'center',alignItems:'center'}}>

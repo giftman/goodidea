@@ -26,7 +26,7 @@
 'use strict';
 
 import  AppNavigator from './AppNavigator';
-// var CodePush = require('react-native-code-push');
+var CodePush = require('react-native-code-push');
 import React from 'react';
 import {AppState,StyleSheet,View,StatusBar} from 'react-native';
 var { connect } = require('react-redux');
@@ -38,7 +38,7 @@ var App = React.createClass({
 
     // TODO: Make this list smaller, we basically download the whole internet
   
-    // CodePush.sync();
+    CodePush.sync();
   },
 
   componentWillUnmount: function() {
@@ -47,7 +47,7 @@ var App = React.createClass({
 
   handleAppStateChange: function(appState) {
     if (appState === 'active') {
-      // CodePush.sync();
+      CodePush.sync();
     }
   },
 

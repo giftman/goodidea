@@ -8,6 +8,7 @@
  */
 
 #import "AppDelegate.h"
+#import "CodePush.h"
 
 #import "RCTBundleURLProvider.h"
 #import "RCTRootView.h"
@@ -18,11 +19,16 @@
 {
   NSURL *jsCodeLocation;
   
+// #ifdef DEBUG
+  
 #ifdef DEBUG
-  jsCodeLocation = [NSURL URLWithString:@"http://localhost:8081/index.ios.bundle?platform=ios&dev=true"];
+    jsCodeLocation = [NSURL URLWithString:@"http://localhost:8081/index.ios.bundle?platform=ios&dev=true"];
 #else
-  jsCodeLocation = [[NSBundle mainBundle] URLForResource:@"main"withExtension:@"jsbundle"];
+    jsCodeLocation = [CodePush bundleURL];
 #endif
+// #else
+//   jsCodeLocation = [[NSBundle mainBundle] URLForResource:@"main"withExtension:@"jsbundle"];
+// #endif
   
 //#ifdef DEBUG
 // jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index.ios" fallbackResource:nil];

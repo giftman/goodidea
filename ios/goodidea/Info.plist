@@ -68,5 +68,7 @@
       <string>SimpleLineIcons.ttf</string>
       <string>Zocial.ttf</string>
     </array>
+    <key>CodePushDeploymentKey</key>
+    <string>VrC5KnPw3N1bvCJnVDSCK3IqhnKGEJvoRW8VZ</string>
   </dict>
 </plist>

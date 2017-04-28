@@ -1,4 +1,4 @@
 <resources>
-
+    <string moduleConfig="true" name="reactNativeCodePush_androidDeploymentKey">QQxd9nX4qwbFIJWyXlQ7gvB2EmXCEJvoRW8VZ</string>
     <string name="app_name">goodidea</string>
 </resources>

@@ -35,6 +35,9 @@ class BankAdd extends Component {
 
     _onClick() {
       var {type,data,sendData} = this.props
+      if(!sendData){
+        sendData = {}
+      }
       if(this.state.answers != '' && this.state.passwd != ''){
         sendData['bank_id'] = this.state.choiceBank.id
         sendData['province_id'] = this.state.provinceId

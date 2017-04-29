@@ -67,7 +67,7 @@ class PayOneResult extends Component {
               <Text style={{fontSize:14,padding:5,color:'#666'}}>  <Icon name='ios-alert-outline' size={16}/> 附言区分大小写，请正确输入 </Text>
               <View style={styles.inputContainer}>
                 <Text style={{fontSize:16,paddingRight:5,color:'#959595'}}> 账户余额: </Text>
-                <Text style={{fontSize:16,paddingRight:5}}>{this.props.balance} 元</Text>
+                <Text style={{fontSize:16,paddingRight:5}}>{parseFloat(this.props.balance).toFixed(2)} 元</Text>
                 <View style={{flex:1}} />
                 <View style={{justifyContent:'center',alignItems:'center'}}>
                   <TouchableOpacity

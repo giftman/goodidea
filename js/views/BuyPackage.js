@@ -93,7 +93,7 @@ class BuyPackage extends Component {
           data["isTrace"] = "0";//todo
         }
         data["traceWinStop"] = traceWinStop ? "1" :"0";//todo
-        data["traceStopValue"] = "1"; //todo
+        data["traceStopValue"] = traceWinStop ? "1" :"-1";//todo
         data["prize"] = defaultGame.prize//todo
 
         buyPackage.map((elem,index)=>{
@@ -167,7 +167,7 @@ class BuyPackage extends Component {
         orderInfo["des"] = this.traceNum  + "期" + allNumOfChips + "注";
         var tmpAll = allNumOfChips * defaultGame.price * this.traceNum * this.props.moneyUnit
         console.log(tmpAll)
-        orderInfo["amount"] = Fractional(tmpAll);
+        orderInfo["amount"] = parseFloat(tmpAll).toFixed(2);
 
         return (
             <View style={styles.container}>

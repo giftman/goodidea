@@ -125,7 +125,6 @@ class BankAdd extends Component {
 
     render() {
     var { data,title,type } = this.props;
-      
     
       var leftItem = {
           layout: 'title',
@@ -147,23 +146,25 @@ class BankAdd extends Component {
             <View style={{
                 flex: 1,
                 alignItems:'center',
+                justifyContent:'center',
               }}>
-              <View style={styles.paddingHeight}/>
-              <TouchableOpacity style={styles.inputContainer} onPress={() => this._choiceBank()}>
-                <View style={{flex:1}}>
-                  <Text style={{fontSize:16,paddingRight:5}}> {this.state.choiceBank === null ? '银行卡类型' : this.state.choiceBank.name}</Text>
-                  <View style={{flex:1}} />
-                  <Icon style={{justifyContent:'flex-end',paddingRight:10}} name='ios-arrow-forward'
-                    size={25}
-                    color="#eee">
-                  </Icon>
-                </View>
-              </TouchableOpacity>
-              <View style={styles.paddingHeight}/>
-              <TouchableOpacity style={styles.inputContainer} onPress={() => this._choiceCity()}>
-                <Text style={{fontSize:16,paddingRight:5}}> 开户地</Text>
-                <Text style={{fontSize:16,paddingRight:5}}>{this.state.cityNameDisplay}</Text>
-              </TouchableOpacity>
+                  <View style={styles.paddingHeight}/>
+                  <TouchableOpacity style={styles.inputContainer} onPress={() => this._choiceBank()}>
+                    <View style={{flex:1}}>
+                      <Text style={{fontSize:16,paddingRight:5}}> {this.state.choiceBank === null ? '银行卡类型' : this.state.choiceBank.name}</Text>
+                      <View style={{flex:1}} />
+                      <Icon style={{justifyContent:'flex-end',paddingRight:10}} name='ios-arrow-forward'
+                        size={25}
+                        color="#eee">
+                      </Icon>
+                    </View>
+                  </TouchableOpacity>
+                  <View style={styles.paddingHeight}/>
+                  <TouchableOpacity style={styles.inputContainer} onPress={() => this._choiceCity()}>
+                    <Text style={{fontSize:16,paddingRight:5}}> 开户地</Text>
+                    <Text style={{fontSize:16,paddingRight:5}}>{this.state.cityNameDisplay}</Text>
+                  </TouchableOpacity>
+              </View>
               <View style={styles.inputContainer}>
                 <Text style={{fontSize:16,paddingRight:5}}> 支行名称</Text>
                 <TextInput
@@ -197,7 +198,8 @@ class BankAdd extends Component {
                   alignItems:'center',width:Util.size.width}}>
                   <Text style={{paddingLeft:20,alignSelf:'flex-start',color:'#666'}}>银行卡号由16到19位数字 组成 </Text>
                 </View>
-                </View>
+
+                
               <View style={styles.paddingHeight}/>
                 
               {data.question ?
@@ -257,6 +259,7 @@ class BankAdd extends Component {
                 </View>
                 {this.state.showBank ? <PickerView data={data.banks} pick={(bank) => this._pick(bank)}/>
               :<View />}
+              
               <KeyboardSpacer />
               </View>
 
@@ -272,7 +275,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#eee',
         width: Util.size.width,
         height: Util.size.height - CONTENT_HEIGHT,
-
+        flex:1,
     },
     itemContain: {
         backgroundColor: 'white',

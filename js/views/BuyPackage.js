@@ -92,8 +92,9 @@ class BuyPackage extends Component {
         }else{
           data["isTrace"] = "0";//todo
         }
-        data["traceWinStop"] = traceWinStop ? "1" :"0";//todo
-        data["traceStopValue"] = traceWinStop ? "1" :"-1";//todo
+        console.log(traceWinStop)
+        data["traceWinStop"] = traceWinStop? "1" :"0";//todo
+        data["traceStopValue"] = traceWinStop? "1" :"-1";//todo
         data["prize"] = defaultGame.prize//todo
 
         buyPackage.map((elem,index)=>{
@@ -113,7 +114,7 @@ class BuyPackage extends Component {
             }
         });
 
-        data["amount"] = Fractional(allAmount);
+        data["amount"] = parseFloat(allAmount).toFixed(2);
         //追号
         if(this.traceNum > 1){
           for(var i = 0;i< this.traceNum;i++){
@@ -262,7 +263,7 @@ function select(store) {
         balance:store.user.balance,
         prize:store.buy.prize,
         moneyUnit:store.buy.moneyUnit,
-        traceWinStop:store.buy.traceWinStop,
+        traceWinStop:store.buy.tracewinStop,
     };
 }
 

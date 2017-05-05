@@ -23,7 +23,7 @@ class BankSetting extends Component {
       //         title:'绑定银行卡',
       //         type:'add'
       //     });
-      if(this.props.data.card || this.props.data.old_card){
+      if(this.props.data.card || (this.props.data.old_card && this.props.data.old_card.length > 0)){
         this.props.navigator.push({
               "my": 'bankDelete',
               data:this.props.data,

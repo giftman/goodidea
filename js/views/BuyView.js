@@ -266,7 +266,7 @@ class BuyView extends Component {
     _onConfirmBtn() {
         if (this.props.numOfChips > 0) {
             let {defaultGame, numOfChips, multNum, buyPackage,moneyUnit} = this.props;
-            buyPackage = updatePackage(defaultGame, numOfChips, multNum, buyPackage,moneyUnit, this.result);
+            buyPackage = updatePackage(defaultGame, numOfChips, multNum, buyPackage,moneyUnit,this.result);
             this.props.updatePackageProps(buyPackage);
             this.props.navigator.push({
                 "addToPackage": true,
@@ -490,7 +490,7 @@ class BuyView extends Component {
         show={this.state.showDialog} 
         cancleBtn={()=>this.setState({showDialog:false})} 
         content="返回上层将清空所选号码，你确定返回吗?" 
-        confirmBet={()=>{this.setState({showDialog:false});this.props.navigator.pop()}}
+        confirmBet={()=>{ this.props.updatePackageProps([]); this._clearBtn();this.setState({showDialog:false});this.props.navigator.pop()}}
     />
     {this.state.loading?<LoadingView content="加载新奖期"/>:<View />}
 

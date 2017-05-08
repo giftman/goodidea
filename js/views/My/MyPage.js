@@ -226,7 +226,7 @@ class MyPage extends Component {
                   <Image source={require('../../img/shezhi.png')} resizeMode='contain' />
 
                   <View style={styles.item}>
-                    <Text style={styles.itemTitle}>设置(v0.9.1)</Text>
+                    <Text style={styles.itemTitle}>设置(v0.9.3)</Text>
                     <Icon
                       name='ios-arrow-forward'
                       size={25}

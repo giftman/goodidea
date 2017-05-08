@@ -101,7 +101,7 @@ class BuyControl extends Component {
             onChangeText={(text) => this._updateTextNum(text)}></TextInput>
             </View>
             </View>
-
+        var fund = this.props.prize * this.state.multNum * this.props.moneyUnit;
         return (
             <View style={styles.container}>
                 {upView}
@@ -111,7 +111,7 @@ class BuyControl extends Component {
                     }}> 
                      <Text style={[styles.des, {
                             color: 'white'
-                        }]}>奖金: {this.props.prize * this.state.multNum * this.props.moneyUnit}元</Text>
+                        }]}>奖金: {parseFloat(fund).toFixed(2)}元</Text>
                         <Text style={[styles.des, {
                             color: '#DEDCA3'
                         }]}>{des}</Text>

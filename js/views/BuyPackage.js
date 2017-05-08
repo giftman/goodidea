@@ -95,7 +95,7 @@ class BuyPackage extends Component {
         console.log(traceWinStop)
         data["traceWinStop"] = traceWinStop? "1" :"0";//todo
         data["traceStopValue"] = traceWinStop? "1" :"-1";//todo
-        data["prize"] = defaultGame.prize//todo
+        data["prize"] = this.props.prize//todo
 
         buyPackage.map((elem,index)=>{
             allAmount = allAmount + elem.amount;
